@@ -24,40 +24,44 @@
 
 .combo-box {
     -fx-background-color: #d4d7d9;
-    -fx-text-fill: white; /* optional: text color */
+    -fx-text-fill: white;
 }
 
 .combo-box .list-cell {
     -fx-background-color: #757678;
-    -fx-text-fill: white; /* optional: text color */
+    -fx-text-fill: white;
 }
 
 .text-field {
     -fx-background-color: #d4d7d9;
-    -fx-text-fill: white; /* optional: text color */
+    -fx-text-fill: white;
 }
 
 .table-view {
     -fx-background-color: #d4d7d9;
-    -fx-text-fill: white; /* optional: text color */
+    -fx-text-fill: white;
 }
 
 
 /* Customize TableView */
 .table-view {
-    -fx-table-cell-border-color: transparent; /* Remove cell border */
-    -fx-table-header-border-color: transparent; /* Remove header border */
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
 }
 
 /* Customize TableColumn */
 .table-column {
-    -fx-background-color: transparent; /* Set column background color */
-    -fx-border-color: transparent transparent white transparent; /* Set bottom border color */
-    -fx-border-width: 0 0 1 0; /* Set bottom border width */
-    -fx-border-radius: 10 10 0 0; /* Set border radius for top corners */
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent white transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-radius: 10 10 0 0;
 }
 
 /* Set TableView row background color (optional) */
 .table-row-cell {
-    -fx-background-color: #f0f0f0; /* Set row background color */
+    -fx-background-color: #f0f0f0;
+}
+
+.error-label {
+    -fx-text-fill: red; /* Set text color to red */
 }

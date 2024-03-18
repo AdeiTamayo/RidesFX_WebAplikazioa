@@ -8,18 +8,18 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id = "CreateRidePane" prefHeight="400.0" prefWidth="400.0" styleClass="border-pane" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ridesfx.uicontrollers.CreateRideController">
-   <right>
+<BorderPane fx:id="CreateRidePane" prefHeight="400.0" prefWidth="400.0" styleClass="border-pane" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ridesfx.uicontrollers.CreateRideController">
+   <top>
       <AnchorPane prefHeight="490.0" prefWidth="513.0" BorderPane.alignment="CENTER">
          <children>
             <DatePicker fx:id="datePicker" layoutX="116.0" layoutY="63.0" prefHeight="26.0" prefWidth="199.0" />
-            <Label layoutX="14.0" layoutY="68.0" styleClass="bold-label" stylesheets="@Styles.css" text="RideDate" />
-            <TextField fx:id="txtDepartCity" layoutX="116.0" layoutY="134.0" prefHeight="26.0" prefWidth="200.0" />
-            <Label layoutX="14.0" layoutY="130.0" styleClass="bold-label" stylesheets="@Styles.css" text="DepartCity" />
+            <Label layoutX="14.0" layoutY="68.0" styleClass="bold-label" stylesheets="@Styles.css" text="Ride Date" />
+            <TextField fx:id="txtDepartCity" layoutX="116.0" layoutY="134.0" prefHeight="26.0" prefWidth="200.0" styleClass="bold-label" />
+            <Label layoutX="12.0" layoutY="138.0" styleClass="bold-label" stylesheets="@Styles.css" text="Depart City" />
             <TextField fx:id="txtArrivalCity" layoutX="116.0" layoutY="206.0" prefHeight="26.0" prefWidth="200.0" />
-            <Label layoutX="14.0" layoutY="202.0" styleClass="bold-label" stylesheets="@Styles.css" text="ArrivalCity" />
-            <TextField fx:id="txtNumberOfSeats" layoutX="116.0" layoutY="269.0" prefHeight="26.0" prefWidth="200.0" />
-            <Label layoutX="14.0" layoutY="274.0" styleClass="bold-label" stylesheets="@Styles.css" text="NumberOfSeats" />
+            <Label layoutX="12.0" layoutY="210.0" styleClass="bold-label" stylesheets="@Styles.css" text="Arrival City" />
+            <TextField fx:id="txtNumberOfSeats" layoutX="116.0" layoutY="276.0" prefHeight="26.0" prefWidth="200.0" />
+            <Label layoutX="14.0" layoutY="281.0" styleClass="bold-label" stylesheets="@Styles.css" text="Number Of Seats" />
             <TextField fx:id="txtPrice" layoutX="116.0" layoutY="341.0" prefHeight="26.0" prefWidth="200.0" />
             <Label layoutX="14.0" layoutY="346.0" styleClass="bold-label" stylesheets="@Styles.css" text="Price" />
             <Button fx:id="btnCreateRide" layoutX="44.0" layoutY="402.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="150.0" styleClass="bold-label" stylesheets="@Styles.css" text="Create Ride" />
@@ -28,10 +28,10 @@
             <Label fx:id="lblErrorMinBet" layoutX="16.0" layoutY="472.0" />
             <Label layoutX="157.0" layoutY="14.0" styleClass="bold-label" stylesheets="@Styles.css" text="Create Ride ">
                <font>
-                  <Font size="15.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
          </children>
       </AnchorPane>
-   </right>
+   </top>
 </BorderPane>
