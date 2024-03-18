@@ -5,22 +5,33 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ridesfx.uicontrollers.CreateRideController">
-   <children>
-      <DatePicker fx:id="datePicker" layoutX="137.0" layoutY="56.0" />
-      <Label layoutX="53.0" layoutY="60.0" text="%RideDate" />
-      <Label layoutX="54.0" layoutY="100.0" text="%DepartCity" />
-      <Label layoutX="24.0" layoutY="185.0" text="%NumberOfSeats" />
-      <TextField fx:id="txtDepartCity" layoutX="137.0" layoutY="96.0" prefHeight="26.0" prefWidth="359.0" />
-      <TextField fx:id="txtNumberOfSeats" layoutX="137.0" layoutY="180.0" prefHeight="26.0" prefWidth="106.0" />
-      <Button fx:id="btnCreateRide" layoutX="120.0" layoutY="320.0" mnemonicParsing="false" onAction="#createRideClick" prefHeight="26.0" prefWidth="130.0" text="%CreateRide" />
-      <Button layoutX="310.0" layoutY="321.0" mnemonicParsing="false" onAction="#closeClick" prefHeight="26.0" prefWidth="88.0" text="%Back" />
-      <Label fx:id="lblErrorMessage" layoutX="250.0" layoutY="274.0" />
-      <Label fx:id="lblErrorMinBet" layoutX="250.0" layoutY="265.0" />
-      <Label layoutX="56.0" layoutY="142.0" text="%ArrivalCity" />
-      <TextField fx:id="txtArrivalCity" layoutX="137.0" layoutY="137.0" prefHeight="26.0" prefWidth="359.0" />
-      <Label layoutX="71.0" layoutY="221.0" text="%Price" />
-      <TextField fx:id="txtPrice" layoutX="137.0" layoutY="216.0" prefHeight="26.0" prefWidth="106.0" />
-   </children>
-</AnchorPane>
+<BorderPane fx:id = "CreateRidePane" prefHeight="400.0" prefWidth="400.0" styleClass="border-pane" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ridesfx.uicontrollers.CreateRideController">
+   <right>
+      <AnchorPane prefHeight="490.0" prefWidth="513.0" BorderPane.alignment="CENTER">
+         <children>
+            <DatePicker fx:id="datePicker" layoutX="116.0" layoutY="63.0" prefHeight="26.0" prefWidth="199.0" />
+            <Label layoutX="14.0" layoutY="68.0" styleClass="bold-label" stylesheets="@Styles.css" text="RideDate" />
+            <TextField fx:id="txtDepartCity" layoutX="116.0" layoutY="134.0" prefHeight="26.0" prefWidth="200.0" />
+            <Label layoutX="14.0" layoutY="130.0" styleClass="bold-label" stylesheets="@Styles.css" text="DepartCity" />
+            <TextField fx:id="txtArrivalCity" layoutX="116.0" layoutY="206.0" prefHeight="26.0" prefWidth="200.0" />
+            <Label layoutX="14.0" layoutY="202.0" styleClass="bold-label" stylesheets="@Styles.css" text="ArrivalCity" />
+            <TextField fx:id="txtNumberOfSeats" layoutX="116.0" layoutY="269.0" prefHeight="26.0" prefWidth="200.0" />
+            <Label layoutX="14.0" layoutY="274.0" styleClass="bold-label" stylesheets="@Styles.css" text="NumberOfSeats" />
+            <TextField fx:id="txtPrice" layoutX="116.0" layoutY="341.0" prefHeight="26.0" prefWidth="200.0" />
+            <Label layoutX="14.0" layoutY="346.0" styleClass="bold-label" stylesheets="@Styles.css" text="Price" />
+            <Button fx:id="btnCreateRide" layoutX="44.0" layoutY="402.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="150.0" styleClass="bold-label" stylesheets="@Styles.css" text="Create Ride" />
+            <Button layoutX="217.0" layoutY="402.0" mnemonicParsing="false" onAction="#closeClick" prefHeight="27.0" prefWidth="142.0" styleClass="bold-label" stylesheets="@Styles.css" text="Back" />
+            <Label fx:id="lblErrorMessage" layoutX="16.0" layoutY="436.0" />
+            <Label fx:id="lblErrorMinBet" layoutX="16.0" layoutY="472.0" />
+            <Label layoutX="157.0" layoutY="14.0" styleClass="bold-label" stylesheets="@Styles.css" text="Create Ride ">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </right>
+</BorderPane>

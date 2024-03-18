@@ -1,0 +1,63 @@
+/* styles.css */
+
+/* Style for normal buttons */
+.button {
+    -fx-background-color: #757678; /* Light gray */
+    -fx-text-fill: black; /* Change text color to black */
+    -fx-font-size: 12px; /* Reduce font size */
+    -fx-padding: 5px 10px; /* Reduce padding */
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+
+
+.bold-label {
+    -fx-font-weight: bold; /* Set font weight to bold */
+}
+
+
+.border-pane {
+    -fx-background-color: #acaeb0;
+}
+
+
+.combo-box {
+    -fx-background-color: #d4d7d9;
+    -fx-text-fill: white; /* optional: text color */
+}
+
+.combo-box .list-cell {
+    -fx-background-color: #757678;
+    -fx-text-fill: white; /* optional: text color */
+}
+
+.text-field {
+    -fx-background-color: #d4d7d9;
+    -fx-text-fill: white; /* optional: text color */
+}
+
+.table-view {
+    -fx-background-color: #d4d7d9;
+    -fx-text-fill: white; /* optional: text color */
+}
+
+
+/* Customize TableView */
+.table-view {
+    -fx-table-cell-border-color: transparent; /* Remove cell border */
+    -fx-table-header-border-color: transparent; /* Remove header border */
+}
+
+/* Customize TableColumn */
+.table-column {
+    -fx-background-color: transparent; /* Set column background color */
+    -fx-border-color: transparent transparent white transparent; /* Set bottom border color */
+    -fx-border-width: 0 0 1 0; /* Set bottom border width */
+    -fx-border-radius: 10 10 0 0; /* Set border radius for top corners */
+}
+
+/* Set TableView row background color (optional) */
+.table-row-cell {
+    -fx-background-color: #f0f0f0; /* Set row background color */
+}
