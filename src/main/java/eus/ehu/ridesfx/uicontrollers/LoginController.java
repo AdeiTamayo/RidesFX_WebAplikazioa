@@ -65,7 +65,7 @@ public class LoginController implements Controller{
 
     @FXML
     void handleLabelClick(javafx.scene.input.MouseEvent mouseEvent) {
-        //mainGUI= new MainGUI(businessLogic);
+
         mainGUIController.showScene("Register");
 
     }
