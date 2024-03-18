@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane prefHeight="309.0" prefWidth="382.0" styleClass="border-pane" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ridesfx.uicontrollers.RegisterController">
+    <right>
+        <AnchorPane styleClass="border-pane" stylesheets="@Styles.css">
+        <children>
+            <TextField fx:id="username" layoutX="124.0" layoutY="85.0" stylesheets="@Styles.css" AnchorPane.leftAnchor="124.0" />
+            <Label layoutX="55.333333333333336" layoutY="90.0" styleClass="bold-label" stylesheets="@Styles.css" text="Username:" AnchorPane.leftAnchor="55.333333333333336" />
+            <Label fx:id="output" layoutX="142.0" layoutY="194.0" prefHeight="17.0" prefWidth="97.0" stylesheets="@Styles.css" wrapText="true" />
+            <Button layoutX="147.0" layoutY="232.0" onAction="#registerBtnClick" styleClass="btn-info" stylesheets="@Styles.css" text="REGISTER NOW" />
+            <TextField fx:id="email" layoutX="123.0" layoutY="134.0" stylesheets="@Styles.css" />
+            <Label layoutX="79.0" layoutY="138.0" styleClass="bold-label" stylesheets="@Styles.css" text="email: " />
+            <Label layoutX="57.0" layoutY="185.0" styleClass="bold-label" stylesheets="@Styles.css" text="Password:" />
+            <PasswordField fx:id="password" layoutX="123.0" layoutY="180.0" stylesheets="@Styles.css" />
+            <TextField fx:id="name" layoutX="124.0" layoutY="41.0" stylesheets="@Styles.css" />
+            <Label layoutX="67.0" layoutY="45.0" prefHeight="18.0" prefWidth="45.0" styleClass="bold-label" stylesheets="@Styles.css" text="Name:" />
+            <Button fx:id="loginB" layoutX="170.0" layoutY="269.0" onAction="#goToLogin" stylesheets="@Styles.css" text="Login" />
+            <Label fx:id="ExistingEmail" layoutX="44.0" layoutY="274.0" styleClass="bold-label" stylesheets="@Styles.css" text="A user with this email already exist. Enter a new one" />
+        </children>
+        </AnchorPane>
+    </right>
+</BorderPane>

@@ -8,6 +8,7 @@ import eus.ehu.ridesfx.exceptions.RideAlreadyExistException;
 import eus.ehu.ridesfx.exceptions.RideMustBeLaterThanTodayException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -100,9 +101,9 @@ public class DataAccess {
 
 
       //Create drivers
-      Driver driver1 = new Driver("driver1@gmail.com", "Aitor Fernandez");
-      Driver driver2 = new Driver("driver2@gmail.com", "Ane Gaztañaga");
-      Driver driver3 = new Driver("driver3@gmail.com", "Test driver");
+      Driver driver1 = new Driver("driver1@gmail.com", "Aitor Fernandez", "aitor", "1234");
+      Driver driver2 = new Driver("driver2@gmail.com", "Ane Gaztañaga", "ane", "1234");
+      Driver driver3 = new Driver("driver3@gmail.com", "Test driver", "test", "1234");
 
 
       //Create rides
@@ -274,6 +275,48 @@ public class DataAccess {
     // create domain entities and persist them
   }
 
+
+  /**
+   * This method adds a driver to the database
+   * @param driver
+   */
+  public boolean addDriver(Driver driver) {
+    TypedQuery<Driver> q2 = db.createQuery(
+            "SELECT p FROM Driver p WHERE p.email = ?1",Driver.class);
+    q2.setParameter(1, driver.getEmail());
+    try {
+      q2.getSingleResult();
+      return false;
+    } catch (NoResultException e) {
+      db.getTransaction().begin();
+      db.persist(driver);
+      db.getTransaction().commit();
+      return true; // Return true when no result is found and the driver can be added
+    }
+
+  }
+
+  /**
+   * This method checks if the driver exists in the database
+   * @param email
+   * @return
+   */
+  public Driver existsDriver(String email) {
+    TypedQuery<Driver> q2 = db.createQuery(
+            "SELECT p FROM Driver p WHERE p.email = ?1",Driver.class);
+    q2.setParameter(1, email);
+
+    try {
+      return q2.getSingleResult();
+    } catch (NoResultException e) {
+      return null; // Return null when no result is found
+    }
+  }
+
+  public boolean correctPassword(String email, String password) {
+    Driver driver = db.find(Driver.class, email);
+    return driver.getPassword().equals(password);
+  }
 
 
   public void close() {

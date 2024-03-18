@@ -35,6 +35,22 @@ public class BlFacadeImplementation implements BlFacade {
 		return ride;
 	}
 
+	public boolean registerUser(String username, String password, String email, String name) {
+		Driver d= new Driver(email, name, username, password);
+		return dbManager.addDriver(d);
+	}
+
+	public Driver checkUser(String username) {
+		return dbManager.existsDriver(username);
+	}
+
+	public boolean checkPassword(String username, String password) {
+		if(!dbManager.correctPassword(username, password)){
+			return false;
+		}
+		return true;
+	}
+
 	@Override
 	public List<Ride> getRides(String origin, String destination, Date date) {
 		List<Ride>  events = dbManager.getRides(origin, destination, date);
@@ -75,7 +91,7 @@ public class BlFacadeImplementation implements BlFacade {
 	}
 
 
-public List<String> getDepartCities(){
+	public List<String> getDepartCities(){
 		List<String> departLocations=dbManager.getDepartCities();
 		return departLocations;
 
@@ -83,7 +99,7 @@ public List<String> getDepartCities(){
 	/**
 	 * {@inheritDoc}
 	 */
-public List<String> getDestinationCities(String from){
+	public List<String> getDestinationCities(String from){
 		List<String> targetCities=dbManager.getArrivalCities(from);
 		return targetCities;
 	}

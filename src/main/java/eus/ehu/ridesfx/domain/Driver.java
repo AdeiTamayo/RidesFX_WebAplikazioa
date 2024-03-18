@@ -9,15 +9,17 @@ import java.util.Vector;
 
 @Entity
 public class Driver implements Serializable {
-	
+
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Id 
+	@Id
 	private String email;
-	private String name; 
+	private String name;
+	private String username;
+	private String password;
 	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	private List<Ride> rides=new Vector<Ride>();
 
@@ -25,12 +27,16 @@ public class Driver implements Serializable {
 		super();
 	}
 
-	public Driver(String email, String name) {
+	public Driver(String email, String name, String username, String password) {
 		this.email = email;
 		this.name = name;
+		this.username = username;
+		this.password = password;
 	}
-	
-	
+	public String getPassword() {
+		return password;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -47,41 +53,41 @@ public class Driver implements Serializable {
 		this.name = name;
 	}
 
-	
-	
+
+
 	public String toString(){
 		return email+";"+name+rides;
 	}
-	
+
 	/**
 	 * This method creates a new ride for the driver
-	 * 
+	 *
 	 * @param
 	 * @param
 	 * @return
 	 */
 	public Ride addRide(String from, String to, Date date, int nPlaces, float price)  {
-        Ride ride=new Ride(from,to,date,nPlaces,price, this);
-        rides.add(ride);
-        return ride;
+		Ride ride=new Ride(from,to,date,nPlaces,price, this);
+		rides.add(ride);
+		return ride;
 	}
 
 	/**
 	 * This method checks if the ride already exists for that driver
-	 * 
-	 * @param from the origin location 
-	 * @param to the destination location 
-	 * @param date the date of the ride 
+	 *
+	 * @param from the origin location
+	 * @param to the destination location
+	 * @param date the date of the ride
 	 * @return true if the ride exists and false in other case
 	 */
-	public boolean doesRideExists(String from, String to, Date date)  {	
+	public boolean doesRideExists(String from, String to, Date date)  {
 		for (Ride r:rides)
 			if ( (java.util.Objects.equals(r.getFromLocation(),from)) && (java.util.Objects.equals(r.getToLocation(),to)) && (java.util.Objects.equals(r.getDate(),date)) )
-			 return true;
-		
+				return true;
+
 		return false;
 	}
-		
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -103,13 +109,13 @@ public class Driver implements Serializable {
 		while (!found && index<=rides.size()) {
 			r=rides.get(++index);
 			if ( (java.util.Objects.equals(r.getFromLocation(),from)) && (java.util.Objects.equals(r.getToLocation(),to)) && (java.util.Objects.equals(r.getDate(),date)) )
-			found=true;
+				found=true;
 		}
-			
+
 		if (found) {
 			rides.remove(index);
 			return r;
 		} else return null;
 	}
-	
+
 }

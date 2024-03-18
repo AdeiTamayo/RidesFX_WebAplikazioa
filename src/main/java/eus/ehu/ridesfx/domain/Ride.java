@@ -1,3 +1,4 @@
+
 package eus.ehu.ridesfx.domain;
 
 import jakarta.persistence.*;
@@ -9,7 +10,7 @@ import java.util.Date;
 @SuppressWarnings("serial")
 @Entity
 public class Ride implements Serializable {
-	@Id 
+	@Id
 	@GeneratedValue
 	private Integer rideNumber;
 	private String fromLocation;
@@ -19,12 +20,12 @@ public class Ride implements Serializable {
 	private float price;
 
 	@ManyToOne
-	private Driver driver;  
-	
+	private Driver driver;
+
 	public Ride(){
 		super();
 	}
-	
+
 	public Ride(Integer rideNumber, String from, String to, Date date, int numPlaces, float price, Driver driver) {
 		super();
 		this.rideNumber = rideNumber;
@@ -36,7 +37,7 @@ public class Ride implements Serializable {
 		this.driver = driver;
 	}
 
-	
+
 
 	public Ride(String from, String to,  Date date, int numPlaces, float price, Driver driver) {
 		super();
@@ -47,22 +48,22 @@ public class Ride implements Serializable {
 		this.price=price;
 		this.driver = driver;
 	}
-	
+
 	/**
 	 * Get the  number of the ride
-	 * 
+	 *
 	 * @return the ride number
 	 */
 	public Integer getRideNumber() {
 		return rideNumber;
 	}
 
-	
+
 	/**
 	 * Set the ride number to a ride
-	 * 
+	 *
 	 * @param rideNumber Number to be set	 */
-	
+
 	public void setRideNumber(Integer rideNumber) {
 		this.rideNumber = rideNumber;
 	}
@@ -70,7 +71,7 @@ public class Ride implements Serializable {
 
 	/**
 	 * Get the origin  of the ride
-	 * 
+	 *
 	 * @return the origin location
 	 */
 
@@ -81,17 +82,17 @@ public class Ride implements Serializable {
 
 	/**
 	 * Set the origin of the ride
-	 * 
+	 *
 	 * @param origin to be set
-	 */	
-	
+	 */
+
 	public void setFromLocation(String origin) {
 		this.fromLocation = origin;
 	}
 
 	/**
 	 * Get the destination  of the ride
-	 * 
+	 *
 	 * @return the destination location
 	 */
 
@@ -102,22 +103,22 @@ public class Ride implements Serializable {
 
 	/**
 	 * Set the origin of the ride
-	 * 
+	 *
 	 * @param destination to be set
-	 */	
+	 */
 	public void setToLocation(String destination) {
 		this.toLocation = destination;
 	}
 
 	/**
 	 * Get the free places of the ride
-	 * 
+	 *
 	 * @return the available places
 	 */
-	
+
 	/**
 	 * Get the date  of the ride
-	 * 
+	 *
 	 * @return the ride date 
 	 */
 	public Date getDate() {
@@ -125,25 +126,25 @@ public class Ride implements Serializable {
 	}
 	/**
 	 * Set the date of the ride
-	 * 
+	 *
 	 * @param date to be set
-	 */	
+	 */
 	public void setDate(Date date) {
 		this.date = date;
 	}
 
-	
+
 	public float getNumPlaces() {
 		return numPlaces;
 	}
 
 	public void setNumPlaces( int numPlaces) {
-		 this.numPlaces = numPlaces;
+		this.numPlaces = numPlaces;
 	}
 
 	/**
 	 * Set the free places of the ride
-	 * 
+	 *
 	 * @param  numPlaces places to be set
 	 */
 
@@ -153,7 +154,7 @@ public class Ride implements Serializable {
 
 	/**
 	 * Get the driver associated to the ride
-	 * 
+	 *
 	 * @return the associated driver
 	 */
 	public Driver getDriver() {
@@ -162,7 +163,7 @@ public class Ride implements Serializable {
 
 	/**
 	 * Set the driver associated to the ride
-	 * 
+	 *
 	 * @param driver to associate to the ride
 	 */
 	public void setDriver(Driver driver) {
@@ -186,5 +187,5 @@ public class Ride implements Serializable {
 
 
 
-	
+
 }

@@ -15,7 +15,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainGUIController {
-    private Window CreateRideWin, QueryRidesWin, MainWin;
+    private Window CreateRideWin, QueryRidesWin, MainWin, LoginWin, RegisterWin;
 
     @FXML
     private Label selectOptionLbl;
@@ -104,6 +104,10 @@ public class MainGUIController {
         QueryRidesWin = load("QueryRides.fxml");
         MainWin = load("MainGUI.fxml");
 
+        //Funtzio gehigarriak
+        LoginWin = load("Login.fxml");
+        RegisterWin = load("Register.fxml");
+
         showScene("main");
 
         // set current driver name
@@ -115,6 +119,10 @@ public class MainGUIController {
             case "createRide" -> mainPane.setCenter(CreateRideWin.ui);
             case "queryRides" -> mainPane.setCenter(QueryRidesWin.ui);
             case "main" -> mainPane.setCenter(MainWin.ui);
+
+            //Funtzio gehigarriak
+            case "login" -> mainPane.setCenter(LoginWin.ui);
+            case "register" -> mainPane.setCenter(RegisterWin.ui);
 
         }
     }
