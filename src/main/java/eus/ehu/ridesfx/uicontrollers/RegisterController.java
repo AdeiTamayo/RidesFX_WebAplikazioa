@@ -36,6 +36,8 @@ public class RegisterController implements Controller{
 
     private MainGUI mainGUI;
 
+
+
     /**
      * This method is used to register a new user
      * @param event
@@ -66,14 +68,17 @@ public class RegisterController implements Controller{
         ExistingEmail.setVisible(false);
     }
 
-    /*
-    //FIXME update this method to show the login scene
+
+
     @FXML
     void goToLogin(ActionEvent actionEvent) {
-        MainGUIController.showScene("login");
+        mainGUIController.showScene("login");
     }
 
-     */
+
+
+
+
 
 
     @Override

@@ -170,16 +170,31 @@ public class Ride implements Serializable {
 		this.driver = driver;
 	}
 
+	/**
+	 * Get the price of the ride
+	 *
+	 * @return the price of the ride
+	 */
 	public float getPrice() {
 		return price;
 	}
 
+
+	/**
+	 * Set the price of the ride
+	 *
+	 * @param price to be set
+	 */
 	public void setPrice(float price) {
 		this.price = price;
 	}
 
 
-
+	/**
+	 * This method returns a string with the ride information
+	 *
+	 * @return the ride information
+	 */
 	public String toString(){
 		return rideNumber+";"+";"+ fromLocation +";"+ toLocation +";"+date;
 	}

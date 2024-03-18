@@ -33,6 +33,7 @@ public class LoginController implements Controller{
 
     private BlFacade businessLogic;
 
+
     /**
      * This method is used to register a new user
      * @param event
@@ -61,16 +62,15 @@ public class LoginController implements Controller{
         }
     }
 
-    //FIXME update this method to show the register scene
-    /*
+
     @FXML
     void handleLabelClick(javafx.scene.input.MouseEvent mouseEvent) {
         //mainGUI= new MainGUI(businessLogic);
-        MainGUIController.showScece("Register");
+        mainGUIController.showScene("Register");
 
     }
 
-     */
+
     @Override
     public void setMainApp(MainGUI mainGUI) {
         this.mainGUI = mainGUI;
