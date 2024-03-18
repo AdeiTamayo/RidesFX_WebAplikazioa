@@ -14,11 +14,15 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 
 public class LoginController implements Controller{
+
+
     private MainGUIController mainGUIController;
 
     @FXML
-    private
-    TextField email;
+    private Label Register;
+
+    @FXML
+    private TextField email;
 
     @FXML
     private PasswordField password;

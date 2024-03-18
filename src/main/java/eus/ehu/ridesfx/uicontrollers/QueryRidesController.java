@@ -13,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.skin.DatePickerSkin;
+import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
 import eus.ehu.ridesfx.ui.MainGUI;
 import eus.ehu.ridesfx.utils.Dates;
@@ -27,6 +28,8 @@ import java.util.ResourceBundle;
 
 public class QueryRidesController implements Controller {
 
+    @FXML
+    private BorderPane QueryRidesPane;
     @FXML
     private ResourceBundle resources;
 
@@ -74,7 +77,13 @@ public class QueryRidesController implements Controller {
 
     @FXML
     void closeClick(ActionEvent event) {
+
         mainGUI.showMain();
+        //beste modura, mainGUIControllerren istantzia bat sortuta:
+
+        /*
+        mainGUIController.showScene("Main");
+         */
     }
 
     private void setEvents(int year, int month) {
