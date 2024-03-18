@@ -13,20 +13,20 @@
       <AnchorPane prefHeight="490.0" prefWidth="513.0" BorderPane.alignment="CENTER">
          <children>
             <DatePicker fx:id="datePicker" layoutX="116.0" layoutY="63.0" prefHeight="26.0" prefWidth="199.0" />
-            <Label layoutX="14.0" layoutY="68.0" styleClass="bold-label" stylesheets="@Styles.css" text="Ride Date" />
+            <Label layoutX="14.0" layoutY="68.0" styleClass="bold-label"  text="Ride Date" />
             <TextField fx:id="txtDepartCity" layoutX="116.0" layoutY="134.0" prefHeight="26.0" prefWidth="200.0" styleClass="bold-label" />
-            <Label layoutX="12.0" layoutY="138.0" styleClass="bold-label" stylesheets="@Styles.css" text="Depart City" />
+            <Label layoutX="12.0" layoutY="138.0" styleClass="bold-label"  text="Depart City" />
             <TextField fx:id="txtArrivalCity" layoutX="116.0" layoutY="206.0" prefHeight="26.0" prefWidth="200.0" />
-            <Label layoutX="12.0" layoutY="210.0" styleClass="bold-label" stylesheets="@Styles.css" text="Arrival City" />
+            <Label layoutX="12.0" layoutY="210.0" styleClass="bold-label"  text="Arrival City" />
             <TextField fx:id="txtNumberOfSeats" layoutX="116.0" layoutY="276.0" prefHeight="26.0" prefWidth="200.0" />
-            <Label layoutX="14.0" layoutY="281.0" styleClass="bold-label" stylesheets="@Styles.css" text="Number Of Seats" />
+            <Label layoutX="14.0" layoutY="281.0" styleClass="bold-label"  text="Number Of Seats" />
             <TextField fx:id="txtPrice" layoutX="116.0" layoutY="341.0" prefHeight="26.0" prefWidth="200.0" />
-            <Label layoutX="14.0" layoutY="346.0" styleClass="bold-label" stylesheets="@Styles.css" text="Price" />
-            <Button fx:id="btnCreateRide" layoutX="44.0" layoutY="402.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="150.0" styleClass="bold-label" stylesheets="@Styles.css" text="Create Ride" />
-            <Button layoutX="217.0" layoutY="402.0" mnemonicParsing="false" onAction="#closeClick" prefHeight="27.0" prefWidth="142.0" styleClass="bold-label" stylesheets="@Styles.css" text="Back" />
+            <Label layoutX="14.0" layoutY="346.0" styleClass="bold-label"  text="Price" />
+            <Button fx:id="btnCreateRide" layoutX="44.0" layoutY="402.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="150.0" styleClass="bold-label" text="Create Ride" />
+            <Button layoutX="217.0" layoutY="402.0" mnemonicParsing="false" onAction="#closeClick" prefHeight="27.0" prefWidth="142.0" styleClass="bold-label" text="Back" />
             <Label fx:id="lblErrorMessage" layoutX="16.0" layoutY="436.0" />
             <Label fx:id="lblErrorMinBet" layoutX="16.0" layoutY="472.0" />
-            <Label layoutX="157.0" layoutY="14.0" styleClass="bold-label" stylesheets="@Styles.css" text="Create Ride ">
+            <Label layoutX="157.0" layoutY="14.0" styleClass="bold-label" text="Create Ride ">
                <font>
                   <Font size="18.0" />
                </font>

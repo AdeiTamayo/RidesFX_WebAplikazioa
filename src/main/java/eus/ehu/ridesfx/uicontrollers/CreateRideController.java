@@ -67,7 +67,7 @@ public class CreateRideController implements Controller {
     @FXML
     void closeClick(ActionEvent event) {
         clearErrorLabels();
-        mainGUI.showMain();
+        // mainGUI.showMain();
     }
 
     private void clearErrorLabels() {

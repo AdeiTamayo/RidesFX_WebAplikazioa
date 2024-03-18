@@ -13,9 +13,9 @@
     <right>
         <AnchorPane prefHeight="406.0" prefWidth="784.0" BorderPane.alignment="CENTER">
             <children>
-                <DatePicker fx:id="datepicker" layoutX="39.0" layoutY="190.0" stylesheets="@Styles.css" />
-                <Label layoutX="39.0" layoutY="161.0" styleClass="bold-label" stylesheets="@Styles.css" text="EventDate" />
-                <TableView fx:id="tblRides" layoutX="344.0" layoutY="70.0" prefHeight="200.0" prefWidth="445.0" styleClass="text-field" stylesheets="@Styles.css">
+                <DatePicker fx:id="datepicker" layoutX="39.0" layoutY="190.0"  />
+                <Label layoutX="39.0" layoutY="161.0" styleClass="bold-label"  text="EventDate" />
+                <TableView fx:id="tblRides" layoutX="344.0" layoutY="70.0" prefHeight="200.0" prefWidth="445.0" styleClass="text-field">
                     <columns>
                         <TableColumn fx:id="qc1" prefWidth="223.5" text="Driver" />
                         <TableColumn fx:id="qc2" prefWidth="97.5" text="NPlaces" />
@@ -26,11 +26,11 @@
                     </columnResizePolicy>
                 </TableView>
                 <Label layoutX="693.0" layoutY="24.0" text="  " />
-                <Label layoutX="638.0" layoutY="24.0" styleClass="bold-label" stylesheets="@Styles.css" text="RideDate:" />
-                <Label layoutX="39.0" layoutY="58.0" styleClass="bold-label" stylesheets="@Styles.css" text="DepartCity" />
-                <Label layoutX="39.0" layoutY="106.0" styleClass="bold-label" stylesheets="@Styles.css" text="ArrivalCity" />
-                <ComboBox fx:id="comboDepartCity" layoutX="126.0" layoutY="54.0" prefWidth="150.0" styleClass="combo-box" stylesheets="@Styles.css" />
-                <ComboBox fx:id="comboArrivalCity" layoutX="126.0" layoutY="101.0" prefWidth="150.0" styleClass="combo-box" stylesheets="@Styles.css" />
+                <Label layoutX="638.0" layoutY="24.0" styleClass="bold-label"  text="RideDate:" />
+                <Label layoutX="39.0" layoutY="58.0" styleClass="bold-label"  text="DepartCity" />
+                <Label layoutX="39.0" layoutY="106.0" styleClass="bold-label"  text="ArrivalCity" />
+                <ComboBox fx:id="comboDepartCity" layoutX="126.0" layoutY="54.0" prefWidth="150.0" styleClass="combo-box"  />
+                <ComboBox fx:id="comboArrivalCity" layoutX="126.0" layoutY="101.0" prefWidth="150.0" styleClass="combo-box"  />
                 <Button fx:id="btnClose" layoutX="535.0" layoutY="332.0" mnemonicParsing="false" onAction="#closeClick" text="Back" />
             </children>
         </AnchorPane>

@@ -72,7 +72,7 @@ public class RegisterController implements Controller{
 
     @FXML
     void goToLogin(ActionEvent actionEvent) {
-        mainGUIController.showScene("login");
+ //       mainGUIController.showScene("login");
     }
 
 

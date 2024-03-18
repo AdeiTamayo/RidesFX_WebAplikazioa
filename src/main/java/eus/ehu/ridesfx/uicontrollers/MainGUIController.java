@@ -5,31 +5,19 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import eus.ehu.ridesfx.ui.MainGUI;
 import javafx.scene.layout.BorderPane;
+import org.kordamp.bootstrapfx.BootstrapFX;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class MainGUIController {
-    private Window CreateRideWin, QueryRidesWin, MainWin, LoginWin, RegisterWin;
-
-    @FXML
-    private Label selectOptionLbl;
-
-    @FXML
-    private Label lblDriver;
-
-
-    @FXML
-    private Button queryRidesBtn;
-
-    @FXML
-    private Button createRideBtn;
-
 
     @FXML
     private ResourceBundle resources;
@@ -37,20 +25,42 @@ public class MainGUIController {
     @FXML
     private URL location;
 
-    private MainGUI mainGUI;
+    @FXML
+    private BorderPane mainWrapper;
 
     private BlFacade businessLogic;
-    /*
-    public MainGUIController() {}
-    */
 
-    //Borderpane kodean ez dago baina programa honen funtzionamendurako behar da
-    public MainGUIController(BlFacade blFacade) {
-        businessLogic = blFacade;
+    public MainGUIController(){};
+
+    public MainGUIController(BlFacade blFacade){
+        this.businessLogic = blFacade;
+    };
+
+
+    @FXML
+    void queryRides(ActionEvent event) {
+        System.out.println("Query Rides");
+        showScene("Query Rides");
+    }
+
+    @FXML
+    void createRide(ActionEvent event) {
+        showScene("Create Ride");
     }
 
 
+    @FXML
+    void initialize() throws IOException {
 
+        queryRidesWin = load("QueryRides.fxml");
+        createRideWin = load("CreateRide.fxml");
+
+        showScene("Query Rides");
+
+    }
+
+
+    private Window createRideWin, queryRidesWin;
 
     public class Window {
         private Controller controller;
@@ -59,7 +69,16 @@ public class MainGUIController {
 
     private Window load(String fxml) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+            FXMLLoader loader = new FXMLLoader(MainGUI.class.getResource(fxml), ResourceBundle.getBundle("Etiquetas", Locale.getDefault()));
+            loader.setControllerFactory(controllerClass -> {
+                try {
+                    return controllerClass
+                            .getConstructor(BlFacade.class)
+                            .newInstance(businessLogic);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
             Parent ui = loader.load();
             Controller controller = loader.getController();
 
@@ -72,62 +91,10 @@ public class MainGUIController {
         }
     }
 
-
-    @FXML
-    private BorderPane mainPane;
-
-    @FXML
-    void queryRides(ActionEvent event) {
-        showScene("queryRides");
-    }
-
-    @FXML
-    void createRide(ActionEvent event) {
-        showScene("createRide");
-    }
-
-
-
-    /*
-    public void setMainApp(MainGUI mainGUI) {
-        this.mainGUI = mainGUI;
-    }
-
-     */
-
-
-
-
-
-    @FXML
-    void initialize() {
-
-        CreateRideWin = load("CreateRide.fxml");
-        QueryRidesWin = load("QueryRides.fxml");
-        MainWin = load("MainGUI.fxml");
-
-        //Funtzio gehigarriak
-        LoginWin = load("Login.fxml");
-        RegisterWin = load("Register.fxml");
-
-        showScene("main");
-
-        // set current driver name
-        lblDriver.setText(businessLogic.getCurrentDriver().getName());
-    }
-
-    public void showScene(String scene) {
+    private void showScene(String scene) {
         switch (scene) {
-            case "createRide" -> mainPane.setCenter(CreateRideWin.ui);
-            case "queryRides" -> mainPane.setCenter(QueryRidesWin.ui);
-            case "main" -> mainPane.setCenter(MainWin.ui);
-
-            //Funtzio gehigarriak
-            case "login" -> mainPane.setCenter(LoginWin.ui);
-            case "register" -> mainPane.setCenter(RegisterWin.ui);
-
+            case "Query Rides" -> mainWrapper.setCenter(queryRidesWin.ui);
+            case "Create Ride" -> mainWrapper.setCenter(createRideWin.ui);
         }
     }
 }
-
-//FIXME error: java.lang.NullPointerException: Cannot read field "ui" because "this.MainWin" is null

@@ -78,7 +78,7 @@ public class QueryRidesController implements Controller {
     @FXML
     void closeClick(ActionEvent event) {
 
-        mainGUI.showMain();
+        // mainGUI.showMain();
         //beste modura, mainGUIControllerren istantzia bat sortuta:
 
         /*
