@@ -24,22 +24,22 @@
 
 .combo-box {
     -fx-background-color: #d4d7d9;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
 }
 
 .combo-box .list-cell {
-    -fx-background-color: #757678;
-    -fx-text-fill: white;
+    -fx-background-color: #d4d7d9;
+    -fx-text-fill: black;
 }
 
 .text-field {
     -fx-background-color: #d4d7d9;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
 }
 
 .table-view {
     -fx-background-color: #d4d7d9;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
 }
 
 
@@ -63,5 +63,11 @@
 }
 
 .error-label {
-    -fx-text-fill: red; /* Set text color to red */
+    -fx-text-fill: red;
+}
+
+
+.date-picker .text-field {
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
 }
