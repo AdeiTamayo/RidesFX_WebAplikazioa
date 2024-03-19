@@ -16,7 +16,7 @@
                 <PasswordField fx:id="password" layoutX="123.0" layoutY="140.0"  />
                 <TextField fx:id="email" layoutX="124.0" layoutY="76.0"  />
                 <Label layoutX="77.0" layoutY="80.0" prefHeight="17.0" prefWidth="35.0" styleClass="bold-label" text="Email:" />
-                <Label fx:id="Register" layoutX="28.0" layoutY="251.0" onMouseClicked="#handleLabelClick" prefHeight="34.0" prefWidth="340.0" styleClass="bold-label" text="You don't have an account yet? Register now clicking here" />
+                <Label fx:id="Text" layoutX="28.0" layoutY="251.0" prefHeight="34.0" prefWidth="340.0" styleClass="bold-label" text="You don't have an account yet? Register now clicking here" />
                 <Label fx:id="InvalidUser" layoutX="90.0" layoutY="110.0" prefHeight="18.0" prefWidth="218.0"  text="A user with this email doesn't exist">
                <styleClass>
                   <String fx:value="error-label" />

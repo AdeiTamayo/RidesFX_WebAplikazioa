@@ -19,7 +19,7 @@ public class LoginController implements Controller{
     private MainGUIController mainGUIController;
 
     @FXML
-    private Label Register;
+    private Label Text;
 
     @FXML
     private TextField email;
@@ -54,31 +54,32 @@ public class LoginController implements Controller{
         businessLogic = new BlFacadeImplementation();
         String Email = email.getText();
         String Password = password.getText();
-        if (businessLogic.checkUser(Email)==null){
+        Text.setVisible(false);
+        WrongPassword.setVisible(false);
+        InvalidUser.setVisible(false);
+        if(Email.equals("") || Password.equals("")) {
+            System.out.println("Please fill in all the fields");
+            Text.setText("Please fill in all the fields");
+            Text.setVisible(true);
+        }
+        else if (businessLogic.checkUser(Email)==null){
             System.out.println("A user with this email doen't exist. Please register first.");
-            WrongPassword.setVisible(false);
             InvalidUser.setVisible(true);
         }
         else{
             if (!businessLogic.checkPassword(Email, Password)){
-                InvalidUser.setVisible(false);
                 System.out.println("The password is incorrect");
                 WrongPassword.setVisible(true);
             } else{
-                InvalidUser.setVisible(false);
-                WrongPassword.setVisible(false);
+                Text.setText("You have been correctly logged in!");
+                Text.setVisible(true);
                 businessLogic.setCurrentDriver(businessLogic.checkUser(Email));
             }
         }
     }
 
 
-    @FXML
-    void handleLabelClick(javafx.scene.input.MouseEvent mouseEvent) {
 
-      //   mainGUIController.showScene("Register");
-
-    }
 
 
     @Override
@@ -90,5 +91,8 @@ public class LoginController implements Controller{
     void initialize() {
         InvalidUser.setVisible(false);
         WrongPassword.setVisible(false);
+        Text.setVisible(false);
+        Text.setWrapText(true);
+        Text.setAlignment(javafx.geometry.Pos.CENTER);
     }
 }
