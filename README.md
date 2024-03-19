@@ -22,3 +22,10 @@ A JavaFX+Hibernate+H2+JUnit template for the Software Engineering I class of the
 * You may need to change the controller path in the hello-view.fxml file
 * Remember that, by default, the open mode of the db is `initialize` (this property is set in the `config.properties` file. 
 Change it to `update` if you want to keep the data between executions
+
+------------
+ITERATION 1
+ Implemented requrements analysis: Domain Model + Use Case Diagram + Event Flow
+ Changed project layout to BorderPane layout
+ Implemented the register and login use cases
+ 
