@@ -20,6 +20,9 @@ import java.util.ResourceBundle;
 public class MainGUIController {
 
     @FXML
+    private Label lblDriver;
+
+    @FXML
     private ResourceBundle resources;
 
     @FXML
@@ -44,6 +47,16 @@ public class MainGUIController {
     }
 
     @FXML
+    void login(ActionEvent event){
+        showScene("Login");
+    }
+
+    @FXML
+    void register(ActionEvent event){
+        showScene("Register");
+    }
+
+    @FXML
     void createRide(ActionEvent event) {
         showScene("Create Ride");
     }
@@ -52,15 +65,18 @@ public class MainGUIController {
     @FXML
     void initialize() throws IOException {
 
+        lblDriver.setText(businessLogic.getCurrentDriver().getName());
         queryRidesWin = load("QueryRides.fxml");
         createRideWin = load("CreateRide.fxml");
+        loginWin = load("Login.fxml");
+        registerWin = load("Register.fxml");
 
         showScene("Query Rides");
 
     }
 
 
-    private Window createRideWin, queryRidesWin;
+    private Window createRideWin, queryRidesWin, loginWin, registerWin;
 
     public class Window {
         private Controller controller;
@@ -95,6 +111,8 @@ public class MainGUIController {
         switch (scene) {
             case "Query Rides" -> mainWrapper.setCenter(queryRidesWin.ui);
             case "Create Ride" -> mainWrapper.setCenter(createRideWin.ui);
+            case "Login" -> mainWrapper.setCenter(loginWin.ui);
+            case "Register" -> mainWrapper.setCenter(registerWin.ui);
         }
     }
 }

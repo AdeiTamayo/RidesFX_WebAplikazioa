@@ -38,6 +38,10 @@ public class LoginController implements Controller{
     private BlFacade businessLogic;
 
 
+    public LoginController(BlFacade bl) {
+        this.businessLogic = bl;
+    }
+
     /**
      * This method is used to register a new user
      * @param event

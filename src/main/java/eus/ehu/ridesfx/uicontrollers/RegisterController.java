@@ -36,6 +36,10 @@ public class RegisterController implements Controller{
 
     private MainGUI mainGUI;
 
+    public RegisterController(BlFacade bl) {
+        this.businessLogic = bl;
+    }
+
 
 
     /**
