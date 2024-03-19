@@ -1,0 +1,222 @@
+
+
+RidesFX USE CASE
+
+
+
+1. Driver Use Case: create a Ride
+
+Actor: Driver
+
+Precondition: Driver is logged in to the ShareTrip application.
+
+Basic Flow: create ride
+
+1.Driver selects "Create a Ride" from the menu.
+2.Driver enters ride details:
+3.Origin city (select from existing or create new)
+	Destination city (select from existing or create new)
+	Date
+	Price per seat
+	Number of seats offered
+4.Driver confirms ride details.
+5. System checks and stores ride information 
+6. System displays ride in the "My Offered Rides" section.
+
+
+Alternative flow: Ride already exist:
+	A.5) If the ride already exists, System informs of it and goes back to 1
+Alternative flow: Error when creating : 
+	B.5)If there has been an error when creating the ride, system informs of it and goes back to 1.
+Alternative flow: City doesn't exist.
+	c.5) System displays message "City not found, do you want to create a new one?"
+	c.6) Driver select the option to create a new one
+	c.7) System stores city
+	c.8) Go to step 6
+
+Postcondition: Ride details are stored or modified in the system and displayed to potential travelers.
+
+
+
+
+-----------------------------------------------------
+
+
+
+2. Traveler Use Case: Search and Book a Ride
+
+Actor: Traveler (registered)
+
+Precondition: 
+
+Traveler opens the ShareTrip application.
+Traveler is registered/logged In
+
+Basic Flow  (Registered Traveler): Book a ride:
+
+1.Traveler enters search criteria:
+	Origin city
+	Destination city
+	Date
+	Number of seats needed
+2. Traveler clicks "Search Rides".
+3. System displays a list of matching rides with driver information, price, and availability.
+4. Traveler selects a ride from the list.
+5. System displays ride details and options to "Request Reservation" or "Contact Driver" Traveler chooses to "Request Reservation".
+ Traveler enters the number of seats requested (up to the available number).
+Traveler confirms reservation request.
+System sends an email notification to the driver about the reservation request. System displays the reservation status as "Pending" for the traveler.
+
+
+Alternative Flow: rides not found:
+A.3) System shows not rides available error message.
+A.4)System give user option to change the search criteria and goes back to step 1.
+Alternative Flow: Traveler message driver
+B.5) Traveler message driver.
+Alternative flow: Technical Issues:
+c) If the system encounters technical issues while retrieving or displaying ride information, it informs the user and prompts them to try again later.
+
+
+
+
+
+
+Postcondition: Traveler receives search results, requests a reservation.
+
+
+--------------------------------------
+
+Use Case: Browse Rides as a Guest
+
+Actor: Not Logged In User
+
+
+Description: This use case describes the scenario where a user who has not logged into the system wants to browse available rides without creating an account.
+
+
+Preconditions:
+The user opens The ShareTrip application.
+The user is not logged into the system.
+
+
+Basic Flow:
+
+
+1. The system presents the home page with options to search for rides or register/log in.
+2. The user selects the option to search for rides.
+3. The system displays a search interface (where the user can enter search criteria).
+4. The user enters the desired search criteria and initiates the search.
+5. The system retrieves and displays a list of available rides matching the specified criteria.
+6. The user browses the list of rides. 
+
+
+
+
+
+Alternative flow: User wants to  carry out an operation with a ride
+A.7) User selects option to deal with a ride.
+A.8)System redirects to Login/register window
+A.9)User logs-in/registers
+A.10) Go to Search and Book a Ride event flow
+
+Alternative flow: No Rides Found:
+B.5 ) If no rides match the specified criteria, the system displays a message indicating that no rides were found.
+B.6)  Provides options for refining the search criteria. 
+B.7) Goes back to step 3
+
+Alternative flow: Technical Issues:
+c) If the system encounters technical issues while retrieving or displaying ride information, it informs the user and prompts them to try again later.
+
+
+Postconditions:
+The not logged in user has browsed available rides without creating an account or logging into the system except the case in which they want to carry out any other type of operation related to a ride).
+
+
+------------------------------------------------------
+
+
+Use Case: Message Communication Between Travelers and Drivers
+
+Actors: Traveler and Driver
+
+For this use case there are several smaller use cases depending on the actor. Even if replying to messages is essentially sending a message, it has some different functions, which will be listed.
+
+Use Case 1: Send Message
+
+Actor: Traveler
+
+
+
+Preconditions:
+
+The traveler is logged into the ShareTrip application.
+The traveler has selected a specific ride or driver to send a message to.
+
+Basic Flow:
+
+1.The traveler selects the option to send a message to a driver from the ride details.
+2.The system presents a message composition form where the traveler can enter the message subject and text.
+3.The traveler fills in the necessary fields and sends the message.
+4.The system delivers the message to the selected driver.
+
+
+Alternative Flow:Technical Issues:
+If the system encounters technical issues while sending the message, it informs the traveler and prompts them to try again later.
+
+
+Use Case 2: Reply to Message
+
+
+Actor: Driver
+
+The driver is logged into the ShareTrip application.
+The driver has received a message from a traveler.
+
+
+Basic Flow:
+
+
+1.The driver accesses the received message from their inbox.
+2.The system presents the message details (sender, date, subject, and text).
+3.The driver selects the option to reply to the message.
+4.The system presents a message pre-filled with the recipient (traveler) and allows the driver to enter the reply message.
+5.The driver fills in the necessary fields and sends the reply.
+6.The system delivers the reply message to the traveler.
+
+
+Alternative Flows: Technical Issues:
+B) If the system encounters technical issues while sending the reply, it informs the driver and prompts them to try again later.
+
+
+Use Case 3: View Messages
+
+
+Actor: Traveler, Driver
+
+Preconditions:
+
+The user is logged into the ShareTrip application.
+
+Basic Flow:
+
+1.The user accesses the messaging feature from the application's main menu or dashboard.
+2.The system presents options to view sent messages, received messages, or both.
+3.The user selects the desired option (sent, received, or both).
+4.The system retrieves and displays a list of messages according to the selected option (showing details such as recipient/sender, date, subject...).
+5.The user can select a message from the list to view its full content and additional details.
+
+
+Alternative Flow: No Messages Found:
+B)If the user's inbox or sent messages folder is empty, the system displays a message indicating that no messages were found.
+Alternative Flow: Technical Issues:
+C) If the system encounters technical issues while retrieving or displaying messages, it informs the user and prompts them to try again later.
+
+
+
+
+
+
+
+
+
+
