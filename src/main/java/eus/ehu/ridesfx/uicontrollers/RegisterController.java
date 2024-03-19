@@ -26,11 +26,9 @@ public class RegisterController implements Controller{
     @FXML
     private TextField name;
 
-    @FXML
-    private Button loginB;
 
     @FXML
-    private Label ExistingEmail;
+    private Label Message;
 
     private BlFacade businessLogic;
 
@@ -53,23 +51,32 @@ public class RegisterController implements Controller{
         String Password = password.getText();
         String Email = email.getText();
         String Name = name.getText();
-        if(!businessLogic.registerUser(Username, Password, Email, Name)){
+        if(Username.isEmpty() || Password.isEmpty() || Email.isEmpty() || Name.isEmpty()){
+            System.out.println("Please fill all the fields");
+            Message.setText("Please fill all the fields");
+            Message.setVisible(true);
+        } else if(Email.indexOf('@') == -1){
+            System.out.println("The email is not valid");
+            Message.setText("The email is not valid");
+            Message.setVisible(true);
+        } else if(!businessLogic.registerUser(Username, Password, Email, Name)){
             System.out.println("A user with this email already exists");
-            loginB.setVisible(false);
-            ExistingEmail.setVisible(true);
+            Message.setText("A user with this email already exists");
+            Message.setVisible(true);
         }
         else{
             System.out.println("The user has been registered");
-            ExistingEmail.setVisible(false);
-            loginB.setVisible(true);
+            Message.setText("The user has been correctly registered!");
+            Message.setVisible(true);
         }
 
     }
 
     @FXML
     void initialize() {
-        loginB.setVisible(false);
-        ExistingEmail.setVisible(false);
+        Message.setVisible(false);
+        Message.setWrapText(true);
+        Message.setAlignment(javafx.geometry.Pos.CENTER);
     }
 
 

@@ -40,9 +40,10 @@ public class MainGUIController {
     };
 
 
+
+
     @FXML
     void queryRides(ActionEvent event) {
-        System.out.println("Query Rides");
         showScene("Query Rides");
     }
 
@@ -78,10 +79,13 @@ public class MainGUIController {
 
     private Window createRideWin, queryRidesWin, loginWin, registerWin;
 
+
     public class Window {
         private Controller controller;
         private Parent ui;
     }
+
+
 
     private Window load(String fxml) {
         try {
@@ -115,4 +119,6 @@ public class MainGUIController {
             case "Register" -> mainWrapper.setCenter(registerWin.ui);
         }
     }
+
+
 }

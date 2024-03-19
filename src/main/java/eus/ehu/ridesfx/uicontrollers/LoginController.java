@@ -42,6 +42,9 @@ public class LoginController implements Controller{
         this.businessLogic = bl;
     }
 
+
+
+
     /**
      * This method is used to register a new user
      * @param event
@@ -65,7 +68,6 @@ public class LoginController implements Controller{
                 InvalidUser.setVisible(false);
                 WrongPassword.setVisible(false);
                 businessLogic.setCurrentDriver(businessLogic.checkUser(Email));
-                //mainGUI.showMain();
             }
         }
     }

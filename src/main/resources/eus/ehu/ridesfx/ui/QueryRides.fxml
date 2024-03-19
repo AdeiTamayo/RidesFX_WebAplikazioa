@@ -9,9 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.control.Button?>
 
-<BorderPane fx:id = "QueryRidesPane" styleClass="border-pane" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ridesfx.uicontrollers.QueryRidesController">
-    <right>
-        <AnchorPane prefHeight="406.0" prefWidth="784.0" BorderPane.alignment="CENTER">
+<AnchorPane prefHeight="405.0" prefWidth="902.0" styleClass="register" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ridesfx.uicontrollers.QueryRidesController">
             <children>
                 <DatePicker fx:id="datepicker" layoutX="39.0" layoutY="190.0"  />
                 <Label layoutX="39.0" layoutY="161.0" styleClass="bold-label"  text="EventDate" />
@@ -34,5 +32,3 @@
                 <Button fx:id="btnClose" layoutX="535.0" layoutY="332.0" mnemonicParsing="false" onAction="#closeClick" text="Back" />
             </children>
         </AnchorPane>
-    </right>
-</BorderPane>

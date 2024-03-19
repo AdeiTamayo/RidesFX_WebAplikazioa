@@ -324,8 +324,18 @@ public class DataAccess {
      * @param password
      */
     public boolean correctPassword(String email, String password) {
-        Driver driver = db.find(Driver.class, email);
+        Driver driver = existsDriver(email);
         return driver.getPassword().equals(password);
+
+        /**TypedQuery<Driver> q2 = db.createQuery(
+                "SELECT p FROM Driver p WHERE p.password = ?1", Driver.class);
+        q2.setParameter(1, password);
+
+        try {
+            return q2.getSingleResult();
+        } catch (NoResultException e) {
+            return null; // Return null when no result is found
+        }**/
     }
 
 

@@ -57,7 +57,7 @@ public class MainGUI {
         Scene scene = new Scene(loader.load());
         stage.setTitle("ShareTrip BorderLayout");
         stage.setScene(scene);
-        stage.setHeight(700);
+        stage.setHeight(650);
         stage.setWidth(1000);
         stage.show();
 

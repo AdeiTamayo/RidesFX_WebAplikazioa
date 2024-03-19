@@ -18,7 +18,7 @@
 
 
 .border-pane {
-    -fx-background-color: #acaeb0;
+    -fx-background-color: #f0f0f0;
 }
 
 
@@ -70,4 +70,9 @@
 .date-picker .text-field {
     -fx-text-fill: black;
     -fx-font-weight: bold;
+}
+
+.register {
+    -fx-background-color: #acaeb0;
+    -fx-background-radius: 25;
 }
