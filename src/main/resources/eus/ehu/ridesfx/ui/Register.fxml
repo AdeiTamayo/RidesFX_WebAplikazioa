@@ -8,39 +8,56 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="428.0" styleClass="register" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ridesfx.uicontrollers.RegisterController">
-        <children>
-            <TextField fx:id="username" alignment="CENTER_RIGHT" layoutX="158.0" layoutY="129.0" AnchorPane.leftAnchor="158.0" />
-            <Label alignment="CENTER_RIGHT" layoutX="82.0" layoutY="132.0" styleClass="bold-label" text="Username:" AnchorPane.leftAnchor="82.0">
-         <font>
-            <Font size="13.0" />
-         </font></Label>
-            <Label fx:id="output" alignment="CENTER_RIGHT" layoutX="177.0" layoutY="229.0" prefHeight="17.0" prefWidth="97.0" wrapText="true" />
-            <Button alignment="CENTER_RIGHT" layoutX="171.0" layoutY="267.0" onAction="#registerBtnClick" text="REGISTER NOW">
-         <styleClass>
-            <String fx:value="btn-info" />
-            <String fx:value="bold-label" />
-         </styleClass></Button>
-            <TextField fx:id="email" alignment="CENTER_RIGHT" layoutX="158.0" layoutY="169.0" />
-            <Label alignment="CENTER_RIGHT" layoutX="114.0" layoutY="173.0" styleClass="bold-label" text="Email: ">
-         <font>
-            <Font size="13.0" />
-         </font></Label>
-            <Label alignment="CENTER_RIGHT" layoutX="92.0" layoutY="220.0" styleClass="bold-label" text="Password:">
-         <font>
-            <Font size="13.0" />
-         </font></Label>
-            <PasswordField fx:id="password" alignment="CENTER_RIGHT" layoutX="158.0" layoutY="215.0" />
-            <TextField fx:id="name" alignment="CENTER_RIGHT" layoutX="158.0" layoutY="87.0" prefHeight="27.0" prefWidth="150.0" />
-            <Label alignment="CENTER_RIGHT" layoutX="100.0" layoutY="91.0" prefHeight="18.0" prefWidth="45.0" styleClass="bold-label" text="Name:">
-         <font>
-            <Font size="13.0" />
-         </font></Label>
-            <Label fx:id="Message" alignment="CENTER_RIGHT" layoutX="112.0" layoutY="310.0" prefHeight="17.0" prefWidth="223.0" styleClass="bold-label" text="The user has been correctly registered!" />
-      <Label alignment="CENTER_RIGHT" layoutX="184.0" layoutY="24.0" styleClass="bold-label" text="REGISTER">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-        </children>
-        </AnchorPane>
+<AnchorPane prefHeight="400.0" prefWidth="428.0" styleClass="register" stylesheets="@Styles.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="eus.ehu.ridesfx.uicontrollers.RegisterController">
+    <children>
+        <Label alignment="CENTER_RIGHT" layoutX="100.0" layoutY="91.0" prefHeight="18.0" prefWidth="45.0"
+               styleClass="bold-label" text="Name:">
+            <font>
+                <Font size="13.0"/>
+            </font>
+        </Label>
+        <Label alignment="CENTER_RIGHT" layoutX="82.0" layoutY="132.0" styleClass="bold-label" text="Username:"
+               AnchorPane.leftAnchor="82.0">
+            <font>
+                <Font size="13.0"/>
+            </font>
+        </Label>
+        <Label alignment="CENTER_RIGHT" layoutX="114.0" layoutY="173.0" styleClass="bold-label" text="Email: ">
+            <font>
+                <Font size="13.0"/>
+            </font>
+        </Label>
+        <Label alignment="CENTER_RIGHT" layoutX="92.0" layoutY="210.0" styleClass="bold-label" text="Password:">
+            <font>
+                <Font size="13.0"/>
+            </font>
+        </Label>
+        <Label layoutX="58.0" layoutY="253.0" prefHeight="18.0" prefWidth="110.0" styleClass="bold-label"
+               text="Repeat password:"/>
+        <TextField id="NameTextField" fx:id="name" alignment="CENTER_RIGHT" layoutX="158.0" layoutY="87.0"
+                   prefHeight="27.0" prefWidth="150.0"/>
+        <TextField id="UsernameTextField" fx:id="username" alignment="CENTER_RIGHT" layoutX="158.0" layoutY="129.0"
+                   AnchorPane.leftAnchor="158.0"/>
+        <TextField id="EmailTextField" fx:id="email" alignment="CENTER_RIGHT" layoutX="158.0" layoutY="169.0"/>
+        <PasswordField id="PasswordField1" fx:id="password" alignment="CENTER_RIGHT" layoutX="158.0" layoutY="207.0"/>
+        <PasswordField id="PasswordField2" fx:id ="password2" alignment="CENTER_RIGHT" layoutX= "159.0" layoutY="250.0"/>
+        <Label fx:id="output" alignment="CENTER_RIGHT" layoutX="185.0" layoutY="340.0" prefHeight="17.0"
+               prefWidth="97.0" wrapText="true"/>
+        <Button alignment="CENTER_RIGHT" layoutX="172.0" layoutY="297.0" onAction="#registerBtnClick"
+                text="REGISTER NOW">
+            <styleClass>
+                <String fx:value="btn-info"/>
+                <String fx:value="bold-label"/>
+            </styleClass>
+        </Button>
+        <Label fx:id="Message" alignment="CENTER_RIGHT" layoutX="113.0" layoutY="340.0" prefHeight="17.0"
+               prefWidth="223.0" styleClass="bold-label" text="The user has been correctly registered!"/>
+        <Label alignment="CENTER_RIGHT" layoutX="184.0" layoutY="24.0" styleClass="bold-label" text="REGISTER">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Label>
+    </children>
+</AnchorPane>

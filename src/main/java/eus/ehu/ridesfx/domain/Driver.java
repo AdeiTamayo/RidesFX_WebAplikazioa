@@ -81,6 +81,14 @@ public class Driver implements Serializable {
         this.name = name;
     }
 
+    /**
+     * This method returns  the username of the driver
+     *
+     * @return username
+     */
+    public String getUsername() {
+        return username;
+    }
 
     /**
      * This method returns the username of the driver
