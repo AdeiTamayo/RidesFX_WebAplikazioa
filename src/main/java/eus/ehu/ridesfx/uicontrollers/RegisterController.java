@@ -24,6 +24,9 @@ public class RegisterController implements Controller{
     private PasswordField password;
 
     @FXML
+    private PasswordField password2;
+
+    @FXML
     private TextField name;
 
 
@@ -49,9 +52,10 @@ public class RegisterController implements Controller{
         businessLogic = new BlFacadeImplementation();
         String Username = username.getText();
         String Password = password.getText();
+        String Password2 = password2.getText();
         String Email = email.getText();
         String Name = name.getText();
-        if(Username.isEmpty() || Password.isEmpty() || Email.isEmpty() || Name.isEmpty()){
+        if(Username.isEmpty() || Password.isEmpty() || Email.isEmpty() || Name.isEmpty()  || Password2.isEmpty() ){
             System.out.println("Please fill all the fields");
             Message.setText("Please fill all the fields");
             Message.setVisible(true);
@@ -62,6 +66,10 @@ public class RegisterController implements Controller{
         } else if(!businessLogic.registerUser(Username, Password, Email, Name)){
             System.out.println("A user with this email already exists");
             Message.setText("A user with this email already exists");
+            Message.setVisible(true);
+        } else if(!Password.equals(Password2)){
+            System.out.println("The password is incorrect");
+            Message.setText("The password is incorrect");
             Message.setVisible(true);
         }
         else{
