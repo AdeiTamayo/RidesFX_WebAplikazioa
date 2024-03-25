@@ -49,7 +49,6 @@ public class RegisterController implements Controller{
      */
     @FXML
     void registerBtnClick(ActionEvent event)  {
-        businessLogic = new BlFacadeImplementation();
         String Username = username.getText();
         String Password = password.getText();
         String Password2 = password2.getText();

@@ -51,7 +51,6 @@ public class LoginController implements Controller{
      */
     @FXML
     void loginBtnClick(ActionEvent event) {
-        businessLogic = new BlFacadeImplementation();
         String Email = email.getText();
         String Password = password.getText();
         Text.setVisible(false);
