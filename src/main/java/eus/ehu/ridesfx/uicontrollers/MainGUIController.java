@@ -68,7 +68,7 @@ public class MainGUIController {
     @FXML
     void initialize() throws IOException {
 
-        lblDriver.setText(businessLogic.getCurrentDriver().getName());
+        lblDriver.setText(businessLogic.getCurrentUser().getName());
         queryRidesWin = load("QueryRides.fxml");
         createRideWin = load("CreateRide.fxml");
         loginWin = load("Login.fxml");

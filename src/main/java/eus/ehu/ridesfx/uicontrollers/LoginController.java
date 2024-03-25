@@ -72,7 +72,7 @@ public class LoginController implements Controller{
             } else{
                 Text.setText("You have been correctly logged in!");
                 Text.setVisible(true);
-                businessLogic.setCurrentDriver(businessLogic.checkUser(Email));
+                businessLogic.setCurrentUser(businessLogic.checkUser(Email));
 
             }
         }

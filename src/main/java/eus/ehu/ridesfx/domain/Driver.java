@@ -8,87 +8,31 @@ import java.util.List;
 import java.util.Vector;
 
 @Entity
-public class Driver implements Serializable {
+@DiscriminatorValue("DRIVER")
+public class Driver extends User implements Serializable {
 
     /**
      *
      */
     private static final long serialVersionUID = 1L;
 
-    @Id
-    private String email;
-    private String name;
-    private String username;
-    private String password;
+
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    private List<Ride> rides = new Vector<Ride>();
+    private List<Ride> rides;
 
     public Driver() {
         super();
     }
 
     public Driver(String email, String name, String username, String password) {
-        this.email = email;
-        this.name = name;
-        this.username = username;
-        this.password = password;
-    }
-
-    /**
-     * This method returns the Password of the driver
-     *
-     * @return the password of the driver
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * This method returns the email of the driver
-     *
-     * @return the email of the driver
-     */
-
-    public String getEmail() {
-        return email;
+        super(username, password, name, email);
+        rides = new Vector<Ride>();
     }
 
 
-    /**
-     * This method sets the email of the driver
-     *
-     * @param email
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
-    /**
-     * This method returns the name of the driver
-     *
-     * @return the name of the driver
-     */
-    public String getName() {
-        return name;
-    }
 
-    /**
-     * This method sets the name of the driver
-     *
-     * @param name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
 
-    /**
-     * This method returns  the username of the driver
-     *
-     * @return username
-     */
-    public String getUsername() {
-        return username;
-    }
 
     /**
      * This method returns the username of the driver
@@ -96,7 +40,7 @@ public class Driver implements Serializable {
      * @return the username of the driver
      */
     public String toString() {
-        return email + ";" + name + rides;
+        return super.getEmail() + ";" + super.getName() + rides;
     }
 
     /**
@@ -137,7 +81,7 @@ public class Driver implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         Driver other = (Driver) obj;
-        if (email != other.email)
+        if (super.getEmail() != other.getEmail())
             return false;
         return true;
     }

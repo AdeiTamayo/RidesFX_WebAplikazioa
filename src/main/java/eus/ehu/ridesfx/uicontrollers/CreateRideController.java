@@ -134,7 +134,7 @@ public class CreateRideController implements Controller {
 
                 int inputSeats = Integer.parseInt(txtNumberOfSeats.getText());
                 float price = Float.parseFloat(txtPrice.getText());
-                Driver driver = businessLogic.getCurrentDriver();
+                Driver driver = (Driver) businessLogic.getCurrentUser();
                 Ride r = businessLogic.createRide(txtDepartCity.getText(), txtArrivalCity.getText(), Dates.convertToDate(datePicker.getValue()), inputSeats, price, driver.getEmail());
                 displayMessage(ResourceBundle.getBundle("Etiquetas").getString("CreateRideGUI.RideCreated"), "success");
 
