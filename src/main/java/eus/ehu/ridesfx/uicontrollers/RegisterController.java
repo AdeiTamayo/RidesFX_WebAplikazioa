@@ -3,6 +3,8 @@ package eus.ehu.ridesfx.uicontrollers;
 
 import eus.ehu.ridesfx.businessLogic.BlFacade;
 import eus.ehu.ridesfx.businessLogic.BlFacadeImplementation;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -15,6 +17,9 @@ public class RegisterController implements Controller{
     @FXML
     private
     TextField username;
+
+    @FXML
+    private ComboBox<String> roles;
 
     @FXML
     private
@@ -54,7 +59,8 @@ public class RegisterController implements Controller{
         String Password2 = password2.getText();
         String Email = email.getText();
         String Name = name.getText();
-        if(Username.isEmpty() || Password.isEmpty() || Email.isEmpty() || Name.isEmpty()  || Password2.isEmpty() ){
+        String Role= roles.getValue();
+        if(Username.isEmpty() || Password.isEmpty() || Email.isEmpty() || Name.isEmpty()  || Password2.isEmpty() || roles.getValue() == null){
             System.out.println("Please fill all the fields");
             Message.setText("Please fill all the fields");
             Message.setVisible(true);
@@ -62,7 +68,7 @@ public class RegisterController implements Controller{
             System.out.println("The email is not valid");
             Message.setText("The email is not valid");
             Message.setVisible(true);
-        } else if(!businessLogic.registerUser(Username, Password, Email, Name)){
+        } else if(!businessLogic.registerUser(Username, Password, Email, Name, Role)){
             System.out.println("A user with this email already exists");
             Message.setText("A user with this email already exists");
             Message.setVisible(true);
@@ -84,6 +90,8 @@ public class RegisterController implements Controller{
         Message.setVisible(false);
         Message.setWrapText(true);
         Message.setAlignment(javafx.geometry.Pos.CENTER);
+        ObservableList<String> options = FXCollections.observableArrayList("Driver", "Traveler");
+        roles.setItems(options);
     }
 
 

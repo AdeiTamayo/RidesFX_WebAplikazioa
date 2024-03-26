@@ -11,9 +11,7 @@ import java.util.Vector;
 @DiscriminatorValue("DRIVER")
 public class Driver extends User implements Serializable {
 
-    /**
-     *
-     */
+
     private static final long serialVersionUID = 1L;
 
 

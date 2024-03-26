@@ -3,6 +3,7 @@ package eus.ehu.ridesfx.businessLogic;
 import eus.ehu.ridesfx.configuration.Config;
 import eus.ehu.ridesfx.dataAccess.DataAccess;
 import eus.ehu.ridesfx.domain.Driver;
+import eus.ehu.ridesfx.domain.Traveler;
 import eus.ehu.ridesfx.domain.User;
 import eus.ehu.ridesfx.domain.Ride;
 import eus.ehu.ridesfx.exceptions.RideAlreadyExistException;
@@ -36,9 +37,24 @@ public class BlFacadeImplementation implements BlFacade {
 		return ride;
 	}
 
-	public boolean registerUser(String username, String password, String email, String name) {
-		Driver d= new Driver(email, name, username, password);
-		return dbManager.addUser(d);
+	/**
+	 * This method invokes the data access to register a new user and return false if the user already exists
+	 * @param username
+	 * @param password
+	 * @param email
+	 * @param name
+	 * @param role
+	 * @return true if the user is registered successfully
+	 */
+	public boolean registerUser(String username, String password, String email, String name, String role) {
+		if(role.equals("Driver")){
+			Driver d= new Driver(email, name, username, password);
+			return dbManager.addUser(d);
+		} else if (role.equals("Traveler")) {
+			Traveler t= new Traveler(email, name, username, password);
+			return dbManager.addUser(t);
+		}
+		return false;
 	}
 
 	public User checkUser(String username) {

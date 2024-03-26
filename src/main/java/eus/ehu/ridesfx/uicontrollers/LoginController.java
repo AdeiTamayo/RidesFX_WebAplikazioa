@@ -4,8 +4,11 @@ package eus.ehu.ridesfx.uicontrollers;
 import eus.ehu.ridesfx.businessLogic.BlFacade;
 import eus.ehu.ridesfx.businessLogic.BlFacadeImplementation;
 import eus.ehu.ridesfx.ui.MainGUI;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -32,6 +35,7 @@ public class LoginController implements Controller{
     @FXML
     private Label WrongPassword;
 
+
     private MainGUI mainGUI;
 
 
@@ -56,7 +60,7 @@ public class LoginController implements Controller{
         Text.setVisible(false);
         WrongPassword.setVisible(false);
         InvalidUser.setVisible(false);
-        if(Email.equals("") || Password.equals("")) {
+        if(Email.equals("") || Password.equals("")){
             System.out.println("Please fill in all the fields");
             Text.setText("Please fill in all the fields");
             Text.setVisible(true);
@@ -94,5 +98,6 @@ public class LoginController implements Controller{
         Text.setVisible(false);
         Text.setWrapText(true);
         Text.setAlignment(javafx.geometry.Pos.CENTER);
+
     }
 }

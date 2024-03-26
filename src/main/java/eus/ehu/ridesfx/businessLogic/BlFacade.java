@@ -72,7 +72,7 @@ public interface BlFacade {
 
     List<Date> getDatesWithRides(String value, String value1);
 
-    boolean registerUser(String username, String password, String email, String name);
+    boolean registerUser(String username, String password, String email, String name, String role);
 
     User checkUser(String username);
     boolean checkPassword(String username, String password);
