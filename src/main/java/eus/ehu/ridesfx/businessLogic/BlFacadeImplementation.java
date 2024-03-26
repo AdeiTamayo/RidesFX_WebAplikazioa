@@ -47,14 +47,20 @@ public class BlFacadeImplementation implements BlFacade {
 	 * @return true if the user is registered successfully
 	 */
 	public boolean registerUser(String username, String password, String email, String name, String role) {
-		if(role.equals("Driver")){
-			Driver d= new Driver(email, name, username, password);
-			return dbManager.addUser(d);
-		} else if (role.equals("Traveler")) {
-			Traveler t= new Traveler(email, name, username, password);
-			return dbManager.addUser(t);
+		User newUser = null;
+		switch (role) {
+			case "Driver":
+				newUser = new Driver(email, name, username, password);
+				break;
+			case "Traveler":
+				newUser = new Traveler(email, name, username, password);
+				break;
+			default:
+				throw new IllegalArgumentException("Invalid role: " + role);
 		}
-		return false;
+
+		// Add the user using the dbManager
+		return dbManager.addUser(newUser);
 	}
 
 	public User checkUser(String username) {
