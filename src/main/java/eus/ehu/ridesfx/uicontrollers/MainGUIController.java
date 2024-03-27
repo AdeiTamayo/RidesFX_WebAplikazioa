@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 public class MainGUIController {
 
     @FXML
-    private Label lblDriver;
+    public Label lblDriver;
 
     @FXML
     private ResourceBundle resources;
@@ -69,6 +69,8 @@ public class MainGUIController {
     void initialize() throws IOException {
 
         lblDriver.setText(businessLogic.getCurrentDriver().getName());
+
+
         queryRidesWin = load("QueryRides.fxml");
         createRideWin = load("CreateRide.fxml");
         loginWin = load("Login.fxml");
@@ -80,6 +82,13 @@ public class MainGUIController {
 
 
     private Window createRideWin, queryRidesWin, loginWin, registerWin;
+
+
+    public  void setDriverName(String name){
+        lblDriver.setText(name);
+    }
+
+
 
 
     public class Window {
@@ -112,6 +121,8 @@ public class MainGUIController {
             throw new RuntimeException(e);
         }
     }
+
+
 
     private void showScene(String scene) {
         switch (scene) {

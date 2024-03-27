@@ -299,6 +299,7 @@ public class DataAccess {
 
     }
 
+
     /**
      * This method checks if the driver exists in the database
      *
@@ -328,14 +329,14 @@ public class DataAccess {
         return driver.getPassword().equals(password);
 
         /**TypedQuery<Driver> q2 = db.createQuery(
-                "SELECT p FROM Driver p WHERE p.password = ?1", Driver.class);
-        q2.setParameter(1, password);
+         "SELECT p FROM Driver p WHERE p.password = ?1", Driver.class);
+         q2.setParameter(1, password);
 
-        try {
-            return q2.getSingleResult();
-        } catch (NoResultException e) {
-            return null; // Return null when no result is found
-        }**/
+         try {
+         return q2.getSingleResult();
+         } catch (NoResultException e) {
+         return null; // Return null when no result is found
+         }**/
     }
 
 

@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
 
 
 import java.io.IOException;
@@ -16,7 +17,7 @@ import java.io.IOException;
 public class LoginController implements Controller{
 
 
-    private MainGUIController mainGUIController;
+    //private MainGUIController mainGUIController;
 
     @FXML
     private Label Text;
@@ -37,10 +38,15 @@ public class LoginController implements Controller{
 
     private BlFacade businessLogic;
 
+    MainGUIController mainGUIController = new MainGUIController();
+
 
     public LoginController(BlFacade bl) {
         this.businessLogic = bl;
     }
+
+
+
 
 
 
@@ -73,6 +79,14 @@ public class LoginController implements Controller{
                 Text.setText("You have been correctly logged in!");
                 Text.setVisible(true);
                 businessLogic.setCurrentDriver(businessLogic.checkUser(Email));
+                mainGUIController.setDriverName(businessLogic.getCurrentDriver().getName());
+
+                System.out.println(businessLogic.getCurrentDriver().getName());
+
+
+
+
+
 
             }
         }
