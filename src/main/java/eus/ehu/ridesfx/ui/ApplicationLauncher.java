@@ -25,7 +25,7 @@ public class ApplicationLauncher {
 
 
         Driver driver=new Driver("driver3@gmail.com","Test Driver", "driver3", "driver3");
-        businessLogic.setCurrentDriver(driver);
+        businessLogic.setCurrentUser(driver);
 
         new MainGUI(businessLogic);
 

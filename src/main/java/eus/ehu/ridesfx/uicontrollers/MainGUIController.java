@@ -29,6 +29,7 @@ public class MainGUIController {
     private URL location;
 
 
+
     @FXML
     private BorderPane mainWrapper;
 
@@ -73,7 +74,7 @@ public class MainGUIController {
     @FXML
     void initialize() throws IOException {
 
-        setDriverName(businessLogic.getCurrentDriver().getName());
+        setDriverName(businessLogic.getCurrentUser().getName());
 
 
         queryRidesWin = load("QueryRides.fxml");
@@ -135,7 +136,6 @@ public class MainGUIController {
             throw new RuntimeException(e);
         }
     }
-
 
     private void showScene(String scene) {
         switch (scene) {

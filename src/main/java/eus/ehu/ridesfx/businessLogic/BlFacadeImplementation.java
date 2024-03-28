@@ -3,6 +3,8 @@ package eus.ehu.ridesfx.businessLogic;
 import eus.ehu.ridesfx.configuration.Config;
 import eus.ehu.ridesfx.dataAccess.DataAccess;
 import eus.ehu.ridesfx.domain.Driver;
+import eus.ehu.ridesfx.domain.Traveler;
+import eus.ehu.ridesfx.domain.User;
 import eus.ehu.ridesfx.domain.Ride;
 import eus.ehu.ridesfx.exceptions.RideAlreadyExistException;
 import eus.ehu.ridesfx.exceptions.RideMustBeLaterThanTodayException;
@@ -19,7 +21,7 @@ public class BlFacadeImplementation implements BlFacade {
 
 	DataAccess dbManager;
 	Config config = Config.getInstance();
-	private Driver currentDriver;
+	private User currentUser;
 
 	public BlFacadeImplementation()  {
 		System.out.println("Creating BlFacadeImplementation instance");
@@ -35,13 +37,34 @@ public class BlFacadeImplementation implements BlFacade {
 		return ride;
 	}
 
-	public boolean registerUser(String username, String password, String email, String name) {
-		Driver d= new Driver(email, name, username, password);
-		return dbManager.addDriver(d);
+	/**
+	 * This method invokes the data access to register a new user and return false if the user already exists
+	 * @param username
+	 * @param password
+	 * @param email
+	 * @param name
+	 * @param role
+	 * @return true if the user is registered successfully
+	 */
+	public boolean registerUser(String username, String password, String email, String name, String role) {
+		User newUser = null;
+		switch (role) {
+			case "Driver":
+				newUser = new Driver(email, name, username, password);
+				break;
+			case "Traveler":
+				newUser = new Traveler(email, name, username, password);
+				break;
+			default:
+				throw new IllegalArgumentException("Invalid role: " + role);
+		}
+
+		// Add the user using the dbManager
+		return dbManager.addUser(newUser);
 	}
 
-	public Driver checkUser(String username) {
-		return dbManager.existsDriver(username);
+	public User checkUser(String username) {
+		return dbManager.existsUser(username);
 	}
 
 	public boolean checkPassword(String username, String password) {
@@ -81,14 +104,15 @@ public class BlFacadeImplementation implements BlFacade {
 	}
 
 	@Override
-	public void setCurrentDriver(Driver driver) {
-		this.currentDriver = driver;
+	public void setCurrentUser(User user) {
+		this.currentUser = user;
 	}
 
 	@Override
-	public Driver getCurrentDriver() {
-		return this.currentDriver;
+	public User getCurrentUser() {
+		return this.currentUser;
 	}
+
 
 
 	public List<String> getDepartCities(){

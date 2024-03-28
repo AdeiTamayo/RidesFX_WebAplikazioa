@@ -4,6 +4,7 @@ import eus.ehu.ridesfx.configuration.Config;
 import eus.ehu.ridesfx.configuration.UtilDate;
 import eus.ehu.ridesfx.domain.Ride;
 import eus.ehu.ridesfx.domain.Driver;
+import eus.ehu.ridesfx.domain.User;
 import eus.ehu.ridesfx.exceptions.RideAlreadyExistException;
 import eus.ehu.ridesfx.exceptions.RideMustBeLaterThanTodayException;
 import jakarta.persistence.EntityManager;
@@ -75,9 +76,9 @@ public class DataAccess {
 
     public void reset() {
         db.getTransaction().begin();
-        db.createNativeQuery("DELETE FROM DRIVER_RIDE").executeUpdate();
+        //db.createNativeQuery("DELETE FROM DRIVER_RIDE").executeUpdate();
         db.createQuery("DELETE FROM Ride ").executeUpdate();
-        db.createQuery("DELETE FROM Driver ").executeUpdate();
+        db.createQuery("DELETE FROM User ").executeUpdate();
         db.getTransaction().commit();
     }
 
@@ -281,18 +282,18 @@ public class DataAccess {
     /**
      * This method adds a driver to the database
      *
-     * @param driver
+     * @param user
      */
-    public boolean addDriver(Driver driver) {
-        TypedQuery<Driver> q2 = db.createQuery(
-                "SELECT p FROM Driver p WHERE p.email = ?1", Driver.class);
-        q2.setParameter(1, driver.getEmail());
+    public boolean addUser(User user) {
+        TypedQuery<User> q2 = db.createQuery(
+                "SELECT p FROM User p WHERE p.email = ?1", User.class);
+        q2.setParameter(1, user.getEmail());
         try {
             q2.getSingleResult();
             return false;
         } catch (NoResultException e) {
             db.getTransaction().begin();
-            db.persist(driver);
+            db.persist(user);
             db.getTransaction().commit();
             return true; // Return true when no result is found and the driver can be added
         }
@@ -306,9 +307,9 @@ public class DataAccess {
      * @param email
      * @return
      */
-    public Driver existsDriver(String email) {
-        TypedQuery<Driver> q2 = db.createQuery(
-                "SELECT p FROM Driver p WHERE p.email = ?1", Driver.class);
+    public User existsUser(String email) {
+        TypedQuery<User> q2 = db.createQuery(
+                "SELECT p FROM User p WHERE p.email = ?1", User.class);
         q2.setParameter(1, email);
 
         try {
@@ -325,8 +326,8 @@ public class DataAccess {
      * @param password
      */
     public boolean correctPassword(String email, String password) {
-        Driver driver = existsDriver(email);
-        return driver.getPassword().equals(password);
+        User user =  existsUser(email);
+        return user.getPassword().equals(password);
 
         /**TypedQuery<Driver> q2 = db.createQuery(
          "SELECT p FROM Driver p WHERE p.password = ?1", Driver.class);
