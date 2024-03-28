@@ -18,8 +18,6 @@ import java.io.IOException;
 public class LoginController implements Controller {
 
 
-    //private MainGUIController mainGUIController;
-
     @FXML
     private Label Text;
 
@@ -37,18 +35,19 @@ public class LoginController implements Controller {
     @FXML
     private Label WrongPassword;
 
+
     private MainGUI mainGUI;
 
 
     private BlFacade businessLogic;
 
+    //private MainGUIController mainGUIController;
     MainGUIController mainGUIController = new MainGUIController();
 
 
-    public LoginController(BlFacade bl) {
+    public LoginController(BlFacade bl, MainGUIController mainGUIController) {
         this.businessLogic = bl;
-
-
+        this.mainGUIController = mainGUIController;
     }
 
 
@@ -81,19 +80,13 @@ public class LoginController implements Controller {
                 businessLogic.setCurrentDriver(businessLogic.checkUser(Email));
 
 
-                //FIXME this is a test the functionality of getting the name
-
                 //This prints the name of the driver in the console
+                System.out.println("The name of the driver is : ");
                 System.out.println(businessLogic.getCurrentDriver().getName());
 
                 //This following line sets the name of the driver in the MainGUIController, but it throws a null pointer exception because lbl is null
+
                 mainGUIController.setDriverName(businessLogic.getCurrentDriver().getName());
-
-                //This prints the name of the driver in the LoginGuim it is a test to see if it is the problem of the fxml (It is not)
-                TestLabel.setText(businessLogic.getCurrentDriver().getName());
-
-
-
 
 
             }
@@ -105,6 +98,7 @@ public class LoginController implements Controller {
     public void setMainApp(MainGUI mainGUI) {
         this.mainGUI = mainGUI;
     }
+
 
     @FXML
     void initialize() {

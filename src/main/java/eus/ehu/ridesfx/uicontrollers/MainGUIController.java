@@ -85,7 +85,6 @@ public class MainGUIController {
 
     public void setDriverName(String name) {
 
-        //FIXME when called from another class lbl is null and throws a null pointer exception
         lblDriver.setText(name);
     }
 
@@ -101,9 +100,13 @@ public class MainGUIController {
             FXMLLoader loader = new FXMLLoader(MainGUI.class.getResource(fxml), ResourceBundle.getBundle("Etiquetas", Locale.getDefault()));
             loader.setControllerFactory(controllerClass -> {
                 try {
-                    return controllerClass
-                            .getConstructor(BlFacade.class)
-                            .newInstance(businessLogic);
+                    if (controllerClass == LoginController.class) {
+                        return new LoginController(businessLogic, this);
+                    } else {
+                        return controllerClass
+                                .getConstructor(BlFacade.class)
+                                .newInstance(businessLogic);
+                    }
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
