@@ -1,6 +1,7 @@
 package eus.ehu.ridesfx.ui;
 
 import eus.ehu.ridesfx.businessLogic.BlFacade;
+import eus.ehu.ridesfx.domain.Driver;
 import eus.ehu.ridesfx.uicontrollers.MainGUIController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -62,6 +63,9 @@ public class MainGUI {
         stage.show();
 
     }
+
+    //FIXME
+
 
 //  public void start(Stage stage) throws IOException {
 //      init(stage);

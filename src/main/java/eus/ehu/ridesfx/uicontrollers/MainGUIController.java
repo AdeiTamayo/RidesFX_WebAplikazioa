@@ -29,19 +29,19 @@ public class MainGUIController {
     private URL location;
 
 
-
     @FXML
     private BorderPane mainWrapper;
 
     private BlFacade businessLogic;
 
-    public MainGUIController(){};
+    public MainGUIController() {
+    }
 
-    public MainGUIController(BlFacade blFacade){
+    ;
+
+    public MainGUIController(BlFacade blFacade) {
         this.businessLogic = blFacade;
-    };
-
-
+    }
 
 
     @FXML
@@ -50,12 +50,12 @@ public class MainGUIController {
     }
 
     @FXML
-    void login(ActionEvent event){
+    void login(ActionEvent event) {
         showScene("Login");
     }
 
     @FXML
-    void register(ActionEvent event){
+    void register(ActionEvent event) {
         showScene("Register");
     }
 
@@ -68,7 +68,7 @@ public class MainGUIController {
     @FXML
     void initialize() throws IOException {
 
-        lblDriver.setText(businessLogic.getCurrentDriver().getName());
+        setDriverName(businessLogic.getCurrentDriver().getName());
 
 
         queryRidesWin = load("QueryRides.fxml");
@@ -77,25 +77,23 @@ public class MainGUIController {
         registerWin = load("Register.fxml");
 
         showScene("Query Rides");
-
     }
 
 
-    private Window createRideWin, queryRidesWin, loginWin, registerWin;
+    private Window createRideWin, queryRidesWin, loginWin, registerWin, mainWin;
 
 
-    public  void setDriverName(String name){
+    public void setDriverName(String name) {
+
+        //FIXME when called from another class lbl is null and throws a null pointer exception
         lblDriver.setText(name);
     }
-
-
 
 
     public class Window {
         private Controller controller;
         private Parent ui;
     }
-
 
 
     private Window load(String fxml) {
@@ -121,7 +119,6 @@ public class MainGUIController {
             throw new RuntimeException(e);
         }
     }
-
 
 
     private void showScene(String scene) {

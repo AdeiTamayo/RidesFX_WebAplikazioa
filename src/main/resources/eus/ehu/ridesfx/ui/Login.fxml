@@ -32,5 +32,6 @@
                 <TextField fx:id="email" layoutX="175.0" layoutY="91.0" />
                 <PasswordField fx:id="password" layoutX="174.0" layoutY="155.0" />
                 <Button layoutX="223.0" layoutY="238.0" onAction="#loginBtnClick" styleClass="btn-info" text="LogIn" />
+            <Label fx:id="TestLabel" layoutX="157.0" layoutY="325.0" prefHeight="17.0" prefWidth="188.0" />
             </children>
         </AnchorPane>
