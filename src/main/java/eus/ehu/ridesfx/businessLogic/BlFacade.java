@@ -45,9 +45,9 @@ public interface BlFacade {
     public Vector<Date> getEventsMonth(Date date);
 
 
-    void setCurrentDriver(User user);
+    void setCurrentUser(User user);
 
-    Driver getCurrentDriver();
+    User getCurrentUser();
 
     Ride createRide(String text, String text1, Date date, int inputSeats, float price, String email) throws RideMustBeLaterThanTodayException, RideAlreadyExistException;
 

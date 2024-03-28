@@ -42,7 +42,7 @@ public class LoginController implements Controller {
     private BlFacade businessLogic;
 
     //private MainGUIController mainGUIController;
-    MainGUIController mainGUIController = new MainGUIController();
+
 
 
     public LoginController(BlFacade bl, MainGUIController mainGUIController) {
@@ -77,16 +77,16 @@ public class LoginController implements Controller {
             } else {
                 Text.setText("You have been correctly logged in!");
                 Text.setVisible(true);
-                businessLogic.setCurrentDriver(businessLogic.checkUser(Email));
+                businessLogic.setCurrentUser(businessLogic.checkUser(Email));
 
 
                 //This prints the name of the driver in the console
                 System.out.println("The name of the driver is : ");
-                System.out.println(businessLogic.getCurrentDriver().getName());
+                System.out.println(businessLogic.getCurrentUser().getName());
 
                 //This following line sets the name of the driver in the MainGUIController, but it throws a null pointer exception because lbl is null
 
-                mainGUIController.setDriverName(businessLogic.getCurrentDriver().getName());
+                mainGUIController.setDriverName(businessLogic.getCurrentUser().getName());
                 mainGUIController.hideButtonLogin();
                 mainGUIController.hideButtonRegister();
 

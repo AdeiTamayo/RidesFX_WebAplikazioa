@@ -74,7 +74,7 @@ public class MainGUIController {
     @FXML
     void initialize() throws IOException {
 
-        setDriverName(businessLogic.getCurrentDriver().getName());
+        setDriverName(businessLogic.getCurrentUser().getName());
 
 
         queryRidesWin = load("QueryRides.fxml");
