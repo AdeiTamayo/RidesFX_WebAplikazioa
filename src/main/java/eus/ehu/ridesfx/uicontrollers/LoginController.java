@@ -87,6 +87,8 @@ public class LoginController implements Controller {
                 //This following line sets the name of the driver in the MainGUIController, but it throws a null pointer exception because lbl is null
 
                 mainGUIController.setDriverName(businessLogic.getCurrentDriver().getName());
+                mainGUIController.hideButtonLogin();
+                mainGUIController.hideButtonRegister();
 
 
             }

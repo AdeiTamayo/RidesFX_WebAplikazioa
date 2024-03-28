@@ -34,6 +34,11 @@ public class MainGUIController {
 
     private BlFacade businessLogic;
 
+    @FXML
+    private Button LoginMainButton;
+    @FXML
+    private Button RegisterMainButton;
+
     public MainGUIController() {
     }
 
@@ -80,12 +85,20 @@ public class MainGUIController {
     }
 
 
-    private Window createRideWin, queryRidesWin, loginWin, registerWin, mainWin;
+    private Window createRideWin, queryRidesWin, loginWin, registerWin;
 
 
     public void setDriverName(String name) {
 
         lblDriver.setText(name);
+    }
+
+    public void hideButtonLogin() {
+        LoginMainButton.setVisible(false);
+    }
+
+    public void hideButtonRegister() {
+        RegisterMainButton.setVisible(false);
     }
 
 
