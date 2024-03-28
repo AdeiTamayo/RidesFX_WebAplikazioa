@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="450.0" prefWidth="428.0" styleClass="register" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ridesfx.uicontrollers.RegisterController">
+<AnchorPane prefHeight="400.0" prefWidth="428.0" styleClass="register" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ridesfx.uicontrollers.RegisterController">
     <children>
         <Label alignment="CENTER_RIGHT" layoutX="100.0" layoutY="91.0" prefHeight="18.0" prefWidth="45.0" styleClass="bold-label" text="Name:">
             <font>
@@ -31,7 +31,10 @@
                 <Font size="13.0" />
             </font>
         </Label>
-        <Label layoutX="47.0" layoutY="253.0" prefHeight="18.0" prefWidth="110.0" styleClass="bold-label" text="Repeat password:" />
+        <Label alignment="CENTER_RIGHT" layoutX="45.0" layoutY="253.0" prefHeight="18.0" prefWidth="110.0" styleClass="bold-label" text="Repeat password:">
+         <font>
+            <Font size="13.0" />
+         </font></Label>
         <TextField id="NameTextField" fx:id="name" layoutX="158.0" layoutY="87.0" prefHeight="27.0" prefWidth="150.0" />
         <TextField id="UsernameTextField" fx:id="username" layoutX="158.0" layoutY="129.0" AnchorPane.leftAnchor="158.0" />
         <TextField id="EmailTextField" fx:id="email" layoutX="158.0" layoutY="169.0" />

@@ -4,11 +4,8 @@ package eus.ehu.ridesfx.uicontrollers;
 import eus.ehu.ridesfx.businessLogic.BlFacade;
 import eus.ehu.ridesfx.businessLogic.BlFacadeImplementation;
 import eus.ehu.ridesfx.ui.MainGUI;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -16,13 +13,16 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
-public class LoginController implements Controller{
+public class LoginController implements Controller {
 
 
     private MainGUIController mainGUIController;
 
     @FXML
     private Label Text;
+
+    @FXML
+    private Label TestLabel;
 
     @FXML
     private TextField email;
@@ -41,16 +41,19 @@ public class LoginController implements Controller{
 
     private BlFacade businessLogic;
 
+    //private MainGUIController mainGUIController;
+    MainGUIController mainGUIController = new MainGUIController();
 
-    public LoginController(BlFacade bl) {
+
+    public LoginController(BlFacade bl, MainGUIController mainGUIController) {
         this.businessLogic = bl;
+        this.mainGUIController = mainGUIController;
     }
-
-
 
 
     /**
      * This method is used to register a new user
+     *
      * @param event
      */
     @FXML
@@ -60,30 +63,37 @@ public class LoginController implements Controller{
         Text.setVisible(false);
         WrongPassword.setVisible(false);
         InvalidUser.setVisible(false);
-        if(Email.equals("") || Password.equals("")){
+        if (Email.equals("") || Password.equals("")) {
             System.out.println("Please fill in all the fields");
             Text.setText("Please fill in all the fields");
             Text.setVisible(true);
-        }
-        else if (businessLogic.checkUser(Email)==null){
+        } else if (businessLogic.checkUser(Email) == null) {
             System.out.println("A user with this email doen't exist. Please register first.");
             InvalidUser.setVisible(true);
-        }
-        else{
-            if (!businessLogic.checkPassword(Email, Password)){
+        } else {
+            if (!businessLogic.checkPassword(Email, Password)) {
                 System.out.println("The password is incorrect");
                 WrongPassword.setVisible(true);
-            } else{
+            } else {
                 Text.setText("You have been correctly logged in!");
                 Text.setVisible(true);
-                businessLogic.setCurrentUser(businessLogic.checkUser(Email));
+                businessLogic.setCurrentDriver(businessLogic.checkUser(Email));
+
+
+                //This prints the name of the driver in the console
+                System.out.println("The name of the driver is : ");
+                System.out.println(businessLogic.getCurrentDriver().getName());
+
+                //This following line sets the name of the driver in the MainGUIController, but it throws a null pointer exception because lbl is null
+
+                mainGUIController.setDriverName(businessLogic.getCurrentDriver().getName());
+                mainGUIController.hideButtonLogin();
+                mainGUIController.hideButtonRegister();
+
 
             }
         }
     }
-
-
-
 
 
     @Override
@@ -91,13 +101,16 @@ public class LoginController implements Controller{
         this.mainGUI = mainGUI;
     }
 
+
     @FXML
     void initialize() {
+
         InvalidUser.setVisible(false);
         WrongPassword.setVisible(false);
         Text.setVisible(false);
         Text.setWrapText(true);
         Text.setAlignment(javafx.geometry.Pos.CENTER);
+
 
     }
 }

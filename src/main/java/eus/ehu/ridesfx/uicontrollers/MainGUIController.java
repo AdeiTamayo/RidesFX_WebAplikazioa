@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 public class MainGUIController {
 
     @FXML
-    private Label lblDriver;
+    public Label lblDriver;
 
     @FXML
     private ResourceBundle resources;
@@ -35,13 +35,19 @@ public class MainGUIController {
 
     private BlFacade businessLogic;
 
-    public MainGUIController(){};
+    @FXML
+    private Button LoginMainButton;
+    @FXML
+    private Button RegisterMainButton;
 
-    public MainGUIController(BlFacade blFacade){
+    public MainGUIController() {
+    }
+
+    ;
+
+    public MainGUIController(BlFacade blFacade) {
         this.businessLogic = blFacade;
-    };
-
-
+    }
 
 
     @FXML
@@ -50,12 +56,12 @@ public class MainGUIController {
     }
 
     @FXML
-    void login(ActionEvent event){
+    void login(ActionEvent event) {
         showScene("Login");
     }
 
     @FXML
-    void register(ActionEvent event){
+    void register(ActionEvent event) {
         showScene("Register");
     }
 
@@ -68,18 +74,33 @@ public class MainGUIController {
     @FXML
     void initialize() throws IOException {
 
-        lblDriver.setText(businessLogic.getCurrentUser().getName());
+        setDriverName(businessLogic.getCurrentDriver().getName());
+
+
         queryRidesWin = load("QueryRides.fxml");
         createRideWin = load("CreateRide.fxml");
         loginWin = load("Login.fxml");
         registerWin = load("Register.fxml");
 
         showScene("Query Rides");
-
     }
 
 
     private Window createRideWin, queryRidesWin, loginWin, registerWin;
+
+
+    public void setDriverName(String name) {
+
+        lblDriver.setText(name);
+    }
+
+    public void hideButtonLogin() {
+        LoginMainButton.setVisible(false);
+    }
+
+    public void hideButtonRegister() {
+        RegisterMainButton.setVisible(false);
+    }
 
 
     public class Window {
@@ -88,15 +109,18 @@ public class MainGUIController {
     }
 
 
-
     private Window load(String fxml) {
         try {
             FXMLLoader loader = new FXMLLoader(MainGUI.class.getResource(fxml), ResourceBundle.getBundle("Etiquetas", Locale.getDefault()));
             loader.setControllerFactory(controllerClass -> {
                 try {
-                    return controllerClass
-                            .getConstructor(BlFacade.class)
-                            .newInstance(businessLogic);
+                    if (controllerClass == LoginController.class) {
+                        return new LoginController(businessLogic, this);
+                    } else {
+                        return controllerClass
+                                .getConstructor(BlFacade.class)
+                                .newInstance(businessLogic);
+                    }
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
