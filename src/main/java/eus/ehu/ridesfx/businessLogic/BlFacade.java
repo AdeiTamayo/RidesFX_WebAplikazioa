@@ -74,5 +74,9 @@ public interface BlFacade {
     boolean registerUser(String username, String password, String email, String name);
 
     Driver checkUser(String username);
+
     boolean checkPassword(String username, String password);
+
+
+
 }
