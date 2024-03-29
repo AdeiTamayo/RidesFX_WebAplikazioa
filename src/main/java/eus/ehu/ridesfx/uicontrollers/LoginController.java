@@ -90,6 +90,15 @@ public class LoginController implements Controller {
                 mainGUIController.hideButtonLogin();
                 mainGUIController.hideButtonRegister();
 
+                //TODO modify the type of user in mainGUI
+
+                if(businessLogic.getCurrentUser().getClass().getSimpleName().equals("Driver")) {
+                    mainGUIController.setDriverType("Driver");
+                } else {
+                    mainGUIController.setDriverType("Traveler");
+                }
+
+
 
             }
         }

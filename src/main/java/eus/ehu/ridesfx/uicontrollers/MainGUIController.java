@@ -20,14 +20,16 @@ import java.util.ResourceBundle;
 public class MainGUIController {
 
     @FXML
-    public Label lblDriver;
+    private Label lblDriver;
+
+    @FXML
+    private Label TypeOfUser;
 
     @FXML
     private ResourceBundle resources;
 
     @FXML
     private URL location;
-
 
 
     @FXML
@@ -75,6 +77,7 @@ public class MainGUIController {
     void initialize() throws IOException {
 
         setDriverName(businessLogic.getCurrentUser().getName());
+        setDriverType(businessLogic.getCurrentUser().getClass().getSimpleName());
 
 
         queryRidesWin = load("QueryRides.fxml");
@@ -90,7 +93,6 @@ public class MainGUIController {
 
 
     public void setDriverName(String name) {
-
         lblDriver.setText(name);
     }
 
@@ -100,6 +102,10 @@ public class MainGUIController {
 
     public void hideButtonRegister() {
         RegisterMainButton.setVisible(false);
+    }
+
+    public void setDriverType(String type) {
+        TypeOfUser.setText(type + ": ");
     }
 
 
