@@ -29,7 +29,6 @@ public class MainGUIController {
     private URL location;
 
 
-
     @FXML
     private BorderPane mainWrapper;
 
@@ -40,6 +39,13 @@ public class MainGUIController {
     @FXML
     private Button RegisterMainButton;
 
+    @FXML
+    private Button ChangeUserButton;
+
+
+    private LoginController loginController;
+
+
     public MainGUIController() {
     }
 
@@ -47,6 +53,10 @@ public class MainGUIController {
 
     public MainGUIController(BlFacade blFacade) {
         this.businessLogic = blFacade;
+    }
+
+    public void setLoginController(LoginController loginController) {
+        this.loginController = loginController;
     }
 
 
@@ -70,12 +80,30 @@ public class MainGUIController {
         showScene("Create Ride");
     }
 
+    @FXML
+    void changeUser(ActionEvent event) {
+        showScene("Login");
+
+        //Method used to delete the text from the login controller
+        deleteLoginControllerText();
+
+    }
+
+
+    //Method used to delete the text from the login controller
+    public void deleteLoginControllerText() {
+        if (loginController != null) {
+            loginController.setTextMail("");
+            loginController.setTextPassword("");
+        }
+    }
+
 
     @FXML
     void initialize() throws IOException {
 
         setDriverName(businessLogic.getCurrentUser().getName());
-
+        ChangeUserButton.setVisible(false);
 
         queryRidesWin = load("QueryRides.fxml");
         createRideWin = load("CreateRide.fxml");
@@ -83,6 +111,8 @@ public class MainGUIController {
         registerWin = load("Register.fxml");
 
         showScene("Query Rides");
+
+        System.out.println("\n\n\n\nShare Trip Project\n\n\n\n");
     }
 
 
@@ -90,7 +120,6 @@ public class MainGUIController {
 
 
     public void setDriverName(String name) {
-
         lblDriver.setText(name);
     }
 
@@ -100,6 +129,10 @@ public class MainGUIController {
 
     public void hideButtonRegister() {
         RegisterMainButton.setVisible(false);
+    }
+
+    public void showButtonChangeUserButton() {
+        ChangeUserButton.setVisible(true);
     }
 
 
