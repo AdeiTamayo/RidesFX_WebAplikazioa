@@ -1,29 +1,31 @@
-
 package eus.ehu.ridesfx.uicontrollers;
 
 import eus.ehu.ridesfx.businessLogic.BlFacade;
-import eus.ehu.ridesfx.businessLogic.BlFacadeImplementation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import eus.ehu.ridesfx.ui.MainGUI;
 
-public class RegisterController implements Controller{
+/**
+ * Controller class for the registration functionality.
+ */
+public class RegisterController implements Controller {
 
     private MainGUIController mainGUIController;
 
     @FXML
-    private
-    TextField username;
+    private TextField username;
 
     @FXML
     private ComboBox<String> roles;
 
     @FXML
-    private
-    TextField email;
+    private TextField email;
 
     @FXML
     private PasswordField password;
@@ -34,22 +36,26 @@ public class RegisterController implements Controller{
     @FXML
     private TextField name;
 
-
     @FXML
     private Label Message;
 
     private BlFacade businessLogic;
-
     private MainGUI mainGUI;
-
     private LoginController loginController;
 
-    public RegisterController(BlFacade bl /*, LoginController loginController */) {
+    /**
+     * Constructs a new RegisterController.
+     *
+     * @param bl The business logic facade.
+     */
+    public RegisterController(BlFacade bl) {
         this.businessLogic = bl;
-        //this.loginController = loginController;
     }
 
-    public void removeFieldsValue(){
+    /**
+     * Clears all input fields.
+     */
+    public void removeFieldsValue() {
         username.setText("");
         email.setText("");
         password.setText("");
@@ -58,21 +64,13 @@ public class RegisterController implements Controller{
         roles.setValue(null);
     }
 
-    /*
-    public void setLoginController(LoginController loginController) {
-        this.loginController = loginController;
-    }
-
-     */
-
-
-
     /**
-     * This method is used to register a new user
-     * @param event
+     * Handles the register button click event.
+     *
+     * @param event The ActionEvent associated with the event.
      */
     @FXML
-    void registerBtnClick(ActionEvent event)  {
+    void registerBtnClick(ActionEvent event) {
         String Username = username.getText();
         String Password = password.getText();
         String Password2 = password2.getText();
@@ -102,7 +100,6 @@ public class RegisterController implements Controller{
             Message.setText("The user has been correctly registered!");
             Message.setVisible(true);
         }
-
     }
 
     @FXML
@@ -113,21 +110,6 @@ public class RegisterController implements Controller{
         ObservableList<String> options = FXCollections.observableArrayList("Driver", "Traveler");
         roles.setItems(options);
     }
-
-
-    /*
-    @FXML
-    void goToLogin(ActionEvent actionEvent) {
-       mainGUIController.showScene("login");
-    }
-
-     */
-
-
-
-
-
-
 
     @Override
     public void setMainApp(MainGUI mainGUI) {

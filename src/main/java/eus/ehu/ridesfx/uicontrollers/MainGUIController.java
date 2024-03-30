@@ -62,7 +62,6 @@ public class MainGUIController {
     public MainGUIController() {
     }
 
-    ;
 
     public MainGUIController(BlFacade blFacade) {
         this.businessLogic = blFacade;
@@ -97,23 +96,10 @@ public class MainGUIController {
     void changeUser(ActionEvent event) {
         showScene("Login");
 
-        //Method used to delete the text from the login controller
-        deleteLoginControllerText();
-
+        //Method used to restart the apparence of login controller
+        loginController.restartLogin();
     }
 
-
-
-    /**
-     * Deletes the text in the login controller's email and password fields.
-     * This method checks if the login controller is not null before attempting to clear the text.
-     */
-    public void deleteLoginControllerText() {
-        if (loginController != null) {
-            loginController.setTextMail("");
-            loginController.setTextPassword("");
-        }
-    }
 
     /**
      * Sets the name of the driver in the label on the GUI.
@@ -166,6 +152,14 @@ public class MainGUIController {
         showScene("Register");
     }
 
+    /**
+     * Setsthe type of the driver in the label on the GUI.
+     */
+    public void setDriverType(String type) {
+        TypeOfUser.setText(type + ": ");
+    }
+
+
     @FXML
     void initialize() throws IOException {
 
@@ -181,16 +175,6 @@ public class MainGUIController {
 
         showScene("Query Rides");
         System.out.println("\n\n\n\nShare Trip Project\n\n\n\n");
-    }
-
-
-
-
-
-
-
-    public void setDriverType(String type) {
-        TypeOfUser.setText(type + ": ");
     }
 
 
@@ -229,6 +213,7 @@ public class MainGUIController {
     }
 
     private Window createRideWin, queryRidesWin, loginWin, registerWin;
+
     private void showScene(String scene) {
         switch (scene) {
             case "Query Rides" -> mainWrapper.setCenter(queryRidesWin.ui);

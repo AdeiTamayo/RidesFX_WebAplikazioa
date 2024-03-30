@@ -1,8 +1,6 @@
-
 package eus.ehu.ridesfx.uicontrollers;
 
 import eus.ehu.ridesfx.businessLogic.BlFacade;
-import eus.ehu.ridesfx.businessLogic.BlFacadeImplementation;
 import eus.ehu.ridesfx.domain.Driver;
 import eus.ehu.ridesfx.domain.Traveler;
 import eus.ehu.ridesfx.ui.MainGUI;
@@ -11,21 +9,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import org.w3c.dom.events.MouseEvent;
 
-
-import java.io.IOException;
-
+/**
+ * Controller class for the login functionality.
+ */
 public class LoginController implements Controller {
-
 
     private MainGUIController mainGUIController;
 
     @FXML
     private Label Text;
-
-    @FXML
-    private Label TestLabel;
 
     @FXML
     private TextField email;
@@ -35,51 +28,50 @@ public class LoginController implements Controller {
 
     @FXML
     private Label InvalidUser;
+
     @FXML
     private Label WrongPassword;
 
     @FXML
     private Label registerLabel;
 
-
     private MainGUI mainGUI;
-
-
     private BlFacade businessLogic;
-
     private RegisterController registerController;
 
-    //private MainGUIController mainGUIController;
-
-
-    public LoginController(BlFacade bl, MainGUIController mainGUIController /*, RegisterController registerController */) {
+    /**
+     * Constructs a new LoginController.
+     *
+     * @param bl               The business logic facade.
+     * @param mainGUIController The main GUI controller.
+     */
+    public LoginController(BlFacade bl, MainGUIController mainGUIController) {
         this.businessLogic = bl;
         this.mainGUIController = mainGUIController;
-        //this.registerController = registerController;
-
-        //declaration used to make calling from the mainGUIController to this class possible
         this.mainGUIController.setLoginController(this);
     }
 
-
-    public void setTextMail(String newText) {
-        email.setText(newText);
+    /**
+     * Restart the login controller interface.
+     */
+    public void restartLogin() {
+        registerLabel.setVisible(true);
+        Text.setVisible(false);
+        password.setText("");
+        email.setText("");
     }
 
-    public void setTextPassword(String newText) {
-        password.setText(newText);
-    }
+
 
     @Override
     public void setMainApp(MainGUI mainGUI) {
         this.mainGUI = mainGUI;
     }
 
-
     /**
-     * This method is used to register a new user
+     * Handles the login button click event.
      *
-     * @param event
+     * @param event The ActionEvent associated with the event.
      */
     @FXML
     void loginBtnClick(ActionEvent event) {
@@ -137,24 +129,20 @@ public class LoginController implements Controller {
         }
     }
 
-
     @FXML
     void initialize() {
-
         InvalidUser.setVisible(false);
         WrongPassword.setVisible(false);
         Text.setVisible(false);
         Text.setWrapText(true);
         Text.setAlignment(javafx.geometry.Pos.CENTER);
-
-
     }
 
     @FXML
     public void registerLabelClick(javafx.scene.input.MouseEvent mouseEvent) {
         mainGUIController.showRegister();
         //TODO remove logged in message
-        //FIXME registerController null
         //registerController.removeFieldsValue();
     }
 }
+
