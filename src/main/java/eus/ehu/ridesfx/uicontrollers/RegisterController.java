@@ -42,9 +42,28 @@ public class RegisterController implements Controller{
 
     private MainGUI mainGUI;
 
-    public RegisterController(BlFacade bl) {
+    private LoginController loginController;
+
+    public RegisterController(BlFacade bl /*, LoginController loginController */) {
         this.businessLogic = bl;
+        //this.loginController = loginController;
     }
+
+    public void removeFieldsValue(){
+        username.setText("");
+        email.setText("");
+        password.setText("");
+        password2.setText("");
+        name.setText("");
+        roles.setValue(null);
+    }
+
+    /*
+    public void setLoginController(LoginController loginController) {
+        this.loginController = loginController;
+    }
+
+     */
 
 
 
@@ -96,11 +115,13 @@ public class RegisterController implements Controller{
     }
 
 
-
+    /*
     @FXML
     void goToLogin(ActionEvent actionEvent) {
- //       mainGUIController.showScene("login");
+       mainGUIController.showScene("login");
     }
+
+     */
 
 
 

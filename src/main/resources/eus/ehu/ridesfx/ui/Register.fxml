@@ -55,5 +55,6 @@
         </Label>
       <Label layoutX="115.0" layoutY="292.0" prefHeight="18.0" prefWidth="32.0" styleClass="bold-label" text="Role:" />
       <ComboBox fx:id="roles" layoutX="158.0" layoutY="289.0" prefWidth="150.0" />
+
     </children>
 </AnchorPane>

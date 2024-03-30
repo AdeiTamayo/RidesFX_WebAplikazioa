@@ -3,12 +3,15 @@ package eus.ehu.ridesfx.uicontrollers;
 
 import eus.ehu.ridesfx.businessLogic.BlFacade;
 import eus.ehu.ridesfx.businessLogic.BlFacadeImplementation;
+import eus.ehu.ridesfx.domain.Driver;
+import eus.ehu.ridesfx.domain.Traveler;
 import eus.ehu.ridesfx.ui.MainGUI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import org.w3c.dom.events.MouseEvent;
 
 
 import java.io.IOException;
@@ -35,18 +38,24 @@ public class LoginController implements Controller {
     @FXML
     private Label WrongPassword;
 
+    @FXML
+    private Label registerLabel;
+
 
     private MainGUI mainGUI;
 
 
     private BlFacade businessLogic;
 
+    private RegisterController registerController;
+
     //private MainGUIController mainGUIController;
 
 
-    public LoginController(BlFacade bl, MainGUIController mainGUIController) {
+    public LoginController(BlFacade bl, MainGUIController mainGUIController /*, RegisterController registerController */) {
         this.businessLogic = bl;
         this.mainGUIController = mainGUIController;
+        //this.registerController = registerController;
 
         //declaration used to make calling from the mainGUIController to this class possible
         this.mainGUIController.setLoginController(this);
@@ -59,6 +68,11 @@ public class LoginController implements Controller {
 
     public void setTextPassword(String newText) {
         password.setText(newText);
+    }
+
+    @Override
+    public void setMainApp(MainGUI mainGUI) {
+        this.mainGUI = mainGUI;
     }
 
 
@@ -100,16 +114,18 @@ public class LoginController implements Controller {
                 mainGUIController.hideButtonLogin();
                 mainGUIController.hideButtonRegister();
                 mainGUIController.showButtonChangeUserButton();
+                registerLabel.setVisible(false);
+
+                //This if statement hides the query rides button if the user is a driver and hides the create ride button if the user is a traveler
+                if (businessLogic.getCurrentUser() instanceof Driver) {
+                    mainGUIController.hideButtonQueryRides();
+                } else if (businessLogic.getCurrentUser() instanceof Traveler) {
+                    mainGUIController.hideButtonCreateRide();
+                }
 
 
             }
         }
-    }
-
-
-    @Override
-    public void setMainApp(MainGUI mainGUI) {
-        this.mainGUI = mainGUI;
     }
 
 
@@ -123,5 +139,13 @@ public class LoginController implements Controller {
         Text.setAlignment(javafx.geometry.Pos.CENTER);
 
 
+    }
+
+    @FXML
+    public void registerLabelClick(javafx.scene.input.MouseEvent mouseEvent) {
+        mainGUIController.showRegister();
+        //TODO remove logged in message
+        //FIXME registerController null
+        //registerController.removeFieldsValue();
     }
 }

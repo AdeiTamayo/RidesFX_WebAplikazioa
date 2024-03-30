@@ -29,7 +29,8 @@
                 <Label id="UserName" fx:id="lblDriver" alignment="CENTER" layoutX="27.0" layoutY="306.0" prefHeight="18.0" prefWidth="82.0" text=" " />
                 <Button fx:id="LoginMainButton" layoutX="7.0" layoutY="351.0" mnemonicParsing="false" onAction="#login" styleClass="bold-label" text="Login" />
                 <Button fx:id="RegisterMainButton" layoutX="71.0" layoutY="351.0" mnemonicParsing="false" onAction="#register" styleClass="bold-label" text="Register" />
-            <Button fx:id= "ChangeUserButton" layoutX="33.0" layoutY="351.0" mnemonicParsing="false" onAction= "#changeUser" styleClass="bold-label" text="Change User" />
+            <Button fx:id="ChangeUserButton" layoutX="26.0" layoutY="351.0" mnemonicParsing="false" onAction="#changeUser" styleClass="bold-label" text="Change User" />
+
             </children>
         </AnchorPane>
     </left>
