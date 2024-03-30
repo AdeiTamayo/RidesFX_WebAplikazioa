@@ -42,9 +42,28 @@ public class RegisterController implements Controller{
 
     private MainGUI mainGUI;
 
-    public RegisterController(BlFacade bl) {
+    private LoginController loginController;
+
+    public RegisterController(BlFacade bl /*, LoginController loginController */) {
         this.businessLogic = bl;
+        //this.loginController = loginController;
     }
+
+    public void removeFieldsValue(){
+        username.setText("");
+        email.setText("");
+        password.setText("");
+        password2.setText("");
+        name.setText("");
+        roles.setValue(null);
+    }
+
+    /*
+    public void setLoginController(LoginController loginController) {
+        this.loginController = loginController;
+    }
+
+     */
 
 
 
@@ -61,24 +80,25 @@ public class RegisterController implements Controller{
         String Name = name.getText();
         String Role= roles.getValue();
         if(Username.isEmpty() || Password.isEmpty() || Email.isEmpty() || Name.isEmpty()  || Password2.isEmpty() || roles.getValue() == null){
-            System.out.println("Please fill all the fields");
+            System.out.println("\nPlease fill all the fields\n");
             Message.setText("Please fill all the fields");
             Message.setVisible(true);
         } else if(Email.indexOf('@') == -1){
-            System.out.println("The email is not valid");
+            System.out.println("\nThe email is not valid\n");
             Message.setText("The email is not valid");
             Message.setVisible(true);
         } else if(!businessLogic.registerUser(Username, Password, Email, Name, Role)){
-            System.out.println("A user with this email already exists");
+            System.out.println("\nA user with this email already exists\n");
             Message.setText("A user with this email already exists");
             Message.setVisible(true);
         } else if(!Password.equals(Password2)){
-            System.out.println("The password is incorrect");
-            Message.setText("The password is incorrect");
+            System.out.println("\nThe passwords are not the same\n");
+            Message.setText("The passwords are not the same");
             Message.setVisible(true);
         }
         else{
-            System.out.println("The user has been registered");
+
+            System.out.println("\nThe user has been registered\n");
             Message.setText("The user has been correctly registered!");
             Message.setVisible(true);
         }
@@ -95,11 +115,13 @@ public class RegisterController implements Controller{
     }
 
 
-
+    /*
     @FXML
     void goToLogin(ActionEvent actionEvent) {
- //       mainGUIController.showScene("login");
+       mainGUIController.showScene("login");
     }
+
+     */
 
 
 

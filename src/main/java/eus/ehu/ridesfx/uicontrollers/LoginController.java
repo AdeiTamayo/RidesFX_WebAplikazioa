@@ -3,12 +3,15 @@ package eus.ehu.ridesfx.uicontrollers;
 
 import eus.ehu.ridesfx.businessLogic.BlFacade;
 import eus.ehu.ridesfx.businessLogic.BlFacadeImplementation;
+import eus.ehu.ridesfx.domain.Driver;
+import eus.ehu.ridesfx.domain.Traveler;
 import eus.ehu.ridesfx.ui.MainGUI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import org.w3c.dom.events.MouseEvent;
 
 
 import java.io.IOException;
@@ -35,19 +38,41 @@ public class LoginController implements Controller {
     @FXML
     private Label WrongPassword;
 
+    @FXML
+    private Label registerLabel;
+
 
     private MainGUI mainGUI;
 
 
     private BlFacade businessLogic;
 
+    private RegisterController registerController;
+
     //private MainGUIController mainGUIController;
 
 
-
-    public LoginController(BlFacade bl, MainGUIController mainGUIController) {
+    public LoginController(BlFacade bl, MainGUIController mainGUIController /*, RegisterController registerController */) {
         this.businessLogic = bl;
         this.mainGUIController = mainGUIController;
+        //this.registerController = registerController;
+
+        //declaration used to make calling from the mainGUIController to this class possible
+        this.mainGUIController.setLoginController(this);
+    }
+
+
+    public void setTextMail(String newText) {
+        email.setText(newText);
+    }
+
+    public void setTextPassword(String newText) {
+        password.setText(newText);
+    }
+
+    @Override
+    public void setMainApp(MainGUI mainGUI) {
+        this.mainGUI = mainGUI;
     }
 
 
@@ -64,31 +89,39 @@ public class LoginController implements Controller {
         WrongPassword.setVisible(false);
         InvalidUser.setVisible(false);
         if (Email.equals("") || Password.equals("")) {
-            System.out.println("Please fill in all the fields");
+            System.out.println("\nPlease fill in all the fields\n");
             Text.setText("Please fill in all the fields");
             Text.setVisible(true);
         } else if (businessLogic.checkUser(Email) == null) {
-            System.out.println("A user with this email doen't exist. Please register first.");
+            System.out.println("\nA user with this email doen't exist. Please register first.\n");
             InvalidUser.setVisible(true);
         } else {
             if (!businessLogic.checkPassword(Email, Password)) {
-                System.out.println("The password is incorrect");
+                System.out.println("\nThe password is incorrect\n");
                 WrongPassword.setVisible(true);
             } else {
-                Text.setText("You have been correctly logged in!");
+                Text.setText("\nYou have been correctly logged in!\n");
                 Text.setVisible(true);
                 businessLogic.setCurrentUser(businessLogic.checkUser(Email));
 
 
                 //This prints the name of the driver in the console
-                System.out.println("The name of the driver is : ");
+                System.out.println("\nThe name of the driver is : \n");
                 System.out.println(businessLogic.getCurrentUser().getName());
 
-                //This following line sets the name of the driver in the MainGUIController, but it throws a null pointer exception because lbl is null
 
                 mainGUIController.setDriverName(businessLogic.getCurrentUser().getName());
                 mainGUIController.hideButtonLogin();
                 mainGUIController.hideButtonRegister();
+                mainGUIController.showButtonChangeUserButton();
+                registerLabel.setVisible(false);
+
+                //This if statement hides the query rides button if the user is a driver and hides the create ride button if the user is a traveler
+                if (businessLogic.getCurrentUser() instanceof Driver) {
+                    mainGUIController.hideButtonQueryRides();
+                } else if (businessLogic.getCurrentUser() instanceof Traveler) {
+                    mainGUIController.hideButtonCreateRide();
+                }
 
                 //TODO modify the type of user in mainGUI
 
@@ -105,12 +138,6 @@ public class LoginController implements Controller {
     }
 
 
-    @Override
-    public void setMainApp(MainGUI mainGUI) {
-        this.mainGUI = mainGUI;
-    }
-
-
     @FXML
     void initialize() {
 
@@ -121,5 +148,13 @@ public class LoginController implements Controller {
         Text.setAlignment(javafx.geometry.Pos.CENTER);
 
 
+    }
+
+    @FXML
+    public void registerLabelClick(javafx.scene.input.MouseEvent mouseEvent) {
+        mainGUIController.showRegister();
+        //TODO remove logged in message
+        //FIXME registerController null
+        //registerController.removeFieldsValue();
     }
 }

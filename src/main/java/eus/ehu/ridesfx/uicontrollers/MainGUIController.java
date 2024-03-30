@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import eus.ehu.ridesfx.ui.MainGUI;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.input.MouseEvent;
 import org.kordamp.bootstrapfx.BootstrapFX;
 
 import java.io.IOException;
@@ -20,7 +21,7 @@ import java.util.ResourceBundle;
 public class MainGUIController {
 
     @FXML
-    private Label lblDriver;
+    public Label lblDriver;
 
     @FXML
     private Label TypeOfUser;
@@ -42,6 +43,22 @@ public class MainGUIController {
     @FXML
     private Button RegisterMainButton;
 
+    @FXML
+    private Button ChangeUserButton;
+
+    @FXML
+    private Button queryRidesBtn;
+
+    @FXML
+    Button createRideBtn;
+
+
+    private LoginController loginController;
+
+
+    //private RegisterController registerController;
+
+
     public MainGUIController() {
     }
 
@@ -49,6 +66,10 @@ public class MainGUIController {
 
     public MainGUIController(BlFacade blFacade) {
         this.businessLogic = blFacade;
+    }
+
+    public void setLoginController(LoginController loginController) {
+        this.loginController = loginController;
     }
 
 
@@ -72,6 +93,78 @@ public class MainGUIController {
         showScene("Create Ride");
     }
 
+    @FXML
+    void changeUser(ActionEvent event) {
+        showScene("Login");
+
+        //Method used to delete the text from the login controller
+        deleteLoginControllerText();
+
+    }
+
+
+
+    /**
+     * Deletes the text in the login controller's email and password fields.
+     * This method checks if the login controller is not null before attempting to clear the text.
+     */
+    public void deleteLoginControllerText() {
+        if (loginController != null) {
+            loginController.setTextMail("");
+            loginController.setTextPassword("");
+        }
+    }
+
+    /**
+     * Sets the name of the driver in the label on the GUI.
+     *
+     * @param name The name of the driver to be displayed.
+     */
+    public void setDriverName(String name) {
+        lblDriver.setText(name);
+    }
+
+    /**
+     * Hides the login button on the GUI.
+     */
+    public void hideButtonLogin() {
+        LoginMainButton.setVisible(false);
+    }
+
+    /**
+     * Hides the register button on the GUI.
+     */
+    public void hideButtonRegister() {
+        RegisterMainButton.setVisible(false);
+    }
+
+    /**
+     * Hides the query rides button on the GUI.
+     */
+    public void hideButtonQueryRides() {
+        queryRidesBtn.setVisible(false);
+    }
+
+    /**
+     * Hides the create ride button on the GUI.
+     */
+    public void hideButtonCreateRide() {
+        createRideBtn.setVisible(false);
+    }
+
+    /**
+     * Shows the change user button on the GUI.
+     */
+    public void showButtonChangeUserButton() {
+        ChangeUserButton.setVisible(true);
+    }
+
+    /**
+     * Shows the register scene in the GUI.
+     */
+    public void showRegister() {
+        showScene("Register");
+    }
 
     @FXML
     void initialize() throws IOException {
@@ -79,6 +172,7 @@ public class MainGUIController {
         setDriverName(businessLogic.getCurrentUser().getName());
         setDriverType(businessLogic.getCurrentUser().getClass().getSimpleName());
 
+        ChangeUserButton.setVisible(false);
 
         queryRidesWin = load("QueryRides.fxml");
         createRideWin = load("CreateRide.fxml");
@@ -86,23 +180,14 @@ public class MainGUIController {
         registerWin = load("Register.fxml");
 
         showScene("Query Rides");
+        System.out.println("\n\n\n\nShare Trip Project\n\n\n\n");
     }
 
 
-    private Window createRideWin, queryRidesWin, loginWin, registerWin;
 
 
-    public void setDriverName(String name) {
-        lblDriver.setText(name);
-    }
 
-    public void hideButtonLogin() {
-        LoginMainButton.setVisible(false);
-    }
 
-    public void hideButtonRegister() {
-        RegisterMainButton.setVisible(false);
-    }
 
     public void setDriverType(String type) {
         TypeOfUser.setText(type + ": ");
@@ -121,7 +206,7 @@ public class MainGUIController {
             loader.setControllerFactory(controllerClass -> {
                 try {
                     if (controllerClass == LoginController.class) {
-                        return new LoginController(businessLogic, this);
+                        return new LoginController(businessLogic, this/*, registerController */);
                     } else {
                         return controllerClass
                                 .getConstructor(BlFacade.class)
@@ -143,6 +228,7 @@ public class MainGUIController {
         }
     }
 
+    private Window createRideWin, queryRidesWin, loginWin, registerWin;
     private void showScene(String scene) {
         switch (scene) {
             case "Query Rides" -> mainWrapper.setCenter(queryRidesWin.ui);

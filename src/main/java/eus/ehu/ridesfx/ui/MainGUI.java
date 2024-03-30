@@ -64,7 +64,7 @@ public class MainGUI {
 
     }
 
-    //FIXME
+
 
 
 //  public void start(Stage stage) throws IOException {
