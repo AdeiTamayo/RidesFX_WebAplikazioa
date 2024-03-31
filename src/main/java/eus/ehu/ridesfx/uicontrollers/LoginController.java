@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 
 /**
  * Controller class for the login functionality.
@@ -59,6 +60,8 @@ public class LoginController implements Controller {
         Text.setVisible(false);
         password.setText("");
         email.setText("");
+        WrongPassword.setVisible(false);
+        InvalidUser.setVisible(false);
     }
 
 
@@ -115,7 +118,7 @@ public class LoginController implements Controller {
                     mainGUIController.hideButtonCreateRide();
                 }
 
-                //TODO modify the type of user in mainGUI
+
 
                 if(businessLogic.getCurrentUser().getClass().getSimpleName().equals("Driver")) {
                     mainGUIController.setDriverType("Driver");
@@ -139,7 +142,7 @@ public class LoginController implements Controller {
     }
 
     @FXML
-    public void registerLabelClick(javafx.scene.input.MouseEvent mouseEvent) {
+    public void registerLabelClick(MouseEvent mouseEvent) {
         mainGUIController.showRegister();
         //TODO remove logged in message
         //registerController.removeFieldsValue();

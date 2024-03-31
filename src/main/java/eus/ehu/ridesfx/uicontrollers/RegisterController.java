@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import eus.ehu.ridesfx.ui.MainGUI;
+import javafx.scene.input.MouseEvent;
 
 /**
  * Controller class for the registration functionality.
@@ -17,6 +18,7 @@ import eus.ehu.ridesfx.ui.MainGUI;
 public class RegisterController implements Controller {
 
     private MainGUIController mainGUIController;
+
 
     @FXML
     private TextField username;
@@ -39,17 +41,26 @@ public class RegisterController implements Controller {
     @FXML
     private Label Message;
 
+    @FXML
+    private Label goToLoginLabel;
+
     private BlFacade businessLogic;
     private MainGUI mainGUI;
     private LoginController loginController;
+
+    public void setMainGUIController(MainGUIController mainGUIController) {
+        this.mainGUIController = mainGUIController;
+    }
 
     /**
      * Constructs a new RegisterController.
      *
      * @param bl The business logic facade.
      */
-    public RegisterController(BlFacade bl) {
+    public RegisterController(BlFacade bl, MainGUIController mainGUIController) {
         this.businessLogic = bl;
+        this.mainGUIController = mainGUIController;
+        this.mainGUIController.setRegisterController(this);
     }
 
     /**
@@ -100,6 +111,12 @@ public class RegisterController implements Controller {
             Message.setText("The user has been correctly registered!");
             Message.setVisible(true);
         }
+    }
+
+    @FXML
+    void goToLoginAction(MouseEvent mouseEvent) {
+        mainGUIController.showLogin();
+        mainGUIController.getLoginController().restartLogin();
     }
 
     @FXML
