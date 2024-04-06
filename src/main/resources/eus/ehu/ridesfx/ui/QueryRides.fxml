@@ -9,11 +9,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="902.0" styleClass="register" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ridesfx.uicontrollers.QueryRidesController">
+<AnchorPane prefHeight="400.0" prefWidth="902.0" styleClass="border-pane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ridesfx.uicontrollers.QueryRidesController">
             <children>
                 <DatePicker fx:id="datepicker" layoutX="39.0" layoutY="190.0" />
                 <Label layoutX="39.0" layoutY="161.0" styleClass="bold-label" text="EventDate" />
-                <TableView fx:id="tblRides" layoutX="344.0" layoutY="70.0" prefHeight="200.0" prefWidth="445.0" styleClass="text-field">
+                <TableView fx:id="tblRides" layoutX="344.0" layoutY="70.0" prefHeight="200.0" prefWidth="445.0" styleClass="table-row-cell" stylesheets="@Styles.css">
                     <columns>
                         <TableColumn fx:id="qc1" prefWidth="223.5" text="Driver" />
                         <TableColumn fx:id="qc2" prefWidth="97.5" text="NPlaces" />
@@ -23,8 +23,8 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                     </columnResizePolicy>
                 </TableView>
-                <Label layoutX="693.0" layoutY="24.0" text="  " />
-                <Label layoutX="638.0" layoutY="24.0" styleClass="bold-label" text="RideDate:" />
+                <Label fx:id="RideDate" layoutX="645.0" layoutY="24.0" text="  " />
+                <Label layoutX="584.0" layoutY="24.0" styleClass="bold-label" text="RideDate:" />
                 <Label layoutX="39.0" layoutY="58.0" styleClass="bold-label" text="DepartCity" />
                 <Label layoutX="39.0" layoutY="106.0" styleClass="bold-label" text="ArrivalCity" />
                 <ComboBox fx:id="comboDepartCity" layoutX="126.0" layoutY="54.0" prefWidth="150.0" styleClass="combo-box" />

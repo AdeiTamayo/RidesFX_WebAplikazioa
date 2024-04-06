@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="445.0" prefWidth="428.0" styleClass="register" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ridesfx.uicontrollers.RegisterController">
+<AnchorPane prefHeight="445.0" prefWidth="428.0" styleClass="border-pane" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ridesfx.uicontrollers.RegisterController">
     <children>
         <Label alignment="CENTER_RIGHT" layoutX="100.0" layoutY="91.0" prefHeight="18.0" prefWidth="45.0" styleClass="bold-label" text="Name:">
             <font>
@@ -35,9 +35,9 @@
          <font>
             <Font size="13.0" />
          </font></Label>
-        <TextField id="NameTextField" fx:id="name" layoutX="158.0" layoutY="87.0" prefHeight="27.0" prefWidth="150.0" />
-        <TextField id="UsernameTextField" fx:id="username" layoutX="158.0" layoutY="129.0" AnchorPane.leftAnchor="158.0" />
-        <TextField id="EmailTextField" fx:id="email" layoutX="158.0" layoutY="169.0" />
+        <TextField id="NameTextField" fx:id="name" layoutX="158.0" layoutY="87.0" prefHeight="27.0" prefWidth="150.0" styleClass="bold-label" />
+        <TextField id="UsernameTextField" fx:id="username" layoutX="158.0" layoutY="129.0" prefHeight="25.0" prefWidth="150.0" styleClass="bold-label" AnchorPane.leftAnchor="158.0" />
+        <TextField id="EmailTextField" fx:id="email" layoutX="158.0" layoutY="169.0" prefHeight="25.0" prefWidth="149.0" styleClass="bold-label" />
         <PasswordField id="PasswordField1" fx:id="password" layoutX="158.0" layoutY="207.0" />
         <PasswordField id="PasswordField2" fx:id="password2" layoutX="159.0" layoutY="250.0" />
         <Label fx:id="output" alignment="CENTER_RIGHT" layoutX="185.0" layoutY="340.0" prefHeight="17.0" prefWidth="97.0" wrapText="true" />
@@ -55,7 +55,7 @@
         </Label>
       <Label layoutX="115.0" layoutY="292.0" prefHeight="18.0" prefWidth="32.0" styleClass="bold-label" text="Role:" />
       <ComboBox fx:id="roles" layoutX="158.0" layoutY="289.0" prefWidth="150.0" />
-      <Label fx:id= "goToLoginLabel" layoutX="146.0" layoutY="407.0" onMouseClicked = "#goToLoginAction" styleClass="bold-label" text="Alredy registered? Go to Login" textAlignment="CENTER" />
+      <Label fx:id="goToLoginLabel" layoutX="146.0" layoutY="407.0" onMouseClicked="#goToLoginAction" styleClass="bold-label" text="Alredy registered? Go to Login" textAlignment="CENTER" />
 
     </children>
 </AnchorPane>

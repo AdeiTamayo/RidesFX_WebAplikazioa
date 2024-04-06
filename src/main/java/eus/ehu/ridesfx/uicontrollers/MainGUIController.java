@@ -11,7 +11,7 @@ import javafx.scene.control.Label;
 import eus.ehu.ridesfx.ui.MainGUI;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.input.MouseEvent;
-//import org.kordamp.bootstrapfx.BootstrapFX;
+//import org.kordamp.bootstrapfx.BootstrapFX;ff
 
 import java.io.IOException;
 import java.net.URL;
@@ -199,9 +199,11 @@ public class MainGUIController {
         createRideWin = load("CreateRide.fxml");
         loginWin = load("Login.fxml");
         registerWin = load("Register.fxml");
+        InitialGUIWin = load("InitialGUI.fxml");
 
 
-        showScene("Query Rides");
+
+        showScene("InitialGUI");
         System.out.println("\n\n\n\nShare Trip Project\n\n\n\n");
     }
 
@@ -244,7 +246,7 @@ public class MainGUIController {
     }
 
 
-    private Window createRideWin, queryRidesWin, loginWin, registerWin;
+    private Window createRideWin, queryRidesWin, loginWin, registerWin, InitialGUIWin;
 
     private void showScene(String scene) {
         switch (scene) {
@@ -252,6 +254,7 @@ public class MainGUIController {
             case "Create Ride" -> mainWrapper.setCenter(createRideWin.ui);
             case "Login" -> mainWrapper.setCenter(loginWin.ui);
             case "Register" -> mainWrapper.setCenter(registerWin.ui);
+            case "InitialGUI" -> mainWrapper.setCenter(InitialGUIWin.ui);
         }
     }
 

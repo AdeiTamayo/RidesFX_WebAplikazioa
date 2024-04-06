@@ -8,37 +8,32 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="498.0" styleClass="register" stylesheets="@Styles.css"
-            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="eus.ehu.ridesfx.uicontrollers.LoginController">
+<AnchorPane prefHeight="400.0" prefWidth="498.0" styleClass="border-pane" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ridesfx.uicontrollers.LoginController">
     <children>
-        <Label fx:id="output" layoutX="193.0" layoutY="209.0" prefHeight="17.0" prefWidth="97.0" wrapText="true"/>
-        <Label layoutX="108.0" layoutY="160.0" styleClass="bold-label" text="Password:"/>
-        <Label layoutX="128.0" layoutY="95.0" prefHeight="17.0" prefWidth="35.0" styleClass="bold-label" text="Email:"/>
-        <Label fx:id="Text" layoutX="79.0" layoutY="266.0" prefHeight="34.0" prefWidth="340.0" styleClass="bold-label"
-               text="You don't have an account yet? Register now clicking here"/>
-        <Label fx:id="InvalidUser" layoutX="141.0" layoutY="125.0" prefHeight="18.0" prefWidth="218.0"
-               text="A user with this email doesn't exist">
+        <Label fx:id="output" layoutX="193.0" layoutY="209.0" prefHeight="17.0" prefWidth="97.0" wrapText="true" />
+        <Label layoutX="108.0" layoutY="160.0" styleClass="bold-label" text="Password:" />
+        <Label layoutX="128.0" layoutY="95.0" prefHeight="17.0" prefWidth="35.0" styleClass="bold-label" text="Email:" />
+        <Label fx:id="Text" layoutX="79.0" layoutY="266.0" prefHeight="34.0" prefWidth="340.0" styleClass="bold-label" text="You don't have an account yet? Register now clicking here" />
+        <Label fx:id="InvalidUser" layoutX="141.0" layoutY="125.0" prefHeight="18.0" prefWidth="218.0" text="A user with this email doesn't exist">
             <styleClass>
-                <String fx:value="error-label"/>
-                <String fx:value="bold-label"/>
+                <String fx:value="error-label" />
+                <String fx:value="bold-label" />
             </styleClass>
         </Label>
-        <Label fx:id="WrongPassword" layoutX="176.0" layoutY="191.0" prefHeight="17.0" prefWidth="149.0"
-               text="The password is incorrect">
+        <Label fx:id="WrongPassword" layoutX="176.0" layoutY="191.0" prefHeight="17.0" prefWidth="149.0" text="The password is incorrect">
             <styleClass>
-                <String fx:value="error-label"/>
-                <String fx:value="bold-label"/>
+                <String fx:value="error-label" />
+                <String fx:value="bold-label" />
             </styleClass>
         </Label>
         <Label layoutX="222.0" layoutY="33.0" styleClass="bold-label" text="LOGIN">
             <font>
-                <Font size="18.0"/>
+                <Font size="18.0" />
             </font>
         </Label>
-        <TextField fx:id="email" layoutX="175.0" layoutY="91.0"/>
-        <PasswordField fx:id="password" layoutX="174.0" layoutY="155.0"/>
-        <Button layoutX="223.0" layoutY="238.0" onAction="#loginBtnClick" styleClass="btn-info" text="Log In"/>
+        <TextField fx:id="email" layoutX="175.0" layoutY="91.0" prefHeight="25.0" prefWidth="149.0" styleClass="bold-label" />
+        <PasswordField fx:id="password" layoutX="174.0" layoutY="155.0" />
+        <Button layoutX="223.0" layoutY="238.0" onAction="#loginBtnClick" styleClass="btn-info" text="Log In" />
         <Label fx:id="registerLabel" layoutX="79.0" layoutY="300.0" onMouseClicked="#registerLabelClick" prefHeight="34.0" prefWidth="340.0" styleClass="bold-label" text="You don't have an account yet? Register now clicking here" />
 
     </children>

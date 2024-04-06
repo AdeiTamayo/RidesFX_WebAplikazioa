@@ -43,6 +43,9 @@ public class QueryRidesController implements Controller {
     private DatePicker datepicker;
 
     @FXML
+    private Label RideDate;
+
+    @FXML
     private TableColumn<Ride, String> qc1;
 
     @FXML
@@ -79,9 +82,14 @@ public class QueryRidesController implements Controller {
     void closeClick(ActionEvent event) {
 
         // mainGUI.showMain();
-        //beste modura, mainGUIControllerren istantzia bat sortuta:
+
+
 
         /*
+
+        beste modu batera, mainGUIControllerren istantzia bat sortuta:
+
+
         mainGUIController.showScene("Main");
          */
     }
@@ -138,6 +146,8 @@ public class QueryRidesController implements Controller {
     @FXML
     void initialize() {
 
+
+
         // Update DatePicker cells when ComboBox value changes
         comboArrivalCity.valueProperty().addListener(
                 (obs, oldVal, newVal) -> updateDatePickerCellFactory(datepicker));
@@ -166,6 +176,9 @@ public class QueryRidesController implements Controller {
             for (Ride ride : rides) {
                 tblRides.getItems().add(ride);
             }
+
+            //FIXME textua moldatu behar da
+            RideDate.setText(Dates.convertToDate(datepicker.getValue()).toString());
         });
 
         datepicker.setOnMouseClicked(e -> {
@@ -185,6 +198,8 @@ public class QueryRidesController implements Controller {
 
                     // print month value
                     System.out.println("Month:" + ym.getMonthValue());
+
+
 
                 });
             });
@@ -219,6 +234,12 @@ public class QueryRidesController implements Controller {
     });
   }
 */
+    @FXML
+    public void addDate(){
+        //Funtzio gehigarria
+        RideDate.setText(datepicker.getValue().toString());
+
+    }
 
     @Override
     public void setMainApp(MainGUI mainGUI) {
