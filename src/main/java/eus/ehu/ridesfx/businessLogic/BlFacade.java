@@ -1,5 +1,6 @@
 package eus.ehu.ridesfx.businessLogic;
 
+import eus.ehu.ridesfx.domain.Alert;
 import eus.ehu.ridesfx.domain.Driver;
 import eus.ehu.ridesfx.domain.Ride;
 import eus.ehu.ridesfx.domain.User;
@@ -76,6 +77,18 @@ public interface BlFacade {
 
     User checkUser(String username);
     boolean checkPassword(String username, String password);
+
+    /**
+     * This method creates a new alert for the traveler
+     * @param text
+     * @param text1
+     * @param inputSeats
+     * @param date
+     * @param email
+     * @return the created alert
+     */
+    Alert createAlert(String text, String text1, int inputSeats, Date date, String email);
+
 
 
 

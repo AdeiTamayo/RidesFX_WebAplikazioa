@@ -2,9 +2,7 @@ package eus.ehu.ridesfx.dataAccess;
 
 import eus.ehu.ridesfx.configuration.Config;
 import eus.ehu.ridesfx.configuration.UtilDate;
-import eus.ehu.ridesfx.domain.Ride;
-import eus.ehu.ridesfx.domain.Driver;
-import eus.ehu.ridesfx.domain.User;
+import eus.ehu.ridesfx.domain.*;
 import eus.ehu.ridesfx.exceptions.RideAlreadyExistException;
 import eus.ehu.ridesfx.exceptions.RideMustBeLaterThanTodayException;
 import jakarta.persistence.EntityManager;
@@ -344,6 +342,43 @@ public class DataAccess {
     public void close() {
         db.close();
         System.out.println("DataBase is closed");
+    }
+
+    /**
+     * This method creates an alert for a traveler
+     * @param from
+     * @param to
+     * @param date
+     * @param nPlaces
+     * @param travelerEmail
+     * @return the created alert
+     */
+    public Alert createAlert(String from, String to, int nPlaces, Date date, String travelerEmail) {
+        System.out.println(">> DataAccess: createAlert=> from= " + from + " to= " + to + " traveler=" + travelerEmail + " date " + date);
+        try {
+            db.getTransaction().begin();
+            Traveler traveler = db.find(Traveler.class, travelerEmail);
+            if (traveler.doesAlertExists(from, to, date)) {
+                db.getTransaction().commit();
+                // If the alert already exists, return null
+                return null;
+            }
+            else{
+                Alert alert = traveler.addAlert(from, to, date, nPlaces);
+                db.persist(alert);
+                db.getTransaction().commit();
+
+                return alert;
+            }
+
+        } catch (NullPointerException e) {
+            // If a NullPointerException occurs, rollback the transaction and log the exception
+            if (db.getTransaction().isActive()) {
+                db.getTransaction().rollback();
+            }
+            e.printStackTrace(); // Log the exception for debugging purposes
+            return null;
+        }
     }
 
 }

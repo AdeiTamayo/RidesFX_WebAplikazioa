@@ -3,12 +3,14 @@ package eus.ehu.ridesfx.uicontrollers;
 import eus.ehu.ridesfx.businessLogic.BlFacade;
 import eus.ehu.ridesfx.domain.Driver;
 import eus.ehu.ridesfx.domain.Ride;
+import eus.ehu.ridesfx.domain.Traveler;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -40,6 +42,9 @@ public class QueryRidesController implements Controller {
     private Button btnClose;
 
     @FXML
+    private Button AlertButton;
+
+    @FXML
     private DatePicker datepicker;
 
     @FXML
@@ -68,6 +73,9 @@ public class QueryRidesController implements Controller {
 
     @FXML
     private Button BookinButton;
+
+    @FXML
+    private Label AlertMessage;
 
 
     private MainGUI mainGUI;
@@ -150,6 +158,11 @@ public class QueryRidesController implements Controller {
     @FXML
     void initialize() {
 
+        //Disable alert button until a date is selected where there are no available rides
+        AlertButton.setVisible(false);
+        AlertMessage.setVisible(false);
+        AlertMessage.setAlignment(Pos.CENTER);
+
 
         // Update DatePicker cells when ComboBox value changes
         comboArrivalCity.valueProperty().addListener(
@@ -179,6 +192,19 @@ public class QueryRidesController implements Controller {
             for (Ride ride : rides) {
                 tblRides.getItems().add(ride);
             }
+
+            //if there are no rides, show a message and able the button of creating an alert
+            if (rides.isEmpty()) {
+                Label placeholderLabel = new Label("No rides found. Click on the button below to create an alert.");
+                placeholderLabel.setAlignment(Pos.CENTER);
+                tblRides.setPlaceholder(placeholderLabel);
+
+                System.out.println("No rides found for this date");
+                BookinButton.setVisible(false);
+                AlertButton.setVisible(true);
+                AlertMessage.setVisible(false);
+            }
+
 
             //FIXME textua moldatu behar da
             RideDate.setText(Dates.convertToDate(datepicker.getValue()).toString());
@@ -251,5 +277,22 @@ public class QueryRidesController implements Controller {
     @Override
     public void setMainApp(MainGUI mainGUI) {
         this.mainGUI = mainGUI;
+    }
+
+    @FXML
+    public void createAlert(ActionEvent event) {
+        AlertMessage.setVisible(true);
+        //check if the current user is a driver
+        if(businessLogic.getCurrentUser() instanceof Driver){
+            AlertMessage.setText("Only travelers can create alerts");
+            return;
+        }
+        if(businessLogic.createAlert(comboDepartCity.getValue(), comboArrivalCity.getValue(), 1, Dates.convertToDate(datepicker.getValue()), businessLogic.getCurrentUser().getEmail())==null){
+            //Display error text: "Alert already exists"
+            AlertMessage.setText("Alert already exists");
+        }
+        else{
+            AlertMessage.setText("Alert created successfully");
+        }
     }
 }

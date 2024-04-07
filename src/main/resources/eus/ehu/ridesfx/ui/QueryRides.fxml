@@ -36,6 +36,9 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id = "BookinButton" layoutX="484.0" layoutY="305.0" mnemonicParsing="false" onAction="#bookRide" text="Book Ride" />
+      <Button fx:id="BookinButton" layoutX="484.0" layoutY="305.0" mnemonicParsing="false" onAction="#bookRide" text="Book Ride" />
+      <Button fx:id="AlertButton" layoutX="479.0" layoutY="305.0" mnemonicParsing="false" onAction="#createAlert" text="Create Alert" />
+      <Label fx:id="AlertMessage" layoutX="468.0" layoutY="346.0" prefHeight="17.0" prefWidth="197.0" text="" />
             </children>
+    
         </AnchorPane>
