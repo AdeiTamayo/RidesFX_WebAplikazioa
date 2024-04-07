@@ -66,15 +66,22 @@ public class QueryRidesController implements Controller {
     @FXML
     private TableView<Ride> tblRides;
 
+    @FXML
+    private Button BookinButton;
+
 
     private MainGUI mainGUI;
+
+    private MainGUIController mainGUIController;
 
     private List<LocalDate> datesWithBooking = new ArrayList<>();
 
     private BlFacade businessLogic;
 
-    public QueryRidesController(BlFacade bl) {
+    public QueryRidesController(BlFacade bl, MainGUIController mainGUIController) {
         businessLogic = bl;
+        this.mainGUIController = mainGUIController;
+        this.mainGUIController.setQueryRidesController(this);
     }
 
 
@@ -84,14 +91,11 @@ public class QueryRidesController implements Controller {
         // mainGUI.showMain();
 
 
-
-        /*
-
-        beste modu batera, mainGUIControllerren istantzia bat sortuta:
+        //beste modu batera, mainGUIControllerren istantzia bat sortuta:
 
 
-        mainGUIController.showScene("Main");
-         */
+        mainGUIController.showInitialGUI();
+
     }
 
     private void setEvents(int year, int month) {
@@ -147,7 +151,6 @@ public class QueryRidesController implements Controller {
     void initialize() {
 
 
-
         // Update DatePicker cells when ComboBox value changes
         comboArrivalCity.valueProperty().addListener(
                 (obs, oldVal, newVal) -> updateDatePickerCellFactory(datepicker));
@@ -200,7 +203,6 @@ public class QueryRidesController implements Controller {
                     System.out.println("Month:" + ym.getMonthValue());
 
 
-
                 });
             });
         });
@@ -220,26 +222,31 @@ public class QueryRidesController implements Controller {
     }
 
 
-/*
+    /*
 
-  private void setupEventSelection() {
-    tblEvents.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-      if (newSelection != null) {
+      private void setupEventSelection() {
+        tblEvents.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+          if (newSelection != null) {
 
-        tblQuestions.getItems().clear();
-        for (Question q : tblEvents.getSelectionModel().getSelectedItem().getQuestions()) {
-          tblQuestions.getItems().add(q);
-        }
+            tblQuestions.getItems().clear();
+            for (Question q : tblEvents.getSelectionModel().getSelectedItem().getQuestions()) {
+              tblQuestions.getItems().add(q);
+            }
+          }
+        });
       }
-    });
-  }
-*/
+    */
+
+
+
+    //TODO create the method to book a ride
     @FXML
-    public void addDate(){
-        //Funtzio gehigarria
-        RideDate.setText(datepicker.getValue().toString());
+    public void bookRide() {
 
     }
+
+
+
 
     @Override
     public void setMainApp(MainGUI mainGUI) {

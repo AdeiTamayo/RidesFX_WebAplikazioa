@@ -61,14 +61,25 @@ public class MainGUIController {
 
     private RegisterController registerController;
 
+    private QueryRidesController queryRidesController;
+
+    private CreateRideController createRideController;
+
 
     public MainGUIController() {
     }
 
-
+    /**
+     * Constructor of the MainGUIController class.
+     *
+     * @param blFacade The business logic facade.
+     */
     public MainGUIController(BlFacade blFacade) {
         this.businessLogic = blFacade;
     }
+
+    //The following methods are used to allow us to call this methods from another classes.
+
 
     public void setLoginController(LoginController loginController) {
         this.loginController = loginController;
@@ -78,26 +89,64 @@ public class MainGUIController {
         this.registerController = registerController;
     }
 
+    public void setQueryRidesController(QueryRidesController queryRidesController) {
+        this.queryRidesController = queryRidesController;
+    }
 
+    public void setCreateRideController(CreateRideController createRideController) {
+        this.createRideController = createRideController;
+    }
+
+    //The following methods are used to manage the buttons in the GUI
+
+    /**
+     * Shows the query rides scene in the GUI.
+     *
+     * @param event
+     */
     @FXML
     void queryRides(ActionEvent event) {
         showScene("Query Rides");
     }
+
+    /**
+     * Shows the login scene in the GUI.
+     *
+     * @param event
+     */
 
     @FXML
     void login(ActionEvent event) {
         showScene("Login");
     }
 
+
+    /**
+     * Shows the register scene in the GUI.
+     *
+     * @param event
+     */
     @FXML
     void register(ActionEvent event) {
         showScene("Register");
     }
 
+    /**
+     * Shows the create ride scene in the GUI.
+     *
+     * @param event
+     */
+
     @FXML
     void createRide(ActionEvent event) {
         showScene("Create Ride");
     }
+
+    /**
+     * Shows the initial GUI scene in the GUI.
+     *
+     * @param event
+     */
 
     @FXML
     void changeUser(ActionEvent event) {
@@ -173,10 +222,18 @@ public class MainGUIController {
         TypeOfUser.setText(type + ": ");
     }
 
+    /**
+     * Shows the initial GUI scene.
+     */
+    public void showInitialGUI() {
+        showScene("InitialGUI");
+    }
+
     //New method
 
     /**
      * Returns the login controller.
+     *
      * @return The login controller.
      */
     public LoginController getLoginController() {
@@ -184,13 +241,11 @@ public class MainGUIController {
     }
 
 
-
     @FXML
     void initialize() throws IOException {
 
         setDriverName(businessLogic.getCurrentUser().getName());
         setDriverType(businessLogic.getCurrentUser().getClass().getSimpleName());
-
 
 
         ChangeUserButton.setVisible(false);
@@ -202,11 +257,9 @@ public class MainGUIController {
         InitialGUIWin = load("InitialGUI.fxml");
 
 
-
         showScene("InitialGUI");
         System.out.println("\n\n\n\nShare Trip Project\n\n\n\n");
     }
-
 
 
     public class Window {
@@ -221,10 +274,14 @@ public class MainGUIController {
             loader.setControllerFactory(controllerClass -> {
                 try {
                     if (controllerClass == LoginController.class) {
-                        return new LoginController(businessLogic, this );
-                    } else if(controllerClass == RegisterController.class) {
+                        return new LoginController(businessLogic, this);
+                    } else if (controllerClass == RegisterController.class) {
                         return new RegisterController(businessLogic, this);
-                    }else{
+                    } else if (controllerClass == QueryRidesController.class) {
+                        return new QueryRidesController(businessLogic, this);
+                    } else if (controllerClass == CreateRideController.class) {
+                        return new CreateRideController(businessLogic, this);
+                    } else {
                         return controllerClass
                                 .getConstructor(BlFacade.class)
                                 .newInstance(businessLogic);

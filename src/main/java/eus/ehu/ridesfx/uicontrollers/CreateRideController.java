@@ -23,11 +23,11 @@ import java.util.ResourceBundle;
 
 public class CreateRideController implements Controller {
 
-    public CreateRideController(BlFacade bl) {
-        this.businessLogic = bl;
-    }
+
 
     private BlFacade businessLogic;
+
+    private MainGUIController MainGUIController;
 
     @FXML
     private ResourceBundle resources;
@@ -63,11 +63,17 @@ public class CreateRideController implements Controller {
     @FXML
     private TextField txtPrice;
 
+    public CreateRideController(BlFacade bl, MainGUIController mainGUIController) {
+        this.businessLogic = bl;
+        this.MainGUIController = mainGUIController;
+        this.MainGUIController.setCreateRideController(this);
+    }
+
 
     @FXML
     void closeClick(ActionEvent event) {
         clearErrorLabels();
-        //mainGUIController.showMain();
+        MainGUIController.showInitialGUI();
     }
 
     private void clearErrorLabels() {
