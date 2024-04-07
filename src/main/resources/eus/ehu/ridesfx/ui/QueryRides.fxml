@@ -29,11 +29,13 @@
                 <Label layoutX="39.0" layoutY="106.0" styleClass="bold-label" text="ArrivalCity" />
                 <ComboBox fx:id="comboDepartCity" layoutX="126.0" layoutY="54.0" prefWidth="150.0" styleClass="combo-box" />
                 <ComboBox fx:id="comboArrivalCity" layoutX="126.0" layoutY="101.0" prefWidth="150.0" styleClass="combo-box" />
-                <Button fx:id="btnClose" layoutX="535.0" layoutY="332.0" mnemonicParsing="false" onAction="#closeClick" text="Back" />
+                <Button fx:id="btnClose" layoutX="604.0" layoutY="305.0" mnemonicParsing="false" onAction="#closeClick" text="Back" />
+                
       <Label layoutX="110.0" layoutY="19.0" styleClass="bold-label" text="QUERY RIDES">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
+      <Button fx:id = "BookinButton" layoutX="484.0" layoutY="305.0" mnemonicParsing="false" onAction="#bookRide" text="Book Ride" />
             </children>
         </AnchorPane>
