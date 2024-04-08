@@ -340,6 +340,29 @@ public class DataAccess {
          }**/
     }
 
+    //Generate the code for the following method:
+    // public boolean bookRide(Date date, Ride ride, Traveler traveler) {
+    //        return dbManager.bookRide(date, ride, traveler);
+    //    }
+
+public boolean bookRide(Date date, Ride ride, User user) {
+        /*
+        db.getTransaction().begin();
+        try {
+            ride.addTraveler(user);
+            db.persist(ride);
+            db.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            db.getTransaction().rollback();
+            return false;
+        }
+
+         */
+    return false;
+    }
+
+
 
     public void close() {
         db.close();

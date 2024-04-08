@@ -2,6 +2,7 @@ package eus.ehu.ridesfx.businessLogic;
 
 import eus.ehu.ridesfx.domain.Driver;
 import eus.ehu.ridesfx.domain.Ride;
+import eus.ehu.ridesfx.domain.Traveler;
 import eus.ehu.ridesfx.domain.User;
 import eus.ehu.ridesfx.exceptions.RideAlreadyExistException;
 import eus.ehu.ridesfx.exceptions.RideMustBeLaterThanTodayException;
@@ -76,6 +77,9 @@ public interface BlFacade {
 
     User checkUser(String username);
     boolean checkPassword(String username, String password);
+
+
+    boolean bookRide(Date date, Ride ride, Traveler traveler);
 
 
 

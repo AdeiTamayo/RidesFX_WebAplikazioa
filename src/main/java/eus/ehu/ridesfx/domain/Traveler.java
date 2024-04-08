@@ -9,11 +9,12 @@
  */
 package eus.ehu.ridesfx.domain;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
+import java.util.Vector;
 
 @Entity
 @DiscriminatorValue("TRAVELER")
@@ -22,12 +23,18 @@ public class Traveler extends User implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+
+    //FIXME why does it give an error?
+    private List<Reservation> reservations;
+
     /**
      * Default constructor for the Traveler class.
      * Calls the superclass constructor with no arguments.
      */
     public Traveler() {
         super();
+        reservations = new Vector<Reservation>();
     }
 
     /**
@@ -41,16 +48,47 @@ public class Traveler extends User implements Serializable {
      */
     public Traveler(String email, String name, String username, String password) {
         super(username, password, name, email);
+        reservations = new Vector<Reservation>();
     }
 
     /**
      * Returns a string representation of the traveler.
-     * The string contains the email and name of the traveler, separated by a semicolon.
+     * The string contains the email the name of the traveler and its Reservations, separated by a semicolon.
      *
      * @return A string representation of the traveler.
      */
     public String toString() {
-        return super.getEmail() + ";" + super.getName();
+        return super.getEmail() + ";" + super.getName() + getReservations();
     }
+
+
+    /**
+     * Returns the reservations of the traveler.
+     *
+     * @return The reservations of the traveler.
+     */
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    /**
+     * Sets the reservations of the traveler.
+     *
+     * @param reservations The new reservations of the traveler.
+     */
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
+    /**
+     * Adds a reservation to the traveler.
+     *
+     * @param reservation The reservation to add.
+     */
+    public void addReservation(Reservation reservation) {
+        reservations.add(reservation);
+    }
+
+
 
 }

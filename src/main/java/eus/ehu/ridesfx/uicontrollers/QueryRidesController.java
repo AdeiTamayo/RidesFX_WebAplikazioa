@@ -180,7 +180,7 @@ public class QueryRidesController implements Controller {
                 tblRides.getItems().add(ride);
             }
 
-            //FIXME textua moldatu behar da
+
             rideDate.setText(Dates.convertToDate(datepicker.getValue()).toString());
         });
 
@@ -241,7 +241,14 @@ public class QueryRidesController implements Controller {
 
     //TODO create the method to book a ride
     @FXML
-    public void bookRide() {
+    public void bookRide(int nPlaces) {
+
+        //Lortu behar dira data, bidaia eta erabiltzailea
+        Date date = Dates.convertToDate(datepicker.getValue());
+        Ride ride = tblRides.getSelectionModel().getSelectedItem();
+        Driver driver = ride.getDriver();
+
+
 
     }
 
