@@ -35,11 +35,11 @@
          <font>
             <Font size="13.0" />
          </font></Label>
-        <TextField id="NameTextField" fx:id="name" layoutX="158.0" layoutY="87.0" prefHeight="27.0" prefWidth="150.0" styleClass="bold-label" />
-        <TextField id="UsernameTextField" fx:id="username" layoutX="158.0" layoutY="129.0" prefHeight="25.0" prefWidth="150.0" styleClass="bold-label" AnchorPane.leftAnchor="158.0" />
-        <TextField id="EmailTextField" fx:id="email" layoutX="158.0" layoutY="169.0" prefHeight="25.0" prefWidth="149.0" styleClass="bold-label" />
-        <PasswordField id="PasswordField1" fx:id="password" layoutX="158.0" layoutY="207.0" />
-        <PasswordField id="PasswordField2" fx:id="password2" layoutX="159.0" layoutY="250.0" />
+        <TextField id="nameTextField" fx:id="name" layoutX="158.0" layoutY="87.0" prefHeight="27.0" prefWidth="150.0" styleClass="bold-label" />
+        <TextField id="usernameTextField" fx:id="username" layoutX="158.0" layoutY="129.0" prefHeight="25.0" prefWidth="150.0" styleClass="bold-label" AnchorPane.leftAnchor="158.0" />
+        <TextField id="emailTextField" fx:id="email" layoutX="158.0" layoutY="169.0" prefHeight="25.0" prefWidth="149.0" styleClass="bold-label" />
+        <PasswordField id="passwordField1" fx:id="password" layoutX="158.0" layoutY="207.0" />
+        <PasswordField id="passwordField2" fx:id="password2" layoutX="159.0" layoutY="250.0" />
         <Label fx:id="output" alignment="CENTER_RIGHT" layoutX="185.0" layoutY="340.0" prefHeight="17.0" prefWidth="97.0" wrapText="true" />
         <Button alignment="CENTER_RIGHT" layoutX="172.0" layoutY="333.0" onAction="#registerBtnClick" text="REGISTER NOW">
             <styleClass>
@@ -47,7 +47,7 @@
                 <String fx:value="bold-label" />
             </styleClass>
         </Button>
-        <Label fx:id="Message" alignment="CENTER_RIGHT" layoutX="113.0" layoutY="376.0" prefHeight="17.0" prefWidth="223.0" styleClass="bold-label" text="The user has been correctly registered!" />
+        <Label fx:id="message" alignment="CENTER_RIGHT" layoutX="113.0" layoutY="376.0" prefHeight="17.0" prefWidth="223.0" styleClass="bold-label" text="The user has been correctly registered!" />
         <Label alignment="CENTER_RIGHT" layoutX="184.0" layoutY="24.0" styleClass="bold-label" text="REGISTER">
             <font>
                 <Font size="18.0" />

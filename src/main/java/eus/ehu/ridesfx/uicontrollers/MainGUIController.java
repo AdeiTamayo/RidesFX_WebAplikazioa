@@ -24,7 +24,7 @@ public class MainGUIController {
     public Label lblDriver;
 
     @FXML
-    private Label TypeOfUser;
+    private Label typeOfUser;
 
     /*
     @FXML
@@ -42,12 +42,12 @@ public class MainGUIController {
     private BlFacade businessLogic;
 
     @FXML
-    private Button LoginMainButton;
+    private Button loginMainButton;
     @FXML
-    private Button RegisterMainButton;
+    private Button registerMainButton;
 
     @FXML
-    private Button ChangeUserButton;
+    private Button changeUserButton;
 
     @FXML
     private Button queryRidesBtn;
@@ -170,14 +170,14 @@ public class MainGUIController {
      * Hides the login button on the GUI.
      */
     public void hideButtonLogin() {
-        LoginMainButton.setVisible(false);
+        loginMainButton.setVisible(false);
     }
 
     /**
      * Hides the register button on the GUI.
      */
     public void hideButtonRegister() {
-        RegisterMainButton.setVisible(false);
+        registerMainButton.setVisible(false);
     }
 
     /**
@@ -198,7 +198,7 @@ public class MainGUIController {
      * Shows the change user button on the GUI.
      */
     public void showButtonChangeUserButton() {
-        ChangeUserButton.setVisible(true);
+        changeUserButton.setVisible(true);
     }
 
     /**
@@ -219,7 +219,7 @@ public class MainGUIController {
      * Sets the type of the driver in the label on the GUI.
      */
     public void setDriverType(String type) {
-        TypeOfUser.setText(type + ": ");
+        typeOfUser.setText(type + ": ");
     }
 
     /**
@@ -248,7 +248,7 @@ public class MainGUIController {
         setDriverType(businessLogic.getCurrentUser().getClass().getSimpleName());
 
 
-        ChangeUserButton.setVisible(false);
+        changeUserButton.setVisible(false);
 
         queryRidesWin = load("QueryRides.fxml");
         createRideWin = load("CreateRide.fxml");
