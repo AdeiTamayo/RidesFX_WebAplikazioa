@@ -31,7 +31,7 @@ public class LoginController implements Controller {
     private Label InvalidUser;
 
     @FXML
-    private Label WrongPassword;
+    private Label wrongPassword;
 
     @FXML
     private Label registerLabel;
@@ -60,7 +60,7 @@ public class LoginController implements Controller {
         Text.setVisible(false);
         password.setText("");
         email.setText("");
-        WrongPassword.setVisible(false);
+        wrongPassword.setVisible(false);
         InvalidUser.setVisible(false);
     }
 
@@ -81,7 +81,7 @@ public class LoginController implements Controller {
         String Email = email.getText();
         String Password = password.getText();
         Text.setVisible(false);
-        WrongPassword.setVisible(false);
+        wrongPassword.setVisible(false);
         InvalidUser.setVisible(false);
         if (Email.equals("") || Password.equals("")) {
             System.out.println("\nPlease fill in all the fields\n");
@@ -93,7 +93,7 @@ public class LoginController implements Controller {
         } else {
             if (!businessLogic.checkPassword(Email, Password)) {
                 System.out.println("\nThe password is incorrect\n");
-                WrongPassword.setVisible(true);
+                wrongPassword.setVisible(true);
             } else {
                 Text.setText("\nYou have been correctly logged in!\n");
                 Text.setVisible(true);
@@ -135,7 +135,7 @@ public class LoginController implements Controller {
     @FXML
     void initialize() {
         InvalidUser.setVisible(false);
-        WrongPassword.setVisible(false);
+        wrongPassword.setVisible(false);
         Text.setVisible(false);
         Text.setWrapText(true);
         Text.setAlignment(javafx.geometry.Pos.CENTER);

@@ -43,7 +43,7 @@ public class QueryRidesController implements Controller {
     private DatePicker datepicker;
 
     @FXML
-    private Label RideDate;
+    private Label rideDate;
 
     @FXML
     private TableColumn<Ride, String> qc1;
@@ -67,7 +67,7 @@ public class QueryRidesController implements Controller {
     private TableView<Ride> tblRides;
 
     @FXML
-    private Button BookinButton;
+    private Button bookinButton;
 
 
     private MainGUI mainGUI;
@@ -181,7 +181,7 @@ public class QueryRidesController implements Controller {
             }
 
             //FIXME textua moldatu behar da
-            RideDate.setText(Dates.convertToDate(datepicker.getValue()).toString());
+            rideDate.setText(Dates.convertToDate(datepicker.getValue()).toString());
         });
 
         datepicker.setOnMouseClicked(e -> {
