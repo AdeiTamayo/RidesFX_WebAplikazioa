@@ -135,12 +135,16 @@ public class BlFacadeImplementation implements BlFacade {
         return dates;
     }
 
-    //Generate the code for the following method: boolean bookRide(Date date, Ride ride, Traveler traveler);
-    //The method should call the bookRide method from the DataAccess class and return the result.
-    //The method should receive a Date, a Ride and a Traveler as parameters.
-    //The method should return a boolean.
-    public boolean bookRide(Date date, Ride ride, Traveler traveler) {
-        return dbManager.bookRide(date, ride, traveler);
+    @Override
+    public boolean bookRide(Date date, Ride ride, Traveler traveler, int numPlaces) {
+        return dbManager.bookRide(date, ride, traveler,numPlaces);
+
+    }
+
+    @Override
+
+    public Traveler getCurrentTraveler() {
+        return (Traveler) currentUser;
     }
 
 

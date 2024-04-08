@@ -5,6 +5,8 @@ import eus.ehu.ridesfx.configuration.UtilDate;
 import eus.ehu.ridesfx.domain.Ride;
 import eus.ehu.ridesfx.domain.Driver;
 import eus.ehu.ridesfx.domain.User;
+import eus.ehu.ridesfx.domain.Reservation;
+import eus.ehu.ridesfx.domain.Traveler;
 import eus.ehu.ridesfx.exceptions.RideAlreadyExistException;
 import eus.ehu.ridesfx.exceptions.RideMustBeLaterThanTodayException;
 import jakarta.persistence.EntityManager;
@@ -326,7 +328,7 @@ public class DataAccess {
      * @param password
      */
     public boolean correctPassword(String email, String password) {
-        User user =  existsUser(email);
+        User user = existsUser(email);
         return user.getPassword().equals(password);
 
         /**TypedQuery<Driver> q2 = db.createQuery(
@@ -340,28 +342,39 @@ public class DataAccess {
          }**/
     }
 
-    //Generate the code for the following method:
-    // public boolean bookRide(Date date, Ride ride, Traveler traveler) {
-    //        return dbManager.bookRide(date, ride, traveler);
-    //    }
 
-public boolean bookRide(Date date, Ride ride, User user) {
-        /*
+    //TODO check this method + when the acceptation of the reservation is done remove the ride or modify the amount of free places
+
+
+    public boolean bookRide(Date date, Ride ride, Traveler traveler, int numSeats) {
+        // Start a transaction
         db.getTransaction().begin();
-        try {
-            ride.addTraveler(user);
-            db.persist(ride);
-            db.getTransaction().commit();
-            return true;
-        } catch (Exception e) {
+
+        // Retrieve the Ride object from the database
+        TypedQuery<Ride> query = db.createQuery("SELECT r FROM Ride r WHERE r.date = :date AND r.id = :rideId", Ride.class);
+        query.setParameter("date", date);
+        query.setParameter("rideId", ride.getRideNumber());
+        Ride dbRide = query.getSingleResult();
+
+        // Check if the ride has enough available seats
+        if (dbRide.getNumPlaces() < numSeats) {
             db.getTransaction().rollback();
             return false;
         }
 
-         */
-    return false;
-    }
+        // Create a Reservation object
+        Reservation reservation = new Reservation(numSeats, date, "pending", traveler);
 
+        // Persist the Reservation object to the database
+        db.persist(reservation);
+
+        // Commit the transaction
+        db.getTransaction().commit();
+
+        return true;
+
+
+    }
 
 
     public void close() {

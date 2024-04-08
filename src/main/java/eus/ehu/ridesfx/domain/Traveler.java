@@ -51,6 +51,8 @@ public class Traveler extends User implements Serializable {
         reservations = new Vector<Reservation>();
     }
 
+
+
     /**
      * Returns a string representation of the traveler.
      * The string contains the email the name of the traveler and its Reservations, separated by a semicolon.
@@ -88,6 +90,14 @@ public class Traveler extends User implements Serializable {
     public void addReservation(Reservation reservation) {
         reservations.add(reservation);
     }
+
+    /*
+    public void addReservation(String state, int nPlaces, Date date, Ride ride) {
+        Reservation reservation = new Reservation(state, nPlaces, date, this, ride);
+        reservations.add(reservation);
+    }
+
+     */
 
 
 

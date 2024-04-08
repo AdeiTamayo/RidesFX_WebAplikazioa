@@ -50,6 +50,8 @@ public interface BlFacade {
 
     User getCurrentUser();
 
+    Traveler getCurrentTraveler();
+
     Ride createRide(String text, String text1, Date date, int inputSeats, float price, String email) throws RideMustBeLaterThanTodayException, RideAlreadyExistException;
 
 
@@ -79,7 +81,7 @@ public interface BlFacade {
     boolean checkPassword(String username, String password);
 
 
-    boolean bookRide(Date date, Ride ride, Traveler traveler);
+    boolean bookRide(Date date, Ride ride, Traveler traveler, int numPlaces);
 
 
 

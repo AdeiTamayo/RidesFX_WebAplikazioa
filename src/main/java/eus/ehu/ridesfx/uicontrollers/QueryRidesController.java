@@ -3,6 +3,7 @@ package eus.ehu.ridesfx.uicontrollers;
 import eus.ehu.ridesfx.businessLogic.BlFacade;
 import eus.ehu.ridesfx.domain.Driver;
 import eus.ehu.ridesfx.domain.Ride;
+import eus.ehu.ridesfx.domain.Traveler;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -68,6 +69,12 @@ public class QueryRidesController implements Controller {
 
     @FXML
     private Button bookinButton;
+
+    @FXML
+    private Label quantityOfSeatsLabel;
+
+    @FXML
+    private TextField numSeats;
 
 
     private MainGUI mainGUI;
@@ -150,6 +157,10 @@ public class QueryRidesController implements Controller {
     @FXML
     void initialize() {
 
+        numSeats.setVisible(false);
+        quantityOfSeatsLabel.setVisible(false);
+        bookinButton.setVisible(false);
+
 
         // Update DatePicker cells when ComboBox value changes
         comboArrivalCity.valueProperty().addListener(
@@ -219,6 +230,14 @@ public class QueryRidesController implements Controller {
         qc2.setCellValueFactory(new PropertyValueFactory<>("numPlaces"));
         qc3.setCellValueFactory(new PropertyValueFactory<>("price"));
 
+        // Add listener to TableView's selection model to know when to change the GUI with new buttons
+        tblRides.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+
+                manageGUi();
+            }
+        });
+
     }
 
 
@@ -238,22 +257,35 @@ public class QueryRidesController implements Controller {
     */
 
 
-
     //TODO create the method to book a ride
     @FXML
-    public void bookRide(int nPlaces) {
+    public void bookRide(ActionEvent actionEvent) {
 
         //Lortu behar dira data, bidaia eta erabiltzailea
         Date date = Dates.convertToDate(datepicker.getValue());
         Ride ride = tblRides.getSelectionModel().getSelectedItem();
-        Driver driver = ride.getDriver();
+        int numSeats = Integer.parseInt(this.numSeats.getText());
 
+
+        //suposatzen da erreserbatzen sahiatzen bada, traveler izan behar duela
+        Traveler traveler = businessLogic.getCurrentTraveler();
+
+        businessLogic.bookRide(date, ride, traveler, numSeats);
 
 
     }
 
 
-
+    /**
+     * This method manages the GUI to work when the user selects a ride
+     */
+    public void manageGUi() {
+        if (tblRides.getSelectionModel().getSelectedItem() != null) {
+            bookinButton.setVisible(true);
+            numSeats.setVisible(true);
+            quantityOfSeatsLabel.setVisible(true);
+        }
+    }
 
     @Override
     public void setMainApp(MainGUI mainGUI) {

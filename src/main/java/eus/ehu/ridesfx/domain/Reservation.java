@@ -2,7 +2,7 @@
  * The Reservation class represents a reservation in the ridesharing system.
  * It is marked as an Entity, meaning that it is mapped to a table in the database.
  * The class implements Serializable, which means it can be converted to a byte stream and recovered later.
- *
+ * <p>
  * Each reservation has a unique reservation number, a number of places, a date, a state, and a reference to the Traveler who made the reservation.
  */
 package eus.ehu.ridesfx.domain;
@@ -11,15 +11,17 @@ import eus.ehu.ridesfx.utils.Dates;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.Date;
 
+@SuppressWarnings("serial")
 @Entity
-public class Reservation implements Serializable{
+public class Reservation implements Serializable {
 
     @Id
     @GeneratedValue
     private int reservationNumber;
     private int nPlaces;
-    private Dates date;
+    private Date date;
 
     //States can be "accept","reject", "pending".
     private String state;
@@ -29,21 +31,42 @@ public class Reservation implements Serializable{
 
     /**
      * Default constructor for the Reservation class.
+     * Initializes a new Reservation with no parameters.
      */
     public Reservation() {
+        super();
     }
 
     /**
      * Parameterized constructor for the Reservation class.
+     * Initializes a new Reservation with the provided parameters.
      *
      * @param reservationNumber The unique identifier of the reservation.
-     * @param nPlaces The number of places in the reservation.
-     * @param date The date of the reservation.
-     * @param state The state of the reservation. Can be "accept", "reject", or "pending".
+     * @param nPlaces           The number of places in the reservation.
+     * @param date              The date of the reservation.
+     * @param state             The state of the reservation. Can be "accept", "reject", or "pending".
+     * @param traveler          The Traveler who made the reservation.
+     */
+    public Reservation(Integer reservationNumber, int nPlaces, Date date, String state, Traveler traveler) {
+        super();
+        this.reservationNumber = reservationNumber;
+        this.nPlaces = nPlaces;
+        this.date = date;
+        this.state = state;
+        this.traveler = traveler;
+    }
+
+
+    /**
+     * Parameterized constructor for the Reservation class without the reservation number.
+     *
+     * @param nPlaces  The number of places in the reservation.
+     * @param date     The date of the reservation.
+     * @param state    The state of the reservation. Can be "accept", "reject", or "pending".
      * @param traveler The Traveler who made the reservation.
      */
-    public Reservation(Integer reservationNumber, int nPlaces, Dates date, String state, Traveler traveler) {
-        this.reservationNumber = reservationNumber;
+    public Reservation(int nPlaces, Date date, String state, Traveler traveler) {
+        super();
         this.nPlaces = nPlaces;
         this.date = date;
         this.state = state;
@@ -97,16 +120,17 @@ public class Reservation implements Serializable{
      * @return The date of the reservation.
      */
 
-    public Dates getDate() {
+    public Date getDate() {
         return date;
     }
+
     /**
      * Sets the date of the reservation.
      *
      * @param date The new date of the reservation.
      */
 
-    public void setDate(Dates date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -142,6 +166,7 @@ public class Reservation implements Serializable{
 
     /**
      * Sets the Traveler who made the reservation.
+     *
      * @param traveler The Traveler who made the reservation.
      */
 
@@ -164,8 +189,6 @@ public class Reservation implements Serializable{
                 ", state='" + state + '\'' +
                 '}';
     }
-
-
 
 
 }
