@@ -53,6 +53,9 @@ public class MainGUIController {
     private Button queryRidesBtn;
 
     @FXML
+    private Button homeButton;
+
+    @FXML
     Button createRideBtn;
 
 
@@ -143,7 +146,7 @@ public class MainGUIController {
     }
 
     /**
-     * Shows the initial GUI scene in the GUI.
+     * Shows the login GUI scene in the GUI.
      *
      * @param event
      */
@@ -154,6 +157,17 @@ public class MainGUIController {
 
         //Method used to restart the apparence of login controller
         loginController.restartLogin();
+    }
+
+    /**
+     * Shows the initial GUI scene in the GUI.
+     *
+     * @param event
+     */
+
+    @FXML
+    void goHome(ActionEvent event) {
+        showScene("InitialGUI");
     }
 
 
