@@ -42,7 +42,7 @@ public class QueryRidesController implements Controller {
     private Button btnClose;
 
     @FXML
-    private Button AlertButton;
+    private Button alertButton;
 
     @FXML
     private DatePicker datepicker;
@@ -75,7 +75,7 @@ public class QueryRidesController implements Controller {
     private Button bookinButton;
 
     @FXML
-    private Label AlertMessage;
+    private Label alertMessage;
 
 
     private MainGUI mainGUI;
@@ -159,9 +159,9 @@ public class QueryRidesController implements Controller {
     void initialize() {
 
         //Disable alert button until a date is selected where there are no available rides
-        AlertButton.setVisible(false);
-        AlertMessage.setVisible(false);
-        AlertMessage.setAlignment(Pos.CENTER);
+        alertButton.setVisible(false);
+        alertMessage.setVisible(false);
+        alertMessage.setAlignment(Pos.CENTER);
 
 
         // Update DatePicker cells when ComboBox value changes
@@ -200,9 +200,9 @@ public class QueryRidesController implements Controller {
                 tblRides.setPlaceholder(placeholderLabel);
 
                 System.out.println("No rides found for this date");
-                BookinButton.setVisible(false);
-                AlertButton.setVisible(true);
-                AlertMessage.setVisible(false);
+                bookinButton.setVisible(false);
+                alertButton.setVisible(true);
+                alertMessage.setVisible(false);
             }
 
 
@@ -281,18 +281,18 @@ public class QueryRidesController implements Controller {
 
     @FXML
     public void createAlert(ActionEvent event) {
-        AlertMessage.setVisible(true);
+        alertMessage.setVisible(true);
         //check if the current user is a driver
         if(businessLogic.getCurrentUser() instanceof Driver){
-            AlertMessage.setText("Only travelers can create alerts");
+            alertMessage.setText("Only travelers can create alerts");
             return;
         }
         if(businessLogic.createAlert(comboDepartCity.getValue(), comboArrivalCity.getValue(), 1, Dates.convertToDate(datepicker.getValue()), businessLogic.getCurrentUser().getEmail())==null){
             //Display error text: "Alert already exists"
-            AlertMessage.setText("Alert already exists");
+            alertMessage.setText("Alert already exists");
         }
         else{
-            AlertMessage.setText("Alert created successfully");
+            alertMessage.setText("Alert created successfully");
         }
     }
 }
