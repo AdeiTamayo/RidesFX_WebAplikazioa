@@ -194,7 +194,7 @@ public class QueryRidesController implements Controller {
             }
 
             //if there are no rides, show a message and able the button of creating an alert
-            if (rides.isEmpty()) {
+            if (rides.isEmpty() && comboArrivalCity.getValue() != null && comboDepartCity.getValue() != null){
                 Label placeholderLabel = new Label("No rides found. Click on the button below to create an alert.");
                 placeholderLabel.setAlignment(Pos.CENTER);
                 tblRides.setPlaceholder(placeholderLabel);
