@@ -2,10 +2,7 @@ package eus.ehu.ridesfx.businessLogic;
 
 import eus.ehu.ridesfx.configuration.Config;
 import eus.ehu.ridesfx.dataAccess.DataAccess;
-import eus.ehu.ridesfx.domain.Driver;
-import eus.ehu.ridesfx.domain.Traveler;
-import eus.ehu.ridesfx.domain.User;
-import eus.ehu.ridesfx.domain.Ride;
+import eus.ehu.ridesfx.domain.*;
 import eus.ehu.ridesfx.exceptions.RideAlreadyExistException;
 import eus.ehu.ridesfx.exceptions.RideMustBeLaterThanTodayException;
 
@@ -155,6 +152,26 @@ public class BlFacadeImplementation implements BlFacade {
 
     public Traveler getCurrentTraveler() {
         return (Traveler) currentUser;
+    }
+
+    /**
+     * This method invokes the data access to create a new alert
+     * @param from
+     * @param to
+     * @param numplaces
+     * @param date
+     * @param email
+     * @return the alert created
+     */
+    public Alert createAlert(String from, String to, int numplaces, Date date, String email) {
+        Alert alert = dbManager.createAlert(from, to, numplaces, date, email);
+        if(alert!=null){
+            System.out.println("Alert created successfully");
+            return alert;
+        } else {
+            System.out.println("Alert not created successfully");
+            return null;
+        }
     }
 
 

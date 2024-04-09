@@ -17,6 +17,7 @@
         <mapping class="eus.ehu.ridesfx.domain.Traveler" />
         <mapping class="eus.ehu.ridesfx.domain.Reservation" />
 
+        <mapping class="eus.ehu.ridesfx.domain.Alert" />
 
     </session-factory>
 </hibernate-configuration>

@@ -17,7 +17,7 @@ C:/Users/adeit/Desktop/Proiektua/src/main/resources/hibernate.cfg.xml</remarks>
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="shareTrip" uuid="8d6d92ea-6153-4314-8b92-97d235b82978">
+    <data-source source="LOCAL" name="shareTrip" uuid="9384abd3-ab42-4757-a8e7-c6e1394ad3ed">
       <driver-ref>h2.unified</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.h2.Driver</jdbc-driver>

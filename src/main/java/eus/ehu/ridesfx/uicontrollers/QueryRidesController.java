@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -41,6 +42,9 @@ public class QueryRidesController implements Controller {
     private Button btnClose;
 
     @FXML
+    private Button alertButton;
+
+    @FXML
     private DatePicker datepicker;
 
     @FXML
@@ -69,6 +73,9 @@ public class QueryRidesController implements Controller {
 
     @FXML
     private Button bookinButton;
+
+    @FXML
+    private Label alertMessage;
 
     @FXML
     private Label quantityOfSeatsLabel;
@@ -157,6 +164,11 @@ public class QueryRidesController implements Controller {
     @FXML
     void initialize() {
 
+        //Disable alert button until a date is selected where there are no available rides
+        alertButton.setVisible(false);
+        alertMessage.setVisible(false);
+        alertMessage.setAlignment(Pos.CENTER);
+
         comboNumSeats.setVisible(false);
         quantityOfSeatsLabel.setVisible(false);
         bookinButton.setVisible(false);
@@ -176,8 +188,6 @@ public class QueryRidesController implements Controller {
         comboDepartCity.setItems(departureCities);
         comboArrivalCity.setItems(arrivalCities);
 
-
-
         // when the user selects a departure city, update the arrival cities
         comboDepartCity.setOnAction(e -> {
             arrivalCities.clear();
@@ -187,12 +197,29 @@ public class QueryRidesController implements Controller {
         // a date has been chosen, update the combobox of Rides
         datepicker.setOnAction(actionEvent -> {
 
+            alertMessage.setVisible(false);
+            alertButton.setVisible(false);
+
             tblRides.getItems().clear();
             // Vector<domain.Ride> events = businessLogic.getEvents(Dates.convertToDate(datepicker.getValue()));
             List<Ride> rides = businessLogic.getRides(comboDepartCity.getValue(), comboArrivalCity.getValue(), Dates.convertToDate(datepicker.getValue()));
             // List<Ride> rides = Arrays.asList(new Ride("Bilbao", "Donostia", Dates.convertToDate(datepicker.getValue()), 3, 3.5f, new Driver("pepe@pepe.com", "pepe")));
             for (Ride ride : rides) {
                 tblRides.getItems().add(ride);
+            }
+
+            //if there are no rides, show a message and able the button of creating an alert
+            if (rides.isEmpty() && comboArrivalCity.getValue() != null && comboDepartCity.getValue() != null){
+                Label placeholderLabel = new Label("No rides found. Click on the button below to create an alert.");
+                placeholderLabel.setAlignment(Pos.CENTER);
+                tblRides.setPlaceholder(placeholderLabel);
+
+                System.out.println("No rides found for this date");
+                quantityOfSeatsLabel.setVisible(false);
+                comboNumSeats.setVisible(false);
+                bookinButton.setVisible(false);
+                alertButton.setVisible(true);
+                alertMessage.setVisible(false);
             }
 
 
@@ -314,5 +341,22 @@ public class QueryRidesController implements Controller {
     @Override
     public void setMainApp(MainGUI mainGUI) {
         this.mainGUI = mainGUI;
+    }
+
+    @FXML
+    public void createAlert(ActionEvent event) {
+        alertMessage.setVisible(true);
+        //check if the current user is a driver
+        if(businessLogic.getCurrentUser() instanceof Driver){
+            alertMessage.setText("Only travelers can create alerts");
+            return;
+        }
+        if(businessLogic.createAlert(comboDepartCity.getValue(), comboArrivalCity.getValue(), 1, Dates.convertToDate(datepicker.getValue()), businessLogic.getCurrentUser().getEmail())==null){
+            //Display error text: "Alert already exists"
+            alertMessage.setText("Alert already exists");
+        }
+        else{
+            alertMessage.setText("Alert created successfully");
+        }
     }
 }
