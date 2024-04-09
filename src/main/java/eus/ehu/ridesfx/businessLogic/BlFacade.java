@@ -93,9 +93,46 @@ public interface BlFacade {
     Alert createAlert(String text, String text1, int inputSeats, Date date, String email);
 
 
-
+    /**
+     * This method books a ride for a traveler
+     * @param date
+     * @param ride
+     * @param traveler
+     * @param numPlaces
+     * @return true if the ride is booked, false otherwise
+     */
     boolean bookRide(Date date, Ride ride, Traveler traveler, int numPlaces);
 
 
+    /**
+     * This method returns the available seats for a ride
+     * @param selectedItem
+     * @return collection of available seats
+     */
     List<Integer> getAvailableSeats(Ride selectedItem);
+
+    /**
+     * This method checks if there are matching rides for the given alert
+     * @param alert
+     * @return list of matching rides
+     */
+    List<Ride> areMatchingRides(Alert alert);
+
+    /**
+     * This method returns all the alerts of the current traveler
+     * @return list of alerts
+     */
+    List<Alert> getAlerts();
+
+    /**
+     * This method deletes an alert
+     * @param alert
+     */
+    void deleteAlert(Alert alert);
+
+    /**
+     * This method updates the state of an alert
+     * @param alert
+     */
+    void updateAlertState(Alert alert);
 }

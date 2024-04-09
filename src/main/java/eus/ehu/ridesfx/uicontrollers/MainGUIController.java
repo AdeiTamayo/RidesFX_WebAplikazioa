@@ -1,6 +1,7 @@
 package eus.ehu.ridesfx.uicontrollers;
 
 import eus.ehu.ridesfx.businessLogic.BlFacade;
+import eus.ehu.ridesfx.domain.Alert;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -58,11 +60,16 @@ public class MainGUIController {
     @FXML
     Button createRideBtn;
 
+    @FXML
+    Button alertsButton;
+
 
     private LoginController loginController;
 
 
     private RegisterController registerController;
+
+    private AlertsViewController alertsViewController;
 
     private QueryRidesController queryRidesController;
 
@@ -92,6 +99,10 @@ public class MainGUIController {
         this.registerController = registerController;
     }
 
+    public void setAlertsViewController(AlertsViewController alertsViewController) {
+        this.alertsViewController = alertsViewController;
+    }
+
     public void setQueryRidesController(QueryRidesController queryRidesController) {
         this.queryRidesController = queryRidesController;
     }
@@ -110,6 +121,16 @@ public class MainGUIController {
     @FXML
     void queryRides(ActionEvent event) {
         showScene("Query Rides");
+    }
+
+    /**
+     * Shows the alerts scene in the GUI.
+     * @param event
+     */
+    @FXML
+    void alerts(ActionEvent event){
+        showScene("Alerts");
+        alertsViewController.setView();
     }
 
     /**
@@ -185,6 +206,20 @@ public class MainGUIController {
      */
     public void hideButtonLogin() {
         loginMainButton.setVisible(false);
+    }
+
+    /**
+     * Hides the alerts button on the GUI.
+     */
+    public void hideButtonAlerts(){
+        alertsButton.setVisible(false);
+    }
+
+    /**
+     * Shows the alerts button on the GUI.
+     */
+    public void showButtonAlerts(){
+        alertsButton.setVisible(true);
     }
 
     /**
@@ -277,8 +312,10 @@ public class MainGUIController {
 
         if(businessLogic.getCurrentUser().getClass().getSimpleName().equals("Driver")){
             hideButtonQueryRides();
+            hideButtonAlerts();
         }else if(businessLogic.getCurrentUser().getClass().getSimpleName().equals("Traveler")){
             hideButtonCreateRide();
+            showButtonAlerts();
         }
 
 
@@ -289,6 +326,8 @@ public class MainGUIController {
         loginWin = load("Login.fxml");
         registerWin = load("Register.fxml");
         InitialGUIWin = load("InitialGUI.fxml");
+        alertsWin = load("AlertsView.fxml");
+
 
 
         showScene("InitialGUI");
@@ -315,6 +354,8 @@ public class MainGUIController {
                         return new QueryRidesController(businessLogic, this);
                     } else if (controllerClass == CreateRideController.class) {
                         return new CreateRideController(businessLogic, this);
+                    } else if (controllerClass == AlertsViewController.class) {
+                        return new AlertsViewController(businessLogic, this);
                     } else {
                         return controllerClass
                                 .getConstructor(BlFacade.class)
@@ -337,7 +378,7 @@ public class MainGUIController {
     }
 
 
-    private Window createRideWin, queryRidesWin, loginWin, registerWin, InitialGUIWin;
+    private Window createRideWin, queryRidesWin, loginWin, registerWin, InitialGUIWin, alertsWin;
 
     private void showScene(String scene) {
         switch (scene) {
@@ -346,6 +387,7 @@ public class MainGUIController {
             case "Login" -> mainWrapper.setCenter(loginWin.ui);
             case "Register" -> mainWrapper.setCenter(registerWin.ui);
             case "InitialGUI" -> mainWrapper.setCenter(InitialGUIWin.ui);
+            case "Alerts" -> mainWrapper.setCenter(alertsWin.ui);
         }
     }
 

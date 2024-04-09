@@ -174,5 +174,56 @@ public class BlFacadeImplementation implements BlFacade {
         }
     }
 
+    /**
+     * This method checks if there are matching rides for the given alert
+     * @param alert
+     * @return list of matching rides
+     */
+    public List<Ride> areMatchingRides(Alert alert){
+        List<Ride> Rides = dbManager.getAllRides();
+        List<Ride> matchingRides = new Vector<Ride>();
+        for (Ride ride : Rides) {
+            if (alertMatchesRide(alert, ride)) {
+                matchingRides.add(ride);
+            }
+        }
+
+        return matchingRides;
+    }
+
+    /**
+     * This method retrieves all the alerts of the current traveler
+     * @return list of alerts
+     */
+    public List<Alert> getAlerts(){
+        return dbManager.getAllAlerts(currentUser.getEmail());
+    }
+
+    /**
+     * This method checks if an alert with the given parameters exists for the new ride
+     * @param alert
+     * @param ride
+     * @return true if the alert matches the ride
+     */
+    public boolean alertMatchesRide(Alert alert, Ride ride) {
+        return alert.getFromLocation().equals(ride.getFromLocation()) && alert.getToLocation().equals(ride.getToLocation()) && alert.getDate().equals(ride.getDate()) && alert.getNumPlaces() <= ride.getNumPlaces();
+    }
+
+    /**
+     * This method deletes an alert
+     * @param alert
+     */
+    public void deleteAlert(Alert alert){
+        dbManager.deleteAlert(alert);
+    }
+
+    /**
+     * This method updates the state of an alert
+     * @param alert
+     */
+    public void updateAlertState(Alert alert){
+        dbManager.updateAlertState(alert);
+        alert.setState("Ride found");
+    }
 
 }

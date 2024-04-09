@@ -116,9 +116,11 @@ public class LoginController implements Controller {
                 if (businessLogic.getCurrentUser() instanceof Driver) {
                     mainGUIController.hideButtonQueryRides();
                     mainGUIController.showButtonCreateRide();
+                    mainGUIController.hideButtonAlerts();
                 } else if (businessLogic.getCurrentUser() instanceof Traveler) {
                     mainGUIController.hideButtonCreateRide();
                     mainGUIController.showButtonQueryRides();
+                    mainGUIController.showButtonAlerts();
                 }
 
 

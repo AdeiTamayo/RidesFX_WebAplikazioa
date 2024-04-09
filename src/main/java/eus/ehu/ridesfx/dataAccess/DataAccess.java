@@ -359,9 +359,8 @@ public class DataAccess {
     }
 
 
-    //TODO check this method + when the acceptation of the reservation is done remove the ride or modify the amount of free places
 
-
+    //TODO check this method + when the reservation is done remove the ride or modify the amount of free places but it is still not accepted
     public boolean bookRide(Date date, Ride ride, Traveler traveler, int numSeats) {
         // Start a transaction
         db.getTransaction().begin();
@@ -377,7 +376,7 @@ public class DataAccess {
         //Add the reservation to the traveler
         traveler.addReservation(reservation);
 
-        //Update the number of available seats
+        //Update the number of available seats (Even if the reservation is pending, the number of available seats is updated to avoid overbooking)
         dbRide.setNumPlaces(dbRide.getNumPlaces() - numSeats);
 
         // Persist the Reservation object to the database
@@ -431,5 +430,51 @@ public class DataAccess {
             return null;
         }
     }
+
+    /**
+     * This method retrieves all the alerts for a traveler
+     * @param travelerEmail
+     * @return a list of alerts
+     */
+    public List<Alert> getAllAlerts(String travelerEmail) {
+        System.out.println(">> DataAccess: getAlerts");
+        TypedQuery<Alert> query = db.createQuery("SELECT a FROM Alert a WHERE a.traveler.email = :travelerEmail", Alert.class);
+        query.setParameter("travelerEmail", travelerEmail);
+        return query.getResultList();
+    }
+
+    /**
+     * This method retrieves all the rides from the database
+     * @return a list of rides
+     */
+    public List<Ride> getAllRides() {
+        TypedQuery<Ride> query = db.createQuery("SELECT r FROM Ride r", Ride.class);
+        return query.getResultList();
+    }
+
+    /**
+     * This method deletes an alert from the database
+     * @param alert
+     */
+    public void deleteAlert(Alert alert) {
+        db.getTransaction().begin();
+        db.remove(alert);
+        db.getTransaction().commit();
+    }
+
+    /**
+     * This method updates the state of an alert to ride found
+     * @param a
+     */
+    public void updateAlertState(Alert a){
+        db.getTransaction().begin();
+        a.setState("Ride found");
+        db.getTransaction().commit();
+    }
+
+
+
+
+
 
 }
