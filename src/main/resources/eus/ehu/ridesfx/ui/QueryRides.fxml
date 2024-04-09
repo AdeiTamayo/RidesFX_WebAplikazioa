@@ -39,6 +39,6 @@
       </Label>
       <Button fx:id="bookinButton" layoutX="645.0" layoutY="294.0" mnemonicParsing="false" onAction="#bookRide" text="Book Ride" />
       <Label fx:id="quantityOfSeatsLabel" layoutX="375.0" layoutY="298.0" text="How many seats do you want?" />
-      <TextField fx:id="numSeats" layoutX="549.0" layoutY="295.0" prefHeight="18.0" prefWidth="70.0" />
+      <ComboBox fx:id="comboNumSeats" layoutX="549.0" layoutY="295.0" prefHeight="18.0" prefWidth="70.0" />
             </children>
         </AnchorPane>

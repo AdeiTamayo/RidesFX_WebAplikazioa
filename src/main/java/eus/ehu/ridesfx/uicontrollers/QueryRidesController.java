@@ -74,7 +74,7 @@ public class QueryRidesController implements Controller {
     private Label quantityOfSeatsLabel;
 
     @FXML
-    private TextField numSeats;
+    private ComboBox<Integer> comboNumSeats;
 
 
     private MainGUI mainGUI;
@@ -157,9 +157,11 @@ public class QueryRidesController implements Controller {
     @FXML
     void initialize() {
 
-        numSeats.setVisible(false);
+        comboNumSeats.setVisible(false);
         quantityOfSeatsLabel.setVisible(false);
         bookinButton.setVisible(false);
+
+
 
 
         // Update DatePicker cells when ComboBox value changes
@@ -173,6 +175,8 @@ public class QueryRidesController implements Controller {
 
         comboDepartCity.setItems(departureCities);
         comboArrivalCity.setItems(arrivalCities);
+
+
 
         // when the user selects a departure city, update the arrival cities
         comboDepartCity.setOnAction(e -> {
@@ -238,6 +242,7 @@ public class QueryRidesController implements Controller {
             }
         });
 
+
     }
 
 
@@ -264,21 +269,13 @@ public class QueryRidesController implements Controller {
         //Lortu behar dira data, bidaia eta erabiltzailea
         Date date = Dates.convertToDate(datepicker.getValue());
         Ride ride = tblRides.getSelectionModel().getSelectedItem();
-        int numSeats = Integer.parseInt(this.numSeats.getText());
+        int numSeats = comboNumSeats.getItems().size();
 
 
         //suposatzen da erreserbatzen sahiatzen bada, traveler izan behar duela
         Traveler traveler = businessLogic.getCurrentTraveler();
 
-        //Call the business logic to book the ride and check if the number of seats is available
-        if(!businessLogic.bookRide(date, ride, traveler, numSeats)){
-            //TODO show error message(number of seats not available)
-            System.out.println("Error booking ride. Number of seats not available");
-
-        }else{
-            //TODO show success message
-            System.out.println("Ride booked successfully");
-        }
+        businessLogic.bookRide(date, ride, traveler, numSeats);
 
 
 
@@ -291,7 +288,14 @@ public class QueryRidesController implements Controller {
     public void manageGUi() {
         if (tblRides.getSelectionModel().getSelectedItem() != null) {
             bookinButton.setVisible(true);
-            numSeats.setVisible(true);
+
+            // Get the number of seats available for the selected ride and show them in the combobox
+            Ride ride = tblRides.getSelectionModel().getSelectedItem();
+            List<Integer> availableSeats = businessLogic.getAvailableSeats(ride);
+            ObservableList<Integer> seats = FXCollections.observableArrayList(availableSeats);
+            comboNumSeats.setItems(seats);
+
+            comboNumSeats.setVisible(true);
             quantityOfSeatsLabel.setVisible(true);
         }
     }

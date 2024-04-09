@@ -235,6 +235,17 @@ public class DataAccess {
     }
 
     /**
+     * This method retrieves from the database the number of seats available in a ride
+     * @param ride
+     * @return number of seats available
+     */
+    public Integer getNumSeats(Ride ride) {
+        TypedQuery<Integer> query = db.createQuery("SELECT r.numPlaces FROM Ride r WHERE r.id=?1", Integer.class);
+        query.setParameter(1, ride.getRideNumber());
+        return query.getSingleResult();
+    }
+
+    /**
      * This method retrieves from the database the dates a month for which there are events
      *
      * @param from the origin location of a ride
@@ -358,30 +369,20 @@ public class DataAccess {
         query.setParameter("rideId", ride.getRideNumber());
         Ride dbRide = query.getSingleResult();
 
-        // Check if the ride has enough available seats
-        if (dbRide.getNumPlaces() < numSeats) {
-            db.getTransaction().rollback();
-            // Commit the transaction
-            db.getTransaction().commit();
-            return false;
-        }else{
-            // Create a Reservation object
-            Reservation reservation = new Reservation(numSeats, date, "pending", traveler);
+        Reservation reservation = new Reservation(numSeats, date, "pending", traveler);
 
-            //Add the reservation to the traveler
-            traveler.addReservation(reservation);
+        //Add the reservation to the traveler
+        traveler.addReservation(reservation);
 
-            //Update the number of available seats
-            dbRide.setNumPlaces(dbRide.getNumPlaces() - numSeats);
+        //Update the number of available seats
+        dbRide.setNumPlaces(dbRide.getNumPlaces() - numSeats);
 
-            // Persist the Reservation object to the database
-            db.persist(reservation);
-            // Commit the transaction
-            db.getTransaction().commit();
+        // Persist the Reservation object to the database
+        db.persist(reservation);
 
-            return true;
-        }
-
+        // Commit the transaction
+        db.getTransaction().commit();
+        return true;
 
     }
 
