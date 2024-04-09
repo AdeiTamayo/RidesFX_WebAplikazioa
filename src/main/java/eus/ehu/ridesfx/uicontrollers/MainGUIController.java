@@ -202,6 +202,20 @@ public class MainGUIController {
     }
 
     /**
+     * Shows the query rides button on the GUI.
+     */
+    public void showButtonQueryRides() {
+        queryRidesBtn.setVisible(true);
+    }
+
+    /**
+     * Shows the create ride button on the GUI.
+     */
+    public void showButtonCreateRide(){
+        createRideBtn.setVisible(true);
+    }
+
+    /**
      * Hides the create ride button on the GUI.
      */
     public void hideButtonCreateRide() {
@@ -260,6 +274,12 @@ public class MainGUIController {
 
         setDriverName(businessLogic.getCurrentUser().getName());
         setDriverType(businessLogic.getCurrentUser().getClass().getSimpleName());
+
+        if(businessLogic.getCurrentUser().getClass().getSimpleName().equals("Driver")){
+            hideButtonQueryRides();
+        }else if(businessLogic.getCurrentUser().getClass().getSimpleName().equals("Traveler")){
+            hideButtonCreateRide();
+        }
 
 
         changeUserButton.setVisible(false);
