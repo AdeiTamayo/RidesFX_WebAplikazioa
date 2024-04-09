@@ -118,6 +118,16 @@ public class BlFacadeImplementation implements BlFacade {
 
     }
 
+    public List<Integer> getAvailableSeats(Ride ride) {
+        Integer availableSeats = dbManager.getNumSeats(ride);
+        //Enter in a list the options of available seats: from 1 to availableSeats
+        List<Integer> availableOptions = new Vector<Integer>();
+        for (int i = 1; i <= availableSeats; i++) {
+            availableOptions.add(i);
+        }
+        return availableOptions;
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -130,6 +140,18 @@ public class BlFacadeImplementation implements BlFacade {
     public List<Date> getDatesWithRides(String value, String value1) {
         List<Date> dates = dbManager.getDatesWithRides(value, value1);
         return dates;
+    }
+
+    @Override
+    public boolean bookRide(Date date, Ride ride, Traveler traveler, int numPlaces) {
+        return dbManager.bookRide(date, ride, traveler,numPlaces);
+
+    }
+
+    @Override
+
+    public Traveler getCurrentTraveler() {
+        return (Traveler) currentUser;
     }
 
     /**

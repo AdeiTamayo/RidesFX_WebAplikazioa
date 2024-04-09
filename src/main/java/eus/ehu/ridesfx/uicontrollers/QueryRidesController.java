@@ -77,6 +77,12 @@ public class QueryRidesController implements Controller {
     @FXML
     private Label alertMessage;
 
+    @FXML
+    private Label quantityOfSeatsLabel;
+
+    @FXML
+    private ComboBox<Integer> comboNumSeats;
+
 
     private MainGUI mainGUI;
 
@@ -163,6 +169,12 @@ public class QueryRidesController implements Controller {
         alertMessage.setVisible(false);
         alertMessage.setAlignment(Pos.CENTER);
 
+        comboNumSeats.setVisible(false);
+        quantityOfSeatsLabel.setVisible(false);
+        bookinButton.setVisible(false);
+
+
+
 
         // Update DatePicker cells when ComboBox value changes
         comboArrivalCity.valueProperty().addListener(
@@ -206,7 +218,6 @@ public class QueryRidesController implements Controller {
             }
 
 
-            //FIXME textua moldatu behar da
             rideDate.setText(Dates.convertToDate(datepicker.getValue()).toString());
         });
 
@@ -245,6 +256,15 @@ public class QueryRidesController implements Controller {
         qc2.setCellValueFactory(new PropertyValueFactory<>("numPlaces"));
         qc3.setCellValueFactory(new PropertyValueFactory<>("price"));
 
+        // Add listener to TableView's selection model to know when to change the GUI with new buttons
+        tblRides.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+
+                manageGUi();
+            }
+        });
+
+
     }
 
 
@@ -264,15 +284,54 @@ public class QueryRidesController implements Controller {
     */
 
 
-
     //TODO create the method to book a ride
     @FXML
-    public void bookRide() {
+    public void bookRide(ActionEvent actionEvent) {
+
+        //Lortu behar dira data, bidaia eta erabiltzailea
+        Date date = Dates.convertToDate(datepicker.getValue());
+        Ride ride = tblRides.getSelectionModel().getSelectedItem();
+        int numSeats = comboNumSeats.getValue();
+
+
+        //suposatzen da erreserbatzen sahiatzen bada, traveler izan behar duela
+        Traveler traveler = businessLogic.getCurrentTraveler();
+
+        businessLogic.bookRide(date, ride, traveler, numSeats);
+
+        //A ride has been booked, update the combobox of Rides
+        tblRides.getItems().clear();
+        // Vector<domain.Ride> events = businessLogic.getEvents(Dates.convertToDate(datepicker.getValue()));
+        List<Ride> rides = businessLogic.getRides(comboDepartCity.getValue(), comboArrivalCity.getValue(), Dates.convertToDate(datepicker.getValue()));
+        // List<Ride> rides = Arrays.asList(new Ride("Bilbao", "Donostia", Dates.convertToDate(datepicker.getValue()), 3, 3.5f, new Driver("pepe@pepe.com", "pepe")));
+        for (Ride r : rides) {
+            tblRides.getItems().add(r);
+        }
+
+
+
+
 
     }
 
 
+    /**
+     * This method manages the GUI to work when the user selects a ride
+     */
+    public void manageGUi() {
+        if (tblRides.getSelectionModel().getSelectedItem() != null) {
+            bookinButton.setVisible(true);
 
+            // Get the number of seats available for the selected ride and show them in the combobox
+            Ride ride = tblRides.getSelectionModel().getSelectedItem();
+            List<Integer> availableSeats = businessLogic.getAvailableSeats(ride);
+            ObservableList<Integer> seats = FXCollections.observableArrayList(availableSeats);
+            comboNumSeats.setItems(seats);
+
+            comboNumSeats.setVisible(true);
+            quantityOfSeatsLabel.setVisible(true);
+        }
+    }
 
     @Override
     public void setMainApp(MainGUI mainGUI) {

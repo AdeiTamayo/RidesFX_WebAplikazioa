@@ -102,6 +102,7 @@ public class DataAccess {
             Driver driver1 = new Driver("driver1@gmail.com", "Aitor Fernandez", "aitor", "1234");
             Driver driver2 = new Driver("driver2@gmail.com", "Ane Gaztañaga", "ane", "1234");
             Driver driver3 = new Driver("driver3@gmail.com", "Test driver", "test", "1234");
+            Traveler traveler1 = new Traveler("traveler@gmail.com", "Traveler 1", "traveler1", "1234");
 
 
             //Create rides
@@ -123,6 +124,7 @@ public class DataAccess {
             db.persist(driver1);
             db.persist(driver2);
             db.persist(driver3);
+            db.persist(traveler1);
 
 
             db.getTransaction().commit();
@@ -197,8 +199,15 @@ public class DataAccess {
                 + "WHERE ride.date=?1 ", Ride.class);
         query.setParameter(1, date);
 
-
-        return query.getResultList();
+        //If the number of seats of a ride is 0 delete it from the list
+        List<Ride> rides = query.getResultList();
+        List<Ride> finalRides = new ArrayList<>();
+        for (Ride r : rides) {
+            if (r.getNumPlaces() > 0) {
+                finalRides.add(r);
+            }
+        }
+        return finalRides;
     }
 
 
@@ -226,6 +235,17 @@ public class DataAccess {
         List<String> arrivingCities = query.getResultList();
         return arrivingCities;
 
+    }
+
+    /**
+     * This method retrieves from the database the number of seats available in a ride
+     * @param ride
+     * @return number of seats available
+     */
+    public Integer getNumSeats(Ride ride) {
+        TypedQuery<Integer> query = db.createQuery("SELECT r.numPlaces FROM Ride r WHERE r.id=?1", Integer.class);
+        query.setParameter(1, ride.getRideNumber());
+        return query.getSingleResult();
     }
 
     /**
@@ -324,7 +344,7 @@ public class DataAccess {
      * @param password
      */
     public boolean correctPassword(String email, String password) {
-        User user =  existsUser(email);
+        User user = existsUser(email);
         return user.getPassword().equals(password);
 
         /**TypedQuery<Driver> q2 = db.createQuery(
@@ -336,6 +356,37 @@ public class DataAccess {
          } catch (NoResultException e) {
          return null; // Return null when no result is found
          }**/
+    }
+
+
+    //TODO check this method + when the acceptation of the reservation is done remove the ride or modify the amount of free places
+
+
+    public boolean bookRide(Date date, Ride ride, Traveler traveler, int numSeats) {
+        // Start a transaction
+        db.getTransaction().begin();
+
+        // Retrieve the Ride object from the database
+        TypedQuery<Ride> query = db.createQuery("SELECT r FROM Ride r WHERE r.date = :date AND r.id = :rideId", Ride.class);
+        query.setParameter("date", date);
+        query.setParameter("rideId", ride.getRideNumber());
+        Ride dbRide = query.getSingleResult();
+
+        Reservation reservation = new Reservation(numSeats, date, "pending", traveler);
+
+        //Add the reservation to the traveler
+        traveler.addReservation(reservation);
+
+        //Update the number of available seats
+        dbRide.setNumPlaces(dbRide.getNumPlaces() - numSeats);
+
+        // Persist the Reservation object to the database
+        db.persist(reservation);
+
+        // Commit the transaction
+        db.getTransaction().commit();
+        return true;
+
     }
 
 

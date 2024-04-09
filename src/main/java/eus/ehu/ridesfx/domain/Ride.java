@@ -165,8 +165,12 @@ public class Ride implements Serializable {
 		this.date = date;
 	}
 
-
-	public float getNumPlaces() {
+	/**
+	 * Get the free places of the ride
+	 *
+	 * @return the available places
+	 */
+	public int getNumPlaces() {
 		return numPlaces;
 	}
 

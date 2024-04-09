@@ -13,6 +13,8 @@ import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
+import java.util.Vector;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
@@ -25,6 +27,9 @@ public class Traveler extends User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    private List<Reservation> reservations;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private List<Alert> alerts;
 
     /**
@@ -33,6 +38,7 @@ public class Traveler extends User implements Serializable {
      */
     public Traveler() {
         super();
+        reservations = new Vector<Reservation>();
         alerts= new Vector<Alert>();
     }
 
@@ -47,16 +53,48 @@ public class Traveler extends User implements Serializable {
      */
     public Traveler(String email, String name, String username, String password) {
         super(username, password, name, email);
+        reservations = new Vector<Reservation>();
         alerts= new Vector<Alert>();
     }
 
+
+
     /**
      * Returns a string representation of the traveler.
-     * The string contains the email, name and alerts of the traveler, separated by a semicolon.
+     * The string contains the email the name of the traveler, the alerts and its Reservations, separated by a semicolon.
      *
      * @return A string representation of the traveler.
      */
     public String toString() {
+        return super.getEmail() + ";" + super.getName() + getReservations();
+    }
+
+
+    /**
+     * Returns the reservations of the traveler.
+     *
+     * @return The reservations of the traveler.
+     */
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    /**
+     * Sets the reservations of the traveler.
+     *
+     * @param reservations The new reservations of the traveler.
+     */
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
+    /**
+     * Adds a reservation to the traveler.
+     *
+     * @param reservation The reservation to add.
+     */
+    public void addReservation(Reservation reservation) {
+        reservations.add(reservation);
         return super.getEmail() + ";" + super.getName() + alerts;
     }
 
@@ -137,5 +175,15 @@ public class Traveler extends User implements Serializable {
             return a;
         } else return null;
     }
+
+    /*
+    public void addReservation(String state, int nPlaces, Date date, Ride ride) {
+        Reservation reservation = new Reservation(state, nPlaces, date, this, ride);
+        reservations.add(reservation);
+    }
+
+     */
+
+
 
 }

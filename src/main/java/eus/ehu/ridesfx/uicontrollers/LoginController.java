@@ -109,13 +109,16 @@ public class LoginController implements Controller {
                 mainGUIController.hideButtonLogin();
                 mainGUIController.hideButtonRegister();
                 mainGUIController.showButtonChangeUserButton();
+
                 registerLabel.setVisible(false);
 
                 //This if statement hides the query rides button if the user is a driver and hides the create ride button if the user is a traveler
                 if (businessLogic.getCurrentUser() instanceof Driver) {
                     mainGUIController.hideButtonQueryRides();
+                    mainGUIController.showButtonCreateRide();
                 } else if (businessLogic.getCurrentUser() instanceof Traveler) {
                     mainGUIController.hideButtonCreateRide();
+                    mainGUIController.showButtonQueryRides();
                 }
 
 
@@ -146,6 +149,7 @@ public class LoginController implements Controller {
         mainGUIController.showRegister();
         //TODO remove logged in message
         //registerController.removeFieldsValue();
+
     }
 }
 

@@ -53,6 +53,9 @@ public class MainGUIController {
     private Button queryRidesBtn;
 
     @FXML
+    private Button homeButton;
+
+    @FXML
     Button createRideBtn;
 
 
@@ -143,7 +146,7 @@ public class MainGUIController {
     }
 
     /**
-     * Shows the initial GUI scene in the GUI.
+     * Shows the login GUI scene in the GUI.
      *
      * @param event
      */
@@ -154,6 +157,17 @@ public class MainGUIController {
 
         //Method used to restart the apparence of login controller
         loginController.restartLogin();
+    }
+
+    /**
+     * Shows the initial GUI scene in the GUI.
+     *
+     * @param event
+     */
+
+    @FXML
+    void goHome(ActionEvent event) {
+        showScene("InitialGUI");
     }
 
 
@@ -185,6 +199,20 @@ public class MainGUIController {
      */
     public void hideButtonQueryRides() {
         queryRidesBtn.setVisible(false);
+    }
+
+    /**
+     * Shows the query rides button on the GUI.
+     */
+    public void showButtonQueryRides() {
+        queryRidesBtn.setVisible(true);
+    }
+
+    /**
+     * Shows the create ride button on the GUI.
+     */
+    public void showButtonCreateRide(){
+        createRideBtn.setVisible(true);
     }
 
     /**
@@ -246,6 +274,12 @@ public class MainGUIController {
 
         setDriverName(businessLogic.getCurrentUser().getName());
         setDriverType(businessLogic.getCurrentUser().getClass().getSimpleName());
+
+        if(businessLogic.getCurrentUser().getClass().getSimpleName().equals("Driver")){
+            hideButtonQueryRides();
+        }else if(businessLogic.getCurrentUser().getClass().getSimpleName().equals("Traveler")){
+            hideButtonCreateRide();
+        }
 
 
         changeUserButton.setVisible(false);
