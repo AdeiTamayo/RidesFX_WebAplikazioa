@@ -5,13 +5,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
+//import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import eus.ehu.ridesfx.ui.MainGUI;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.input.MouseEvent;
-import org.kordamp.bootstrapfx.BootstrapFX;
+//import org.kordamp.bootstrapfx.BootstrapFX;ff
 
 import java.io.IOException;
 import java.net.URL;
@@ -24,13 +24,16 @@ public class MainGUIController {
     public Label lblDriver;
 
     @FXML
-    private Label TypeOfUser;
+    private Label typeOfUser;
 
+    /*
     @FXML
     private ResourceBundle resources;
 
     @FXML
     private URL location;
+
+     */
 
 
     @FXML
@@ -39,15 +42,18 @@ public class MainGUIController {
     private BlFacade businessLogic;
 
     @FXML
-    private Button LoginMainButton;
+    private Button loginMainButton;
     @FXML
-    private Button RegisterMainButton;
+    private Button registerMainButton;
 
     @FXML
-    private Button ChangeUserButton;
+    private Button changeUserButton;
 
     @FXML
     private Button queryRidesBtn;
+
+    @FXML
+    private Button homeButton;
 
     @FXML
     Button createRideBtn;
@@ -56,41 +62,94 @@ public class MainGUIController {
     private LoginController loginController;
 
 
-    //private RegisterController registerController;
+    private RegisterController registerController;
+
+    private QueryRidesController queryRidesController;
+
+    private CreateRideController createRideController;
 
 
     public MainGUIController() {
     }
 
-
+    /**
+     * Constructor of the MainGUIController class.
+     *
+     * @param blFacade The business logic facade.
+     */
     public MainGUIController(BlFacade blFacade) {
         this.businessLogic = blFacade;
     }
+
+    //The following methods are used to allow us to call this methods from another classes.
+
 
     public void setLoginController(LoginController loginController) {
         this.loginController = loginController;
     }
 
+    public void setRegisterController(RegisterController registerController) {
+        this.registerController = registerController;
+    }
 
+    public void setQueryRidesController(QueryRidesController queryRidesController) {
+        this.queryRidesController = queryRidesController;
+    }
+
+    public void setCreateRideController(CreateRideController createRideController) {
+        this.createRideController = createRideController;
+    }
+
+    //The following methods are used to manage the buttons in the GUI
+
+    /**
+     * Shows the query rides scene in the GUI.
+     *
+     * @param event
+     */
     @FXML
     void queryRides(ActionEvent event) {
         showScene("Query Rides");
     }
+
+    /**
+     * Shows the login scene in the GUI.
+     *
+     * @param event
+     */
 
     @FXML
     void login(ActionEvent event) {
         showScene("Login");
     }
 
+
+    /**
+     * Shows the register scene in the GUI.
+     *
+     * @param event
+     */
     @FXML
     void register(ActionEvent event) {
         showScene("Register");
     }
 
+    /**
+     * Shows the create ride scene in the GUI.
+     *
+     * @param event
+     */
+
     @FXML
     void createRide(ActionEvent event) {
         showScene("Create Ride");
     }
+
+    /**
+     * Shows the login GUI scene in the GUI.
+     *
+     * @param event
+     */
 
     @FXML
     void changeUser(ActionEvent event) {
@@ -98,6 +157,17 @@ public class MainGUIController {
 
         //Method used to restart the apparence of login controller
         loginController.restartLogin();
+    }
+
+    /**
+     * Shows the initial GUI scene in the GUI.
+     *
+     * @param event
+     */
+
+    @FXML
+    void goHome(ActionEvent event) {
+        showScene("InitialGUI");
     }
 
 
@@ -114,14 +184,14 @@ public class MainGUIController {
      * Hides the login button on the GUI.
      */
     public void hideButtonLogin() {
-        LoginMainButton.setVisible(false);
+        loginMainButton.setVisible(false);
     }
 
     /**
      * Hides the register button on the GUI.
      */
     public void hideButtonRegister() {
-        RegisterMainButton.setVisible(false);
+        registerMainButton.setVisible(false);
     }
 
     /**
@@ -142,7 +212,7 @@ public class MainGUIController {
      * Shows the change user button on the GUI.
      */
     public void showButtonChangeUserButton() {
-        ChangeUserButton.setVisible(true);
+        changeUserButton.setVisible(true);
     }
 
     /**
@@ -153,10 +223,35 @@ public class MainGUIController {
     }
 
     /**
-     * Setsthe type of the driver in the label on the GUI.
+     * Shows the login scene in the GUI.
+     */
+    public void showLogin() {
+        showScene("Login");
+    }
+
+    /**
+     * Sets the type of the driver in the label on the GUI.
      */
     public void setDriverType(String type) {
-        TypeOfUser.setText(type + ": ");
+        typeOfUser.setText(type + ": ");
+    }
+
+    /**
+     * Shows the initial GUI scene.
+     */
+    public void showInitialGUI() {
+        showScene("InitialGUI");
+    }
+
+    //New method
+
+    /**
+     * Returns the login controller.
+     *
+     * @return The login controller.
+     */
+    public LoginController getLoginController() {
+        return loginController;
     }
 
 
@@ -166,14 +261,17 @@ public class MainGUIController {
         setDriverName(businessLogic.getCurrentUser().getName());
         setDriverType(businessLogic.getCurrentUser().getClass().getSimpleName());
 
-        ChangeUserButton.setVisible(false);
+
+        changeUserButton.setVisible(false);
 
         queryRidesWin = load("QueryRides.fxml");
         createRideWin = load("CreateRide.fxml");
         loginWin = load("Login.fxml");
         registerWin = load("Register.fxml");
+        InitialGUIWin = load("InitialGUI.fxml");
 
-        showScene("Query Rides");
+
+        showScene("InitialGUI");
         System.out.println("\n\n\n\nShare Trip Project\n\n\n\n");
     }
 
@@ -190,7 +288,13 @@ public class MainGUIController {
             loader.setControllerFactory(controllerClass -> {
                 try {
                     if (controllerClass == LoginController.class) {
-                        return new LoginController(businessLogic, this/*, registerController */);
+                        return new LoginController(businessLogic, this);
+                    } else if (controllerClass == RegisterController.class) {
+                        return new RegisterController(businessLogic, this);
+                    } else if (controllerClass == QueryRidesController.class) {
+                        return new QueryRidesController(businessLogic, this);
+                    } else if (controllerClass == CreateRideController.class) {
+                        return new CreateRideController(businessLogic, this);
                     } else {
                         return controllerClass
                                 .getConstructor(BlFacade.class)
@@ -212,7 +316,8 @@ public class MainGUIController {
         }
     }
 
-    private Window createRideWin, queryRidesWin, loginWin, registerWin;
+
+    private Window createRideWin, queryRidesWin, loginWin, registerWin, InitialGUIWin;
 
     private void showScene(String scene) {
         switch (scene) {
@@ -220,6 +325,7 @@ public class MainGUIController {
             case "Create Ride" -> mainWrapper.setCenter(createRideWin.ui);
             case "Login" -> mainWrapper.setCenter(loginWin.ui);
             case "Register" -> mainWrapper.setCenter(registerWin.ui);
+            case "InitialGUI" -> mainWrapper.setCenter(InitialGUIWin.ui);
         }
     }
 

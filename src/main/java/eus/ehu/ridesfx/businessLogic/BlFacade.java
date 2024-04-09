@@ -1,7 +1,7 @@
 package eus.ehu.ridesfx.businessLogic;
 
-import eus.ehu.ridesfx.domain.Driver;
 import eus.ehu.ridesfx.domain.Ride;
+import eus.ehu.ridesfx.domain.Traveler;
 import eus.ehu.ridesfx.domain.User;
 import eus.ehu.ridesfx.exceptions.RideAlreadyExistException;
 import eus.ehu.ridesfx.exceptions.RideMustBeLaterThanTodayException;
@@ -49,6 +49,8 @@ public interface BlFacade {
 
     User getCurrentUser();
 
+    Traveler getCurrentTraveler();
+
     Ride createRide(String text, String text1, Date date, int inputSeats, float price, String email) throws RideMustBeLaterThanTodayException, RideAlreadyExistException;
 
 
@@ -78,5 +80,8 @@ public interface BlFacade {
     boolean checkPassword(String username, String password);
 
 
+    boolean bookRide(Date date, Ride ride, Traveler traveler, int numPlaces);
 
+
+    List<Integer> getAvailableSeats(Ride selectedItem);
 }

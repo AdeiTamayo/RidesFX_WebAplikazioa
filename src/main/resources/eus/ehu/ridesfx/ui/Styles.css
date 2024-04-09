@@ -11,16 +11,13 @@
     -fx-cursor: hand;
 }
 
-
 .bold-label {
     -fx-font-weight: bold; /* Set font weight to bold */
 }
 
-
 .border-pane {
     -fx-background-color: #f0f0f0;
 }
-
 
 .combo-box {
     -fx-background-color: #d4d7d9;
@@ -42,7 +39,6 @@
     -fx-text-fill: black;
 }
 
-
 /* Customize TableView */
 .table-view {
     -fx-table-cell-border-color: transparent;
@@ -57,15 +53,17 @@
     -fx-border-radius: 10 10 0 0;
 }
 
-/* Set TableView row background color (optional) */
-.table-row-cell {
-    -fx-background-color: #f0f0f0;
+
+/* Add border to selected row in TableView */
+.table-row-cell:selected {
+    -fx-border-color: #000000; /* Set border color */
+    -fx-border-width: 1px; /* Set border width */
+    -fx-border-style: solid; /* Set border style */
 }
 
 .error-label {
     -fx-text-fill: red;
 }
-
 
 .date-picker .text-field {
     -fx-text-fill: black;
@@ -73,6 +71,10 @@
 }
 
 .register {
+    /*
     -fx-background-color: #acaeb0;
+
+     */
+    -fx-text-fill: black;
     -fx-background-radius: 25;
 }

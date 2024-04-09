@@ -3,6 +3,7 @@ package eus.ehu.ridesfx.uicontrollers;
 import eus.ehu.ridesfx.businessLogic.BlFacade;
 import eus.ehu.ridesfx.domain.Driver;
 import eus.ehu.ridesfx.domain.Ride;
+import eus.ehu.ridesfx.domain.Traveler;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -43,6 +44,9 @@ public class QueryRidesController implements Controller {
     private DatePicker datepicker;
 
     @FXML
+    private Label rideDate;
+
+    @FXML
     private TableColumn<Ride, String> qc1;
 
     @FXML
@@ -63,15 +67,28 @@ public class QueryRidesController implements Controller {
     @FXML
     private TableView<Ride> tblRides;
 
+    @FXML
+    private Button bookinButton;
+
+    @FXML
+    private Label quantityOfSeatsLabel;
+
+    @FXML
+    private ComboBox<Integer> comboNumSeats;
+
 
     private MainGUI mainGUI;
+
+    private MainGUIController mainGUIController;
 
     private List<LocalDate> datesWithBooking = new ArrayList<>();
 
     private BlFacade businessLogic;
 
-    public QueryRidesController(BlFacade bl) {
+    public QueryRidesController(BlFacade bl, MainGUIController mainGUIController) {
         businessLogic = bl;
+        this.mainGUIController = mainGUIController;
+        this.mainGUIController.setQueryRidesController(this);
     }
 
 
@@ -79,11 +96,13 @@ public class QueryRidesController implements Controller {
     void closeClick(ActionEvent event) {
 
         // mainGUI.showMain();
-        //beste modura, mainGUIControllerren istantzia bat sortuta:
 
-        /*
-        mainGUIController.showScene("Main");
-         */
+
+        //beste modu batera, mainGUIControllerren istantzia bat sortuta:
+
+
+        mainGUIController.showInitialGUI();
+
     }
 
     private void setEvents(int year, int month) {
@@ -138,6 +157,13 @@ public class QueryRidesController implements Controller {
     @FXML
     void initialize() {
 
+        comboNumSeats.setVisible(false);
+        quantityOfSeatsLabel.setVisible(false);
+        bookinButton.setVisible(false);
+
+
+
+
         // Update DatePicker cells when ComboBox value changes
         comboArrivalCity.valueProperty().addListener(
                 (obs, oldVal, newVal) -> updateDatePickerCellFactory(datepicker));
@@ -149,6 +175,8 @@ public class QueryRidesController implements Controller {
 
         comboDepartCity.setItems(departureCities);
         comboArrivalCity.setItems(arrivalCities);
+
+
 
         // when the user selects a departure city, update the arrival cities
         comboDepartCity.setOnAction(e -> {
@@ -166,6 +194,9 @@ public class QueryRidesController implements Controller {
             for (Ride ride : rides) {
                 tblRides.getItems().add(ride);
             }
+
+
+            rideDate.setText(Dates.convertToDate(datepicker.getValue()).toString());
         });
 
         datepicker.setOnMouseClicked(e -> {
@@ -186,6 +217,7 @@ public class QueryRidesController implements Controller {
                     // print month value
                     System.out.println("Month:" + ym.getMonthValue());
 
+
                 });
             });
         });
@@ -202,23 +234,82 @@ public class QueryRidesController implements Controller {
         qc2.setCellValueFactory(new PropertyValueFactory<>("numPlaces"));
         qc3.setCellValueFactory(new PropertyValueFactory<>("price"));
 
+        // Add listener to TableView's selection model to know when to change the GUI with new buttons
+        tblRides.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+
+                manageGUi();
+            }
+        });
+
+
     }
 
 
-/*
+    /*
 
-  private void setupEventSelection() {
-    tblEvents.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-      if (newSelection != null) {
+      private void setupEventSelection() {
+        tblEvents.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+          if (newSelection != null) {
 
-        tblQuestions.getItems().clear();
-        for (Question q : tblEvents.getSelectionModel().getSelectedItem().getQuestions()) {
-          tblQuestions.getItems().add(q);
-        }
+            tblQuestions.getItems().clear();
+            for (Question q : tblEvents.getSelectionModel().getSelectedItem().getQuestions()) {
+              tblQuestions.getItems().add(q);
+            }
+          }
+        });
       }
-    });
-  }
-*/
+    */
+
+
+    //TODO create the method to book a ride
+    @FXML
+    public void bookRide(ActionEvent actionEvent) {
+
+        //Lortu behar dira data, bidaia eta erabiltzailea
+        Date date = Dates.convertToDate(datepicker.getValue());
+        Ride ride = tblRides.getSelectionModel().getSelectedItem();
+        int numSeats = comboNumSeats.getValue();
+
+
+        //suposatzen da erreserbatzen sahiatzen bada, traveler izan behar duela
+        Traveler traveler = businessLogic.getCurrentTraveler();
+
+        businessLogic.bookRide(date, ride, traveler, numSeats);
+
+        //A ride has been booked, update the combobox of Rides
+        tblRides.getItems().clear();
+        // Vector<domain.Ride> events = businessLogic.getEvents(Dates.convertToDate(datepicker.getValue()));
+        List<Ride> rides = businessLogic.getRides(comboDepartCity.getValue(), comboArrivalCity.getValue(), Dates.convertToDate(datepicker.getValue()));
+        // List<Ride> rides = Arrays.asList(new Ride("Bilbao", "Donostia", Dates.convertToDate(datepicker.getValue()), 3, 3.5f, new Driver("pepe@pepe.com", "pepe")));
+        for (Ride r : rides) {
+            tblRides.getItems().add(r);
+        }
+
+
+
+
+
+    }
+
+
+    /**
+     * This method manages the GUI to work when the user selects a ride
+     */
+    public void manageGUi() {
+        if (tblRides.getSelectionModel().getSelectedItem() != null) {
+            bookinButton.setVisible(true);
+
+            // Get the number of seats available for the selected ride and show them in the combobox
+            Ride ride = tblRides.getSelectionModel().getSelectedItem();
+            List<Integer> availableSeats = businessLogic.getAvailableSeats(ride);
+            ObservableList<Integer> seats = FXCollections.observableArrayList(availableSeats);
+            comboNumSeats.setItems(seats);
+
+            comboNumSeats.setVisible(true);
+            quantityOfSeatsLabel.setVisible(true);
+        }
+    }
 
     @Override
     public void setMainApp(MainGUI mainGUI) {

@@ -1,16 +1,16 @@
 package eus.ehu.ridesfx.ui;
 
 import eus.ehu.ridesfx.businessLogic.BlFacade;
-import eus.ehu.ridesfx.domain.Driver;
-import eus.ehu.ridesfx.uicontrollers.MainGUIController;
 import javafx.application.Platform;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import eus.ehu.ridesfx.domain.Driver;
+import eus.ehu.ridesfx.uicontrollers.MainGUIController;
 import org.kordamp.bootstrapfx.BootstrapFX;
 import eus.ehu.ridesfx.uicontrollers.Controller;
+import javafx.fxml.FXML;
+import javafx.scene.Parent;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -66,13 +66,17 @@ public class MainGUI {
 
 
 
+/*
+  public void start(Stage stage) throws IOException {
+      init(stage);
+ }
 
-//  public void start(Stage stage) throws IOException {
-//      init(stage);
-//  }
+ */
 
+    /*
+  public static void main(String[] args) {
+    launch();
+  }
 
-//  public static void main(String[] args) {
-//    launch();
-//  }
+     */
 }

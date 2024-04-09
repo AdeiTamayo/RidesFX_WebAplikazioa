@@ -1,11 +1,17 @@
-
+/**
+ * The Ride class represents a ride in the ridesharing system.
+ * It is marked as an Entity, meaning that it is mapped to a table in the database.
+ * Each Ride is associated with a Driver.
+ *
+ * The class implements Serializable, which means it can be converted to a byte stream and recovered later.
+ *
+ */
 package eus.ehu.ridesfx.domain;
 
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Date;
-
 
 @SuppressWarnings("serial")
 @Entity
@@ -22,10 +28,26 @@ public class Ride implements Serializable {
 	@ManyToOne
 	private Driver driver;
 
+	/**
+	 * Default constructor for the Ride class.
+	 * Initializes a new Ride with no parameters.
+	 */
 	public Ride(){
 		super();
 	}
 
+	/**
+	 * Parameterized constructor for the Ride class.
+	 * Initializes a new Ride with the provided parameters.
+	 *
+	 * @param rideNumber The number of the ride.
+	 * @param from The origin location of the ride.
+	 * @param to The destination location of the ride.
+	 * @param date The date of the ride.
+	 * @param numPlaces The number of places available in the ride.
+	 * @param price The price of the ride.
+	 * @param driver The driver of the ride.
+	 */
 	public Ride(Integer rideNumber, String from, String to, Date date, int numPlaces, float price, Driver driver) {
 		super();
 		this.rideNumber = rideNumber;
@@ -37,8 +59,17 @@ public class Ride implements Serializable {
 		this.driver = driver;
 	}
 
-
-
+	/**
+	 * Parameterized constructor for the Ride class.
+	 * Initializes a new Ride with the provided parameters.
+	 *
+	 * @param from The origin location of the ride.
+	 * @param to The destination location of the ride.
+	 * @param date The date of the ride.
+	 * @param numPlaces The number of places available in the ride.
+	 * @param price The price of the ride.
+	 * @param driver The driver of the ride.
+	 */
 	public Ride(String from, String to,  Date date, int numPlaces, float price, Driver driver) {
 		super();
 		this.fromLocation = from;
@@ -48,6 +79,7 @@ public class Ride implements Serializable {
 		this.price=price;
 		this.driver = driver;
 	}
+
 
 	/**
 	 * Get the  number of the ride
@@ -133,8 +165,12 @@ public class Ride implements Serializable {
 		this.date = date;
 	}
 
-
-	public float getNumPlaces() {
+	/**
+	 * Get the free places of the ride
+	 *
+	 * @return the available places
+	 */
+	public int getNumPlaces() {
 		return numPlaces;
 	}
 
