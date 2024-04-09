@@ -203,8 +203,15 @@ public class DataAccess {
                 + "WHERE ride.date=?1 ", Ride.class);
         query.setParameter(1, date);
 
-
-        return query.getResultList();
+        //If the number of seats of a ride is 0 delete it from the list
+        List<Ride> rides = query.getResultList();
+        List<Ride> finalRides = new ArrayList<>();
+        for (Ride r : rides) {
+            if (r.getNumPlaces() > 0) {
+                finalRides.add(r);
+            }
+        }
+        return finalRides;
     }
 
 

@@ -269,13 +269,24 @@ public class QueryRidesController implements Controller {
         //Lortu behar dira data, bidaia eta erabiltzailea
         Date date = Dates.convertToDate(datepicker.getValue());
         Ride ride = tblRides.getSelectionModel().getSelectedItem();
-        int numSeats = comboNumSeats.getItems().size();
+        int numSeats = comboNumSeats.getValue();
 
 
         //suposatzen da erreserbatzen sahiatzen bada, traveler izan behar duela
         Traveler traveler = businessLogic.getCurrentTraveler();
 
         businessLogic.bookRide(date, ride, traveler, numSeats);
+
+        //A ride has been booked, update the combobox of Rides
+        tblRides.getItems().clear();
+        // Vector<domain.Ride> events = businessLogic.getEvents(Dates.convertToDate(datepicker.getValue()));
+        List<Ride> rides = businessLogic.getRides(comboDepartCity.getValue(), comboArrivalCity.getValue(), Dates.convertToDate(datepicker.getValue()));
+        // List<Ride> rides = Arrays.asList(new Ride("Bilbao", "Donostia", Dates.convertToDate(datepicker.getValue()), 3, 3.5f, new Driver("pepe@pepe.com", "pepe")));
+        for (Ride r : rides) {
+            tblRides.getItems().add(r);
+        }
+
+
 
 
 
