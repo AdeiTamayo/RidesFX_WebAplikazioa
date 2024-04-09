@@ -197,6 +197,9 @@ public class QueryRidesController implements Controller {
         // a date has been chosen, update the combobox of Rides
         datepicker.setOnAction(actionEvent -> {
 
+            alertMessage.setVisible(false);
+            alertButton.setVisible(false);
+
             tblRides.getItems().clear();
             // Vector<domain.Ride> events = businessLogic.getEvents(Dates.convertToDate(datepicker.getValue()));
             List<Ride> rides = businessLogic.getRides(comboDepartCity.getValue(), comboArrivalCity.getValue(), Dates.convertToDate(datepicker.getValue()));
@@ -212,6 +215,8 @@ public class QueryRidesController implements Controller {
                 tblRides.setPlaceholder(placeholderLabel);
 
                 System.out.println("No rides found for this date");
+                quantityOfSeatsLabel.setVisible(false);
+                comboNumSeats.setVisible(false);
                 bookinButton.setVisible(false);
                 alertButton.setVisible(true);
                 alertMessage.setVisible(false);

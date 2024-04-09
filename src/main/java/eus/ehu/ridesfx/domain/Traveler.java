@@ -95,7 +95,6 @@ public class Traveler extends User implements Serializable {
      */
     public void addReservation(Reservation reservation) {
         reservations.add(reservation);
-        return super.getEmail() + ";" + super.getName() + alerts;
     }
 
     /**
