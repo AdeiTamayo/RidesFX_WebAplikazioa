@@ -170,7 +170,7 @@ public class Ride implements Serializable {
 	 *
 	 * @return the available places
 	 */
-	public float getNumPlaces() {
+	public int getNumPlaces() {
 		return numPlaces;
 	}
 

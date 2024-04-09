@@ -106,6 +106,7 @@ public class DataAccess {
             Driver driver1 = new Driver("driver1@gmail.com", "Aitor Fernandez", "aitor", "1234");
             Driver driver2 = new Driver("driver2@gmail.com", "Ane Gaztañaga", "ane", "1234");
             Driver driver3 = new Driver("driver3@gmail.com", "Test driver", "test", "1234");
+            Traveler traveler1 = new Traveler("traveler@gmail.com", "Traveler 1", "traveler1", "1234");
 
 
             //Create rides
@@ -127,6 +128,7 @@ public class DataAccess {
             db.persist(driver1);
             db.persist(driver2);
             db.persist(driver3);
+            db.persist(traveler1);
 
 
             db.getTransaction().commit();
@@ -359,19 +361,26 @@ public class DataAccess {
         // Check if the ride has enough available seats
         if (dbRide.getNumPlaces() < numSeats) {
             db.getTransaction().rollback();
+            // Commit the transaction
+            db.getTransaction().commit();
             return false;
+        }else{
+            // Create a Reservation object
+            Reservation reservation = new Reservation(numSeats, date, "pending", traveler);
+
+            //Add the reservation to the traveler
+            traveler.addReservation(reservation);
+
+            //Update the number of available seats
+            dbRide.setNumPlaces(dbRide.getNumPlaces() - numSeats);
+
+            // Persist the Reservation object to the database
+            db.persist(reservation);
+            // Commit the transaction
+            db.getTransaction().commit();
+
+            return true;
         }
-
-        // Create a Reservation object
-        Reservation reservation = new Reservation(numSeats, date, "pending", traveler);
-
-        // Persist the Reservation object to the database
-        db.persist(reservation);
-
-        // Commit the transaction
-        db.getTransaction().commit();
-
-        return true;
 
 
     }

@@ -24,8 +24,6 @@ public class Traveler extends User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-
-    //FIXME why does it give an error?
     private List<Reservation> reservations;
 
     /**

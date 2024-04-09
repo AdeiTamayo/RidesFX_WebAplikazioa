@@ -270,7 +270,16 @@ public class QueryRidesController implements Controller {
         //suposatzen da erreserbatzen sahiatzen bada, traveler izan behar duela
         Traveler traveler = businessLogic.getCurrentTraveler();
 
-        businessLogic.bookRide(date, ride, traveler, numSeats);
+        //Call the business logic to book the ride and check if the number of seats is available
+        if(!businessLogic.bookRide(date, ride, traveler, numSeats)){
+            //TODO show error message(number of seats not available)
+            System.out.println("Error booking ride. Number of seats not available");
+
+        }else{
+            //TODO show success message
+            System.out.println("Ride booked successfully");
+        }
+
 
 
     }
