@@ -321,6 +321,8 @@ public class QueryRidesController implements Controller {
         Traveler traveler = businessLogic.getCurrentTraveler();
 
         businessLogic.bookRide(date, ride, traveler, numSeats);
+        alertMessage.setVisible(true);
+        alertMessage.setText("Ride requested, pending driver approval");
 
         //A ride has been booked, update the combobox of Rides
         tblRides.getItems().clear();
