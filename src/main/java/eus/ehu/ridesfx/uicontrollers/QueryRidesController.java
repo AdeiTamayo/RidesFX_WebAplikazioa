@@ -196,34 +196,41 @@ public class QueryRidesController implements Controller {
 
         // a date has been chosen, update the combobox of Rides
         datepicker.setOnAction(actionEvent -> {
+            if(comboDepartCity.getValue() == null || comboArrivalCity.getValue() == null){
+                //TODO add an exception
+                System.out.println(" Please select both a departure and arrival city");
+                alertMessage.setText("Please select both a departure and arrival city");
+                alertMessage.setVisible(true);
+            }else {
 
-            alertMessage.setVisible(false);
-            alertButton.setVisible(false);
-
-            tblRides.getItems().clear();
-            // Vector<domain.Ride> events = businessLogic.getEvents(Dates.convertToDate(datepicker.getValue()));
-            List<Ride> rides = businessLogic.getRides(comboDepartCity.getValue(), comboArrivalCity.getValue(), Dates.convertToDate(datepicker.getValue()));
-            // List<Ride> rides = Arrays.asList(new Ride("Bilbao", "Donostia", Dates.convertToDate(datepicker.getValue()), 3, 3.5f, new Driver("pepe@pepe.com", "pepe")));
-            for (Ride ride : rides) {
-                tblRides.getItems().add(ride);
-            }
-
-            //if there are no rides, show a message and able the button of creating an alert
-            if (rides.isEmpty() && comboArrivalCity.getValue() != null && comboDepartCity.getValue() != null){
-                Label placeholderLabel = new Label("No rides found. Click on the button below to create an alert.");
-                placeholderLabel.setAlignment(Pos.CENTER);
-                tblRides.setPlaceholder(placeholderLabel);
-
-                System.out.println("No rides found for this date");
-                quantityOfSeatsLabel.setVisible(false);
-                comboNumSeats.setVisible(false);
-                bookinButton.setVisible(false);
-                alertButton.setVisible(true);
                 alertMessage.setVisible(false);
+                alertButton.setVisible(false);
+
+                tblRides.getItems().clear();
+                // Vector<domain.Ride> events = businessLogic.getEvents(Dates.convertToDate(datepicker.getValue()));
+                List<Ride> rides = businessLogic.getRides(comboDepartCity.getValue(), comboArrivalCity.getValue(), Dates.convertToDate(datepicker.getValue()));
+                // List<Ride> rides = Arrays.asList(new Ride("Bilbao", "Donostia", Dates.convertToDate(datepicker.getValue()), 3, 3.5f, new Driver("pepe@pepe.com", "pepe")));
+                for (Ride ride : rides) {
+                    tblRides.getItems().add(ride);
+                }
+
+                //if there are no rides, show a message and able the button of creating an alert
+                if (rides.isEmpty() && comboArrivalCity.getValue() != null && comboDepartCity.getValue() != null) {
+                    Label placeholderLabel = new Label("No rides found. Click on the button below to create an alert.");
+                    placeholderLabel.setAlignment(Pos.CENTER);
+                    tblRides.setPlaceholder(placeholderLabel);
+
+                    System.out.println("No rides found for this date");
+                    quantityOfSeatsLabel.setVisible(false);
+                    comboNumSeats.setVisible(false);
+                    bookinButton.setVisible(false);
+                    alertButton.setVisible(true);
+                    alertMessage.setVisible(false);
+                }
+
+
+                rideDate.setText(Dates.convertToDate(datepicker.getValue()).toString());
             }
-
-
-            rideDate.setText(Dates.convertToDate(datepicker.getValue()).toString());
         });
 
         datepicker.setOnMouseClicked(e -> {
@@ -289,11 +296,11 @@ public class QueryRidesController implements Controller {
     */
 
 
-    //TODO create the method to book a ride
+
     @FXML
     public void bookRide(ActionEvent actionEvent) {
 
-        //Lortu behar dira data, bidaia eta erabiltzailea
+
         Date date = Dates.convertToDate(datepicker.getValue());
         Ride ride = tblRides.getSelectionModel().getSelectedItem();
         int numSeats = comboNumSeats.getValue();
@@ -306,7 +313,7 @@ public class QueryRidesController implements Controller {
 
         //A ride has been booked, update the combobox of Rides
         tblRides.getItems().clear();
-        // Vector<domain.Ride> events = businessLogic.getEvents(Dates.convertToDate(datepicker.getValue()));
+
         List<Ride> rides = businessLogic.getRides(comboDepartCity.getValue(), comboArrivalCity.getValue(), Dates.convertToDate(datepicker.getValue()));
         // List<Ride> rides = Arrays.asList(new Ride("Bilbao", "Donostia", Dates.convertToDate(datepicker.getValue()), 3, 3.5f, new Driver("pepe@pepe.com", "pepe")));
         for (Ride r : rides) {

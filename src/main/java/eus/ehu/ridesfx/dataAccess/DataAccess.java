@@ -378,7 +378,8 @@ public class DataAccess {
         traveler.addReservation(reservation);
 
         //Update the number of available seats
-        dbRide.setNumPlaces(dbRide.getNumPlaces() - numSeats);
+        //FIXME check if this works
+        //dbRide.setNumPlaces(dbRide.getNumPlaces() - numSeats);
 
         // Persist the Reservation object to the database
         db.persist(reservation);

@@ -159,6 +159,8 @@ public class MainGUIController {
         loginController.restartLogin();
     }
 
+
+
     /**
      * Shows the initial GUI scene in the GUI.
      *
