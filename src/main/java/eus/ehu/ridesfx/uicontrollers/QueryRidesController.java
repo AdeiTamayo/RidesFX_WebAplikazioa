@@ -221,8 +221,19 @@ public class QueryRidesController implements Controller {
                     tblRides.setPlaceholder(placeholderLabel);
 
                     System.out.println("No rides found for this date");
-                    quantityOfSeatsLabel.setVisible(false);
-                    comboNumSeats.setVisible(false);
+                    quantityOfSeatsLabel.setVisible(true);
+                    comboNumSeats.setVisible(true);
+                    //delete elements from the combobox
+                    comboNumSeats.getItems().clear();
+                    //add nums from 1 to 7
+                    List<Integer> availableSeats = new ArrayList<>();
+                    for (int i = 1; i <= 7; i++) {
+                        availableSeats.add(i);
+                    }
+                    ObservableList<Integer> observableSeats = FXCollections.observableArrayList(availableSeats);
+                    comboNumSeats.setItems(observableSeats);
+
+
                     bookinButton.setVisible(false);
                     alertButton.setVisible(true);
                     alertMessage.setVisible(false);
@@ -358,7 +369,7 @@ public class QueryRidesController implements Controller {
             alertMessage.setText("Only travelers can create alerts");
             return;
         }
-        if(businessLogic.createAlert(comboDepartCity.getValue(), comboArrivalCity.getValue(), 1, Dates.convertToDate(datepicker.getValue()), businessLogic.getCurrentUser().getEmail())==null){
+        if(businessLogic.createAlert(comboDepartCity.getValue(), comboArrivalCity.getValue(), comboNumSeats.getValue(), Dates.convertToDate(datepicker.getValue()), businessLogic.getCurrentUser().getEmail())==null){
             //Display error text: "Alert already exists"
             alertMessage.setText("Alert already exists");
         }
