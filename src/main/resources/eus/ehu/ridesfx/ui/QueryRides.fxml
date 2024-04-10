@@ -40,8 +40,8 @@
         <Button fx:id="bookinButton" layoutX="645.0" layoutY="288.0" mnemonicParsing="false" onAction="#bookRide" text="Make a reservation" />
         <Label fx:id="quantityOfSeatsLabel" layoutX="375.0" layoutY="292.0" text="How many seats do you want?" />
         <ComboBox fx:id="comboNumSeats" layoutX="549.0" layoutY="289.0" prefHeight="18.0" prefWidth="70.0" />
-        <Button fx:id="alertButton" layoutX="525.0" layoutY="288.0" mnemonicParsing="false" onAction="#createAlert" text="Create Alert" />
-        <Label id="Error message" fx:id="alertMessage" layoutX="413.0" layoutY="329.0" prefHeight="18.0" prefWidth="312.0" text="">
+        <Button fx:id="alertButton" layoutX="664.0" layoutY="288.0" mnemonicParsing="false" onAction="#createAlert" text="Create Alert" />
+        <Label id="Error message" fx:id="alertMessage" layoutX="413.0" layoutY="325.0" prefHeight="18.0" prefWidth="312.0" text="">
          <styleClass>
             <String fx:value="error-label" />
             <String fx:value="bold-label" />
