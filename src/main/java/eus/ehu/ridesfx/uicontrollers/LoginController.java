@@ -101,7 +101,11 @@ public class LoginController implements Controller {
 
 
                 //This prints the name of the driver in the console
-                System.out.println("\nThe name of the driver is : \n");
+                if(businessLogic.getCurrentUser() instanceof Driver) {
+                    System.out.println("\nThe name of the driver is : \n");
+                }else if(businessLogic.getCurrentUser() instanceof Traveler){
+                    System.out.println("\nThe name of the traveler is : \n");
+                }
                 System.out.println(businessLogic.getCurrentUser().getName());
 
 
