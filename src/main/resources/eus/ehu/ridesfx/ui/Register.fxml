@@ -41,7 +41,7 @@
         <PasswordField id="passwordField1" fx:id="password" layoutX="158.0" layoutY="207.0" />
         <PasswordField id="passwordField2" fx:id="password2" layoutX="159.0" layoutY="250.0" />
         <Label fx:id="output" alignment="CENTER_RIGHT" layoutX="185.0" layoutY="340.0" prefHeight="17.0" prefWidth="97.0" wrapText="true" />
-        <Button alignment="CENTER_RIGHT" layoutX="172.0" layoutY="333.0" onAction="#registerBtnClick" text="REGISTER NOW">
+        <Button alignment="CENTER_RIGHT" layoutX="105.0" layoutY="335.0" onAction="#registerBtnClick" text="REGISTER NOW">
             <styleClass>
                 <String fx:value="btn-info" />
                 <String fx:value="bold-label" />
@@ -56,6 +56,7 @@
       <Label layoutX="115.0" layoutY="292.0" prefHeight="18.0" prefWidth="32.0" styleClass="bold-label" text="Role:" />
       <ComboBox fx:id="roles" layoutX="158.0" layoutY="289.0" prefWidth="150.0" />
       <Label fx:id="goToLoginLabel" layoutX="146.0" layoutY="407.0" onMouseClicked="#goToLoginAction" styleClass="bold-label" text="Alredy registered? Go to Login" textAlignment="CENTER" />
+      <Button fx:id="clearButtonRegister" layoutX="238.0" layoutY="335.0" mnemonicParsing="false" onAction="#clearRegister" prefHeight="27.0" prefWidth="88.0" styleClass="bold-label" text="Clear" />
 
     </children>
 </AnchorPane>
