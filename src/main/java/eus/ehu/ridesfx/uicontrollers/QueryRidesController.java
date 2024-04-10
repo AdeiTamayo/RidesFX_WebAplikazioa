@@ -191,10 +191,21 @@ public class QueryRidesController implements Controller {
         comboDepartCity.setItems(departureCities);
         comboArrivalCity.setItems(arrivalCities);
 
+        comboArrivalCity.valueProperty().addListener((obs, oldVal, newVal) -> {
+            if (comboDepartCity.getValue() != null && newVal != null) {
+                datepicker.fireEvent(new ActionEvent()); // Force datepicker action handler to run
+            }
+        });
+
         // when the user selects a departure city, update the arrival cities
         comboDepartCity.setOnAction(e -> {
             arrivalCities.clear();
             arrivalCities.setAll(businessLogic.getDestinationCities(comboDepartCity.getValue()));
+
+            if (comboArrivalCity.getValue() != null) {
+                datepicker.fireEvent(new ActionEvent()); // Force datepicker action handler to run if a city is already selected
+            }
+
         });
 
         // a date has been chosen, update the combobox of Rides
