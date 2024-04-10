@@ -5,10 +5,12 @@ import eus.ehu.ridesfx.configuration.UtilDate;
 import eus.ehu.ridesfx.domain.*;
 import eus.ehu.ridesfx.exceptions.RideAlreadyExistException;
 import eus.ehu.ridesfx.exceptions.RideMustBeLaterThanTodayException;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.NoResultException;
-import jakarta.persistence.TypedQuery;
+import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaDelete;
+import jakarta.persistence.criteria.Root;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -460,9 +462,21 @@ public class DataAccess {
      */
     public void deleteAlert(Alert alert) {
         db.getTransaction().begin();
-        db.remove(alert);
-        db.getTransaction().commit();
+        // Remove alert from Alert and USERS_ALERT tables
+        String deleteQueryUsersAlert = "DELETE FROM USERS_ALERT WHERE USERS_ALERT.ALERTS_ALERTNUMBER = :alertnum";
+        String deleteQueryAlert = "DELETE FROM Alert WHERE alertNumber = :alertnum";
+
+        Query q1 = db.createNativeQuery(deleteQueryUsersAlert);
+        q1.setParameter("alertnum", alert.getAlertNumber());
+        int rowsAffected1 = q1.executeUpdate();
+
+        Query q2 = db.createNativeQuery(deleteQueryAlert);
+        q2.setParameter("alertnum", alert.getAlertNumber());
+        int rowsAffected2 = q2.executeUpdate();
+
+        // Check rowsAffected1 and rowsAffected2 if necessary
     }
+
 
     /**
      * This method updates the state of an alert to ride found
