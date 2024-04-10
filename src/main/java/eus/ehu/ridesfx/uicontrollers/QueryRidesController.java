@@ -83,6 +83,9 @@ public class QueryRidesController implements Controller {
     @FXML
     private ComboBox<Integer> comboNumSeats;
 
+    @FXML
+    private Button clearButton;
+
 
     private MainGUI mainGUI;
 
@@ -356,6 +359,23 @@ public class QueryRidesController implements Controller {
             comboNumSeats.setVisible(true);
             quantityOfSeatsLabel.setVisible(true);
         }
+    }
+
+    /**
+     * This method clears the GUI
+     */
+    @FXML
+    public void clearGUI(ActionEvent event){
+        comboDepartCity.setValue(null);
+        comboArrivalCity.setValue(null);
+        datepicker.setValue(null);
+        tblRides.getItems().clear();
+        comboNumSeats.setVisible(false);
+        quantityOfSeatsLabel.setVisible(false);
+        bookinButton.setVisible(false);
+        alertButton.setVisible(false);
+        alertMessage.setVisible(false);
+        rideDate.setText("");
     }
 
     @Override

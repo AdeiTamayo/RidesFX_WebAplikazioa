@@ -30,7 +30,7 @@
         <Label layoutX="39.0" layoutY="106.0" styleClass="bold-label" text="ArrivalCity" />
         <ComboBox fx:id="comboDepartCity" layoutX="126.0" layoutY="54.0" prefWidth="150.0" styleClass="combo-box" />
         <ComboBox fx:id="comboArrivalCity" layoutX="126.0" layoutY="101.0" prefWidth="150.0" styleClass="combo-box" />
-        <Button fx:id="btnClose" layoutX="546.0" layoutY="348.0" mnemonicParsing="false" onAction="#closeClick" text="Back" />
+        <Button fx:id="btnClose" layoutX="546.0" layoutY="348.0" mnemonicParsing="false" onAction="#closeClick" styleClass="bold-label" text="Back" />
 
         <Label layoutX="110.0" layoutY="19.0" styleClass="bold-label" text="QUERY RIDES">
             <font>
@@ -46,5 +46,6 @@
             <String fx:value="error-label" />
             <String fx:value="bold-label" />
          </styleClass></Label>
+      <Button fx:id="clearButton" layoutX="451.0" layoutY="349.0" mnemonicParsing="false" onAction="#clearGUI" styleClass="bold-label" text="Clear" />
     </children>
 </AnchorPane>
