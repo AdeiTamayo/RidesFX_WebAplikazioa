@@ -360,7 +360,8 @@ public class DataAccess {
 
 
 
-    //TODO check this method + when the reservation is done remove the ride or modify the amount of free places but it is still not accepted
+    //TODO check this method + when the acceptation of the reservation is done remove the ride or modify the amount of free places
+
     public boolean bookRide(Date date, Ride ride, Traveler traveler, int numSeats) {
         // Start a transaction
         db.getTransaction().begin();
@@ -376,8 +377,9 @@ public class DataAccess {
         //Add the reservation to the traveler
         traveler.addReservation(reservation);
 
-        //Update the number of available seats (Even if the reservation is pending, the number of available seats is updated to avoid overbooking)
-        dbRide.setNumPlaces(dbRide.getNumPlaces() - numSeats);
+        //Update the number of available seats
+        //FIXME check if this works
+        //dbRide.setNumPlaces(dbRide.getNumPlaces() - numSeats);
 
         // Persist the Reservation object to the database
         db.persist(reservation);
