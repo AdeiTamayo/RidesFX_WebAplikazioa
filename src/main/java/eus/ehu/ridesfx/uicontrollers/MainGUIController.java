@@ -7,16 +7,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-//import javafx.scene.Scene;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import eus.ehu.ridesfx.ui.MainGUI;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.input.MouseEvent;
-//import org.kordamp.bootstrapfx.BootstrapFX;ff
+
 
 import java.io.IOException;
-import java.net.URL;
+
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -34,6 +33,9 @@ public class MainGUIController {
 
     @FXML
     private URL location;
+
+    @FXML
+    private Button homeButton;
 
      */
 
@@ -54,8 +56,7 @@ public class MainGUIController {
     @FXML
     private Button queryRidesBtn;
 
-    @FXML
-    private Button homeButton;
+
 
     @FXML
     Button createRideBtn;
@@ -162,7 +163,6 @@ public class MainGUIController {
     }
 
 
-
     /**
      * Shows the initial GUI scene in the GUI.
      *
@@ -216,7 +216,7 @@ public class MainGUIController {
     /**
      * Shows the create ride button on the GUI.
      */
-    public void showButtonCreateRide(){
+    public void showButtonCreateRide() {
         createRideBtn.setVisible(true);
     }
 
@@ -252,10 +252,10 @@ public class MainGUIController {
      * Sets the type of the driver in the label on the GUI.
      */
     public void setDriverType(String type) {
-        if(type.equals("NotLoggedInUser")){
+        if (type.equals("NotLoggedInUser")) {
             typeOfUser.setText(type);
             typeOfUser.setAlignment(Pos.CENTER);
-        }else {
+        } else {
             typeOfUser.setText(type + ": ");
             typeOfUser.setAlignment(Pos.CENTER);
         }
@@ -279,7 +279,7 @@ public class MainGUIController {
         return loginController;
     }
 
-    public User getCurrentUser(){
+    public User getCurrentUser() {
         return businessLogic.getCurrentUser();
     }
 
@@ -290,11 +290,11 @@ public class MainGUIController {
         setDriverName(businessLogic.getCurrentUser().getName());
         setDriverType(businessLogic.getCurrentUser().getClass().getSimpleName());
 
-        if(businessLogic.getCurrentUser().getClass().getSimpleName().equals("Driver")){
+        if (businessLogic.getCurrentUser().getClass().getSimpleName().equals("Driver")) {
             hideButtonQueryRides();
-        }else if(businessLogic.getCurrentUser().getClass().getSimpleName().equals("Traveler")){
+        } else if (businessLogic.getCurrentUser().getClass().getSimpleName().equals("Traveler")) {
             hideButtonCreateRide();
-        }else if(businessLogic.getCurrentUser().getClass().getSimpleName().equals("NotLoggedInUser")){
+        } else if (businessLogic.getCurrentUser().getClass().getSimpleName().equals("NotLoggedInUser")) {
 
             hideButtonCreateRide();
         }

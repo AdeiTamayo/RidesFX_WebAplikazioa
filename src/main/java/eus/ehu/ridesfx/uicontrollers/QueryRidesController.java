@@ -40,6 +40,13 @@ public class QueryRidesController implements Controller {
     private Button btnClose;
 
     @FXML
+    private Button queryRidesButton;
+
+    @FXML
+    private Button clearButton;
+
+
+    @FXML
     private Button alertButton;
 
     @FXML
@@ -70,7 +77,7 @@ public class QueryRidesController implements Controller {
     private TableView<Ride> tblRides;
 
     @FXML
-    private Button bookinButton;
+    private Button bookingButton;
 
     @FXML
     private Label alertMessage;
@@ -84,14 +91,9 @@ public class QueryRidesController implements Controller {
     @FXML
     private ComboBox<Integer> comboNumSeats;
 
-    @FXML
-    private Button clearButton;
 
     @FXML
     private Label loggedInError;
-
-    @FXML
-    private Button queryRidesButton;
 
 
     private MainGUI mainGUI;
@@ -111,11 +113,6 @@ public class QueryRidesController implements Controller {
 
     @FXML
     void closeClick(ActionEvent event) {
-
-        // mainGUI.showMain();
-
-
-        //beste modu batera, mainGUIControllerren istantzia bat sortuta:
 
 
         mainGUIController.showInitialGUI();
@@ -179,12 +176,9 @@ public class QueryRidesController implements Controller {
         alertMessage.setVisible(false);
         alertMessage.setAlignment(Pos.CENTER);
         loggedInError.setVisible(false);
-
         comboNumSeats.setVisible(false);
         quantityOfSeatsLabel.setVisible(false);
-        bookinButton.setVisible(false);
-
-
+        bookingButton.setVisible(false);
 
 
         // Update DatePicker cells when ComboBox value changes
@@ -279,23 +273,11 @@ public class QueryRidesController implements Controller {
     }
 
 
-    /*
-
-      private void setupEventSelection() {
-        tblEvents.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-          if (newSelection != null) {
-
-            tblQuestions.getItems().clear();
-            for (Question q : tblEvents.getSelectionModel().getSelectedItem().getQuestions()) {
-              tblQuestions.getItems().add(q);
-            }
-          }
-        });
-      }
-    */
-
-
-
+    /**
+     * This method books a ride
+     *
+     * @param actionEvent
+     */
     @FXML
     public void bookRide(ActionEvent actionEvent) {
 
@@ -305,21 +287,21 @@ public class QueryRidesController implements Controller {
         int numSeats = comboNumSeats.getValue();
 
 
-            //suposatzen da erreserbatzen sahiatzen bada, traveler izan behar duela
-            Traveler traveler = businessLogic.getCurrentTraveler();
+        //suposatzen da erreserbatzen sahiatzen bada, traveler izan behar duela
+        Traveler traveler = businessLogic.getCurrentTraveler();
 
-            businessLogic.bookRide(date, ride, traveler, numSeats);
-            correctMessage.setVisible(true);
-            correctMessage.setText("Ride requested, pending driver approval");
+        businessLogic.bookRide(date, ride, traveler, numSeats);
+        correctMessage.setVisible(true);
+        correctMessage.setText("Ride requested, pending driver approval");
 
-            //A ride has been booked, update the combobox of Rides
-            tblRides.getItems().clear();
+        //A ride has been booked, update the combobox of Rides
+        tblRides.getItems().clear();
 
-            List<Ride> rides = businessLogic.getRides(comboDepartCity.getValue(), comboArrivalCity.getValue(), Dates.convertToDate(datepicker.getValue()));
-            // List<Ride> rides = Arrays.asList(new Ride("Bilbao", "Donostia", Dates.convertToDate(datepicker.getValue()), 3, 3.5f, new Driver("pepe@pepe.com", "pepe")));
-            for (Ride r : rides) {
-                tblRides.getItems().add(r);
-            }
+        List<Ride> rides = businessLogic.getRides(comboDepartCity.getValue(), comboArrivalCity.getValue(), Dates.convertToDate(datepicker.getValue()));
+        // List<Ride> rides = Arrays.asList(new Ride("Bilbao", "Donostia", Dates.convertToDate(datepicker.getValue()), 3, 3.5f, new Driver("pepe@pepe.com", "pepe")));
+        for (Ride r : rides) {
+            tblRides.getItems().add(r);
+        }
 
 
     }
@@ -330,7 +312,7 @@ public class QueryRidesController implements Controller {
      */
     public void manageGUi() {
         if (tblRides.getSelectionModel().getSelectedItem() != null) {
-            bookinButton.setVisible(true);
+            bookingButton.setVisible(true);
             loggedInError.setVisible(false);
 
             // Get the number of seats available for the selected ride and show them in the combobox
@@ -348,35 +330,40 @@ public class QueryRidesController implements Controller {
      * This method clears the GUI
      */
     @FXML
-    public void clearGUI(ActionEvent event){
+    public void clearGUI(ActionEvent event) {
         comboDepartCity.setValue(null);
         comboArrivalCity.setValue(null);
         datepicker.setValue(null);
         tblRides.getItems().clear();
         comboNumSeats.setVisible(false);
         quantityOfSeatsLabel.setVisible(false);
-        bookinButton.setVisible(false);
+        bookingButton.setVisible(false);
         alertButton.setVisible(false);
         alertMessage.setVisible(false);
         correctMessage.setVisible(false);
         rideDate.setText("");
     }
 
-    @Override
-    public void setMainApp(MainGUI mainGUI) {
-        this.mainGUI = mainGUI;
-    }
 
+    /**
+     * This method goes to the login page
+     */
     @FXML
     void goToLogin() {
         mainGUIController.showLogin();
 
     }
 
+
+    /**
+     * This method creates an alert
+     *
+     * @param event
+     */
     @FXML
     public void createAlert(ActionEvent event) {
         //check if the current user is a driver
-        if(businessLogic.getCurrentUser() instanceof Driver){
+        if (businessLogic.getCurrentUser() instanceof Driver) {
             alertMessage.setVisible(true);
             alertMessage.setText("Only travelers can create alerts");
             return;
@@ -387,19 +374,24 @@ public class QueryRidesController implements Controller {
             alertMessage.setVisible(true);
             alertMessage.setText("The date you entered must be later than today");
             return;
-        }else {
-            if(businessLogic.createAlert(comboDepartCity.getValue(), comboArrivalCity.getValue(), comboNumSeats.getValue(), Dates.convertToDate(datepicker.getValue()), businessLogic.getCurrentUser().getEmail())==null){
+        } else {
+            if (businessLogic.createAlert(comboDepartCity.getValue(), comboArrivalCity.getValue(), comboNumSeats.getValue(), Dates.convertToDate(datepicker.getValue()), businessLogic.getCurrentUser().getEmail()) == null) {
                 //Display error text: "Alert already exists"
                 alertMessage.setVisible(true);
                 alertMessage.setText("Alert already exists");
-            }
-            else{
+            } else {
                 correctMessage.setVisible(true);
                 correctMessage.setText("Alert created successfully");
             }
         }
     }
 
+
+    /**
+     * When button is selected Populate and Query Rides.
+     *
+     * @param event
+     */
     @FXML
     void QueryRides(ActionEvent event) {
 
@@ -442,7 +434,7 @@ public class QueryRidesController implements Controller {
                 comboNumSeats.setItems(observableSeats);
 
 
-                bookinButton.setVisible(false);
+                bookingButton.setVisible(false);
                 alertButton.setVisible(true);
                 alertMessage.setVisible(false);
                 correctMessage.setVisible(false);
@@ -451,6 +443,11 @@ public class QueryRidesController implements Controller {
 
             rideDate.setText(Dates.convertToDate(datepicker.getValue()).toString());
         }
+    }
+
+    @Override
+    public void setMainApp(MainGUI mainGUI) {
+        this.mainGUI = mainGUI;
     }
 
 }
