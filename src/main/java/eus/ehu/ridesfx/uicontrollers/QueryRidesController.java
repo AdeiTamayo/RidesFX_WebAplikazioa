@@ -78,6 +78,9 @@ public class QueryRidesController implements Controller {
     private Label alertMessage;
 
     @FXML
+    private Label correctMessage;
+
+    @FXML
     private Label quantityOfSeatsLabel;
 
     @FXML
@@ -167,6 +170,8 @@ public class QueryRidesController implements Controller {
         //Disable alert button until a date is selected where there are no available rides
         alertButton.setVisible(false);
         alertMessage.setVisible(false);
+        correctMessage.setVisible(false);
+        correctMessage.setAlignment(Pos.CENTER);
         alertMessage.setAlignment(Pos.CENTER);
 
         comboNumSeats.setVisible(false);
@@ -198,7 +203,6 @@ public class QueryRidesController implements Controller {
         datepicker.setOnAction(actionEvent -> {
             if(comboDepartCity.getValue() == null || comboArrivalCity.getValue() == null){
                 //TODO add an exception
-                System.out.println(" Please select both a departure and arrival city");
                 alertMessage.setText("Please select both a departure and arrival city");
                 alertMessage.setVisible(true);
             }else {
@@ -316,24 +320,30 @@ public class QueryRidesController implements Controller {
         Ride ride = tblRides.getSelectionModel().getSelectedItem();
         int numSeats = comboNumSeats.getValue();
 
+        //check if the date is later than today
+        if (new Date().compareTo(date) > 0) {
+            alertMessage.setVisible(true);
+            alertMessage.setText("The date you entered must be later than today");
+            return;
+        }else {
 
-        //suposatzen da erreserbatzen sahiatzen bada, traveler izan behar duela
-        Traveler traveler = businessLogic.getCurrentTraveler();
+            //suposatzen da erreserbatzen sahiatzen bada, traveler izan behar duela
+            Traveler traveler = businessLogic.getCurrentTraveler();
 
-        businessLogic.bookRide(date, ride, traveler, numSeats);
-        alertMessage.setVisible(true);
-        alertMessage.setText("Ride requested, pending driver approval");
+            businessLogic.bookRide(date, ride, traveler, numSeats);
+            correctMessage.setVisible(true);
+            correctMessage.setText("Ride requested, pending driver approval");
 
-        //A ride has been booked, update the combobox of Rides
-        tblRides.getItems().clear();
+            //A ride has been booked, update the combobox of Rides
+            tblRides.getItems().clear();
 
-        List<Ride> rides = businessLogic.getRides(comboDepartCity.getValue(), comboArrivalCity.getValue(), Dates.convertToDate(datepicker.getValue()));
-        // List<Ride> rides = Arrays.asList(new Ride("Bilbao", "Donostia", Dates.convertToDate(datepicker.getValue()), 3, 3.5f, new Driver("pepe@pepe.com", "pepe")));
-        for (Ride r : rides) {
-            tblRides.getItems().add(r);
+            List<Ride> rides = businessLogic.getRides(comboDepartCity.getValue(), comboArrivalCity.getValue(), Dates.convertToDate(datepicker.getValue()));
+            // List<Ride> rides = Arrays.asList(new Ride("Bilbao", "Donostia", Dates.convertToDate(datepicker.getValue()), 3, 3.5f, new Driver("pepe@pepe.com", "pepe")));
+            for (Ride r : rides) {
+                tblRides.getItems().add(r);
+            }
+
         }
-
-
 
 
 
@@ -365,18 +375,27 @@ public class QueryRidesController implements Controller {
 
     @FXML
     public void createAlert(ActionEvent event) {
-        alertMessage.setVisible(true);
         //check if the current user is a driver
         if(businessLogic.getCurrentUser() instanceof Driver){
+            alertMessage.setVisible(true);
             alertMessage.setText("Only travelers can create alerts");
             return;
         }
-        if(businessLogic.createAlert(comboDepartCity.getValue(), comboArrivalCity.getValue(), comboNumSeats.getValue(), Dates.convertToDate(datepicker.getValue()), businessLogic.getCurrentUser().getEmail())==null){
-            //Display error text: "Alert already exists"
-            alertMessage.setText("Alert already exists");
-        }
-        else{
-            alertMessage.setText("Alert created successfully");
+        //check if the date is later than today
+        if (new Date().compareTo(Dates.convertToDate(datepicker.getValue())) > 0) {
+            alertMessage.setVisible(true);
+            alertMessage.setText("The date you entered must be later than today");
+            return;
+        }else {
+            if(businessLogic.createAlert(comboDepartCity.getValue(), comboArrivalCity.getValue(), comboNumSeats.getValue(), Dates.convertToDate(datepicker.getValue()), businessLogic.getCurrentUser().getEmail())==null){
+                //Display error text: "Alert already exists"
+                alertMessage.setVisible(true);
+                alertMessage.setText("Alert already exists");
+            }
+            else{
+                correctMessage.setVisible(true);
+                correctMessage.setText("Alert created successfully");
+            }
         }
     }
 }
