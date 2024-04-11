@@ -1,6 +1,7 @@
 package eus.ehu.ridesfx.uicontrollers;
 
 import eus.ehu.ridesfx.businessLogic.BlFacade;
+import eus.ehu.ridesfx.domain.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -249,7 +250,11 @@ public class MainGUIController {
      * Sets the type of the driver in the label on the GUI.
      */
     public void setDriverType(String type) {
-        typeOfUser.setText(type + ": ");
+        if(type.equals("NotLoggedInUser")){
+            typeOfUser.setText(type);
+        }else {
+            typeOfUser.setText(type + ": ");
+        }
     }
 
     /**
@@ -270,6 +275,10 @@ public class MainGUIController {
         return loginController;
     }
 
+    public User getCurrentUser(){
+        return businessLogic.getCurrentUser();
+    }
+
 
     @FXML
     void initialize() throws IOException {
@@ -280,6 +289,9 @@ public class MainGUIController {
         if(businessLogic.getCurrentUser().getClass().getSimpleName().equals("Driver")){
             hideButtonQueryRides();
         }else if(businessLogic.getCurrentUser().getClass().getSimpleName().equals("Traveler")){
+            hideButtonCreateRide();
+        }else if(businessLogic.getCurrentUser().getClass().getSimpleName().equals("NotLoggedInUser")){
+
             hideButtonCreateRide();
         }
 

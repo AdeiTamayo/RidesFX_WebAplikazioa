@@ -1,9 +1,7 @@
 package eus.ehu.ridesfx.uicontrollers;
 
 import eus.ehu.ridesfx.businessLogic.BlFacade;
-import eus.ehu.ridesfx.domain.Driver;
-import eus.ehu.ridesfx.domain.Ride;
-import eus.ehu.ridesfx.domain.Traveler;
+import eus.ehu.ridesfx.domain.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -86,6 +84,12 @@ public class QueryRidesController implements Controller {
     @FXML
     private Button clearButton;
 
+    @FXML
+    private Label loggedInError;
+
+    @FXML
+    private Button queryRidesButton;
+
 
     private MainGUI mainGUI;
 
@@ -104,11 +108,6 @@ public class QueryRidesController implements Controller {
 
     @FXML
     void closeClick(ActionEvent event) {
-
-        // mainGUI.showMain();
-
-
-        //beste modu batera, mainGUIControllerren istantzia bat sortuta:
 
 
         mainGUIController.showInitialGUI();
@@ -170,13 +169,12 @@ public class QueryRidesController implements Controller {
         //Disable alert button until a date is selected where there are no available rides
         alertButton.setVisible(false);
         alertMessage.setVisible(false);
+        loggedInError.setVisible(false);
         alertMessage.setAlignment(Pos.CENTER);
 
         comboNumSeats.setVisible(false);
         quantityOfSeatsLabel.setVisible(false);
         bookinButton.setVisible(false);
-
-
 
 
         // Update DatePicker cells when ComboBox value changes
@@ -191,71 +189,33 @@ public class QueryRidesController implements Controller {
         comboDepartCity.setItems(departureCities);
         comboArrivalCity.setItems(arrivalCities);
 
+        /*
         comboArrivalCity.valueProperty().addListener((obs, oldVal, newVal) -> {
             if (comboDepartCity.getValue() != null && newVal != null) {
                 datepicker.fireEvent(new ActionEvent()); // Force datepicker action handler to run
             }
         });
 
+         */
+
         // when the user selects a departure city, update the arrival cities
         comboDepartCity.setOnAction(e -> {
             arrivalCities.clear();
             arrivalCities.setAll(businessLogic.getDestinationCities(comboDepartCity.getValue()));
 
+            /*
             if (comboArrivalCity.getValue() != null) {
                 datepicker.fireEvent(new ActionEvent()); // Force datepicker action handler to run if a city is already selected
             }
 
+             */
+
         });
+
 
         // a date has been chosen, update the combobox of Rides
         datepicker.setOnAction(actionEvent -> {
-            if(comboDepartCity.getValue() == null || comboArrivalCity.getValue() == null){
-                //TODO add an exception
-                System.out.println(" Please select both a departure and arrival city");
-                alertMessage.setText("Please select both a departure and arrival city");
-                alertMessage.setVisible(true);
-            }else {
 
-                alertMessage.setVisible(false);
-                alertButton.setVisible(false);
-
-                tblRides.getItems().clear();
-                // Vector<domain.Ride> events = businessLogic.getEvents(Dates.convertToDate(datepicker.getValue()));
-                List<Ride> rides = businessLogic.getRides(comboDepartCity.getValue(), comboArrivalCity.getValue(), Dates.convertToDate(datepicker.getValue()));
-                // List<Ride> rides = Arrays.asList(new Ride("Bilbao", "Donostia", Dates.convertToDate(datepicker.getValue()), 3, 3.5f, new Driver("pepe@pepe.com", "pepe")));
-                for (Ride ride : rides) {
-                    tblRides.getItems().add(ride);
-                }
-
-                //if there are no rides, show a message and able the button of creating an alert
-                if (rides.isEmpty() && comboArrivalCity.getValue() != null && comboDepartCity.getValue() != null) {
-                    Label placeholderLabel = new Label("No rides found. Click on the button below to create an alert.");
-                    placeholderLabel.setAlignment(Pos.CENTER);
-                    tblRides.setPlaceholder(placeholderLabel);
-
-                    System.out.println("No rides found for this date");
-                    quantityOfSeatsLabel.setVisible(true);
-                    comboNumSeats.setVisible(true);
-                    //delete elements from the combobox
-                    comboNumSeats.getItems().clear();
-                    //add nums from 1 to 7
-                    List<Integer> availableSeats = new ArrayList<>();
-                    for (int i = 1; i <= 7; i++) {
-                        availableSeats.add(i);
-                    }
-                    ObservableList<Integer> observableSeats = FXCollections.observableArrayList(availableSeats);
-                    comboNumSeats.setItems(observableSeats);
-
-
-                    bookinButton.setVisible(false);
-                    alertButton.setVisible(true);
-                    alertMessage.setVisible(false);
-                }
-
-
-                rideDate.setText(Dates.convertToDate(datepicker.getValue()).toString());
-            }
         });
 
         datepicker.setOnMouseClicked(e -> {
@@ -297,7 +257,12 @@ public class QueryRidesController implements Controller {
         tblRides.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
 
-                manageGUi();
+                if (mainGUIController.getCurrentUser().getClass().getSimpleName().equals("NotLoggedInUser")) {
+                    System.out.println("Please login to book a ride");
+                    loggedInError.setVisible(true);
+                } else {
+                    manageGUi();
+                }
             }
         });
 
@@ -319,7 +284,6 @@ public class QueryRidesController implements Controller {
         });
       }
     */
-
 
 
     @FXML
@@ -348,9 +312,6 @@ public class QueryRidesController implements Controller {
         }
 
 
-
-
-
     }
 
 
@@ -360,6 +321,7 @@ public class QueryRidesController implements Controller {
     public void manageGUi() {
         if (tblRides.getSelectionModel().getSelectedItem() != null) {
             bookinButton.setVisible(true);
+            loggedInError.setVisible(false);
 
             // Get the number of seats available for the selected ride and show them in the combobox
             Ride ride = tblRides.getSelectionModel().getSelectedItem();
@@ -376,7 +338,7 @@ public class QueryRidesController implements Controller {
      * This method clears the GUI
      */
     @FXML
-    public void clearGUI(ActionEvent event){
+    public void clearGUI(ActionEvent event) {
         comboDepartCity.setValue(null);
         comboArrivalCity.setValue(null);
         datepicker.setValue(null);
@@ -395,19 +357,76 @@ public class QueryRidesController implements Controller {
     }
 
     @FXML
+    void goToLogin() {
+        mainGUIController.showLogin();
+
+    }
+
+    @FXML
     public void createAlert(ActionEvent event) {
         alertMessage.setVisible(true);
-        //check if the current user is a driver
-        if(businessLogic.getCurrentUser() instanceof Driver){
+        //check if the current user is a driver or a NotLoggedInUser
+        if (businessLogic.getCurrentUser() instanceof Driver || businessLogic.getCurrentUser() instanceof NotLoggedInUser) {
             alertMessage.setText("Only travelers can create alerts");
             return;
         }
-        if(businessLogic.createAlert(comboDepartCity.getValue(), comboArrivalCity.getValue(), comboNumSeats.getValue(), Dates.convertToDate(datepicker.getValue()), businessLogic.getCurrentUser().getEmail())==null){
+        if (businessLogic.createAlert(comboDepartCity.getValue(), comboArrivalCity.getValue(), comboNumSeats.getValue(), Dates.convertToDate(datepicker.getValue()), businessLogic.getCurrentUser().getEmail()) == null) {
             //Display error text: "Alert already exists"
             alertMessage.setText("Alert already exists");
-        }
-        else{
+        } else {
             alertMessage.setText("Alert created successfully");
         }
     }
+
+    @FXML
+    void QueryRides(ActionEvent event) {
+
+        if (comboDepartCity.getValue() == null || comboArrivalCity.getValue() == null) {
+            //TODO add an exception
+            System.out.println(" Please select both a departure and arrival city");
+            alertMessage.setText("Please select both a departure and arrival city");
+            alertMessage.setVisible(true);
+        } else {
+
+            alertMessage.setVisible(false);
+            alertButton.setVisible(false);
+
+            tblRides.getItems().clear();
+            // Vector<domain.Ride> events = businessLogic.getEvents(Dates.convertToDate(datepicker.getValue()));
+            List<Ride> rides = businessLogic.getRides(comboDepartCity.getValue(), comboArrivalCity.getValue(), Dates.convertToDate(datepicker.getValue()));
+            // List<Ride> rides = Arrays.asList(new Ride("Bilbao", "Donostia", Dates.convertToDate(datepicker.getValue()), 3, 3.5f, new Driver("pepe@pepe.com", "pepe")));
+            for (Ride ride : rides) {
+                tblRides.getItems().add(ride);
+            }
+
+            //if there are no rides, show a message and able the button of creating an alert
+            if (rides.isEmpty() && comboArrivalCity.getValue() != null && comboDepartCity.getValue() != null) {
+                Label placeholderLabel = new Label("No rides found. Click on the button below to create an alert.");
+                placeholderLabel.setAlignment(Pos.CENTER);
+                tblRides.setPlaceholder(placeholderLabel);
+
+                System.out.println("No rides found for this date");
+                quantityOfSeatsLabel.setVisible(true);
+                comboNumSeats.setVisible(true);
+                //delete elements from the combobox
+                comboNumSeats.getItems().clear();
+                //add nums from 1 to 7
+                List<Integer> availableSeats = new ArrayList<>();
+                for (int i = 1; i <= 7; i++) {
+                    availableSeats.add(i);
+                }
+                ObservableList<Integer> observableSeats = FXCollections.observableArrayList(availableSeats);
+                comboNumSeats.setItems(observableSeats);
+
+
+                bookinButton.setVisible(false);
+                alertButton.setVisible(true);
+                alertMessage.setVisible(false);
+            }
+
+
+            rideDate.setText(Dates.convertToDate(datepicker.getValue()).toString());
+        }
+    }
+
 }

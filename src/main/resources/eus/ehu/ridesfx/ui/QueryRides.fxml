@@ -12,7 +12,7 @@
 
 <AnchorPane id="numSeats" prefHeight="400.0" prefWidth="902.0" styleClass="border-pane" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ridesfx.uicontrollers.QueryRidesController">
     <children>
-        <DatePicker fx:id="datepicker" layoutX="39.0" layoutY="190.0" />
+        <DatePicker fx:id="datepicker" layoutX="109.0" layoutY="166.0" />
         <Label layoutX="39.0" layoutY="161.0" styleClass="bold-label" text="EventDate" />
         <TableView fx:id="tblRides" layoutX="344.0" layoutY="70.0" prefHeight="200.0" prefWidth="445.0" styleClass="table-row-cell" stylesheets="@Styles.css">
             <columns>
@@ -30,7 +30,7 @@
         <Label layoutX="39.0" layoutY="106.0" styleClass="bold-label" text="ArrivalCity" />
         <ComboBox fx:id="comboDepartCity" layoutX="126.0" layoutY="54.0" prefWidth="150.0" styleClass="combo-box" />
         <ComboBox fx:id="comboArrivalCity" layoutX="126.0" layoutY="101.0" prefWidth="150.0" styleClass="combo-box" />
-        <Button fx:id="btnClose" layoutX="546.0" layoutY="348.0" mnemonicParsing="false" onAction="#closeClick" styleClass="bold-label" text="Back" />
+        <Button fx:id="btnClose" layoutX="595.0" layoutY="349.0" mnemonicParsing="false" onAction="#closeClick" styleClass="bold-label" text="Back" />
 
         <Label layoutX="110.0" layoutY="19.0" styleClass="bold-label" text="QUERY RIDES">
             <font>
@@ -46,6 +46,13 @@
             <String fx:value="error-label" />
             <String fx:value="bold-label" />
          </styleClass></Label>
-      <Button fx:id="clearButton" layoutX="451.0" layoutY="349.0" mnemonicParsing="false" onAction="#clearGUI" styleClass="bold-label" text="Clear" />
+      <Button fx:id="clearButton" layoutX="487.0" layoutY="349.0" mnemonicParsing="false" onAction="#clearGUI" styleClass="bold-label" text="Clear" />
+      <Label fx:id="loggedInError" layoutX="377.0" layoutY="315.0" onMouseClicked="#goToLogin" prefHeight="18.0" prefWidth="376.0" text="You need to be logged In to proceed. You can click here to log in." textAlignment="CENTER">
+         <styleClass>
+            <String fx:value="bold-label" />
+            <String fx:value="error-label" />
+         </styleClass>
+      </Label>
+      <Button fx:id="queryRidesButton" layoutX="123.0" layoutY="242.0" mnemonicParsing="false" onAction="#QueryRides" styleClass="bold-label" text="Query Rides" />
     </children>
 </AnchorPane>
