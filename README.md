@@ -32,12 +32,15 @@ ITERATION 1
  -----------
  ITERATION 2
  -> Corrected errors from Iteration 1:
-    -> User not added to database
+    -> Corrected Login and Register and User added correctly to database
     -> Tab order on menu
-    -> UI change when logged in
+    -> Current user label updated after logging in
     -> Requirements Analysis artifacts
  -> Implemented new things:
-    -> Added 2 more use cases
+    -> Implemented User/Driver/Traveler hierarchy
+    -> Added 2 more use cases: Create Alert and Book Ride
+    -> The application is opened as a not logged in user which can query rides but must log in in order to do anything else.
+    -> Changed the available buttons depending on user type
     -> Created sequence Diagram for "Query Rides" use case
 
  -> STRUGGLES: the sequence diagram was a reality check for the app implementation. Major changes had to be done
