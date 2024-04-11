@@ -263,6 +263,21 @@ public class CreateRideController implements Controller {
 
     }
 
+    @FXML
+    void clearCreateRide(ActionEvent event) {
+        clearCreateRideMethod();
+    }
+
+    public void clearCreateRideMethod() {
+        txtDepartCity.setText("");
+        txtArrivalCity.setText("");
+        txtNumberOfSeats.setText("");
+        txtPrice.setText("");
+        lblErrorMessage.setText("");
+        lblErrorMinBet.setText("");
+        datePicker.setValue(null);
+    }
+
     @Override
     public void setMainApp(MainGUI mainGUI) {
         this.mainGUI = mainGUI;

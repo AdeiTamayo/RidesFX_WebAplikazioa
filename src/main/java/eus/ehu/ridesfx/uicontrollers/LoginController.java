@@ -149,6 +149,11 @@ public class LoginController implements Controller {
     }
 
     @FXML
+    void clearLogin(ActionEvent event) {
+        restartLogin();
+    }
+
+    @FXML
     public void registerLabelClick(MouseEvent mouseEvent) {
         mainGUIController.showRegister();
         //TODO remove logged in message

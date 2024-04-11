@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="border-pane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ridesfx.uicontrollers.CreateRideController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="border-pane" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ridesfx.uicontrollers.CreateRideController">
          <children>
             <DatePicker fx:id="datePicker" layoutX="116.0" layoutY="63.0" prefHeight="26.0" prefWidth="199.0" />
             <Label layoutX="14.0" layoutY="68.0" styleClass="bold-label" text="Ride Date" />
@@ -19,8 +19,8 @@
             <Label layoutX="14.0" layoutY="281.0" styleClass="bold-label" text="Number Of Seats" />
             <TextField fx:id="txtPrice" layoutX="116.0" layoutY="341.0" prefHeight="26.0" prefWidth="200.0" styleClass="bold-label" />
             <Label layoutX="14.0" layoutY="346.0" styleClass="bold-label" text="Price" />
-            <Button fx:id="btnCreateRide" layoutX="44.0" layoutY="402.0" mnemonicParsing="false" onAction = "#createRideClick" prefHeight="26.0" prefWidth="150.0" styleClass="bold-label" text="Create Ride" />
-            <Button layoutX="217.0" layoutY="402.0" mnemonicParsing="false" onAction="#closeClick" prefHeight="27.0" prefWidth="142.0" styleClass="bold-label" text="Back" />
+            <Button fx:id="btnCreateRide" layoutX="45.0" layoutY="390.0" mnemonicParsing="false" onAction="#createRideClick" prefHeight="26.0" prefWidth="142.0" styleClass="bold-label" text="Create Ride" />
+            <Button layoutX="135.0" layoutY="431.0" mnemonicParsing="false" onAction="#closeClick" prefHeight="27.0" prefWidth="142.0" styleClass="bold-label" text="Back" />
             <Label fx:id="lblErrorMessage" layoutX="16.0" layoutY="436.0" />
             <Label fx:id="lblErrorMinBet" layoutX="16.0" layoutY="472.0" />
             <Label layoutX="157.0" layoutY="14.0" styleClass="bold-label" text="Create Ride ">
@@ -28,5 +28,6 @@
                   <Font size="18.0" />
                </font>
             </Label>
+      <Button fx:id="clearButtonCreateRide" layoutX="222.0" layoutY="390.0" mnemonicParsing="false" onAction="#clearCreateRide" prefHeight="25.0" prefWidth="136.0" text="Clear" />
          </children>
       </AnchorPane>
