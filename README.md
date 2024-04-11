@@ -41,6 +41,7 @@ ITERATION 1
     -> Added 2 more use cases: Create Alert and Book Ride
     -> The application is opened as a not logged in user which can query rides but must log in in order to do anything else.
     -> Changed the available buttons depending on user type
+    -> Created a window to display and delete alerts, and if a matching ride is found the option booking the ride
     -> Created sequence Diagram for "Query Rides" use case
 
  -> STRUGGLES: the sequence diagram was a reality check for the app implementation. Major changes had to be done
