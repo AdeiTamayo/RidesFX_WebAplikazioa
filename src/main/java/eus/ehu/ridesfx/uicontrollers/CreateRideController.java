@@ -39,7 +39,10 @@ public class CreateRideController implements Controller {
     @FXML
     private DatePicker datePicker;
 
+
     private MainGUI mainGUI;
+
+
 
 
     @FXML
@@ -48,9 +51,11 @@ public class CreateRideController implements Controller {
     @FXML
     private Label lblErrorMinBet;
 
-
+    /*
     @FXML
     private Button btnCreateRide;
+
+     */
 
     @FXML
     private TextField txtArrivalCity;
@@ -71,18 +76,7 @@ public class CreateRideController implements Controller {
     }
 
 
-    @FXML
-    void closeClick(ActionEvent event) {
-        clearErrorLabels();
-        MainGUIController.showInitialGUI();
-    }
 
-    private void clearErrorLabels() {
-        lblErrorMessage.setText("");
-        lblErrorMinBet.setText("");
-        lblErrorMinBet.getStyleClass().clear();
-        lblErrorMessage.getStyleClass().clear();
-    }
 
 
     private String field_Errors() {
@@ -118,11 +112,7 @@ public class CreateRideController implements Controller {
         }
     }
 
-    void displayMessage(String message, String label){
-        lblErrorMessage.getStyleClass().clear();
-        lblErrorMessage.getStyleClass().setAll("lbl", "lbl-"+label);
-        lblErrorMessage.setText(message);
-    }
+
 
     @FXML
     void createRideClick(ActionEvent e) {
@@ -265,11 +255,20 @@ public class CreateRideController implements Controller {
 
     }
 
+    //New methods
+
+    /**
+     * Clear the fields of the create ride window when selected
+     * @param event
+     */
     @FXML
     void clearCreateRide(ActionEvent event) {
         clearCreateRideMethod();
     }
 
+    /**
+     * Clear the fields of the create ride window
+     */
     public void clearCreateRideMethod() {
         txtDepartCity.setText("");
         txtArrivalCity.setText("");
@@ -278,6 +277,39 @@ public class CreateRideController implements Controller {
         lblErrorMessage.setText("");
         lblErrorMinBet.setText("");
         datePicker.setValue(null);
+    }
+
+    /**
+     * Display a message in the error label
+     * @param message The message to be displayed
+     * @param label The label style
+     */
+    void displayMessage(String message, String label){
+        lblErrorMessage.getStyleClass().clear();
+        lblErrorMessage.getStyleClass().setAll("lbl", "lbl-"+label);
+        lblErrorMessage.setText(message);
+    }
+
+
+
+    /**
+     * Close the create ride window and goes to Initial Window
+     * @param event
+     */
+    @FXML
+    void closeClick(ActionEvent event) {
+        clearErrorLabels();
+        MainGUIController.showInitialGUI();
+    }
+
+    /**
+     * Clear the error labels
+     */
+    private void clearErrorLabels() {
+        lblErrorMessage.setText("");
+        lblErrorMinBet.setText("");
+        lblErrorMinBet.getStyleClass().clear();
+        lblErrorMessage.getStyleClass().clear();
     }
 
     @Override

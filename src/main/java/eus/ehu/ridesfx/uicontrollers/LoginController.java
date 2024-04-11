@@ -43,7 +43,7 @@ public class LoginController implements Controller {
     /**
      * Constructs a new LoginController.
      *
-     * @param bl               The business logic facade.
+     * @param bl                The business logic facade.
      * @param mainGUIController The main GUI controller.
      */
     public LoginController(BlFacade bl, MainGUIController mainGUIController) {
@@ -63,7 +63,6 @@ public class LoginController implements Controller {
         wrongPassword.setVisible(false);
         InvalidUser.setVisible(false);
     }
-
 
 
     @Override
@@ -101,9 +100,9 @@ public class LoginController implements Controller {
 
 
                 //This prints the name of the driver in the console
-                if(businessLogic.getCurrentUser() instanceof Driver) {
+                if (businessLogic.getCurrentUser() instanceof Driver) {
                     System.out.println("\nThe name of the driver is : \n");
-                }else if(businessLogic.getCurrentUser() instanceof Traveler){
+                } else if (businessLogic.getCurrentUser() instanceof Traveler) {
                     System.out.println("\nThe name of the traveler is : \n");
                 }
                 System.out.println(businessLogic.getCurrentUser().getName());
@@ -128,13 +127,11 @@ public class LoginController implements Controller {
                 }
 
 
-
-                if(businessLogic.getCurrentUser().getClass().getSimpleName().equals("Driver")) {
+                if (businessLogic.getCurrentUser().getClass().getSimpleName().equals("Driver")) {
                     mainGUIController.setDriverType("Driver");
                 } else {
                     mainGUIController.setDriverType("Traveler");
                 }
-
 
 
             }

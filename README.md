@@ -28,4 +28,17 @@ ITERATION 1
  Implemented requrements analysis: Domain Model + Use Case Diagram + Event Flow
  Changed project layout to BorderPane layout
  Implemented the register and login use cases
+
+ -----------
+ ITERATION 2
+ -> Corrected errors from Iteration 1:
+    -> User not added to database
+    -> Tab order on menu
+    -> UI change when logged in
+    -> Requirements Analysis artifacts
+ -> Implemented new things:
+    -> Added 2 more use cases
+    -> Created sequence Diagram for "Query Rides" use case
+
+ -> STRUGGLES: the sequence diagram was a reality check for the app implementation. Major changes had to be done
  

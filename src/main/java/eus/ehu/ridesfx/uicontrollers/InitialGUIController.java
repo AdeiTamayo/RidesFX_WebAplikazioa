@@ -3,7 +3,7 @@ package eus.ehu.ridesfx.uicontrollers;
 import eus.ehu.ridesfx.businessLogic.BlFacade;
 import eus.ehu.ridesfx.ui.MainGUI;
 
-public class InitialGUIController implements Controller{
+public class InitialGUIController implements Controller {
 
     private BlFacade businessLogic;
     private MainGUI mainGUI;

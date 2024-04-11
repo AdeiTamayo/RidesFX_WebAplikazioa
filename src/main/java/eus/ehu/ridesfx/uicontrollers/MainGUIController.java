@@ -1,18 +1,19 @@
 package eus.ehu.ridesfx.uicontrollers;
 
 import eus.ehu.ridesfx.businessLogic.BlFacade;
+import eus.ehu.ridesfx.domain.User;
 import eus.ehu.ridesfx.domain.Alert;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-//import javafx.scene.Scene;
+import javafx.geometry.Pos;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import eus.ehu.ridesfx.ui.MainGUI;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.input.MouseEvent;
-//import org.kordamp.bootstrapfx.BootstrapFX;ff
+
 
 import java.io.IOException;
 import java.net.URL;
@@ -35,6 +36,9 @@ public class MainGUIController {
     @FXML
     private URL location;
 
+    @FXML
+    private Button homeButton;
+
      */
 
 
@@ -54,8 +58,7 @@ public class MainGUIController {
     @FXML
     private Button queryRidesBtn;
 
-    @FXML
-    private Button homeButton;
+
 
     @FXML
     Button createRideBtn;
@@ -181,7 +184,6 @@ public class MainGUIController {
     }
 
 
-
     /**
      * Shows the initial GUI scene in the GUI.
      *
@@ -201,6 +203,7 @@ public class MainGUIController {
      */
     public void setDriverName(String name) {
         lblDriver.setText(name);
+        lblDriver.setAlignment(Pos.CENTER);
     }
 
     /**
@@ -248,7 +251,7 @@ public class MainGUIController {
     /**
      * Shows the create ride button on the GUI.
      */
-    public void showButtonCreateRide(){
+    public void showButtonCreateRide() {
         createRideBtn.setVisible(true);
     }
 
@@ -284,7 +287,13 @@ public class MainGUIController {
      * Sets the type of the driver in the label on the GUI.
      */
     public void setDriverType(String type) {
-        typeOfUser.setText(type + ": ");
+        if (type.equals("NotLoggedInUser")) {
+            typeOfUser.setText(type);
+            typeOfUser.setAlignment(Pos.CENTER);
+        } else {
+            typeOfUser.setText(type + ": ");
+            typeOfUser.setAlignment(Pos.CENTER);
+        }
     }
 
     /**
@@ -305,6 +314,10 @@ public class MainGUIController {
         return loginController;
     }
 
+    public User getCurrentUser() {
+        return businessLogic.getCurrentUser();
+    }
+
 
     @FXML
     void initialize() throws IOException {
@@ -312,12 +325,15 @@ public class MainGUIController {
         setDriverName(businessLogic.getCurrentUser().getName());
         setDriverType(businessLogic.getCurrentUser().getClass().getSimpleName());
 
-        if(businessLogic.getCurrentUser().getClass().getSimpleName().equals("Driver")){
+        if (businessLogic.getCurrentUser().getClass().getSimpleName().equals("Driver")) {
             hideButtonQueryRides();
             hideButtonAlerts();
-        }else if(businessLogic.getCurrentUser().getClass().getSimpleName().equals("Traveler")){
+        } else if (businessLogic.getCurrentUser().getClass().getSimpleName().equals("Traveler")) {
             hideButtonCreateRide();
             showButtonAlerts();
+        } else if (businessLogic.getCurrentUser().getClass().getSimpleName().equals("NotLoggedInUser")) {
+            hideButtonCreateRide();
+            hideButtonAlerts();
         }
 
 
