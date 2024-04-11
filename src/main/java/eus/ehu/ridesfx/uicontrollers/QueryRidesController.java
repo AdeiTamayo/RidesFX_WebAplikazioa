@@ -176,6 +176,8 @@ public class QueryRidesController implements Controller {
         alertMessage.setVisible(false);
         alertMessage.setAlignment(Pos.CENTER);
         loggedInError.setVisible(false);
+        correctMessage.setVisible(false);
+        correctMessage.setAlignment(Pos.CENTER);
         comboNumSeats.setVisible(false);
         quantityOfSeatsLabel.setVisible(false);
         bookingButton.setVisible(false);
@@ -362,6 +364,13 @@ public class QueryRidesController implements Controller {
      */
     @FXML
     public void createAlert(ActionEvent event) {
+        loggedInError.setVisible(false);
+
+        if (mainGUIController.getCurrentUser().getClass().getSimpleName().equals("NotLoggedInUser")) {
+            System.out.println("Please login to book a ride");
+            loggedInError.setVisible(true);
+            return;
+        }
         //check if the current user is a driver
         if (businessLogic.getCurrentUser() instanceof Driver) {
             alertMessage.setVisible(true);
@@ -369,20 +378,15 @@ public class QueryRidesController implements Controller {
             return;
         }
 
-        //check if the date is later than today
-        if (new Date().compareTo(Dates.convertToDate(datepicker.getValue())) > 0) {
+        //check if the date is today or later than today
+        if (businessLogic.createAlert(comboDepartCity.getValue(), comboArrivalCity.getValue(), comboNumSeats.getValue(), Dates.convertToDate(datepicker.getValue()), businessLogic.getCurrentUser().getEmail()) == null) {
+            //Display error text: "Alert already exists"
             alertMessage.setVisible(true);
-            alertMessage.setText("The date you entered must be later than today");
-            return;
+            alertMessage.setText("Alert already exists");
         } else {
-            if (businessLogic.createAlert(comboDepartCity.getValue(), comboArrivalCity.getValue(), comboNumSeats.getValue(), Dates.convertToDate(datepicker.getValue()), businessLogic.getCurrentUser().getEmail()) == null) {
-                //Display error text: "Alert already exists"
-                alertMessage.setVisible(true);
-                alertMessage.setText("Alert already exists");
-            } else {
-                correctMessage.setVisible(true);
-                correctMessage.setText("Alert created successfully");
-            }
+            correctMessage.setVisible(true);
+            correctMessage.setText("Alert created successfully");
+
         }
     }
 
@@ -394,14 +398,20 @@ public class QueryRidesController implements Controller {
      */
     @FXML
     void QueryRides(ActionEvent event) {
+        loggedInError.setVisible(false);
+        Date date = Dates.convertToDate(datepicker.getValue());
 
         if (comboDepartCity.getValue() == null || comboArrivalCity.getValue() == null) {
             //TODO add an exception
-            System.out.println(" Please select both a departure and arrival city");
             alertMessage.setText("Please select both a departure and arrival city");
             alertMessage.setVisible(true);
+        }
+        //check if the date is later than today
+        else if (new Date().compareTo(date) > 0) {
+            alertMessage.setVisible(true);
+            alertMessage.setText("The date you entered must be later than today");
+            return;
         } else {
-
             alertMessage.setVisible(false);
             alertButton.setVisible(false);
             correctMessage.setVisible(false);
@@ -419,8 +429,6 @@ public class QueryRidesController implements Controller {
                 Label placeholderLabel = new Label("No rides found. Click on the button below to create an alert.");
                 placeholderLabel.setAlignment(Pos.CENTER);
                 tblRides.setPlaceholder(placeholderLabel);
-
-                System.out.println("No rides found for this date");
                 quantityOfSeatsLabel.setVisible(true);
                 comboNumSeats.setVisible(true);
                 //delete elements from the combobox
