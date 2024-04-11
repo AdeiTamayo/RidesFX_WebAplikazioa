@@ -128,6 +128,11 @@ public class RegisterController implements Controller {
         roles.setItems(options);
     }
 
+    @FXML
+    void clearRegister(ActionEvent event) {
+        removeFieldsValue();
+    }
+
     @Override
     public void setMainApp(MainGUI mainGUI) {
         this.mainGUI = mainGUI;

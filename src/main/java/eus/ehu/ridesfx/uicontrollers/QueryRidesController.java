@@ -83,6 +83,9 @@ public class QueryRidesController implements Controller {
     @FXML
     private ComboBox<Integer> comboNumSeats;
 
+    @FXML
+    private Button clearButton;
+
 
     private MainGUI mainGUI;
 
@@ -188,10 +191,21 @@ public class QueryRidesController implements Controller {
         comboDepartCity.setItems(departureCities);
         comboArrivalCity.setItems(arrivalCities);
 
+        comboArrivalCity.valueProperty().addListener((obs, oldVal, newVal) -> {
+            if (comboDepartCity.getValue() != null && newVal != null) {
+                datepicker.fireEvent(new ActionEvent()); // Force datepicker action handler to run
+            }
+        });
+
         // when the user selects a departure city, update the arrival cities
         comboDepartCity.setOnAction(e -> {
             arrivalCities.clear();
             arrivalCities.setAll(businessLogic.getDestinationCities(comboDepartCity.getValue()));
+
+            if (comboArrivalCity.getValue() != null) {
+                datepicker.fireEvent(new ActionEvent()); // Force datepicker action handler to run if a city is already selected
+            }
+
         });
 
         // a date has been chosen, update the combobox of Rides
@@ -321,6 +335,8 @@ public class QueryRidesController implements Controller {
         Traveler traveler = businessLogic.getCurrentTraveler();
 
         businessLogic.bookRide(date, ride, traveler, numSeats);
+        alertMessage.setVisible(true);
+        alertMessage.setText("Ride requested, pending driver approval");
 
         //A ride has been booked, update the combobox of Rides
         tblRides.getItems().clear();
@@ -354,6 +370,23 @@ public class QueryRidesController implements Controller {
             comboNumSeats.setVisible(true);
             quantityOfSeatsLabel.setVisible(true);
         }
+    }
+
+    /**
+     * This method clears the GUI
+     */
+    @FXML
+    public void clearGUI(ActionEvent event){
+        comboDepartCity.setValue(null);
+        comboArrivalCity.setValue(null);
+        datepicker.setValue(null);
+        tblRides.getItems().clear();
+        comboNumSeats.setVisible(false);
+        quantityOfSeatsLabel.setVisible(false);
+        bookinButton.setVisible(false);
+        alertButton.setVisible(false);
+        alertMessage.setVisible(false);
+        rideDate.setText("");
     }
 
     @Override
