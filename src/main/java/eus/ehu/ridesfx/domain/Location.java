@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-
 @Entity
 @DiscriminatorValue("LOCATION")
 public class Location implements Serializable {
