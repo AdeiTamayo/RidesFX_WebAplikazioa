@@ -5,10 +5,12 @@ import eus.ehu.ridesfx.configuration.UtilDate;
 import eus.ehu.ridesfx.domain.*;
 import eus.ehu.ridesfx.exceptions.RideAlreadyExistException;
 import eus.ehu.ridesfx.exceptions.RideMustBeLaterThanTodayException;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.NoResultException;
-import jakarta.persistence.TypedQuery;
+import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaDelete;
+import jakarta.persistence.criteria.Root;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -77,6 +79,7 @@ public class DataAccess {
         //db.createNativeQuery("DELETE FROM USER_RIDE").executeUpdate();
         db.createQuery("DELETE FROM Ride ").executeUpdate();
         db.createQuery("DELETE FROM User ").executeUpdate();
+        db.createQuery("DELETE FROM Alert ").executeUpdate();
         db.getTransaction().commit();
     }
 
@@ -359,8 +362,8 @@ public class DataAccess {
     }
 
 
-    //TODO check this method + when the acceptation of the reservation is done remove the ride or modify the amount of free places
 
+    //TODO check this method + when the acceptation of the reservation is done remove the ride or modify the amount of free places
 
     public boolean bookRide(Date date, Ride ride, Traveler traveler, int numSeats) {
         // Start a transaction
@@ -432,5 +435,67 @@ public class DataAccess {
             return null;
         }
     }
+
+    /**
+     * This method retrieves all the alerts for a traveler
+     * @param travelerEmail
+     * @return a list of alerts
+     */
+    public List<Alert> getAllAlerts(String travelerEmail) {
+        System.out.println(">> DataAccess: getAlerts");
+        TypedQuery<Alert> query = db.createQuery("SELECT a FROM Alert a WHERE a.traveler.email = :travelerEmail", Alert.class);
+        query.setParameter("travelerEmail", travelerEmail);
+        return query.getResultList();
+    }
+
+    /**
+     * This method retrieves all the rides from the database
+     * @return a list of rides
+     */
+    public List<Ride> getAllRides() {
+        TypedQuery<Ride> query = db.createQuery("SELECT r FROM Ride r", Ride.class);
+        return query.getResultList();
+    }
+
+    /**
+     * This method deletes an alert from the database
+     * @param alert
+     */
+    public void deleteAlert(Alert alert) {
+        db.getTransaction().begin();
+        // Remove alert from Alert and USERS_ALERT tables
+        String deleteQueryUsersAlert = "DELETE FROM USERS_ALERT WHERE USERS_ALERT.ALERTS_ALERTNUMBER = :alertnum";
+        String deleteQueryAlert = "DELETE FROM Alert WHERE alertNumber = :alertnum";
+
+        Query q1 = db.createNativeQuery(deleteQueryUsersAlert);
+        q1.setParameter("alertnum", alert.getAlertNumber());
+        int rowsAffected1 = q1.executeUpdate();
+
+        Query q2 = db.createNativeQuery(deleteQueryAlert);
+        q2.setParameter("alertnum", alert.getAlertNumber());
+        int rowsAffected2 = q2.executeUpdate();
+
+        db.getTransaction().commit();
+
+        // Check rowsAffected1 and rowsAffected2 if necessary
+    }
+
+
+    /**
+     * This method updates the state of an alert to ride found
+     * @param a
+     */
+    public void updateAlertState(Alert a){
+        db.getTransaction().begin();
+        a.setState("Ride found");
+        db.getTransaction().commit();
+    }
+
+    //a method that given an alert and the ride that matches it, returns the reservation
+
+
+
+
+
 
 }

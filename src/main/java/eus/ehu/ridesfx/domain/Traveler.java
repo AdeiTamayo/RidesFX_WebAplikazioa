@@ -128,6 +128,10 @@ public class Traveler extends User implements Serializable {
         return false;
     }
 
+    public void deleteAlert(Alert alert){
+        alerts.remove(alert);
+    }
+
     /**
      * This method checks if the traveler is equal to another object.
      * The method checks if the other object is a Traveler and if their emails are the same.
