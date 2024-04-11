@@ -381,6 +381,7 @@ public class QueryRidesController implements Controller {
             alertMessage.setText("Only travelers can create alerts");
             return;
         }
+
         //check if the date is later than today
         if (new Date().compareTo(Dates.convertToDate(datepicker.getValue())) > 0) {
             alertMessage.setVisible(true);
