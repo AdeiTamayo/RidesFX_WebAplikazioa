@@ -475,6 +475,8 @@ public class DataAccess {
         q2.setParameter("alertnum", alert.getAlertNumber());
         int rowsAffected2 = q2.executeUpdate();
 
+        db.getTransaction().commit();
+
         // Check rowsAffected1 and rowsAffected2 if necessary
     }
 
