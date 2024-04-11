@@ -47,8 +47,6 @@
         </styleClass></Label>
         <Label id="Correct message" fx:id="correctMessage" layoutX="413.0" layoutY="325.0" prefHeight="18.0" prefWidth="312.0" text="">
         </Label>
-
-         </styleClass></Label>
       <Button fx:id="clearButton" layoutX="451.0" layoutY="349.0" mnemonicParsing="false" onAction="#clearGUI" styleClass="bold-label" text="Clear" />
     </children>
 </AnchorPane>
