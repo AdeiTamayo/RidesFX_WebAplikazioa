@@ -30,7 +30,7 @@
         <Label layoutX="39.0" layoutY="106.0" styleClass="bold-label" text="ArrivalCity" />
         <ComboBox fx:id="comboDepartCity" layoutX="126.0" layoutY="54.0" prefWidth="150.0" styleClass="combo-box" />
         <ComboBox fx:id="comboArrivalCity" layoutX="126.0" layoutY="101.0" prefWidth="150.0" styleClass="combo-box" />
-        <Button fx:id="btnClose" layoutX="595.0" layoutY="349.0" mnemonicParsing="false" onAction="#closeClick" styleClass="bold-label" text="Back" />
+        <Button fx:id="btnClose" layoutX="546.0" layoutY="348.0" mnemonicParsing="false" onAction="#closeClick" styleClass="bold-label" text="Back" />
 
         <Label layoutX="110.0" layoutY="19.0" styleClass="bold-label" text="QUERY RIDES">
             <font>
@@ -41,8 +41,7 @@
         <Label fx:id="quantityOfSeatsLabel" layoutX="375.0" layoutY="292.0" text="How many seats do you want?" />
         <ComboBox fx:id="comboNumSeats" layoutX="549.0" layoutY="289.0" prefHeight="18.0" prefWidth="70.0" />
         <Button fx:id="alertButton" layoutX="664.0" layoutY="288.0" mnemonicParsing="false" onAction="#createAlert" text="Create Alert" />
-        <Label id="Error message" fx:id="alertMessage" layoutX="413.0" layoutY="325.0" prefHeight="18.0" prefWidth="312.0" text="">
-         <styleClass>
+        <Label id="Error message" fx:id="alertMessage" layoutX="413.0" layoutY="325.0" prefHeight="18.0" prefWidth="312.0" text=""> <styleClass>
             <String fx:value="error-label" />
             <String fx:value="bold-label" />
          </styleClass></Label>
@@ -53,6 +52,8 @@
             <String fx:value="error-label" />
          </styleClass>
       </Label>
+        <Label id="Correct message" fx:id="correctMessage" layoutX="413.0" layoutY="325.0" prefHeight="18.0" prefWidth="312.0" text="">
+        </Label>
       <Button fx:id="queryRidesButton" layoutX="123.0" layoutY="242.0" mnemonicParsing="false" onAction="#QueryRides" styleClass="bold-label" text="Query Rides" />
     </children>
 </AnchorPane>
