@@ -491,6 +491,8 @@ public class DataAccess {
         db.getTransaction().commit();
     }
 
+    //a method that given an alert and the ride that matches it, returns the reservation
+
 
 
 

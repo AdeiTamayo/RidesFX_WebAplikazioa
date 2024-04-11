@@ -164,7 +164,7 @@ public class Alert implements Serializable {
     }
 
 
-    public float getNumPlaces() {
+    public int getNumPlaces() {
         return numPlaces;
     }
 

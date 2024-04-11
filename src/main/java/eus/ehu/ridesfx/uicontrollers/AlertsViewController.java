@@ -4,6 +4,7 @@ import eus.ehu.ridesfx.businessLogic.BlFacade;
 import eus.ehu.ridesfx.businessLogic.BlFacadeImplementation;
 import eus.ehu.ridesfx.domain.Alert;
 import eus.ehu.ridesfx.domain.Ride;
+import eus.ehu.ridesfx.domain.Traveler;
 import eus.ehu.ridesfx.ui.MainGUI;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -14,6 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.util.Date;
 import java.util.List;
 
 public class AlertsViewController implements Controller{
@@ -111,25 +113,20 @@ public class AlertsViewController implements Controller{
         //If the selected alert in the table has "Ride found" in the state column then book the ride
         if(stateC.getCellData(alertTable.getSelectionModel().getSelectedItem()).equals("Ride found")){
             //TODO book a ride(there might be more than one ride that matches the alert)
+            Alert a= (Alert) alertTable.getSelectionModel().getSelectedItem();
+            List<Ride> ridesList= businessLogic.areMatchingRides(a);
+            //book the first ride that matches the alert
+            Date date = (Date) dateC.getCellData(alertTable.getSelectionModel().getSelectedItem());
+            Traveler traveler = (Traveler) businessLogic.getCurrentUser();
+            int numPlaces = (int)numPlacesC.getCellData(alertTable.getSelectionModel().getSelectedItem());
+            businessLogic.bookRide(date, ridesList.get(0), traveler, numPlaces);
+            businessLogic.deleteAlert(a);
+            //update the view
+            setView();
+
         }
     }
 
-    /**
-     * This method checks if there are matching rides for the given alert
-     * @return true if there are matching rides, false otherwise
-     */
-    public boolean areRidesFound(Alert alert){
-        //Check if any alert matches the new ride
-        List<Ride> alertList= businessLogic.areMatchingRides(alert);
-        if(alertList.isEmpty()){
-            return false;
-        }else{
-            //update the state of the alert to "Ride found"
-            businessLogic.updateAlertState((Alert) alertTable.getSelectionModel().getSelectedItem());
-
-            return true;
-        }
-    }
 
     /**
      * This method sets the view of the alerts and is used each time the Alerts button is clicked in the main GUI
@@ -141,8 +138,8 @@ public class AlertsViewController implements Controller{
         List<Alert> previousAlerts= businessLogic.getAlerts();
         //check if there are matching rides for any of the alerts
         for(Alert alert: previousAlerts){
-            List<Ride> alertList= businessLogic.areMatchingRides(alert);
-            if(!alertList.isEmpty()){
+            List<Ride> ridesList= businessLogic.areMatchingRides(alert);
+            if(!ridesList.isEmpty()){
                 //update the state of the alert to "Ride found"
                 businessLogic.updateAlertState(alert);
             }

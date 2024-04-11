@@ -365,6 +365,7 @@ public class QueryRidesController implements Controller {
     @FXML
     public void createAlert(ActionEvent event) {
         loggedInError.setVisible(false);
+        correctMessage.setVisible(false);
 
         if (mainGUIController.getCurrentUser().getClass().getSimpleName().equals("NotLoggedInUser")) {
             System.out.println("Please login to book a ride");
