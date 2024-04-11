@@ -8,10 +8,7 @@
  */
 package eus.ehu.ridesfx.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -29,6 +26,9 @@ public class Alert implements Serializable {
 
     @ManyToOne
     private Traveler traveler;
+
+    @OneToOne
+    private Location location;
 
     /**
      * Default constructor for the Alert class.

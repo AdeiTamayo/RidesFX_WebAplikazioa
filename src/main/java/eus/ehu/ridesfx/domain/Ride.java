@@ -28,6 +28,10 @@ public class Ride implements Serializable {
 	@ManyToOne
 	private Driver driver;
 
+	@OneToOne
+	private Location location;
+
+
 	/**
 	 * Default constructor for the Ride class.
 	 * Initializes a new Ride with no parameters.
