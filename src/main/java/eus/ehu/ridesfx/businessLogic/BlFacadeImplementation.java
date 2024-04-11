@@ -165,13 +165,7 @@ public class BlFacadeImplementation implements BlFacade {
      */
     public Alert createAlert(String from, String to, int numplaces, Date date, String email) {
         Alert alert = dbManager.createAlert(from, to, numplaces, date, email);
-        if(alert!=null){
-            System.out.println("Alert created successfully");
-            return alert;
-        } else {
-            System.out.println("Alert not created successfully");
-            return null;
-        }
+        return alert;
     }
 
     /**
@@ -215,6 +209,9 @@ public class BlFacadeImplementation implements BlFacade {
      */
     public void deleteAlert(Alert alert){
         dbManager.deleteAlert(alert);
+        //delete from the list of alerts
+        ((Traveler)currentUser).deleteAlert(alert);
+
     }
 
     /**

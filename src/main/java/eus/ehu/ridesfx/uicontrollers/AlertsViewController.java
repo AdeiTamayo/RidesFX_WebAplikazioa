@@ -18,8 +18,6 @@ import java.util.List;
 
 public class AlertsViewController implements Controller{
 
-    @FXML
-    private Label message;
 
     @FXML
     private TableView alertTable;

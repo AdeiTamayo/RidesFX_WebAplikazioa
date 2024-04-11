@@ -14,7 +14,6 @@
                 <Font size="18.0" />
             </font>
         </Label>
-        <Label fx:id="message" layoutX="150.0" layoutY="240.0" text="Message" />
         <Button layoutX="285.0" layoutY="269.0" mnemonicParsing="false" onAction="#closeClick" text="Back" />
       <TableView fx:id="alertTable" layoutX="55.0" layoutY="56.0" prefHeight="175.0" prefWidth="463.0">
         <columns>
