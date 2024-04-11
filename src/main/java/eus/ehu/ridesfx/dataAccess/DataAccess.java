@@ -79,6 +79,7 @@ public class DataAccess {
         //db.createNativeQuery("DELETE FROM USER_RIDE").executeUpdate();
         db.createQuery("DELETE FROM Ride ").executeUpdate();
         db.createQuery("DELETE FROM User ").executeUpdate();
+        db.createQuery("DELETE FROM Alert ").executeUpdate();
         db.getTransaction().commit();
     }
 
