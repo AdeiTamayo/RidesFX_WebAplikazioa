@@ -5,6 +5,7 @@ import eus.ehu.ridesfx.domain.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 //import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -181,6 +182,7 @@ public class MainGUIController {
      */
     public void setDriverName(String name) {
         lblDriver.setText(name);
+        lblDriver.setAlignment(Pos.CENTER);
     }
 
     /**
@@ -252,8 +254,10 @@ public class MainGUIController {
     public void setDriverType(String type) {
         if(type.equals("NotLoggedInUser")){
             typeOfUser.setText(type);
+            typeOfUser.setAlignment(Pos.CENTER);
         }else {
             typeOfUser.setText(type + ": ");
+            typeOfUser.setAlignment(Pos.CENTER);
         }
     }
 

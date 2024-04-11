@@ -178,6 +178,7 @@ public class QueryRidesController implements Controller {
         alertButton.setVisible(false);
         alertMessage.setVisible(false);
         alertMessage.setAlignment(Pos.CENTER);
+        loggedInError.setVisible(false);
 
         comboNumSeats.setVisible(false);
         quantityOfSeatsLabel.setVisible(false);
@@ -411,6 +412,7 @@ public class QueryRidesController implements Controller {
 
             alertMessage.setVisible(false);
             alertButton.setVisible(false);
+            correctMessage.setVisible(false);
 
             tblRides.getItems().clear();
             // Vector<domain.Ride> events = businessLogic.getEvents(Dates.convertToDate(datepicker.getValue()));
@@ -443,6 +445,7 @@ public class QueryRidesController implements Controller {
                 bookinButton.setVisible(false);
                 alertButton.setVisible(true);
                 alertMessage.setVisible(false);
+                correctMessage.setVisible(false);
             }
 
 
