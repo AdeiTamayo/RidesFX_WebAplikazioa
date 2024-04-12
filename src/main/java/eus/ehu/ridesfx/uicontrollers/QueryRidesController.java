@@ -365,12 +365,20 @@ public class QueryRidesController implements Controller {
     @FXML
     public void createAlert(ActionEvent event) {
         loggedInError.setVisible(false);
+        correctMessage.setVisible(false);
 
         if (mainGUIController.getCurrentUser().getClass().getSimpleName().equals("NotLoggedInUser")) {
             System.out.println("Please login to book a ride");
             loggedInError.setVisible(true);
             return;
         }
+        //check if the number of seats is selected
+        if (comboNumSeats.getValue() == null) {
+            alertMessage.setVisible(true);
+            alertMessage.setText("Please select the number of seats");
+            return;
+        }
+
         //check if the current user is a driver
         if (businessLogic.getCurrentUser() instanceof Driver) {
             alertMessage.setVisible(true);
@@ -378,7 +386,7 @@ public class QueryRidesController implements Controller {
             return;
         }
 
-        //check if the date is today or later than today
+        //check if the alert already exists
         if (businessLogic.createAlert(comboDepartCity.getValue(), comboArrivalCity.getValue(), comboNumSeats.getValue(), Dates.convertToDate(datepicker.getValue()), businessLogic.getCurrentUser().getEmail()) == null) {
             //Display error text: "Alert already exists"
             alertMessage.setVisible(true);
