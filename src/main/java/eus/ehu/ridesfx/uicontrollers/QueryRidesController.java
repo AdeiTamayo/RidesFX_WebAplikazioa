@@ -320,6 +320,7 @@ public class QueryRidesController implements Controller {
         alertMessage.setVisible(false);
         correctMessage.setVisible(false);
         rideDate.setText("");
+        loggedInError.setVisible(false);
     }
 
 
@@ -382,6 +383,7 @@ public class QueryRidesController implements Controller {
      */
     @FXML
     void QueryRides(ActionEvent event) {
+        correctMessage.setVisible(false);
         loggedInError.setVisible(false);
         Date date = Dates.convertToDate(datepicker.getValue());
 

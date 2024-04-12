@@ -18,6 +18,7 @@
         </font>
     </Label>
         <Button layoutX="285.0" layoutY="269.0" mnemonicParsing="false" onAction="#closeClick" styleClass="bold-label" text="Back" />
+
         <TableView fx:id="alertTable" layoutX="55.0" layoutY="56.0" prefHeight="175.0" prefWidth="463.0">
             <columns>
                 <TableColumn fx:id="departC" prefWidth="96.0" text="DepartCity" />
@@ -27,7 +28,7 @@
                 <TableColumn fx:id="stateC" prefWidth="101.33331298828125" text="State" />
             </columns>
         </TableView>
-        <Button fx:id="deleteButton" layoutX="55.0" layoutY="269.0" mnemonicParsing="false" onAction="#deleteReservation" styleClass="bold-label" text="Delete Alert" />
+        <Button fx:id="deleteButton" layoutX="55.0" layoutY="269.0" mnemonicParsing="false" onAction="#deleteReservation" styleClass="bold-label" text="Delete Reservation" />
     </children>
 
 </AnchorPane>

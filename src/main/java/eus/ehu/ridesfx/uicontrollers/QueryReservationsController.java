@@ -2,6 +2,8 @@ package eus.ehu.ridesfx.uicontrollers;
 
 import eus.ehu.ridesfx.businessLogic.BlFacade;
 import eus.ehu.ridesfx.domain.Reservation;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -51,33 +53,35 @@ public class QueryReservationsController implements Controller {
 
     @FXML
     void initialize() {
-        //Hide the buttons
-        //deleteButton.setVisible(false);
-        //bookButton.setVisible(false);
+        deleteButton.setVisible(false);
 
-//Set the columns
+        // Set the columns
         departC.setCellValueFactory(new PropertyValueFactory<>("departure"));
         arrivalC.setCellValueFactory(new PropertyValueFactory<>("arrival"));
         numPlacesC.setCellValueFactory(new PropertyValueFactory<>("numPlaces"));
         dateC.setCellValueFactory(new PropertyValueFactory<>("date"));
         stateC.setCellValueFactory(new PropertyValueFactory<>("state"));
 
-        //Get the reservations
+        // Get the reservations
         List<Reservation> reservations = businessLogic.getReservations();
+
+        for (Reservation r : reservations) {
+            System.out.println(r);
+        }
 
         if (reservations.isEmpty()) {
             alertTable.placeholderProperty().setValue(new Label("You don't have any reservations yet"));
         }
 
+        // Add the reservations to the table
+        ObservableList<Reservation> reservationList = FXCollections.observableArrayList(reservations);
+        alertTable.setItems(reservationList);
+
         alertTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 deleteButton.setVisible(true);
-
-
             }
         });
-
-
     }
 
     @FXML
@@ -86,5 +90,7 @@ public class QueryReservationsController implements Controller {
         businessLogic.deleteReservation(reservation);
         alertTable.getItems().remove(reservation);
     }
+
+
 
 }
