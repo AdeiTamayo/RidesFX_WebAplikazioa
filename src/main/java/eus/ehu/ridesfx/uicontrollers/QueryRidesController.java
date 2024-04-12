@@ -372,6 +372,13 @@ public class QueryRidesController implements Controller {
             loggedInError.setVisible(true);
             return;
         }
+        //check if the number of seats is selected
+        if (comboNumSeats.getValue() == null) {
+            alertMessage.setVisible(true);
+            alertMessage.setText("You need to select the number of seats you want to book");
+            return;
+        }
+
         //check if the current user is a driver
         if (businessLogic.getCurrentUser() instanceof Driver) {
             alertMessage.setVisible(true);
