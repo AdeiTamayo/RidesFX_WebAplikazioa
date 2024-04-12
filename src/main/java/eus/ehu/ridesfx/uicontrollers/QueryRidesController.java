@@ -375,7 +375,7 @@ public class QueryRidesController implements Controller {
         //check if the number of seats is selected
         if (comboNumSeats.getValue() == null) {
             alertMessage.setVisible(true);
-            alertMessage.setText("Please select the number of seats");
+            alertMessage.setText("You need to select the number of seats you want to book");
             return;
         }
 
