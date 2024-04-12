@@ -45,6 +45,11 @@
                         onAction="#changeUser" styleClass="bold-label" text="Change User"/>
                 <Button fx:id="homeButton" layoutX="28.0" layoutY="131.0" mnemonicParsing="false" onAction="#goHome"
                         prefHeight="27.0" prefWidth="91.0" styleClass="bold-label" text="Home"/>
+                <Button fx:id="alertsButton" layoutX="48.0" layoutY="237.0" mnemonicParsing="false" onAction="#alerts" styleClass="bold-label" text="Alerts">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Button>
             </children>
         </AnchorPane>
     </left>

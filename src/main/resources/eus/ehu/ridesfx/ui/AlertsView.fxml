@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="321.0" prefWidth="572.0" styleClass="border-pane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ridesfx.uicontrollers.AlertsViewController">
+    <children>
+        <Label layoutX="55.0" layoutY="14.0" styleClass="bold-label" text="ALERTS">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <Button layoutX="285.0" layoutY="269.0" mnemonicParsing="false" onAction="#closeClick" text="Back" />
+      <TableView fx:id="alertTable" layoutX="55.0" layoutY="56.0" prefHeight="175.0" prefWidth="463.0">
+        <columns>
+          <TableColumn fx:id="departC" prefWidth="96.0" text="DepartCity" />
+          <TableColumn fx:id="arrivalC" prefWidth="104.66665649414062" text="ArrivalCity" />
+            <TableColumn fx:id="numPlacesC" prefWidth="56.0" text="NPlaces" />
+            <TableColumn fx:id="dateC" prefWidth="103.99993896484375" text="Date" />
+            <TableColumn fx:id="stateC" prefWidth="101.33331298828125" text="State" />
+        </columns>
+      </TableView>
+      <Button fx:id="deleteButton" layoutX="55.0" layoutY="269.0" mnemonicParsing="false" onAction="#deleteAlert" text="Delete Alert" />
+      <Button fx:id="bookButton" layoutX="150.0" layoutY="269.0" mnemonicParsing="false" onAction="#bookRide" text="Book Ride" />
+    </children>
+</AnchorPane>

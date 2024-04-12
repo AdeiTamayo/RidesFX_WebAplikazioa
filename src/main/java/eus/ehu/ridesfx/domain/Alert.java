@@ -12,6 +12,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @SuppressWarnings("serial")
 @Entity
@@ -23,6 +24,8 @@ public class Alert implements Serializable {
     private String toLocation;
     private int numPlaces;
     private Date date;
+
+    private String state= "No rides found";;
 
     @ManyToOne
     private Traveler traveler;
@@ -161,7 +164,7 @@ public class Alert implements Serializable {
     }
 
 
-    public float getNumPlaces() {
+    public int getNumPlaces() {
         return numPlaces;
     }
 
@@ -197,6 +200,21 @@ public class Alert implements Serializable {
         this.traveler = traveler;
     }
 
+    /**
+     * Get the state of the alert
+     *
+     * @return the state of the alert
+     */
+    public String getState() {return state;}
+
+    /**
+     * Set the state of the alert
+     *
+     * @param state to set
+     */
+    public void setState(String state) {this.state = state;}
+
+
 
 
     /**
@@ -207,6 +225,7 @@ public class Alert implements Serializable {
     public String toString(){
         return alertNumber+";"+";"+ fromLocation +";"+ toLocation +";"+date;
     }
+
 
 
 
