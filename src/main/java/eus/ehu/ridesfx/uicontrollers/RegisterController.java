@@ -48,9 +48,6 @@ public class RegisterController implements Controller {
     private MainGUI mainGUI;
     private LoginController loginController;
 
-    public void setMainGUIController(MainGUIController mainGUIController) {
-        this.mainGUIController = mainGUIController;
-    }
 
     /**
      * Constructs a new RegisterController.
@@ -59,7 +56,7 @@ public class RegisterController implements Controller {
      */
     public RegisterController(BlFacade bl, MainGUIController mainGUIController) {
         this.businessLogic = bl;
-        this.mainGUIController = mainGUIController;
+        setMainApp(mainGUIController);
         this.mainGUIController.setRegisterController(this);
     }
 
@@ -87,25 +84,24 @@ public class RegisterController implements Controller {
         String Password2 = password2.getText();
         String Email = email.getText();
         String Name = name.getText();
-        String Role= roles.getValue();
-        if(Username.isEmpty() || Password.isEmpty() || Email.isEmpty() || Name.isEmpty()  || Password2.isEmpty() || roles.getValue() == null){
+        String Role = roles.getValue();
+        if (Username.isEmpty() || Password.isEmpty() || Email.isEmpty() || Name.isEmpty() || Password2.isEmpty() || roles.getValue() == null) {
             System.out.println("\nPlease fill all the fields\n");
             message.setText("Please fill all the fields");
             message.setVisible(true);
-        } else if(Email.indexOf('@') == -1){
+        } else if (Email.indexOf('@') == -1) {
             System.out.println("\nThe email is not valid\n");
             message.setText("The email is not valid");
             message.setVisible(true);
-        } else if(!businessLogic.registerUser(Username, Password, Email, Name, Role)){
+        } else if (!businessLogic.registerUser(Username, Password, Email, Name, Role)) {
             System.out.println("\nA user with this email already exists\n");
             message.setText("A user with this email already exists");
             message.setVisible(true);
-        } else if(!Password.equals(Password2)){
+        } else if (!Password.equals(Password2)) {
             System.out.println("\nThe passwords are not the same\n");
             message.setText("The passwords are not the same");
             message.setVisible(true);
-        }
-        else{
+        } else {
 
             System.out.println("\nThe user has been registered\n");
             message.setText("The user has been correctly registered!");
@@ -134,7 +130,7 @@ public class RegisterController implements Controller {
     }
 
     @Override
-    public void setMainApp(MainGUI mainGUI) {
-        this.mainGUI = mainGUI;
+    public void setMainApp(MainGUIController mainGUIController) {
+        this.mainGUIController = mainGUIController;
     }
 }

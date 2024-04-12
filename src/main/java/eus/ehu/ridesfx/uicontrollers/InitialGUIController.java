@@ -6,7 +6,7 @@ import eus.ehu.ridesfx.ui.MainGUI;
 public class InitialGUIController implements Controller {
 
     private BlFacade businessLogic;
-    private MainGUI mainGUI;
+    private MainGUIController mainGUIController;
 
 
     public InitialGUIController(BlFacade bl) {
@@ -14,8 +14,8 @@ public class InitialGUIController implements Controller {
     }
 
     @Override
-    public void setMainApp(MainGUI mainGUI) {
-        this.mainGUI = mainGUI;
+    public void setMainApp(MainGUIController mainGUIController) {
+        this.mainGUIController = mainGUIController;
     }
 
 }

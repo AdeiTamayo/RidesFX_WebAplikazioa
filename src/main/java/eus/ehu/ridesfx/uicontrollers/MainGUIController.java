@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+
+//The class doesn't include contoller interface because it is the mainApp so it doesn't need to assign it.
 public class MainGUIController {
 
     @FXML
@@ -57,7 +59,6 @@ public class MainGUIController {
 
     @FXML
     private Button queryRidesBtn;
-
 
 
     @FXML
@@ -128,10 +129,11 @@ public class MainGUIController {
 
     /**
      * Shows the alerts scene in the GUI.
+     *
      * @param event
      */
     @FXML
-    void alerts(ActionEvent event){
+    void alerts(ActionEvent event) {
         showScene("Alerts");
         alertsViewController.setView();
     }
@@ -216,14 +218,14 @@ public class MainGUIController {
     /**
      * Hides the alerts button on the GUI.
      */
-    public void hideButtonAlerts(){
+    public void hideButtonAlerts() {
         alertsButton.setVisible(false);
     }
 
     /**
      * Shows the alerts button on the GUI.
      */
-    public void showButtonAlerts(){
+    public void showButtonAlerts() {
         alertsButton.setVisible(true);
     }
 
@@ -345,7 +347,6 @@ public class MainGUIController {
         registerWin = load("Register.fxml");
         InitialGUIWin = load("InitialGUI.fxml");
         alertsWin = load("AlertsView.fxml");
-
 
 
         showScene("InitialGUI");

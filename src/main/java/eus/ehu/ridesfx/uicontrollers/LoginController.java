@@ -48,7 +48,7 @@ public class LoginController implements Controller {
      */
     public LoginController(BlFacade bl, MainGUIController mainGUIController) {
         this.businessLogic = bl;
-        this.mainGUIController = mainGUIController;
+        setMainApp(mainGUIController);
         this.mainGUIController.setLoginController(this);
     }
 
@@ -66,8 +66,8 @@ public class LoginController implements Controller {
 
 
     @Override
-    public void setMainApp(MainGUI mainGUI) {
-        this.mainGUI = mainGUI;
+    public void setMainApp(MainGUIController mainGUIController) {
+        this.mainGUIController = mainGUIController;
     }
 
     /**

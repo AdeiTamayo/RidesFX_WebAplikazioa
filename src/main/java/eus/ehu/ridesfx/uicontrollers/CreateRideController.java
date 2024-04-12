@@ -25,7 +25,6 @@ import java.util.ResourceBundle;
 public class CreateRideController implements Controller {
 
 
-
     private BlFacade businessLogic;
 
     private MainGUIController MainGUIController;
@@ -41,8 +40,6 @@ public class CreateRideController implements Controller {
 
 
     private MainGUI mainGUI;
-
-
 
 
     @FXML
@@ -71,12 +68,9 @@ public class CreateRideController implements Controller {
 
     public CreateRideController(BlFacade bl, MainGUIController mainGUIController) {
         this.businessLogic = bl;
-        this.MainGUIController = mainGUIController;
+        setMainApp(mainGUIController);
         this.MainGUIController.setCreateRideController(this);
     }
-
-
-
 
 
     private String field_Errors() {
@@ -113,7 +107,6 @@ public class CreateRideController implements Controller {
     }
 
 
-
     @FXML
     void createRideClick(ActionEvent e) {
 
@@ -134,7 +127,6 @@ public class CreateRideController implements Controller {
                 Driver driver = (Driver) businessLogic.getCurrentUser();
                 Ride r = businessLogic.createRide(txtDepartCity.getText(), txtArrivalCity.getText(), Dates.convertToDate(datePicker.getValue()), inputSeats, price, driver.getEmail());
                 displayMessage(ResourceBundle.getBundle("Etiquetas").getString("CreateRideGUI.RideCreated"), "success");
-
 
 
             } catch (RideMustBeLaterThanTodayException e1) {
@@ -259,6 +251,7 @@ public class CreateRideController implements Controller {
 
     /**
      * Clear the fields of the create ride window when selected
+     *
      * @param event
      */
     @FXML
@@ -281,19 +274,20 @@ public class CreateRideController implements Controller {
 
     /**
      * Display a message in the error label
+     *
      * @param message The message to be displayed
-     * @param label The label style
+     * @param label   The label style
      */
-    void displayMessage(String message, String label){
+    void displayMessage(String message, String label) {
         lblErrorMessage.getStyleClass().clear();
-        lblErrorMessage.getStyleClass().setAll("lbl", "lbl-"+label);
+        lblErrorMessage.getStyleClass().setAll("lbl", "lbl-" + label);
         lblErrorMessage.setText(message);
     }
 
 
-
     /**
      * Close the create ride window and goes to Initial Window
+     *
      * @param event
      */
     @FXML
@@ -313,7 +307,7 @@ public class CreateRideController implements Controller {
     }
 
     @Override
-    public void setMainApp(MainGUI mainGUI) {
-        this.mainGUI = mainGUI;
+    public void setMainApp(MainGUIController mainGUIController) {
+        this.MainGUIController = mainGUIController;
     }
 }

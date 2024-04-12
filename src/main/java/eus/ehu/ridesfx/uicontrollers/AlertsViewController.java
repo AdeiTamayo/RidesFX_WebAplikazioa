@@ -90,13 +90,13 @@ public class AlertsViewController implements Controller{
     }
     public AlertsViewController(BlFacade bl, MainGUIController mainGUIController){
         this.businessLogic = bl;
-        this.mainGUIController = mainGUIController;
+       setMainApp(mainGUIController);
         this.mainGUIController.setAlertsViewController(this);
 
     }
     @Override
-    public void setMainApp(MainGUI mainGUI) {
-        this.mainGUI = mainGUI;
+    public void setMainApp(MainGUIController mainGUIController) {
+        this.mainGUIController = mainGUIController;
     }
 
     public void closeClick(ActionEvent event) {

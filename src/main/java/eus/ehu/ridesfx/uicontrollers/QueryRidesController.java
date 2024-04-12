@@ -106,8 +106,8 @@ public class QueryRidesController implements Controller {
 
     public QueryRidesController(BlFacade bl, MainGUIController mainGUIController) {
         businessLogic = bl;
-        this.mainGUIController = mainGUIController;
-        this.mainGUIController.setQueryRidesController(this);
+        setMainApp (mainGUIController);
+    this.mainGUIController.setQueryRidesController(this);
     }
 
 
@@ -455,8 +455,8 @@ public class QueryRidesController implements Controller {
     }
 
     @Override
-    public void setMainApp(MainGUI mainGUI) {
-        this.mainGUI = mainGUI;
+    public void setMainApp(MainGUIController mainGUIController) {
+        this.mainGUIController = mainGUIController;
     }
 
 }
