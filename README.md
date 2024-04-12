@@ -22,18 +22,18 @@ It contains the following sections:
 * The following things were mandatory:
   * Implemented User/Driver/Traveler hierarchy
     * Added 2 more use cases: Create Alert and Book Ride 
-    * The application is op ened as a not logged in user which can query rides but must log in in order to do anything else. 
-    * Changed the available buttons depending on user type 
-    * Created a window to display and delete alerts, and if a matching ride is found the option booking the ride 
-    * Created sequence Diagram for "Query Rides" use case
+    * The application is opened as a not logged in user which can query rides but must log in in order to do anything else. 
+    * Changed the available buttons depending on user type. 
+    * Created sequence Diagram for "Query Rides" use case.
+    * Added three new event flows: Create Alert, Query Alert and Remove Alert.
     
 * The following things were optional:
-  * Hid different buttons depending on user type.
   * Created 'Clear' button: clears the text fields.
-  * Implemented 'Return' button: returns to the main GUI.
+  * Implemented 'Return' button: returns to the main GUI. 
+  * Created a window to display and delete alerts, and if a matching ride is found the option booking the ride.
   * Ride date appears on the top corner when date is selected.
-  * Created home GUI
-Hasierako GUIa
+  * Created home GUI.
+
 
 ### Iteration 2 struggles
 The sequence diagram was a reality check for the app implementation. 
