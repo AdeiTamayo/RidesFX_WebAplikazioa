@@ -7,9 +7,7 @@
  */
 package eus.ehu.ridesfx.domain;
 
-import eus.ehu.ridesfx.utils.Dates;
 import jakarta.persistence.*;
-
 import java.io.Serializable;
 import java.util.Date;
 

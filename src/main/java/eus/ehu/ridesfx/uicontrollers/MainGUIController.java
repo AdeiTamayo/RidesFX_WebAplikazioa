@@ -2,27 +2,22 @@ package eus.ehu.ridesfx.uicontrollers;
 
 import eus.ehu.ridesfx.businessLogic.BlFacade;
 import eus.ehu.ridesfx.domain.User;
-import eus.ehu.ridesfx.domain.Alert;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.geometry.Pos;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import eus.ehu.ridesfx.ui.MainGUI;
 import javafx.scene.layout.BorderPane;
 
-
 import java.io.IOException;
-import java.net.URL;
-import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 
-//The class doesn't include contoller interface because it is the mainApp so it doesn't need to assign it.
+//The class doesn't include controller interface because it is the mainApp so it doesn't need to assign it.
 public class MainGUIController {
 
     @FXML
@@ -30,18 +25,6 @@ public class MainGUIController {
 
     @FXML
     private Label typeOfUser;
-
-    /*
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
-    private Button homeButton;
-
-     */
 
 
     @FXML

@@ -1,7 +1,7 @@
 package eus.ehu.ridesfx.uicontrollers;
 
 import eus.ehu.ridesfx.businessLogic.BlFacade;
-import eus.ehu.ridesfx.domain.Alert;
+
 import eus.ehu.ridesfx.domain.Driver;
 import eus.ehu.ridesfx.domain.Ride;
 import eus.ehu.ridesfx.exceptions.RideAlreadyExistException;
@@ -12,10 +12,10 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.skin.DatePickerSkin;
 import javafx.util.Callback;
-import eus.ehu.ridesfx.ui.MainGUI;
+
 import eus.ehu.ridesfx.utils.Dates;
 
-import java.net.URL;
+
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
@@ -29,17 +29,9 @@ public class CreateRideController implements Controller {
 
     private MainGUIController MainGUIController;
 
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private DatePicker datePicker;
-
-
-    private MainGUI mainGUI;
 
 
     @FXML
@@ -48,11 +40,6 @@ public class CreateRideController implements Controller {
     @FXML
     private Label lblErrorMinBet;
 
-    /*
-    @FXML
-    private Button btnCreateRide;
-
-     */
 
     @FXML
     private TextField txtArrivalCity;
@@ -76,7 +63,7 @@ public class CreateRideController implements Controller {
     private String field_Errors() {
 
         try {
-            if ((txtDepartCity.getText().length() == 0) || (txtArrivalCity.getText().length() == 0) || (txtNumberOfSeats.getText().length() == 0) || (txtPrice.getText().length() == 0))
+            if ((txtDepartCity.getText().isEmpty()) || (txtArrivalCity.getText().isEmpty()) || (txtNumberOfSeats.getText().isEmpty()) || (txtPrice.getText().isEmpty()))
                 return ResourceBundle.getBundle("Etiquetas").getString("CreateRideGUI.ErrorQuery");
             else {
 

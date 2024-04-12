@@ -1,10 +1,8 @@
 /**
- * The Alert class represents an alert in the ridesharing system.
+ * The Alert class represents an alert in the ride sharing system.
  * It is marked as an Entity, meaning that it is mapped to a table in the database.
- * Each Alert is associated with a Traveler.
- *
+ * Each Alert is associated with a Traveler and a Location.
  * The class implements Serializable, which means it can be converted to a byte stream and recovered later.
- *
  */
 package eus.ehu.ridesfx.domain;
 
@@ -12,7 +10,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+
 
 @SuppressWarnings("serial")
 @Entity
@@ -25,7 +23,7 @@ public class Alert implements Serializable {
     private int numPlaces;
     private Date date;
 
-    private String state= "No rides found";;
+    private String state = "No rides found";
 
     @ManyToOne
     private Traveler traveler;
@@ -37,7 +35,7 @@ public class Alert implements Serializable {
      * Default constructor for the Alert class.
      * Initializes a new Alert with no parameters.
      */
-    public Alert(){
+    public Alert() {
         super();
     }
 
@@ -58,7 +56,7 @@ public class Alert implements Serializable {
         this.fromLocation = from;
         this.toLocation = to;
         this.numPlaces = numPlaces;
-        this.date=date;
+        this.date = date;
         this.traveler = traveler;
     }
 
@@ -77,7 +75,7 @@ public class Alert implements Serializable {
         this.fromLocation = from;
         this.toLocation = to;
         this.numPlaces = numPlaces;
-        this.date=date;
+        this.date = date;
         this.traveler = traveler;
     }
 
@@ -140,11 +138,6 @@ public class Alert implements Serializable {
         this.toLocation = destination;
     }
 
-    /**
-     * Get the free places of the alert
-     *
-     * @return the available places
-     */
 
     /**
      * Get the date  of the alert
@@ -154,6 +147,7 @@ public class Alert implements Serializable {
     public Date getDate() {
         return date;
     }
+
     /**
      * Set the date of the alert
      *
@@ -163,12 +157,21 @@ public class Alert implements Serializable {
         this.date = date;
     }
 
-
+    /**
+     * Get the num places of the alert
+     *
+     * @return the places asked
+     */
     public int getNumPlaces() {
         return numPlaces;
     }
 
-    public void setNumPlaces( int numPlaces) {
+    /**
+     * Set the num places of the alert
+     *
+     * @param numPlaces to be set
+     */
+    public void setNumPlaces(int numPlaces) {
         this.numPlaces = numPlaces;
     }
 
@@ -205,16 +208,18 @@ public class Alert implements Serializable {
      *
      * @return the state of the alert
      */
-    public String getState() {return state;}
+    public String getState() {
+        return state;
+    }
 
     /**
      * Set the state of the alert
      *
      * @param state to set
      */
-    public void setState(String state) {this.state = state;}
-
-
+    public void setState(String state) {
+        this.state = state;
+    }
 
 
     /**
@@ -222,13 +227,9 @@ public class Alert implements Serializable {
      *
      * @return the alert information
      */
-    public String toString(){
-        return alertNumber+";"+";"+ fromLocation +";"+ toLocation +";"+date;
+    public String toString() {
+        return alertNumber + ";" + ";" + fromLocation + ";" + toLocation + ";" + date;
     }
-
-
-
-
 
 
 }

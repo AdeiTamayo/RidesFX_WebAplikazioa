@@ -5,12 +5,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import eus.ehu.ridesfx.domain.Driver;
-import eus.ehu.ridesfx.uicontrollers.MainGUIController;
-import org.kordamp.bootstrapfx.BootstrapFX;
-import eus.ehu.ridesfx.uicontrollers.Controller;
-import javafx.fxml.FXML;
-import javafx.scene.Parent;
+
 
 import java.io.IOException;
 import java.util.Locale;

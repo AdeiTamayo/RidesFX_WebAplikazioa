@@ -9,7 +9,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import eus.ehu.ridesfx.ui.MainGUI;
+
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -41,11 +41,9 @@ public class RegisterController implements Controller {
     @FXML
     private Label message;
 
-    @FXML
-    private Label goToLoginLabel;
 
     private BlFacade businessLogic;
-    private MainGUI mainGUI;
+
     private LoginController loginController;
 
 

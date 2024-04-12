@@ -16,8 +16,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Vector;
 import java.util.Date;
-import java.util.List;
-import java.util.Vector;
+
 
 @Entity
 @DiscriminatorValue("TRAVELER")
@@ -39,24 +38,23 @@ public class Traveler extends User implements Serializable {
     public Traveler() {
         super();
         reservations = new Vector<Reservation>();
-        alerts= new Vector<Alert>();
+        alerts = new Vector<Alert>();
     }
 
     /**
      * Parameterized constructor for the Traveler class.
      * Calls the superclass constructor with the provided arguments.
      *
-     * @param email The email of the traveler.
-     * @param name The name of the traveler.
+     * @param email    The email of the traveler.
+     * @param name     The name of the traveler.
      * @param username The username of the traveler.
      * @param password The password of the traveler.
      */
     public Traveler(String email, String name, String username, String password) {
         super(username, password, name, email);
         reservations = new Vector<Reservation>();
-        alerts= new Vector<Alert>();
+        alerts = new Vector<Alert>();
     }
-
 
 
     /**
@@ -100,9 +98,9 @@ public class Traveler extends User implements Serializable {
     /**
      * This method creates a new alert for the traveler and adds it to the alerts list.
      *
-     * @param from The origin location of the alert.
-     * @param to The destination location of the alert.
-     * @param date The date of the alert.
+     * @param from    The origin location of the alert.
+     * @param to      The destination location of the alert.
+     * @param date    The date of the alert.
      * @param nPlaces The number of places available in the alert.
      * @return The created alert.
      */
@@ -116,7 +114,7 @@ public class Traveler extends User implements Serializable {
      * This method checks if an alert with the given parameters already exists for the traveler.
      *
      * @param from The origin location of the alert.
-     * @param to The destination location of the alert.
+     * @param to   The destination location of the alert.
      * @param date The date of the alert.
      * @return true if the alert exists and false otherwise.
      */
@@ -128,7 +126,7 @@ public class Traveler extends User implements Serializable {
         return false;
     }
 
-    public void deleteAlert(Alert alert){
+    public void deleteAlert(Alert alert) {
         alerts.remove(alert);
     }
 
@@ -159,7 +157,7 @@ public class Traveler extends User implements Serializable {
      * This method removes an alert with the given parameters from the alerts list.
      *
      * @param from The origin location of the alert.
-     * @param to The destination location of the alert.
+     * @param to   The destination location of the alert.
      * @param date The date of the alert.
      * @return The removed alert if it was found, null otherwise.
      */
@@ -186,7 +184,6 @@ public class Traveler extends User implements Serializable {
     }
 
      */
-
 
 
 }

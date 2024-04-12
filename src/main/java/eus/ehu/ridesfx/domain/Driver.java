@@ -1,10 +1,8 @@
 /**
- * The Driver class represents a driver user in the ridesharing system.
+ * The Driver class represents a driver user in the ride sharing system.
  * It extends the User class and adds additional fields and methods.
- *
  * This class is marked as an Entity, meaning that it is mapped to a table in the database.
  * The DiscriminatorValue annotation is used to distinguish between different types of users in the single table.
- *
  * The class implements Serializable, which means it can be converted to a byte stream and recovered later.
  *
  * @author Your Name
@@ -20,7 +18,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
-import eus.ehu.ridesfx.domain.Ride;
+
 
 @Entity
 @DiscriminatorValue("DRIVER")
@@ -45,8 +43,8 @@ public class Driver extends User implements Serializable {
      * Parameterized constructor for the Driver class.
      * Calls the superclass constructor with the provided arguments and initializes the rides list.
      *
-     * @param email The email of the driver.
-     * @param name The name of the driver.
+     * @param email    The email of the driver.
+     * @param name     The name of the driver.
      * @param username The username of the driver.
      * @param password The password of the driver.
      */
@@ -68,11 +66,11 @@ public class Driver extends User implements Serializable {
     /**
      * This method creates a new ride for the driver and adds it to the rides list.
      *
-     * @param from The origin location of the ride.
-     * @param to The destination location of the ride.
-     * @param date The date of the ride.
+     * @param from    The origin location of the ride.
+     * @param to      The destination location of the ride.
+     * @param date    The date of the ride.
      * @param nPlaces The number of places available in the ride.
-     * @param price The price of the ride.
+     * @param price   The price of the ride.
      * @return The created ride.
      */
     public Ride addRide(String from, String to, Date date, int nPlaces, float price) {
@@ -85,7 +83,7 @@ public class Driver extends User implements Serializable {
      * This method checks if a ride with the given parameters already exists for the driver.
      *
      * @param from The origin location of the ride.
-     * @param to The destination location of the ride.
+     * @param to   The destination location of the ride.
      * @param date The date of the ride.
      * @return true if the ride exists and false otherwise.
      */
@@ -124,7 +122,7 @@ public class Driver extends User implements Serializable {
      * This method removes a ride with the given parameters from the rides list.
      *
      * @param from The origin location of the ride.
-     * @param to The destination location of the ride.
+     * @param to   The destination location of the ride.
      * @param date The date of the ride.
      * @return The removed ride if it was found, null otherwise.
      */

@@ -13,37 +13,17 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.skin.DatePickerSkin;
-import javafx.scene.layout.BorderPane;
-import javafx.util.Callback;
-import eus.ehu.ridesfx.ui.MainGUI;
-import eus.ehu.ridesfx.utils.Dates;
 
-import java.net.URL;
+import javafx.util.Callback;
+import eus.ehu.ridesfx.utils.Dates;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.ResourceBundle;
+
 
 public class QueryRidesController implements Controller {
-
-    @FXML
-    private BorderPane QueryRidesPane;
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
-    private Button btnClose;
-
-    @FXML
-    private Button queryRidesButton;
-
-    @FXML
-    private Button clearButton;
 
 
     @FXML
@@ -70,8 +50,6 @@ public class QueryRidesController implements Controller {
     @FXML
     private ComboBox<String> comboDepartCity;
 
-//  @FXML
-//  private TableView<Event> tblEvents;
 
     @FXML
     private TableView<Ride> tblRides;
@@ -96,8 +74,6 @@ public class QueryRidesController implements Controller {
     private Label loggedInError;
 
 
-    private MainGUI mainGUI;
-
     private MainGUIController mainGUIController;
 
     private List<LocalDate> datesWithBooking = new ArrayList<>();
@@ -106,8 +82,8 @@ public class QueryRidesController implements Controller {
 
     public QueryRidesController(BlFacade bl, MainGUIController mainGUIController) {
         businessLogic = bl;
-        setMainApp (mainGUIController);
-    this.mainGUIController.setQueryRidesController(this);
+        setMainApp(mainGUIController);
+        this.mainGUIController.setQueryRidesController(this);
     }
 
 

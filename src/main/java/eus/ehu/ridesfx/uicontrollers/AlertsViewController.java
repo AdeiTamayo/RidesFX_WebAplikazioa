@@ -1,12 +1,12 @@
 package eus.ehu.ridesfx.uicontrollers;
 
 import eus.ehu.ridesfx.businessLogic.BlFacade;
-import eus.ehu.ridesfx.businessLogic.BlFacadeImplementation;
+
 import eus.ehu.ridesfx.domain.Alert;
 import eus.ehu.ridesfx.domain.Ride;
 import eus.ehu.ridesfx.domain.Traveler;
 import eus.ehu.ridesfx.ui.MainGUI;
-import javafx.beans.property.SimpleStringProperty;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -49,7 +49,7 @@ public class AlertsViewController implements Controller{
     
 
 
-    private MainGUI mainGUI;
+
 
     private MainGUIController mainGUIController;
 

@@ -3,7 +3,7 @@ package eus.ehu.ridesfx.uicontrollers;
 import eus.ehu.ridesfx.businessLogic.BlFacade;
 import eus.ehu.ridesfx.domain.Driver;
 import eus.ehu.ridesfx.domain.Traveler;
-import eus.ehu.ridesfx.ui.MainGUI;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -36,9 +36,9 @@ public class LoginController implements Controller {
     @FXML
     private Label registerLabel;
 
-    private MainGUI mainGUI;
+
     private BlFacade businessLogic;
-    private RegisterController registerController;
+    //private RegisterController registerController;
 
     /**
      * Constructs a new LoginController.
@@ -82,7 +82,7 @@ public class LoginController implements Controller {
         Text.setVisible(false);
         wrongPassword.setVisible(false);
         InvalidUser.setVisible(false);
-        if (Email.equals("") || Password.equals("")) {
+        if (Email.isEmpty() || Password.isEmpty()) {
             System.out.println("\nPlease fill in all the fields\n");
             Text.setText("Please fill in all the fields");
             Text.setVisible(true);
@@ -155,8 +155,7 @@ public class LoginController implements Controller {
     @FXML
     public void registerLabelClick(MouseEvent mouseEvent) {
         mainGUIController.showRegister();
-        //TODO remove logged in message
-        //registerController.removeFieldsValue();
+
 
     }
 }
