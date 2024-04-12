@@ -50,6 +50,9 @@ public class MainGUIController {
     @FXML
     Button alertsButton;
 
+    @FXML
+    Button queryReservationsButton;
+
 
     private LoginController loginController;
 
@@ -61,6 +64,8 @@ public class MainGUIController {
     private QueryRidesController queryRidesController;
 
     private CreateRideController createRideController;
+
+    private QueryReservationsController queryReservationsController;
 
 
     public MainGUIController() {
@@ -75,7 +80,7 @@ public class MainGUIController {
         this.businessLogic = blFacade;
     }
 
-    //The following methods are used to allow us to call this methods from another classes.
+    //The following methods are used to allow us to call these methods from another classes.
 
 
     public void setLoginController(LoginController loginController) {
@@ -96,6 +101,10 @@ public class MainGUIController {
 
     public void setCreateRideController(CreateRideController createRideController) {
         this.createRideController = createRideController;
+    }
+
+    public void setQueryReservationsController(QueryReservationsController queryReservationsController) {
+        this.queryReservationsController = queryReservationsController;
     }
 
     //The following methods are used to manage the buttons in the GUI
@@ -288,7 +297,32 @@ public class MainGUIController {
         showScene("InitialGUI");
     }
 
-    //New method
+    /**
+     * Shows the query reservations scene.
+
+     */
+
+    public void showQueryReservations(){
+        showScene("Query Reservations");
+    }
+
+    /**
+     * Hides the query reservations button.
+     */
+    public void hideButtonReservations(){
+        queryReservationsButton.setVisible(false);
+    }
+
+
+
+    /**
+     * Shows the query reservations button.
+     */
+    public void showButtonReservations(){
+        queryReservationsButton.setVisible(true);
+    }
+
+
 
     /**
      * Returns the login controller.
@@ -299,6 +333,11 @@ public class MainGUIController {
         return loginController;
     }
 
+    /**
+     * Returns the current user.
+     *
+     * @return The current user.
+     */
     public User getCurrentUser() {
         return businessLogic.getCurrentUser();
     }
@@ -313,12 +352,16 @@ public class MainGUIController {
         if (businessLogic.getCurrentUser().getClass().getSimpleName().equals("Driver")) {
             hideButtonQueryRides();
             hideButtonAlerts();
+            hideButtonReservations();
+
         } else if (businessLogic.getCurrentUser().getClass().getSimpleName().equals("Traveler")) {
             hideButtonCreateRide();
             showButtonAlerts();
+            showButtonReservations();
         } else if (businessLogic.getCurrentUser().getClass().getSimpleName().equals("NotLoggedInUser")) {
             hideButtonCreateRide();
             hideButtonAlerts();
+            hideButtonReservations();
         }
 
 
@@ -330,6 +373,8 @@ public class MainGUIController {
         registerWin = load("Register.fxml");
         InitialGUIWin = load("InitialGUI.fxml");
         alertsWin = load("AlertsView.fxml");
+        queryReservationsWin = load("QueryReservations.fxml");
+
 
 
         showScene("InitialGUI");
@@ -358,6 +403,8 @@ public class MainGUIController {
                         return new CreateRideController(businessLogic, this);
                     } else if (controllerClass == AlertsViewController.class) {
                         return new AlertsViewController(businessLogic, this);
+                    }else if(controllerClass == QueryReservationsController.class){
+                        return new QueryReservationsController(businessLogic, this);
                     } else {
                         return controllerClass
                                 .getConstructor(BlFacade.class)
@@ -380,7 +427,7 @@ public class MainGUIController {
     }
 
 
-    private Window createRideWin, queryRidesWin, loginWin, registerWin, InitialGUIWin, alertsWin;
+    private Window createRideWin, queryRidesWin, loginWin, registerWin, InitialGUIWin, alertsWin, queryReservationsWin;
 
     private void showScene(String scene) {
         switch (scene) {
@@ -390,6 +437,7 @@ public class MainGUIController {
             case "Register" -> mainWrapper.setCenter(registerWin.ui);
             case "InitialGUI" -> mainWrapper.setCenter(InitialGUIWin.ui);
             case "Alerts" -> mainWrapper.setCenter(alertsWin.ui);
+            case "Query Reservations" -> mainWrapper.setCenter(queryReservationsWin.ui);
         }
     }
 

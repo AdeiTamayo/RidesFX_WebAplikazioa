@@ -393,6 +393,19 @@ public class DataAccess {
 
     }
 
+    public List<Reservation> getReservations(String mail){
+        System.out.println(">> DataAccess: getReservations");
+        TypedQuery<Reservation> query = db.createQuery("SELECT r FROM Reservation r WHERE r.traveler.email = :mail", Reservation.class);
+        query.setParameter("mail", mail);
+        return query.getResultList();
+    }
+
+    public void deleteReservation(Reservation r){
+        db.getTransaction().begin();
+        db.remove(r);
+        db.getTransaction().commit();
+    }
+
 
     public void close() {
         db.close();

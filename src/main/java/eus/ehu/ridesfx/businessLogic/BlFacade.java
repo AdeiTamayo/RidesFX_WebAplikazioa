@@ -1,10 +1,6 @@
 package eus.ehu.ridesfx.businessLogic;
 
-import eus.ehu.ridesfx.domain.Alert;
-import eus.ehu.ridesfx.domain.Driver;
-import eus.ehu.ridesfx.domain.Ride;
-import eus.ehu.ridesfx.domain.Traveler;
-import eus.ehu.ridesfx.domain.User;
+import eus.ehu.ridesfx.domain.*;
 import eus.ehu.ridesfx.exceptions.RideAlreadyExistException;
 import eus.ehu.ridesfx.exceptions.RideMustBeLaterThanTodayException;
 
@@ -103,6 +99,9 @@ public interface BlFacade {
      */
     boolean bookRide(Date date, Ride ride, Traveler traveler, int numPlaces);
 
+    List<Reservation> getReservations();
+
+    void deleteReservation(Reservation selectedItem);
 
     /**
      * This method returns the available seats for a ride
@@ -135,4 +134,6 @@ public interface BlFacade {
      * @param alert
      */
     void updateAlertState(Alert alert);
+
+
 }

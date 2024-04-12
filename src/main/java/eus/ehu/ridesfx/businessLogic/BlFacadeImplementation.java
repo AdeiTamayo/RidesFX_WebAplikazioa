@@ -148,6 +148,8 @@ public class BlFacadeImplementation implements BlFacade {
 
     }
 
+
+
     @Override
 
     public Traveler getCurrentTraveler() {
@@ -221,6 +223,14 @@ public class BlFacadeImplementation implements BlFacade {
     public void updateAlertState(Alert alert){
         dbManager.updateAlertState(alert);
         alert.setState("Ride found");
+    }
+
+    public List<Reservation> getReservations() {
+        return dbManager.getReservations( currentUser.getEmail());
+    }
+
+    public void deleteReservation(Reservation selectedItem) {
+        dbManager.deleteReservation(selectedItem);
     }
 
 }

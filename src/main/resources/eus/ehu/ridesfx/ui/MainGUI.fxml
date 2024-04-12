@@ -1,66 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainWrapper" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="650.0" prefWidth="1000.0" styleClass="border-pane" stylesheets="@Styles.css"
-            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="eus.ehu.ridesfx.uicontrollers.MainGUIController">
+<BorderPane fx:id="mainWrapper" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" styleClass="border-pane" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ridesfx.uicontrollers.MainGUIController">
     <left>
         <AnchorPane prefHeight="400.0" prefWidth="150.0" styleClass="border-pane">
             <children>
-                <Label fx:id="selectOptionLbl" layoutX="10.0" layoutY="73.0" styleClass="bold-label"
-                       text="Select Use Case">
+                <Label fx:id="selectOptionLbl" layoutX="10.0" layoutY="73.0" styleClass="bold-label" text="Select Use Case">
                     <font>
-                        <Font size="18.0"/>
+                        <Font size="18.0" />
                     </font>
                 </Label>
-                <Button fx:id="queryRidesBtn" layoutX="27.0" layoutY="183.0" mnemonicParsing="false"
-                        onAction="#queryRides" styleClass="bold-label" text="Query Rides">
+                <Button fx:id="queryRidesBtn" layoutX="27.0" layoutY="183.0" mnemonicParsing="false" onAction="#queryRides" styleClass="bold-label" text="Query Rides">
                     <font>
-                        <Font size="13.0"/>
+                        <Font size="13.0" />
                     </font>
                 </Button>
-                <Button fx:id="createRideBtn" layoutX="29.0" layoutY="236.0" mnemonicParsing="false"
-                        onAction="#createRide" styleClass="bold-label" text="Create Ride">
+                <Button fx:id="createRideBtn" layoutX="29.0" layoutY="236.0" mnemonicParsing="false" onAction="#createRide" styleClass="bold-label" text="Create Ride">
                     <font>
-                        <Font size="13.0"/>
+                        <Font size="13.0" />
                     </font>
                 </Button>
-                <Label fx:id="typeOfUser" layoutX="8.0" layoutY="283.0" prefHeight="18.0"
-                       prefWidth="126.0" styleClass="bold-label" textAlignment="CENTER"/>
+                <Label fx:id="typeOfUser" layoutX="7.0" layoutY="325.0" prefHeight="18.0" prefWidth="126.0" styleClass="bold-label" textAlignment="CENTER" />
 
 
-                <Label id="userName" fx:id="lblDriver" alignment="CENTER" layoutX="11.0" layoutY="302.0"
-                       prefHeight="18.0" prefWidth="121.0" styleClass="bold-label" text=" " textAlignment="CENTER"/>
-                <Button fx:id="loginMainButton" layoutX="7.0" layoutY="351.0" mnemonicParsing="false" onAction="#login"
-                        styleClass="bold-label" text="Login"/>
-                <Button fx:id="registerMainButton" layoutX="71.0" layoutY="351.0" mnemonicParsing="false"
-                        onAction="#register" styleClass="bold-label" text="Register"/>
-                <Button fx:id="changeUserButton" layoutX="26.0" layoutY="351.0" mnemonicParsing="false"
-                        onAction="#changeUser" styleClass="bold-label" text="Change User"/>
-                <Button fx:id="homeButton" layoutX="28.0" layoutY="131.0" mnemonicParsing="false" onAction="#goHome"
-                        prefHeight="27.0" prefWidth="91.0" styleClass="bold-label" text="Go Home"/>
-                <Button fx:id="alertsButton" layoutX="31.0" layoutY="237.0" mnemonicParsing="false" onAction="#alerts"
-                        prefHeight="27.0" prefWidth="83.0" text="Query Alerts">
-                    <font>
-                        <Font size="13.0"/>
-                    </font>
-                    <styleClass>
-                        <String fx:value="bold-label"/>
-                        <String fx:value="button"/>
-                    </styleClass>
-                </Button>
+                <Label id="userName" fx:id="lblDriver" alignment="CENTER" layoutX="10.0" layoutY="344.0" prefHeight="18.0" prefWidth="121.0" styleClass="bold-label" text=" " textAlignment="CENTER" />
+                <Button fx:id="loginMainButton" layoutX="6.0" layoutY="393.0" mnemonicParsing="false" onAction="#login" styleClass="bold-label" text="Login" />
+                <Button fx:id="registerMainButton" layoutX="70.0" layoutY="393.0" mnemonicParsing="false" onAction="#register" styleClass="bold-label" text="Register" />
+                <Button fx:id="changeUserButton" layoutX="25.0" layoutY="393.0" mnemonicParsing="false" onAction="#changeUser" styleClass="bold-label" text="Change User" />
+                <Button fx:id="homeButton" layoutX="28.0" layoutY="131.0" mnemonicParsing="false" onAction="#goHome" prefHeight="27.0" prefWidth="91.0" styleClass="bold-label" text="Go Home" />
+                <Button fx:id="alertsButton" layoutX="31.0" layoutY="237.0" mnemonicParsing="false" onAction="#alerts" prefHeight="27.0" prefWidth="83.0" styleClass="bold-label" text="Query Alerts" />
+                <Button fx:id="queryReservationsButton" layoutX="10.0" layoutY="284.0" mnemonicParsing="false" onAction="#showQueryReservations" styleClass="bold-label" text="Query Reservations" />
+
+
             </children>
         </AnchorPane>
     </left>
     <center>
-        <AnchorPane prefHeight="384.0" prefWidth="330.0" BorderPane.alignment="CENTER"/>
+        <AnchorPane prefHeight="384.0" prefWidth="330.0" BorderPane.alignment="CENTER" />
     </center>
 
 </BorderPane>
