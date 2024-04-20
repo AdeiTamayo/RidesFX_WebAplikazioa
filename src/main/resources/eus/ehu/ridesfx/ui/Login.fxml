@@ -13,7 +13,7 @@
         <Label fx:id="output" layoutX="193.0" layoutY="209.0" prefHeight="17.0" prefWidth="97.0" wrapText="true" />
         <Label layoutX="108.0" layoutY="160.0" styleClass="bold-label" text="Password:" />
         <Label layoutX="128.0" layoutY="95.0" prefHeight="17.0" prefWidth="35.0" styleClass="bold-label" text="Email:" />
-        <Label fx:id="Text" layoutX="80.0" layoutY="300.0" prefHeight="34.0" prefWidth="340.0" styleClass="bold-label" text="You don't have an account yet? Register now clicking here" />
+        <Label fx:id="Text" layoutX="80.0" layoutY="300.0" prefHeight="34.0" prefWidth="340.0" styleClass="bold-label" />
         <Label fx:id="InvalidUser" layoutX="141.0" layoutY="125.0" prefHeight="18.0" prefWidth="218.0" text="A user with this email doesn't exist">
             <styleClass>
                 <String fx:value="error-label" />
@@ -38,7 +38,7 @@
             <String fx:value="btn-info" />
             <String fx:value="bold-label" />
          </styleClass></Button>
-        <Label fx:id="registerLabel" layoutX="79.0" layoutY="300.0" onMouseClicked="#registerLabelClick" prefHeight="34.0" prefWidth="340.0" styleClass="bold-label" text="You don't have an account yet? Register now clicking here" />
+        <Label fx:id="registerLabel" layoutX="79.0" layoutY="324.0" onMouseClicked="#registerLabelClick" prefHeight="34.0" prefWidth="340.0" styleClass="bold-label" text="You don't have an account yet? Register now clicking here" />
       <Button fx:id="clearButtonLogin" layoutX="264.0" layoutY="264.0" mnemonicParsing="false" onAction="#clearLogin" styleClass="bold-label" text="Clear" />
 
     </children>

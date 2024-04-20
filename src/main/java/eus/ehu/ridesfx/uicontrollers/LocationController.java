@@ -25,6 +25,7 @@ public class LocationController implements Controller{
     void initialize() {
         //TODO
         businessLogic.convertRideToLocation();
+
     }
 
     public List<Location> getLocations() {

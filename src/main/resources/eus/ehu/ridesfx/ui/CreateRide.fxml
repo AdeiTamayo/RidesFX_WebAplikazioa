@@ -13,11 +13,8 @@
          <children>
             <DatePicker fx:id="datePicker" layoutX="116.0" layoutY="63.0" prefHeight="26.0" prefWidth="199.0" />
             <Label layoutX="14.0" layoutY="68.0" styleClass="bold-label" text="Ride Date" />
-            <TextField fx:id="txtDepartCity" layoutX="334.0" layoutY="134.0" prefHeight="26.0" prefWidth="200.0" styleClass="bold-label" />
             <Label layoutX="12.0" layoutY="138.0" styleClass="bold-label" text="Depart City" />
-            <TextField fx:id="txtArrivalCity" layoutX="334.0" layoutY="207.0" prefHeight="26.0" prefWidth="200.0" styleClass="bold-label" />
             <Label layoutX="12.0" layoutY="210.0" styleClass="bold-label" text="Arrival City" />
-            <TextField fx:id="txtNumberOfSeats" layoutX="334.0" layoutY="277.0" prefHeight="26.0" prefWidth="200.0" styleClass="bold-label" />
             <Label layoutX="14.0" layoutY="281.0" styleClass="bold-label" text="Number Of Seats" />
             <TextField fx:id="txtPrice" layoutX="116.0" layoutY="341.0" prefHeight="26.0" prefWidth="200.0" styleClass="bold-label" />
             <Label layoutX="14.0" layoutY="346.0" styleClass="bold-label" text="Price" />

@@ -68,6 +68,8 @@ public class RegisterController implements Controller {
         password2.setText("");
         name.setText("");
         roles.setValue(null);
+        message.setVisible(false);
+
     }
 
     /**
@@ -115,7 +117,9 @@ public class RegisterController implements Controller {
 
     @FXML
     void initialize() {
+
         message.setVisible(false);
+        message.setStyle("-fx-text-fill: red;");
         message.setWrapText(true);
         message.setAlignment(javafx.geometry.Pos.CENTER);
         ObservableList<String> options = FXCollections.observableArrayList("Driver", "Traveler");

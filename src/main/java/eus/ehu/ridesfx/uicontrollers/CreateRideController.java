@@ -3,6 +3,7 @@ package eus.ehu.ridesfx.uicontrollers;
 import eus.ehu.ridesfx.businessLogic.BlFacade;
 
 import eus.ehu.ridesfx.domain.Driver;
+import eus.ehu.ridesfx.domain.Location;
 import eus.ehu.ridesfx.domain.Ride;
 import eus.ehu.ridesfx.exceptions.RideAlreadyExistException;
 import eus.ehu.ridesfx.exceptions.RideMustBeLaterThanTodayException;
@@ -33,22 +34,11 @@ public class CreateRideController implements Controller {
     @FXML
     private DatePicker datePicker;
 
-
     @FXML
     private Label lblErrorMessage;
 
     @FXML
     private Label lblErrorMinBet;
-
-
-    @FXML
-    private TextField txtArrivalCity;
-
-    @FXML
-    private TextField txtDepartCity;
-
-
-    //private TextField numberSeatsSpinner;
 
     @FXML
     private TextField txtPrice;
@@ -69,13 +59,10 @@ public class CreateRideController implements Controller {
     }
 
 
-
-
-
     private String field_Errors() {
 
         try {
-            if ((txtDepartCity.getText().isEmpty()) || (txtArrivalCity.getText().isEmpty()) || (numberSeatsSpinner.getValue()==0 || (txtPrice.getText().isEmpty())))
+            if (numberSeatsSpinner.getValue() == 0 || DepartCityComboBox.getValue() == null || ArrivalCityComboBox.getValue() == null || txtPrice.getText().isEmpty() || datePicker.getValue() == null)
                 return ResourceBundle.getBundle("Etiquetas").getString("CreateRideGUI.ErrorQuery");
             else {
 
@@ -124,7 +111,7 @@ public class CreateRideController implements Controller {
                 int inputSeats = numberSeatsSpinner.getValue();
                 float price = Float.parseFloat(txtPrice.getText());
                 Driver driver = (Driver) businessLogic.getCurrentUser();
-                Ride r = businessLogic.createRide(txtDepartCity.getText(), txtArrivalCity.getText(), Dates.convertToDate(datePicker.getValue()), inputSeats, price, driver.getEmail());
+                Ride r = businessLogic.createRide(DepartCityComboBox.getValue(), ArrivalCityComboBox.getValue(), Dates.convertToDate(datePicker.getValue()), inputSeats, price, driver.getEmail());
                 displayMessage(ResourceBundle.getBundle("Etiquetas").getString("CreateRideGUI.RideCreated"), "success");
 
 
@@ -135,14 +122,7 @@ public class CreateRideController implements Controller {
             }
         }
 
-/*
-    if (lblErrorMinBet.getText().length() > 0 && showErrors) {
-      lblErrorMinBet.getStyleClass().setAll("lbl", "lbl-danger");
-    }
-    if (lblErrorQuestion.getText().length() > 0 && showErrors) {
-      lblErrorQuestion.getStyleClass().setAll("lbl", "lbl-danger");
-    }
- */
+
     }
 
     private List<LocalDate> holidays = new ArrayList<>();
@@ -169,6 +149,21 @@ public class CreateRideController implements Controller {
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0);
         numberSeatsSpinner.setValueFactory(valueFactory);
 
+        //Method converts the ride already created into locations
+        businessLogic.convertRideToLocation();
+
+        // Populate ArrivalCityComboBox and DepartCityComboBox with locations
+        List<Location> locations = businessLogic.getLocations();
+
+        // Clear the ComboBoxes
+        ArrivalCityComboBox.getItems().clear();
+        DepartCityComboBox.getItems().clear();
+
+        // Add each location's name to the ComboBoxes
+        for (Location location : locations) {
+            ArrivalCityComboBox.getItems().add(location.getName());
+            DepartCityComboBox.getItems().add(location.getName());
+        }
 
 
         // only show the text of the event in the combobox (without the id)
@@ -264,9 +259,8 @@ public class CreateRideController implements Controller {
      * Clear the fields of the create ride window
      */
     public void clearCreateRideMethod() {
-        txtDepartCity.setText("");
-        txtArrivalCity.setText("");
-        txtPrice.setText("");
+
+
         lblErrorMessage.setText("");
         lblErrorMinBet.setText("");
         datePicker.setValue(null);
