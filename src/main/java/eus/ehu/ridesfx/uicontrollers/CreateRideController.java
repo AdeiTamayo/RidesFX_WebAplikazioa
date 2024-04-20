@@ -52,6 +52,12 @@ public class CreateRideController implements Controller {
     @FXML
     private Spinner<Integer> numberSeatsSpinner;
 
+    @FXML
+    private TextField newDepartCityText;
+
+    @FXML
+    private TextField newArrivalCityText;
+
     public CreateRideController(BlFacade bl, MainGUIController mainGUIController) {
         this.businessLogic = bl;
         setMainApp(mainGUIController);
@@ -62,9 +68,11 @@ public class CreateRideController implements Controller {
     private String field_Errors() {
 
         try {
-            if (numberSeatsSpinner.getValue() == 0 || DepartCityComboBox.getValue() == null || ArrivalCityComboBox.getValue() == null || txtPrice.getText().isEmpty() || datePicker.getValue() == null)
+            if (numberSeatsSpinner.getValue() == 0 || DepartCityComboBox.getValue() == null || ArrivalCityComboBox.getValue() == null || txtPrice.getText().isEmpty() || datePicker.getValue() == null) {
+                System.out.println("Errorea egon da ez da zeoze detektau sortzerakon");
                 return ResourceBundle.getBundle("Etiquetas").getString("CreateRideGUI.ErrorQuery");
-            else {
+
+            } else {
 
                 // trigger an exception if the introduced string is not a number
                 int inputSeats = numberSeatsSpinner.getValue();
@@ -111,14 +119,45 @@ public class CreateRideController implements Controller {
                 int inputSeats = numberSeatsSpinner.getValue();
                 float price = Float.parseFloat(txtPrice.getText());
                 Driver driver = (Driver) businessLogic.getCurrentUser();
+
+                if (ArrivalCityComboBox.getValue().equals("Create new city") && DepartCityComboBox.getValue().equals("Create new city")) {
+
+
+                    String arrivalCity = newArrivalCityText.getText();
+                    businessLogic.createLocation(arrivalCity);
+                    ArrivalCityComboBox.getItems().add(arrivalCity);
+                    ArrivalCityComboBox.setValue(arrivalCity);
+
+                    newDepartCityText.setVisible(true);
+                    String departCity = newDepartCityText.getText();
+                    businessLogic.createLocation(departCity);
+                    DepartCityComboBox.getItems().add(departCity);
+                    DepartCityComboBox.setValue(departCity);
+
+                } else if (ArrivalCityComboBox.getValue().equals("Create new city")) {
+                    String arrivalCity = newArrivalCityText.getText();
+                    businessLogic.createLocation(arrivalCity);
+                    ArrivalCityComboBox.getItems().add(arrivalCity);
+                    ArrivalCityComboBox.setValue(arrivalCity);
+
+
+                } else if (DepartCityComboBox.getValue().equals("Create new city")) {
+                    newDepartCityText.setVisible(true);
+                    String departCity = newDepartCityText.getText();
+                    businessLogic.createLocation(departCity);
+                    DepartCityComboBox.getItems().add(departCity);
+                    DepartCityComboBox.setValue(departCity);
+
+                }
+
                 Ride r = businessLogic.createRide(DepartCityComboBox.getValue(), ArrivalCityComboBox.getValue(), Dates.convertToDate(datePicker.getValue()), inputSeats, price, driver.getEmail());
                 displayMessage(ResourceBundle.getBundle("Etiquetas").getString("CreateRideGUI.RideCreated"), "success");
 
 
             } catch (RideMustBeLaterThanTodayException e1) {
-                displayMessage(e1.getMessage(), "danger");
+                displayMessage(e1.getMessage(), "error");
             } catch (RideAlreadyExistException e1) {
-                displayMessage(e1.getMessage(), "danger");
+                displayMessage(e1.getMessage(), "error");
             }
         }
 
@@ -146,6 +185,9 @@ public class CreateRideController implements Controller {
     @FXML
     void initialize() {
 
+        newArrivalCityText.setVisible(false);
+        newDepartCityText.setVisible(false);
+
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0);
         numberSeatsSpinner.setValueFactory(valueFactory);
 
@@ -160,10 +202,26 @@ public class CreateRideController implements Controller {
         DepartCityComboBox.getItems().clear();
 
         // Add each location's name to the ComboBoxes
+        ArrivalCityComboBox.getItems().add("Create new city");
+        DepartCityComboBox.getItems().add("Create new city");
         for (Location location : locations) {
             ArrivalCityComboBox.getItems().add(location.getName());
             DepartCityComboBox.getItems().add(location.getName());
         }
+
+        // Listener for ArrivalCityComboBox
+        ArrivalCityComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if ("Create new city".equals(newValue)) {
+                newArrivalCityText.setVisible(true);
+            }
+        });
+
+// Listener for DepartCityComboBox
+        DepartCityComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if ("Create new city".equals(newValue)) {
+                newDepartCityText.setVisible(true);
+            }
+        });
 
 
         // only show the text of the event in the combobox (without the id)

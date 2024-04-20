@@ -144,7 +144,7 @@ public class BlFacadeImplementation implements BlFacade {
 
     @Override
     public boolean bookRide(Date date, Ride ride, Traveler traveler, int numPlaces) {
-        return dbManager.bookRide(date, ride, traveler,numPlaces);
+        return dbManager.bookRide(date, ride, traveler, numPlaces);
 
     }
 
@@ -156,6 +156,7 @@ public class BlFacadeImplementation implements BlFacade {
 
     /**
      * This method invokes the data access to create a new alert
+     *
      * @param from
      * @param to
      * @param numplaces
@@ -170,10 +171,11 @@ public class BlFacadeImplementation implements BlFacade {
 
     /**
      * This method checks if there are matching rides for the given alert
+     *
      * @param alert
      * @return list of matching rides
      */
-    public List<Ride> areMatchingRides(Alert alert){
+    public List<Ride> areMatchingRides(Alert alert) {
         List<Ride> Rides = dbManager.getAllRides();
         List<Ride> matchingRides = new Vector<Ride>();
         for (Ride ride : Rides) {
@@ -187,14 +189,16 @@ public class BlFacadeImplementation implements BlFacade {
 
     /**
      * This method retrieves all the alerts of the current traveler
+     *
      * @return list of alerts
      */
-    public List<Alert> getAlerts(){
+    public List<Alert> getAlerts() {
         return dbManager.getAllAlerts(currentUser.getEmail());
     }
 
     /**
      * This method checks if an alert with the given parameters exists for the new ride
+     *
      * @param alert
      * @param ride
      * @return true if the alert matches the ride
@@ -205,35 +209,49 @@ public class BlFacadeImplementation implements BlFacade {
 
     /**
      * This method deletes an alert
+     *
      * @param alert
      */
-    public void deleteAlert(Alert alert){
+    public void deleteAlert(Alert alert) {
         dbManager.deleteAlert(alert);
         //delete from the list of alerts
-        ((Traveler)currentUser).deleteAlert(alert);
+        ((Traveler) currentUser).deleteAlert(alert);
 
     }
 
     /**
      * This method updates the state of an alert
+     *
      * @param alert
      */
-    public void updateAlertState(Alert alert){
+    public void updateAlertState(Alert alert) {
         dbManager.updateAlertState(alert);
         alert.setState("Ride found");
     }
 
     /**
      * This method returns all the cities where rides depart and arrive
+     *
      * @return collection of cities
      */
     public List<Location> getLocations() {
         return dbManager.getAllLocations();
     }
 
-
-    public void convertRideToLocation(){
+    /**
+     * This method converts the ride cities to locations
+     */
+    public void convertRideToLocation() {
         dbManager.convertRideToLocation();
+    }
+
+    /**
+     * This method creates a new location
+     *
+     * @param name
+     */
+    public void createLocation(String name) {
+        dbManager.createLocation(name);
     }
 
 }

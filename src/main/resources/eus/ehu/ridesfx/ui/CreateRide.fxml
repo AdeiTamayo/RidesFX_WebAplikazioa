@@ -20,7 +20,7 @@
             <Label layoutX="14.0" layoutY="346.0" styleClass="bold-label" text="Price" />
             <Button fx:id="btnCreateRide" layoutX="45.0" layoutY="390.0" mnemonicParsing="false" onAction="#createRideClick" prefHeight="26.0" prefWidth="142.0" styleClass="bold-label" text="Create Ride" />
             <Button layoutX="135.0" layoutY="431.0" mnemonicParsing="false" onAction="#closeClick" prefHeight="27.0" prefWidth="142.0" styleClass="bold-label" text="Back" />
-            <Label fx:id="lblErrorMessage" layoutX="16.0" layoutY="436.0" />
+            <Label fx:id="lblErrorMessage" layoutX="316.0" layoutY="436.0" prefHeight="17.0" prefWidth="230.0" />
             <Label fx:id="lblErrorMinBet" layoutX="16.0" layoutY="472.0" />
             <Label layoutX="157.0" layoutY="14.0" styleClass="bold-label" text="Create Ride ">
                <font>
@@ -31,5 +31,7 @@
       <ComboBox fx:id="ArrivalCityComboBox" layoutX="134.0" layoutY="207.0" prefWidth="150.0" promptText="City" />
       <ComboBox fx:id="DepartCityComboBox" layoutX="134.0" layoutY="134.0" prefWidth="150.0" promptText="City" />
       <Spinner fx:id="numberSeatsSpinner" editable="true" layoutX="135.0" layoutY="277.0" />
+      <TextField fx:id="newDepartCityText" layoutX="315.0" layoutY="134.0" promptText="Enter city to create" />
+      <TextField fx:id="newArrivalCityText" layoutX="315.0" layoutY="207.0" promptText="Enter city to create" />
          </children>
       </AnchorPane>

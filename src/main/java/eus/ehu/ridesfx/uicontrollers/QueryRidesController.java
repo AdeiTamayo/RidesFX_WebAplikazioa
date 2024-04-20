@@ -159,6 +159,8 @@ public class QueryRidesController implements Controller {
         bookingButton.setVisible(false);
 
 
+
+
         // Update DatePicker cells when ComboBox value changes
         comboArrivalCity.valueProperty().addListener(
                 (obs, oldVal, newVal) -> updateDatePickerCellFactory(datepicker));
@@ -436,6 +438,10 @@ public class QueryRidesController implements Controller {
             rideDate.setText(Dates.convertToDate(datepicker.getValue()).toString());
         }
     }
+
+
+
+
 
     @Override
     public void setMainApp(MainGUIController mainGUIController) {

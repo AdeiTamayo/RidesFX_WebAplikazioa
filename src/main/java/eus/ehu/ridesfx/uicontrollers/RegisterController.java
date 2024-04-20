@@ -102,7 +102,7 @@ public class RegisterController implements Controller {
             message.setText("The passwords are not the same");
             message.setVisible(true);
         } else {
-
+            message.setStyle("-fx-text-fill: green;");
             System.out.println("\nThe user has been registered\n");
             message.setText("The user has been correctly registered!");
             message.setVisible(true);
