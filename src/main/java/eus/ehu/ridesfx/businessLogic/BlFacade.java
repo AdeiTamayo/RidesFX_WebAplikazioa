@@ -1,10 +1,6 @@
 package eus.ehu.ridesfx.businessLogic;
 
-import eus.ehu.ridesfx.domain.Alert;
-import eus.ehu.ridesfx.domain.Driver;
-import eus.ehu.ridesfx.domain.Ride;
-import eus.ehu.ridesfx.domain.Traveler;
-import eus.ehu.ridesfx.domain.User;
+import eus.ehu.ridesfx.domain.*;
 import eus.ehu.ridesfx.exceptions.RideAlreadyExistException;
 import eus.ehu.ridesfx.exceptions.RideMustBeLaterThanTodayException;
 
@@ -135,4 +131,16 @@ public interface BlFacade {
      * @param alert
      */
     void updateAlertState(Alert alert);
+
+    /**
+     * This method returns all the locations
+     * @return list of locations
+     */
+
+    List<Location> getLocations();
+
+    /**
+     * This method converts the rides already created to a location
+     */
+    void convertRideToLocation();
 }

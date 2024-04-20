@@ -223,4 +223,17 @@ public class BlFacadeImplementation implements BlFacade {
         alert.setState("Ride found");
     }
 
+    /**
+     * This method returns all the cities where rides depart and arrive
+     * @return collection of cities
+     */
+    public List<Location> getLocations() {
+        return dbManager.getAllLocations();
+    }
+
+
+    public void convertRideToLocation(){
+        dbManager.convertRideToLocation();
+    }
+
 }

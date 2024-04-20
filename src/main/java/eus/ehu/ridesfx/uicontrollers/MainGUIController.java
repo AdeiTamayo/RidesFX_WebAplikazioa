@@ -62,6 +62,8 @@ public class MainGUIController {
 
     private CreateRideController createRideController;
 
+    private LocationController LocationController;
+
 
     public MainGUIController() {
     }
@@ -96,6 +98,10 @@ public class MainGUIController {
 
     public void setCreateRideController(CreateRideController createRideController) {
         this.createRideController = createRideController;
+    }
+
+    public void setLocationController(LocationController locationController) {
+       this.LocationController = locationController;
     }
 
     //The following methods are used to manage the buttons in the GUI
@@ -358,6 +364,8 @@ public class MainGUIController {
                         return new CreateRideController(businessLogic, this);
                     } else if (controllerClass == AlertsViewController.class) {
                         return new AlertsViewController(businessLogic, this);
+                    } else if (controllerClass == LocationController.class) {
+                        return new LocationController(businessLogic, this);
                     } else {
                         return controllerClass
                                 .getConstructor(BlFacade.class)

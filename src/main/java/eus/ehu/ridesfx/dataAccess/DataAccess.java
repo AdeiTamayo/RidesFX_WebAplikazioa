@@ -491,7 +491,52 @@ public class DataAccess {
         db.getTransaction().commit();
     }
 
-    //a method that given an alert and the ride that matches it, returns the reservation
+    //TODO method that given an alert and the ride that matches it, returns the reservation
+
+    /**
+     * This method converts the rides already created to a location
+     */
+    public void convertRideToLocation() {
+        // Start a transaction
+        db.getTransaction().begin();
+
+        // Fetch all distinct departure and arrival cities from the Ride table
+        TypedQuery<String> departCitiesQuery = db.createQuery("SELECT DISTINCT r.fromLocation FROM Ride r", String.class);
+        TypedQuery<String> arrivalCitiesQuery = db.createQuery("SELECT DISTINCT r.toLocation FROM Ride r", String.class);
+
+        List<String> departCities = departCitiesQuery.getResultList();
+        List<String> arrivalCities = arrivalCitiesQuery.getResultList();
+
+        // Combine both lists and remove duplicates
+        Set<String> allCities = new HashSet<>(departCities);
+        allCities.addAll(arrivalCities);
+
+        // Convert each city into a Location object and persist it in the database
+        for (String city : allCities) {
+            Location location = new Location(city);
+            db.persist(location);
+        }
+
+        // Commit the transaction
+        db.getTransaction().commit();
+    }
+
+    /**
+     * This method returns all the locations
+     * @return list of locations
+     */
+    public List<Location> getAllLocations() {
+        // Execute a query to fetch all Location objects
+        TypedQuery<Location> query = db.createQuery("SELECT l FROM Location l", Location.class);
+
+        // Return the result list
+        return query.getResultList();
+    }
+
+
+
+
+
 
 
 

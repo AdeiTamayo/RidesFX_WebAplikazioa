@@ -47,11 +47,20 @@ public class CreateRideController implements Controller {
     @FXML
     private TextField txtDepartCity;
 
-    @FXML
-    private TextField txtNumberOfSeats;
+
+    //private TextField numberSeatsSpinner;
 
     @FXML
     private TextField txtPrice;
+
+    @FXML
+    private ComboBox<String> ArrivalCityComboBox;
+
+    @FXML
+    private ComboBox<String> DepartCityComboBox;
+
+    @FXML
+    private Spinner<Integer> numberSeatsSpinner;
 
     public CreateRideController(BlFacade bl, MainGUIController mainGUIController) {
         this.businessLogic = bl;
@@ -60,15 +69,18 @@ public class CreateRideController implements Controller {
     }
 
 
+
+
+
     private String field_Errors() {
 
         try {
-            if ((txtDepartCity.getText().isEmpty()) || (txtArrivalCity.getText().isEmpty()) || (txtNumberOfSeats.getText().isEmpty()) || (txtPrice.getText().isEmpty()))
+            if ((txtDepartCity.getText().isEmpty()) || (txtArrivalCity.getText().isEmpty()) || (numberSeatsSpinner.getValue()==0 || (txtPrice.getText().isEmpty())))
                 return ResourceBundle.getBundle("Etiquetas").getString("CreateRideGUI.ErrorQuery");
             else {
 
                 // trigger an exception if the introduced string is not a number
-                int inputSeats = Integer.parseInt(txtNumberOfSeats.getText());
+                int inputSeats = numberSeatsSpinner.getValue();
 
                 if (inputSeats <= 0) {
                     return ResourceBundle.getBundle("Etiquetas").getString("CreateRideGUI.SeatsMustBeGreaterThan0");
@@ -109,7 +121,7 @@ public class CreateRideController implements Controller {
         } else {
             try {
 
-                int inputSeats = Integer.parseInt(txtNumberOfSeats.getText());
+                int inputSeats = numberSeatsSpinner.getValue();
                 float price = Float.parseFloat(txtPrice.getText());
                 Driver driver = (Driver) businessLogic.getCurrentUser();
                 Ride r = businessLogic.createRide(txtDepartCity.getText(), txtArrivalCity.getText(), Dates.convertToDate(datePicker.getValue()), inputSeats, price, driver.getEmail());
@@ -154,8 +166,10 @@ public class CreateRideController implements Controller {
     @FXML
     void initialize() {
 
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0);
+        numberSeatsSpinner.setValueFactory(valueFactory);
 
-        // btnCreateRide.setDisable(true);
+
 
         // only show the text of the event in the combobox (without the id)
 /*
@@ -252,11 +266,14 @@ public class CreateRideController implements Controller {
     public void clearCreateRideMethod() {
         txtDepartCity.setText("");
         txtArrivalCity.setText("");
-        txtNumberOfSeats.setText("");
         txtPrice.setText("");
         lblErrorMessage.setText("");
         lblErrorMinBet.setText("");
         datePicker.setValue(null);
+        ArrivalCityComboBox.setValue(null);
+        DepartCityComboBox.setValue(null);
+        numberSeatsSpinner.getValueFactory().setValue(0);
+
     }
 
     /**
