@@ -101,7 +101,7 @@ public class MainGUIController {
     }
 
     public void setLocationController(LocationController locationController) {
-       this.LocationController = locationController;
+        this.LocationController = locationController;
     }
 
     //The following methods are used to manage the buttons in the GUI
@@ -146,6 +146,7 @@ public class MainGUIController {
      */
     @FXML
     void register(ActionEvent event) {
+        registerController.removeMessage();
         showScene("Register");
     }
 
@@ -264,6 +265,7 @@ public class MainGUIController {
      * Shows the register scene in the GUI.
      */
     public void showRegister() {
+        registerController.removeMessage();
         showScene("Register");
     }
 
@@ -294,7 +296,6 @@ public class MainGUIController {
         showScene("InitialGUI");
     }
 
-    //New method
 
     /**
      * Returns the login controller.
@@ -305,8 +306,18 @@ public class MainGUIController {
         return loginController;
     }
 
+    /**
+     * Returns the register controller.
+     *
+     * @return The register controller.
+     */
+
     public User getCurrentUser() {
         return businessLogic.getCurrentUser();
+    }
+
+    public void updateComboBoxesQueryRides() {
+        queryRidesController.updateComboBox();
     }
 
 

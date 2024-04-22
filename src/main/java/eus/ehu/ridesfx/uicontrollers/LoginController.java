@@ -18,6 +18,8 @@ public class LoginController implements Controller {
 
     private MainGUIController mainGUIController;
 
+    private BlFacade businessLogic;
+
     @FXML
     private Label Text;
 
@@ -36,9 +38,6 @@ public class LoginController implements Controller {
     @FXML
     private Label registerLabel;
 
-
-    private BlFacade businessLogic;
-    //private RegisterController registerController;
 
     /**
      * Constructs a new LoginController.
@@ -82,12 +81,14 @@ public class LoginController implements Controller {
         Text.setVisible(false);
         wrongPassword.setVisible(false);
         InvalidUser.setVisible(false);
+        Text.setStyle("-fx-text-fill: red");
         if (Email.isEmpty() || Password.isEmpty()) {
             System.out.println("\nPlease fill in all the fields\n");
             Text.setText("Please fill in all the fields");
             Text.setVisible(true);
         } else if (businessLogic.checkUser(Email) == null) {
             System.out.println("\nA user with this email doen't exist. Please register first.\n");
+            Text.setStyle("-fx-text-fill: red");
             InvalidUser.setVisible(true);
         } else {
             if (!businessLogic.checkPassword(Email, Password)) {
@@ -96,6 +97,7 @@ public class LoginController implements Controller {
             } else {
                 Text.setText("\nYou have been correctly logged in!\n");
                 Text.setVisible(true);
+                Text.setStyle("-fx-text-fill: green");
                 businessLogic.setCurrentUser(businessLogic.checkUser(Email));
 
 

@@ -96,6 +96,7 @@ public class RegisterController implements Controller {
         } else if (!businessLogic.registerUser(Username, Password, Email, Name, Role)) {
             System.out.println("\nA user with this email already exists\n");
             message.setText("A user with this email already exists");
+            message.setStyle("-fx-text-fill: red;");
             message.setVisible(true);
         } else if (!Password.equals(Password2)) {
             System.out.println("\nThe passwords are not the same\n");
@@ -126,9 +127,23 @@ public class RegisterController implements Controller {
         roles.setItems(options);
     }
 
+
+    /**
+     * Clears Register window on selection
+     *
+     * @param event The ActionEvent associated with the event.
+     */
     @FXML
     void clearRegister(ActionEvent event) {
         removeFieldsValue();
+    }
+
+    /**
+     * Removes the message from the screen
+     */
+    @FXML
+    void removeMessage() {
+        message.setVisible(false);
     }
 
     @Override

@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 
 import java.util.List;
 
-public class LocationController implements Controller{
+public class LocationController implements Controller {
 
 
     private MainGUIController MainGUIController;
@@ -23,7 +23,7 @@ public class LocationController implements Controller{
 
     @FXML
     void initialize() {
-        //TODO
+
         businessLogic.convertRideToLocation();
 
     }
@@ -36,10 +36,6 @@ public class LocationController implements Controller{
     public void setMainApp(MainGUIController mainGUIController) {
         this.MainGUIController = mainGUIController;
     }
-
-
-
-
 
 
 }

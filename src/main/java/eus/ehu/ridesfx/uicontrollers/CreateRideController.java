@@ -28,7 +28,7 @@ public class CreateRideController implements Controller {
 
     private BlFacade businessLogic;
 
-    private MainGUIController MainGUIController;
+    private MainGUIController mainGUIController;
 
 
     @FXML
@@ -61,7 +61,7 @@ public class CreateRideController implements Controller {
     public CreateRideController(BlFacade bl, MainGUIController mainGUIController) {
         this.businessLogic = bl;
         setMainApp(mainGUIController);
-        this.MainGUIController.setCreateRideController(this);
+        this.mainGUIController.setCreateRideController(this);
     }
 
 
@@ -125,6 +125,7 @@ public class CreateRideController implements Controller {
 
                     String arrivalCity = newArrivalCityText.getText();
                     businessLogic.createLocation(arrivalCity);
+
                     ArrivalCityComboBox.getItems().add(arrivalCity);
                     ArrivalCityComboBox.setValue(arrivalCity);
 
@@ -133,6 +134,7 @@ public class CreateRideController implements Controller {
                     businessLogic.createLocation(departCity);
                     DepartCityComboBox.getItems().add(departCity);
                     DepartCityComboBox.setValue(departCity);
+
 
                 } else if (ArrivalCityComboBox.getValue().equals("Create new city")) {
                     String arrivalCity = newArrivalCityText.getText();
@@ -151,7 +153,13 @@ public class CreateRideController implements Controller {
                 }
 
                 Ride r = businessLogic.createRide(DepartCityComboBox.getValue(), ArrivalCityComboBox.getValue(), Dates.convertToDate(datePicker.getValue()), inputSeats, price, driver.getEmail());
+                clearCreateRideMethod();
                 displayMessage(ResourceBundle.getBundle("Etiquetas").getString("CreateRideGUI.RideCreated"), "success");
+
+
+
+                //FIXME :THIS METHOD IS USED TO UPDATE THE COMBOBOXES IN THE QUERY RIDES BUT JUST UPDATES THE DEPART COMBOBOX
+                mainGUIController.updateComboBoxesQueryRides();
 
 
             } catch (RideMustBeLaterThanTodayException e1) {
@@ -166,21 +174,7 @@ public class CreateRideController implements Controller {
 
     private List<LocalDate> holidays = new ArrayList<>();
 
-  /*private void setEventsPrePost(int year, int month) {
-    LocalDate date = LocalDate.of(year, month, 1);
-    setEvents(date.getYear(), date.getMonth().getValue());
-    setEvents(date.plusMonths(1).getYear(), date.plusMonths(1).getMonth().getValue());
-    setEvents(date.plusMonths(-1).getYear(), date.plusMonths(-1).getMonth().getValue());
-  }*/
 
- /* private void setEvents(int year, int month) {
-
-    Date date = Dates.toDate(year, month);
-
-    for (Date day : businessLogic.getEventsMonth(date)) {
-      holidays.add(Dates.convertToLocalDateViaInstant(day));
-    }
-  }*/
 
     @FXML
     void initialize() {
@@ -224,21 +218,7 @@ public class CreateRideController implements Controller {
         });
 
 
-        // only show the text of the event in the combobox (without the id)
-/*
-    Callback<ListView<Event>, ListCell<Event>> factory = lv -> new ListCell<>() {
-      @Override
-      protected void updateItem(Event item, boolean empty) {
-        super.updateItem(item, empty);
-        setText(empty ? "" : item.getDescription());
-      }
-    };
 
-
-     comboEvents.setCellFactory(factory);
-    comboEvents.setButtonCell(factory.call(null));
-
- */
 
 
         // setEventsPrePost(LocalDate.now().getYear(), LocalDate.now().getMonth().getValue());
@@ -280,24 +260,7 @@ public class CreateRideController implements Controller {
             }
         });
 
-        // when a date is selected...
-        datePicker.setOnAction(actionEvent -> {
-     /* comboEvents.getItems().clear();
 
-      oListEvents = FXCollections.observableArrayList(new ArrayList<>());
-      oListEvents.setAll(businessLogic.getEvents(Dates.convertToDate(datePicker.getValue())));
-
-      comboEvents.setItems(oListEvents);
-
-      if (comboEvents.getItems().size() == 0)
-        btnCreateRide.setDisable(true);
-      else {
-         btnCreateRide.setDisable(false);
-        // select first option
-        comboEvents.getSelectionModel().select(0);
-      }
-*/
-        });
 
     }
 
@@ -325,6 +288,12 @@ public class CreateRideController implements Controller {
         ArrivalCityComboBox.setValue(null);
         DepartCityComboBox.setValue(null);
         numberSeatsSpinner.getValueFactory().setValue(0);
+        newDepartCityText.setText("");
+        newDepartCityText.setVisible(false);
+        newArrivalCityText.setText("");
+        newArrivalCityText.setVisible(false);
+        txtPrice.setText("");
+
 
     }
 
@@ -349,7 +318,7 @@ public class CreateRideController implements Controller {
     @FXML
     void closeClick(ActionEvent event) {
         clearErrorLabels();
-        MainGUIController.showInitialGUI();
+        mainGUIController.showInitialGUI();
     }
 
     /**
@@ -364,6 +333,41 @@ public class CreateRideController implements Controller {
 
     @Override
     public void setMainApp(MainGUIController mainGUIController) {
-        this.MainGUIController = mainGUIController;
+        this.mainGUIController = mainGUIController;
     }
+
+
+    //unused code
+
+    /*private void setEventsPrePost(int year, int month) {
+    LocalDate date = LocalDate.of(year, month, 1);
+    setEvents(date.getYear(), date.getMonth().getValue());
+    setEvents(date.plusMonths(1).getYear(), date.plusMonths(1).getMonth().getValue());
+    setEvents(date.plusMonths(-1).getYear(), date.plusMonths(-1).getMonth().getValue());
+  }*/
+
+ /* private void setEvents(int year, int month) {
+
+    Date date = Dates.toDate(year, month);
+
+    for (Date day : businessLogic.getEventsMonth(date)) {
+      holidays.add(Dates.convertToLocalDateViaInstant(day));
+    }
+  }*/
+
+    // only show the text of the event in the combobox (without the id)
+/*
+    Callback<ListView<Event>, ListCell<Event>> factory = lv -> new ListCell<>() {
+      @Override
+      protected void updateItem(Event item, boolean empty) {
+        super.updateItem(item, empty);
+        setText(empty ? "" : item.getDescription());
+      }
+    };
+
+
+     comboEvents.setCellFactory(factory);
+    comboEvents.setButtonCell(factory.call(null));
+
+ */
 }
