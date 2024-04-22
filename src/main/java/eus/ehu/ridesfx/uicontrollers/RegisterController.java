@@ -68,6 +68,8 @@ public class RegisterController implements Controller {
         password2.setText("");
         name.setText("");
         roles.setValue(null);
+        message.setVisible(false);
+
     }
 
     /**
@@ -94,13 +96,14 @@ public class RegisterController implements Controller {
         } else if (!businessLogic.registerUser(Username, Password, Email, Name, Role)) {
             System.out.println("\nA user with this email already exists\n");
             message.setText("A user with this email already exists");
+            message.setStyle("-fx-text-fill: red;");
             message.setVisible(true);
         } else if (!Password.equals(Password2)) {
             System.out.println("\nThe passwords are not the same\n");
             message.setText("The passwords are not the same");
             message.setVisible(true);
         } else {
-
+            message.setStyle("-fx-text-fill: green;");
             System.out.println("\nThe user has been registered\n");
             message.setText("The user has been correctly registered!");
             message.setVisible(true);
@@ -115,16 +118,32 @@ public class RegisterController implements Controller {
 
     @FXML
     void initialize() {
+
         message.setVisible(false);
+        message.setStyle("-fx-text-fill: red;");
         message.setWrapText(true);
         message.setAlignment(javafx.geometry.Pos.CENTER);
         ObservableList<String> options = FXCollections.observableArrayList("Driver", "Traveler");
         roles.setItems(options);
     }
 
+
+    /**
+     * Clears Register window on selection
+     *
+     * @param event The ActionEvent associated with the event.
+     */
     @FXML
     void clearRegister(ActionEvent event) {
         removeFieldsValue();
+    }
+
+    /**
+     * Removes the message from the screen
+     */
+    @FXML
+    void removeMessage() {
+        message.setVisible(false);
     }
 
     @Override

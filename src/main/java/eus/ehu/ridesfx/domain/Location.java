@@ -40,11 +40,26 @@ public class Location implements Serializable {
         this.name = name;
     }
 
+
+    /**
+     * Get the name of the location.
+     *
+     * @return The name of the location.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Set the name of the location.
+     *
+     * @param name The name of the location.
+     */
     public void setName(String name) {
         this.name = name;
     }
+
+
+
+
 }

@@ -242,6 +242,7 @@ public class DataAccess {
 
     /**
      * This method retrieves from the database the number of seats available in a ride
+     *
      * @param ride
      * @return number of seats available
      */
@@ -362,7 +363,6 @@ public class DataAccess {
     }
 
 
-
     //TODO check this method + when the acceptation of the reservation is done remove the ride or modify the amount of free places
 
     public boolean bookRide(Date date, Ride ride, Traveler traveler, int numSeats) {
@@ -401,6 +401,7 @@ public class DataAccess {
 
     /**
      * This method creates an alert for a traveler
+     *
      * @param from
      * @param to
      * @param date
@@ -417,8 +418,7 @@ public class DataAccess {
                 db.getTransaction().commit();
                 // If the alert already exists, return null
                 return null;
-            }
-            else{
+            } else {
                 Alert alert = traveler.addAlert(from, to, date, nPlaces);
                 db.persist(alert);
                 db.getTransaction().commit();
@@ -438,6 +438,7 @@ public class DataAccess {
 
     /**
      * This method retrieves all the alerts for a traveler
+     *
      * @param travelerEmail
      * @return a list of alerts
      */
@@ -450,6 +451,7 @@ public class DataAccess {
 
     /**
      * This method retrieves all the rides from the database
+     *
      * @return a list of rides
      */
     public List<Ride> getAllRides() {
@@ -459,6 +461,7 @@ public class DataAccess {
 
     /**
      * This method deletes an alert from the database
+     *
      * @param alert
      */
     public void deleteAlert(Alert alert) {
@@ -483,19 +486,69 @@ public class DataAccess {
 
     /**
      * This method updates the state of an alert to ride found
+     *
      * @param a
      */
-    public void updateAlertState(Alert a){
+    public void updateAlertState(Alert a) {
         db.getTransaction().begin();
         a.setState("Ride found");
         db.getTransaction().commit();
     }
 
-    //a method that given an alert and the ride that matches it, returns the reservation
+    //TODO method that given an alert and the ride that matches it, returns the reservation
 
+    /**
+     * This method converts the rides already created to a location
+     */
+    public void convertRideToLocation() {
+        // Start a transaction
+        db.getTransaction().begin();
 
+        // Fetch all distinct departure and arrival cities from the Ride table
+        TypedQuery<String> departCitiesQuery = db.createQuery("SELECT DISTINCT r.fromLocation FROM Ride r", String.class);
+        TypedQuery<String> arrivalCitiesQuery = db.createQuery("SELECT DISTINCT r.toLocation FROM Ride r", String.class);
 
+        List<String> departCities = departCitiesQuery.getResultList();
+        List<String> arrivalCities = arrivalCitiesQuery.getResultList();
 
+        // Combine both lists and remove duplicates
+        Set<String> allCities = new HashSet<>(departCities);
+        allCities.addAll(arrivalCities);
+
+        // Convert each city into a Location object and persist it in the database
+        for (String city : allCities) {
+            Location location = new Location(city);
+            db.persist(location);
+        }
+
+        // Commit the transaction
+        db.getTransaction().commit();
+    }
+
+    /**
+     * This method returns all the locations
+     *
+     * @return list of locations
+     */
+    public List<Location> getAllLocations() {
+        // Execute a query to fetch all Location objects
+        TypedQuery<Location> query = db.createQuery("SELECT l FROM Location l", Location.class);
+
+        // Return the result list
+        return query.getResultList();
+    }
+
+    /**
+     * This method creates a new location
+     *
+     * @param name
+     */
+    public void createLocation(String name) {
+        db.getTransaction().begin();
+        Location location = new Location(name);
+        db.persist(location);
+        db.getTransaction().commit();
+    }
 
 
 }

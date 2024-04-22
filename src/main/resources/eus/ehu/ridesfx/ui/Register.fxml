@@ -9,54 +9,68 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="445.0" prefWidth="428.0" styleClass="border-pane" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ridesfx.uicontrollers.RegisterController">
+<AnchorPane prefHeight="445.0" prefWidth="428.0" styleClass="border-pane" stylesheets="@Styles.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="eus.ehu.ridesfx.uicontrollers.RegisterController">
     <children>
-        <Label alignment="CENTER_RIGHT" layoutX="100.0" layoutY="91.0" prefHeight="18.0" prefWidth="45.0" styleClass="bold-label" text="Name:">
+        <Label alignment="CENTER_RIGHT" layoutX="100.0" layoutY="91.0" prefHeight="18.0" prefWidth="45.0"
+               styleClass="bold-label" text="Name:">
             <font>
-                <Font size="13.0" />
+                <Font size="13.0"/>
             </font>
         </Label>
-        <Label alignment="CENTER_RIGHT" layoutX="82.0" layoutY="132.0" styleClass="bold-label" text="Username:" AnchorPane.leftAnchor="82.0">
+        <Label alignment="CENTER_RIGHT" layoutX="82.0" layoutY="132.0" styleClass="bold-label" text="Username:"
+               AnchorPane.leftAnchor="82.0">
             <font>
-                <Font size="13.0" />
+                <Font size="13.0"/>
             </font>
         </Label>
         <Label alignment="CENTER_RIGHT" layoutX="108.0" layoutY="173.0" styleClass="bold-label" text="Email: ">
             <font>
-                <Font size="13.0" />
+                <Font size="13.0"/>
             </font>
         </Label>
         <Label alignment="CENTER_RIGHT" layoutX="84.0" layoutY="210.0" styleClass="bold-label" text="Password:">
             <font>
-                <Font size="13.0" />
+                <Font size="13.0"/>
             </font>
         </Label>
-        <Label alignment="CENTER_RIGHT" layoutX="45.0" layoutY="253.0" prefHeight="18.0" prefWidth="110.0" styleClass="bold-label" text="Repeat password:">
-         <font>
-            <Font size="13.0" />
-         </font></Label>
-        <TextField id="nameTextField" fx:id="name" layoutX="158.0" layoutY="87.0" prefHeight="27.0" prefWidth="150.0" styleClass="bold-label" />
-        <TextField id="usernameTextField" fx:id="username" layoutX="158.0" layoutY="129.0" prefHeight="25.0" prefWidth="150.0" styleClass="bold-label" AnchorPane.leftAnchor="158.0" />
-        <TextField id="emailTextField" fx:id="email" layoutX="158.0" layoutY="169.0" prefHeight="25.0" prefWidth="149.0" styleClass="bold-label" />
-        <PasswordField id="passwordField1" fx:id="password" layoutX="158.0" layoutY="207.0" />
-        <PasswordField id="passwordField2" fx:id="password2" layoutX="159.0" layoutY="250.0" />
-        <Label fx:id="output" alignment="CENTER_RIGHT" layoutX="185.0" layoutY="340.0" prefHeight="17.0" prefWidth="97.0" wrapText="true" />
-        <Button alignment="CENTER_RIGHT" layoutX="105.0" layoutY="335.0" onAction="#registerBtnClick" text="REGISTER NOW">
+        <Label alignment="CENTER_RIGHT" layoutX="45.0" layoutY="253.0" prefHeight="18.0" prefWidth="110.0"
+               styleClass="bold-label" text="Repeat password:">
+            <font>
+                <Font size="13.0"/>
+            </font>
+        </Label>
+        <TextField id="nameTextField" fx:id="name" layoutX="158.0" layoutY="87.0" prefHeight="27.0" prefWidth="150.0"
+                   styleClass="bold-label"/>
+        <TextField id="usernameTextField" fx:id="username" layoutX="158.0" layoutY="129.0" prefHeight="25.0"
+                   prefWidth="150.0" styleClass="bold-label" AnchorPane.leftAnchor="158.0"/>
+        <TextField id="emailTextField" fx:id="email" layoutX="158.0" layoutY="169.0" prefHeight="25.0" prefWidth="149.0"
+                   styleClass="bold-label"/>
+        <PasswordField id="passwordField1" fx:id="password" layoutX="158.0" layoutY="207.0"/>
+        <PasswordField id="passwordField2" fx:id="password2" layoutX="159.0" layoutY="250.0"/>
+        <Label fx:id="output" alignment="CENTER_RIGHT" layoutX="185.0" layoutY="340.0" prefHeight="17.0"
+               prefWidth="97.0" wrapText="true"/>
+        <Button alignment="CENTER_RIGHT" layoutX="105.0" layoutY="335.0" onAction="#registerBtnClick"
+                text="REGISTER NOW">
             <styleClass>
-                <String fx:value="btn-info" />
-                <String fx:value="bold-label" />
+                <String fx:value="btn-info"/>
+                <String fx:value="bold-label"/>
             </styleClass>
         </Button>
-        <Label fx:id="message" alignment="CENTER_RIGHT" layoutX="113.0" layoutY="376.0" prefHeight="17.0" prefWidth="223.0" styleClass="bold-label" text="The user has been correctly registered!" />
+        <Label fx:id="message" alignment="CENTER_RIGHT" layoutX="113.0" layoutY="376.0" prefHeight="17.0"
+               prefWidth="223.0" styleClass="bold-label" text="The user has been correctly registered!"/>
         <Label alignment="CENTER_RIGHT" layoutX="184.0" layoutY="24.0" styleClass="bold-label" text="REGISTER">
             <font>
-                <Font size="18.0" />
+                <Font size="18.0"/>
             </font>
         </Label>
-      <Label layoutX="115.0" layoutY="292.0" prefHeight="18.0" prefWidth="32.0" styleClass="bold-label" text="Role:" />
-      <ComboBox fx:id="roles" layoutX="158.0" layoutY="289.0" prefWidth="150.0" />
-      <Label fx:id="goToLoginLabel" layoutX="146.0" layoutY="407.0" onMouseClicked="#goToLoginAction" styleClass="bold-label" text="Alredy registered? Go to Login" textAlignment="CENTER" />
-      <Button fx:id="clearButtonRegister" layoutX="238.0" layoutY="335.0" mnemonicParsing="false" onAction="#clearRegister" prefHeight="27.0" prefWidth="88.0" styleClass="bold-label" text="Clear" />
+        <Label layoutX="115.0" layoutY="292.0" prefHeight="18.0" prefWidth="32.0" styleClass="bold-label" text="Role:"/>
+        <ComboBox fx:id="roles" layoutX="158.0" layoutY="289.0" prefWidth="150.0"/>
+        <Label fx:id="goToLoginLabel" layoutX="146.0" layoutY="407.0" onMouseClicked="#goToLoginAction"
+               styleClass="bold-label" text="Alredy registered? Go to Login" textAlignment="CENTER"/>
+        <Button fx:id="clearButtonRegister" layoutX="238.0" layoutY="335.0" mnemonicParsing="false"
+                onAction="#clearRegister" prefHeight="27.0" prefWidth="88.0" styleClass="bold-label" text="Clear"/>
 
     </children>
 </AnchorPane>

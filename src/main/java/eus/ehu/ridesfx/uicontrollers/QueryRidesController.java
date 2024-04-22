@@ -16,6 +16,7 @@ import javafx.scene.control.skin.DatePickerSkin;
 
 import javafx.util.Callback;
 import eus.ehu.ridesfx.utils.Dates;
+
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
@@ -158,41 +159,6 @@ public class QueryRidesController implements Controller {
         quantityOfSeatsLabel.setVisible(false);
         bookingButton.setVisible(false);
 
-
-        // Update DatePicker cells when ComboBox value changes
-        comboArrivalCity.valueProperty().addListener(
-                (obs, oldVal, newVal) -> updateDatePickerCellFactory(datepicker));
-
-        ObservableList<String> departureCities = FXCollections.observableArrayList(new ArrayList<>());
-        departureCities.setAll(businessLogic.getDepartCities());
-
-        ObservableList<String> arrivalCities = FXCollections.observableArrayList(new ArrayList<>());
-
-        comboDepartCity.setItems(departureCities);
-        comboArrivalCity.setItems(arrivalCities);
-
-        /*
-        comboArrivalCity.valueProperty().addListener((obs, oldVal, newVal) -> {
-            if (comboDepartCity.getValue() != null && newVal != null) {
-                datepicker.fireEvent(new ActionEvent()); // Force datepicker action handler to run
-            }
-        });
-
-         */
-
-        // when the user selects a departure city, update the arrival cities
-        comboDepartCity.setOnAction(e -> {
-            arrivalCities.clear();
-            arrivalCities.setAll(businessLogic.getDestinationCities(comboDepartCity.getValue()));
-
-            /*
-            if (comboArrivalCity.getValue() != null) {
-                datepicker.fireEvent(new ActionEvent()); // Force datepicker action handler to run if a city is already selected
-            }
-
-             */
-
-        });
 
         // a date has been chosen, update the combobox of Rides
         datepicker.setOnAction(actionEvent -> {
@@ -386,7 +352,7 @@ public class QueryRidesController implements Controller {
         Date date = Dates.convertToDate(datepicker.getValue());
 
         if (comboDepartCity.getValue() == null || comboArrivalCity.getValue() == null) {
-            //TODO add an exception
+
             alertMessage.setText("Please select both a departure and arrival city");
             alertMessage.setVisible(true);
         }
@@ -394,7 +360,7 @@ public class QueryRidesController implements Controller {
         else if (new Date().compareTo(date) > 0) {
             alertMessage.setVisible(true);
             alertMessage.setText("The date you entered must be later than today");
-            return;
+
         } else {
             alertMessage.setVisible(false);
             alertButton.setVisible(false);
@@ -436,6 +402,45 @@ public class QueryRidesController implements Controller {
             rideDate.setText(Dates.convertToDate(datepicker.getValue()).toString());
         }
     }
+
+
+    public void updateComboBox() {
+        // Update DatePicker cells when ComboBox value changes
+        comboArrivalCity.valueProperty().addListener(
+                (obs, oldVal, newVal) -> updateDatePickerCellFactory(datepicker));
+
+        ObservableList<String> departureCities = FXCollections.observableArrayList(new ArrayList<>());
+        departureCities.setAll(businessLogic.getDepartCities());
+
+        ObservableList<String> arrivalCities = FXCollections.observableArrayList(new ArrayList<>());
+
+        comboDepartCity.setItems(departureCities);
+        comboArrivalCity.setItems(arrivalCities);
+
+        /*
+        comboArrivalCity.valueProperty().addListener((obs, oldVal, newVal) -> {
+            if (comboDepartCity.getValue() != null && newVal != null) {
+                datepicker.fireEvent(new ActionEvent()); // Force datepicker action handler to run
+            }
+        });
+
+         */
+
+        // when the user selects a departure city, update the arrival cities
+        comboDepartCity.setOnAction(e -> {
+            arrivalCities.clear();
+            arrivalCities.setAll(businessLogic.getDestinationCities(comboDepartCity.getValue()));
+
+            /*
+            if (comboArrivalCity.getValue() != null) {
+                datepicker.fireEvent(new ActionEvent()); // Force datepicker action handler to run if a city is already selected
+            }
+
+             */
+
+        });
+    }
+
 
     @Override
     public void setMainApp(MainGUIController mainGUIController) {

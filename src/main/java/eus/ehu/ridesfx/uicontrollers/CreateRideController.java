@@ -3,6 +3,7 @@ package eus.ehu.ridesfx.uicontrollers;
 import eus.ehu.ridesfx.businessLogic.BlFacade;
 
 import eus.ehu.ridesfx.domain.Driver;
+import eus.ehu.ridesfx.domain.Location;
 import eus.ehu.ridesfx.domain.Ride;
 import eus.ehu.ridesfx.exceptions.RideAlreadyExistException;
 import eus.ehu.ridesfx.exceptions.RideMustBeLaterThanTodayException;
@@ -27,12 +28,11 @@ public class CreateRideController implements Controller {
 
     private BlFacade businessLogic;
 
-    private MainGUIController MainGUIController;
+    private MainGUIController mainGUIController;
 
 
     @FXML
     private DatePicker datePicker;
-
 
     @FXML
     private Label lblErrorMessage;
@@ -40,35 +40,42 @@ public class CreateRideController implements Controller {
     @FXML
     private Label lblErrorMinBet;
 
-
-    @FXML
-    private TextField txtArrivalCity;
-
-    @FXML
-    private TextField txtDepartCity;
-
-    @FXML
-    private TextField txtNumberOfSeats;
-
     @FXML
     private TextField txtPrice;
+
+    @FXML
+    private ComboBox<String> ArrivalCityComboBox;
+
+    @FXML
+    private ComboBox<String> DepartCityComboBox;
+
+    @FXML
+    private Spinner<Integer> numberSeatsSpinner;
+
+    @FXML
+    private TextField newDepartCityText;
+
+    @FXML
+    private TextField newArrivalCityText;
 
     public CreateRideController(BlFacade bl, MainGUIController mainGUIController) {
         this.businessLogic = bl;
         setMainApp(mainGUIController);
-        this.MainGUIController.setCreateRideController(this);
+        this.mainGUIController.setCreateRideController(this);
     }
 
 
     private String field_Errors() {
 
         try {
-            if ((txtDepartCity.getText().isEmpty()) || (txtArrivalCity.getText().isEmpty()) || (txtNumberOfSeats.getText().isEmpty()) || (txtPrice.getText().isEmpty()))
+            if (numberSeatsSpinner.getValue() == 0 || DepartCityComboBox.getValue() == null || ArrivalCityComboBox.getValue() == null || txtPrice.getText().isEmpty() || datePicker.getValue() == null) {
+                System.out.println("Errorea egon da ez da zeoze detektau sortzerakon");
                 return ResourceBundle.getBundle("Etiquetas").getString("CreateRideGUI.ErrorQuery");
-            else {
+
+            } else {
 
                 // trigger an exception if the introduced string is not a number
-                int inputSeats = Integer.parseInt(txtNumberOfSeats.getText());
+                int inputSeats = numberSeatsSpinner.getValue();
 
                 if (inputSeats <= 0) {
                     return ResourceBundle.getBundle("Etiquetas").getString("CreateRideGUI.SeatsMustBeGreaterThan0");
@@ -109,69 +116,109 @@ public class CreateRideController implements Controller {
         } else {
             try {
 
-                int inputSeats = Integer.parseInt(txtNumberOfSeats.getText());
+                int inputSeats = numberSeatsSpinner.getValue();
                 float price = Float.parseFloat(txtPrice.getText());
                 Driver driver = (Driver) businessLogic.getCurrentUser();
-                Ride r = businessLogic.createRide(txtDepartCity.getText(), txtArrivalCity.getText(), Dates.convertToDate(datePicker.getValue()), inputSeats, price, driver.getEmail());
+
+                if (ArrivalCityComboBox.getValue().equals("Create new city") && DepartCityComboBox.getValue().equals("Create new city")) {
+
+
+                    String arrivalCity = newArrivalCityText.getText();
+                    businessLogic.createLocation(arrivalCity);
+
+                    ArrivalCityComboBox.getItems().add(arrivalCity);
+                    ArrivalCityComboBox.setValue(arrivalCity);
+
+                    newDepartCityText.setVisible(true);
+                    String departCity = newDepartCityText.getText();
+                    businessLogic.createLocation(departCity);
+                    DepartCityComboBox.getItems().add(departCity);
+                    DepartCityComboBox.setValue(departCity);
+
+
+                } else if (ArrivalCityComboBox.getValue().equals("Create new city")) {
+                    String arrivalCity = newArrivalCityText.getText();
+                    businessLogic.createLocation(arrivalCity);
+                    ArrivalCityComboBox.getItems().add(arrivalCity);
+                    ArrivalCityComboBox.setValue(arrivalCity);
+
+
+                } else if (DepartCityComboBox.getValue().equals("Create new city")) {
+                    newDepartCityText.setVisible(true);
+                    String departCity = newDepartCityText.getText();
+                    businessLogic.createLocation(departCity);
+                    DepartCityComboBox.getItems().add(departCity);
+                    DepartCityComboBox.setValue(departCity);
+
+                }
+
+                Ride r = businessLogic.createRide(DepartCityComboBox.getValue(), ArrivalCityComboBox.getValue(), Dates.convertToDate(datePicker.getValue()), inputSeats, price, driver.getEmail());
+                clearCreateRideMethod();
                 displayMessage(ResourceBundle.getBundle("Etiquetas").getString("CreateRideGUI.RideCreated"), "success");
 
 
+
+                //FIXME :THIS METHOD IS USED TO UPDATE THE COMBOBOXES IN THE QUERY RIDES BUT JUST UPDATES THE DEPART COMBOBOX
+                mainGUIController.updateComboBoxesQueryRides();
+
+
             } catch (RideMustBeLaterThanTodayException e1) {
-                displayMessage(e1.getMessage(), "danger");
+                displayMessage(e1.getMessage(), "error");
             } catch (RideAlreadyExistException e1) {
-                displayMessage(e1.getMessage(), "danger");
+                displayMessage(e1.getMessage(), "error");
             }
         }
 
-/*
-    if (lblErrorMinBet.getText().length() > 0 && showErrors) {
-      lblErrorMinBet.getStyleClass().setAll("lbl", "lbl-danger");
-    }
-    if (lblErrorQuestion.getText().length() > 0 && showErrors) {
-      lblErrorQuestion.getStyleClass().setAll("lbl", "lbl-danger");
-    }
- */
+
     }
 
     private List<LocalDate> holidays = new ArrayList<>();
 
-  /*private void setEventsPrePost(int year, int month) {
-    LocalDate date = LocalDate.of(year, month, 1);
-    setEvents(date.getYear(), date.getMonth().getValue());
-    setEvents(date.plusMonths(1).getYear(), date.plusMonths(1).getMonth().getValue());
-    setEvents(date.plusMonths(-1).getYear(), date.plusMonths(-1).getMonth().getValue());
-  }*/
 
- /* private void setEvents(int year, int month) {
-
-    Date date = Dates.toDate(year, month);
-
-    for (Date day : businessLogic.getEventsMonth(date)) {
-      holidays.add(Dates.convertToLocalDateViaInstant(day));
-    }
-  }*/
 
     @FXML
     void initialize() {
 
+        newArrivalCityText.setVisible(false);
+        newDepartCityText.setVisible(false);
 
-        // btnCreateRide.setDisable(true);
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0);
+        numberSeatsSpinner.setValueFactory(valueFactory);
 
-        // only show the text of the event in the combobox (without the id)
-/*
-    Callback<ListView<Event>, ListCell<Event>> factory = lv -> new ListCell<>() {
-      @Override
-      protected void updateItem(Event item, boolean empty) {
-        super.updateItem(item, empty);
-        setText(empty ? "" : item.getDescription());
-      }
-    };
+        //Method converts the ride already created into locations
+        businessLogic.convertRideToLocation();
+
+        // Populate ArrivalCityComboBox and DepartCityComboBox with locations
+        List<Location> locations = businessLogic.getLocations();
+
+        // Clear the ComboBoxes
+        ArrivalCityComboBox.getItems().clear();
+        DepartCityComboBox.getItems().clear();
+
+        // Add each location's name to the ComboBoxes
+        ArrivalCityComboBox.getItems().add("Create new city");
+        DepartCityComboBox.getItems().add("Create new city");
+        for (Location location : locations) {
+            ArrivalCityComboBox.getItems().add(location.getName());
+            DepartCityComboBox.getItems().add(location.getName());
+        }
+
+        // Listener for ArrivalCityComboBox
+        ArrivalCityComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if ("Create new city".equals(newValue)) {
+                newArrivalCityText.setVisible(true);
+            }
+        });
+
+// Listener for DepartCityComboBox
+        DepartCityComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if ("Create new city".equals(newValue)) {
+                newDepartCityText.setVisible(true);
+            }
+        });
 
 
-     comboEvents.setCellFactory(factory);
-    comboEvents.setButtonCell(factory.call(null));
 
- */
 
 
         // setEventsPrePost(LocalDate.now().getYear(), LocalDate.now().getMonth().getValue());
@@ -213,24 +260,7 @@ public class CreateRideController implements Controller {
             }
         });
 
-        // when a date is selected...
-        datePicker.setOnAction(actionEvent -> {
-     /* comboEvents.getItems().clear();
 
-      oListEvents = FXCollections.observableArrayList(new ArrayList<>());
-      oListEvents.setAll(businessLogic.getEvents(Dates.convertToDate(datePicker.getValue())));
-
-      comboEvents.setItems(oListEvents);
-
-      if (comboEvents.getItems().size() == 0)
-        btnCreateRide.setDisable(true);
-      else {
-         btnCreateRide.setDisable(false);
-        // select first option
-        comboEvents.getSelectionModel().select(0);
-      }
-*/
-        });
 
     }
 
@@ -250,13 +280,21 @@ public class CreateRideController implements Controller {
      * Clear the fields of the create ride window
      */
     public void clearCreateRideMethod() {
-        txtDepartCity.setText("");
-        txtArrivalCity.setText("");
-        txtNumberOfSeats.setText("");
-        txtPrice.setText("");
+
+
         lblErrorMessage.setText("");
         lblErrorMinBet.setText("");
         datePicker.setValue(null);
+        ArrivalCityComboBox.setValue(null);
+        DepartCityComboBox.setValue(null);
+        numberSeatsSpinner.getValueFactory().setValue(0);
+        newDepartCityText.setText("");
+        newDepartCityText.setVisible(false);
+        newArrivalCityText.setText("");
+        newArrivalCityText.setVisible(false);
+        txtPrice.setText("");
+
+
     }
 
     /**
@@ -280,7 +318,7 @@ public class CreateRideController implements Controller {
     @FXML
     void closeClick(ActionEvent event) {
         clearErrorLabels();
-        MainGUIController.showInitialGUI();
+        mainGUIController.showInitialGUI();
     }
 
     /**
@@ -295,6 +333,41 @@ public class CreateRideController implements Controller {
 
     @Override
     public void setMainApp(MainGUIController mainGUIController) {
-        this.MainGUIController = mainGUIController;
+        this.mainGUIController = mainGUIController;
     }
+
+
+    //unused code
+
+    /*private void setEventsPrePost(int year, int month) {
+    LocalDate date = LocalDate.of(year, month, 1);
+    setEvents(date.getYear(), date.getMonth().getValue());
+    setEvents(date.plusMonths(1).getYear(), date.plusMonths(1).getMonth().getValue());
+    setEvents(date.plusMonths(-1).getYear(), date.plusMonths(-1).getMonth().getValue());
+  }*/
+
+ /* private void setEvents(int year, int month) {
+
+    Date date = Dates.toDate(year, month);
+
+    for (Date day : businessLogic.getEventsMonth(date)) {
+      holidays.add(Dates.convertToLocalDateViaInstant(day));
+    }
+  }*/
+
+    // only show the text of the event in the combobox (without the id)
+/*
+    Callback<ListView<Event>, ListCell<Event>> factory = lv -> new ListCell<>() {
+      @Override
+      protected void updateItem(Event item, boolean empty) {
+        super.updateItem(item, empty);
+        setText(empty ? "" : item.getDescription());
+      }
+    };
+
+
+     comboEvents.setCellFactory(factory);
+    comboEvents.setButtonCell(factory.call(null));
+
+ */
 }

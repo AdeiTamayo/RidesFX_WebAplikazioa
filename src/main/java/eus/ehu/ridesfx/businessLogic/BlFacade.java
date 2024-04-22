@@ -1,10 +1,6 @@
 package eus.ehu.ridesfx.businessLogic;
 
-import eus.ehu.ridesfx.domain.Alert;
-import eus.ehu.ridesfx.domain.Driver;
-import eus.ehu.ridesfx.domain.Ride;
-import eus.ehu.ridesfx.domain.Traveler;
-import eus.ehu.ridesfx.domain.User;
+import eus.ehu.ridesfx.domain.*;
 import eus.ehu.ridesfx.exceptions.RideAlreadyExistException;
 import eus.ehu.ridesfx.exceptions.RideMustBeLaterThanTodayException;
 
@@ -79,10 +75,12 @@ public interface BlFacade {
     boolean registerUser(String username, String password, String email, String name, String role);
 
     User checkUser(String username);
+
     boolean checkPassword(String username, String password);
 
     /**
      * This method creates a new alert for the traveler
+     *
      * @param text
      * @param text1
      * @param inputSeats
@@ -95,6 +93,7 @@ public interface BlFacade {
 
     /**
      * This method books a ride for a traveler
+     *
      * @param date
      * @param ride
      * @param traveler
@@ -106,6 +105,7 @@ public interface BlFacade {
 
     /**
      * This method returns the available seats for a ride
+     *
      * @param selectedItem
      * @return collection of available seats
      */
@@ -113,6 +113,7 @@ public interface BlFacade {
 
     /**
      * This method checks if there are matching rides for the given alert
+     *
      * @param alert
      * @return list of matching rides
      */
@@ -120,19 +121,42 @@ public interface BlFacade {
 
     /**
      * This method returns all the alerts of the current traveler
+     *
      * @return list of alerts
      */
     List<Alert> getAlerts();
 
     /**
      * This method deletes an alert
+     *
      * @param alert
      */
     void deleteAlert(Alert alert);
 
     /**
      * This method updates the state of an alert
+     *
      * @param alert
      */
     void updateAlertState(Alert alert);
+
+    /**
+     * This method returns all the locations
+     *
+     * @return list of locations
+     */
+
+    List<Location> getLocations();
+
+    /**
+     * This method converts the rides already created to a location
+     */
+    void convertRideToLocation();
+
+    /**
+     * This method creates a new location
+     *
+     * @param name
+     */
+    void createLocation(String name);
 }
