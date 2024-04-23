@@ -103,9 +103,19 @@ public class AlertsViewController implements Controller{
     }
 
     public void deleteAlert(ActionEvent event) {
-        businessLogic.deleteAlert((Alert) alertTable.getSelectionModel().getSelectedItem());
-        //update the view
-        setView();
+        try {
+            Alert alert = (Alert) alertTable.getSelectionModel().getSelectedItem();
+            if (alert == null) {
+                // Show an error message to the user
+                System.out.println("Please select an alert to delete.");
+            } else {
+                businessLogic.deleteAlert(alert);
+                // Update the view
+                setView();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void makeReservation(ActionEvent event) {
