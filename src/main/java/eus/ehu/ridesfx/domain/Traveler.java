@@ -96,6 +96,15 @@ public class Traveler extends User implements Serializable {
     }
 
     /**
+     * Delets a reservation from the traveler.
+     * @param reservation The reservation to delete.
+     */
+    public void removeReservation(Reservation reservation) {
+        this.reservations.remove(reservation);
+        reservation.setTraveler(null);
+    }
+
+    /**
      * This method creates a new alert for the traveler and adds it to the alerts list.
      *
      * @param from    The origin location of the alert.

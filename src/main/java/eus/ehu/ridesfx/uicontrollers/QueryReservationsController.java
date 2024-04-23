@@ -14,31 +14,30 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.util.Date;
 import java.util.List;
 
 public class QueryReservationsController implements Controller {
 
-
     private MainGUIController mainGUIController;
-
     private BlFacade businessLogic;
+
     @FXML
-    private TableView alertTable;
+    private TableView<Reservation> alertTable;
     @FXML
-    private TableColumn departC;
+    private TableColumn<Reservation, String> departC;
     @FXML
-    private TableColumn arrivalC;
+    private TableColumn<Reservation, String> arrivalC;
     @FXML
-    private TableColumn numPlacesC;
+    private TableColumn<Reservation, Integer> numPlacesC;
     @FXML
-    private TableColumn dateC;
+    private TableColumn<Reservation, Date> dateC;
     @FXML
-    private TableColumn stateC;
+    private TableColumn<Reservation, String> stateC;
     @FXML
     private Button deleteButton;
     @FXML
     public Button refreshButton;
-
 
     public QueryReservationsController(BlFacade bl, MainGUIController mainGUIController) {
         this.businessLogic = bl;
@@ -56,16 +55,15 @@ public class QueryReservationsController implements Controller {
         mainGUIController.showInitialGUI();
     }
 
-
     @FXML
     void initialize() {
         deleteButton.setVisible(false);
 
         // Set the columns
-        departC.setCellValueFactory(cellData -> new SimpleStringProperty(((Reservation) cellData.getValue()).getRide().getDeparture()));
-        arrivalC.setCellValueFactory(cellData -> new SimpleStringProperty(((Reservation) cellData.getValue()).getRide().getArrival()));
+        departC.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRide().getFromLocation()));
+        arrivalC.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRide().getToLocation()));
         numPlacesC.setCellValueFactory(new PropertyValueFactory<>("numPlaces"));
-        dateC.setCellValueFactory(cellData -> new SimpleObjectProperty<>(((Reservation) cellData.getValue()).getRide().getDate()));
+        dateC.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getRide().getDate()));
         stateC.setCellValueFactory(new PropertyValueFactory<>("state"));
 
         setReservations();
@@ -96,11 +94,10 @@ public class QueryReservationsController implements Controller {
 
     @FXML
     public void deleteReservation(ActionEvent event) {
-        Reservation reservation = (Reservation) alertTable.getSelectionModel().getSelectedItem();
+        Reservation reservation = alertTable.getSelectionModel().getSelectedItem();
         businessLogic.deleteReservation(reservation);
         alertTable.getItems().remove(reservation);
     }
-
 
     public void populateReservationsTable(ActionEvent actionEvent) {
         setReservations();

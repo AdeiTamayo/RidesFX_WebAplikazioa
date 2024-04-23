@@ -398,6 +398,11 @@ public class DataAccess {
 
     public void deleteReservation(Reservation r) {
         db.getTransaction().begin();
+        // Remove the reservation from the user
+        Traveler traveler = r.getTraveler();
+        traveler.removeReservation(r);
+        db.persist(traveler);
+        // Now you can safely remove the reservation
         db.remove(r);
         db.getTransaction().commit();
     }
