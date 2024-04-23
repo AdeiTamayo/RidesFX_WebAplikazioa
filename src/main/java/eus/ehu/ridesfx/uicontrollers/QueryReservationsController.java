@@ -16,6 +16,7 @@ import java.util.List;
 
 public class QueryReservationsController implements Controller {
 
+
     private MainGUIController mainGUIController;
 
     private BlFacade businessLogic;
@@ -33,6 +34,8 @@ public class QueryReservationsController implements Controller {
     private TableColumn stateC;
     @FXML
     private Button deleteButton;
+    @FXML
+    public Button refreshButton;
 
 
     public QueryReservationsController(BlFacade bl, MainGUIController mainGUIController) {
@@ -51,6 +54,7 @@ public class QueryReservationsController implements Controller {
         mainGUIController.showInitialGUI();
     }
 
+
     @FXML
     void initialize() {
         deleteButton.setVisible(false);
@@ -62,6 +66,12 @@ public class QueryReservationsController implements Controller {
         dateC.setCellValueFactory(new PropertyValueFactory<>("date"));
         stateC.setCellValueFactory(new PropertyValueFactory<>("state"));
 
+        setReservations();
+
+
+    }
+
+    void setReservations() {
         // Get the reservations
         List<Reservation> reservations = businessLogic.getReservations();
 
@@ -92,5 +102,7 @@ public class QueryReservationsController implements Controller {
     }
 
 
-
+    public void populateReservationsTable(ActionEvent actionEvent) {
+        setReservations();
+    }
 }

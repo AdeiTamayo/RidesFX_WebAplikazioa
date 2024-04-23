@@ -92,13 +92,15 @@ public class Reservation implements Serializable {
         this.reservationNumber = reservationNumber;
     }
 
+
+
     /**
      * Returns the number of places in the reservation.
      *
      * @return The number of places in the reservation.
      */
 
-    public int getNPlaces() {
+    public int getNumPlaces() {
         return nPlaces;
     }
 
@@ -108,7 +110,7 @@ public class Reservation implements Serializable {
      * @param nPlaces The new number of places.
      */
 
-    public void setNPlaces(int nPlaces) {
+    public void setNumPlaces(int nPlaces) {
         this.nPlaces = nPlaces;
     }
 

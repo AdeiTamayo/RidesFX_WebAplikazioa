@@ -50,7 +50,6 @@ public class QueryRidesController implements Controller {
     @FXML
     private ComboBox<String> comboDepartCity;
 
-
     @FXML
     private TableView<Ride> tblRides;
 
@@ -69,10 +68,8 @@ public class QueryRidesController implements Controller {
     @FXML
     private ComboBox<Integer> comboNumSeats;
 
-
     @FXML
     private Label loggedInError;
-
 
     private MainGUIController mainGUIController;
 

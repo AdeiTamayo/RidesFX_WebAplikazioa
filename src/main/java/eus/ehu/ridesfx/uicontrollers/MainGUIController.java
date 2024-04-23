@@ -343,6 +343,11 @@ public class MainGUIController {
     }
 
 
+    public void populateReservationsTable(){
+        queryReservationsController.setReservations();
+    }
+
+
     @FXML
     void initialize() throws IOException {
 

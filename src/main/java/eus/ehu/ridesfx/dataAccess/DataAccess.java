@@ -107,27 +107,32 @@ public class DataAccess {
             Driver driver3 = new Driver("driver3@gmail.com", "Test driver", "test", "1234");
             Traveler traveler1 = new Traveler("traveler@gmail.com", "Traveler 1", "traveler1", "1234");
 
+            Driver testDriver = new Driver("driver@", "Test driver", "test", "1");
+            Traveler testTraveler = new Traveler("traveler@", "Test traveler", "test", "1");
+
 
             //Create rides
             driver1.addRide("Donostia", "Bilbo", UtilDate.newDate(year, month, 15), 4, 7);
             driver1.addRide("Donostia", "Bilbo", UtilDate.newDate(year, month + 1, 15), 4, 7);
-
             driver1.addRide("Donostia", "Gasteiz", UtilDate.newDate(year, month, 6), 4, 8);
             driver1.addRide("Bilbo", "Donostia", UtilDate.newDate(year, month, 25), 4, 4);
-
             driver1.addRide("Donostia", "Iruña", UtilDate.newDate(year, month, 7), 4, 8);
-
             driver2.addRide("Donostia", "Bilbo", UtilDate.newDate(year, month, 15), 3, 3);
             driver2.addRide("Bilbo", "Donostia", UtilDate.newDate(year, month, 25), 2, 5);
             driver2.addRide("Eibar", "Gasteiz", UtilDate.newDate(year, month, 6), 2, 5);
-
             driver3.addRide("Bilbo", "Donostia", UtilDate.newDate(year, month, 14), 1, 3);
+
+            driver3.addRide("Donostia", "Bilbo", UtilDate.newDate(2024, 5, 15), 4, 7);
+            driver3.addRide("Donostia", "Bilbo", UtilDate.newDate(2024, 6, 15), 4, 7);
+            driver3.addRide("Donostia", "Bilbo", UtilDate.newDate(2024, 5, 6), 4, 8);
 
 
             db.persist(driver1);
             db.persist(driver2);
             db.persist(driver3);
             db.persist(traveler1);
+            db.persist(testDriver);
+            db.persist(testTraveler);
 
 
             db.getTransaction().commit();
