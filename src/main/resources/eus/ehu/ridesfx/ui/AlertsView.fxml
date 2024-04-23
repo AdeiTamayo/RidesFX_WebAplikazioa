@@ -25,6 +25,6 @@
         </columns>
       </TableView>
       <Button fx:id="deleteButton" layoutX="55.0" layoutY="269.0" mnemonicParsing="false" onAction="#deleteAlert" styleClass="bold-label" text="Delete Alert" />
-      <Button fx:id="bookButton" layoutX="150.0" layoutY="269.0" mnemonicParsing="false" onAction="#bookRide" styleClass="bold-label" text="Book Ride" />
+      <Button fx:id="bookButton" layoutX="150.0" layoutY="269.0" mnemonicParsing="false" onAction="#makeReservation" styleClass="bold-label" text="Book Ride" />
     </children>
 </AnchorPane>

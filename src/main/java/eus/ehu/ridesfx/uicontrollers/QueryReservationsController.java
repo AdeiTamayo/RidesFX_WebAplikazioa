@@ -2,6 +2,8 @@ package eus.ehu.ridesfx.uicontrollers;
 
 import eus.ehu.ridesfx.businessLogic.BlFacade;
 import eus.ehu.ridesfx.domain.Reservation;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -60,15 +62,13 @@ public class QueryReservationsController implements Controller {
         deleteButton.setVisible(false);
 
         // Set the columns
-        departC.setCellValueFactory(new PropertyValueFactory<>("departure"));
-        arrivalC.setCellValueFactory(new PropertyValueFactory<>("arrival"));
+        departC.setCellValueFactory(cellData -> new SimpleStringProperty(((Reservation) cellData.getValue()).getRide().getDeparture()));
+        arrivalC.setCellValueFactory(cellData -> new SimpleStringProperty(((Reservation) cellData.getValue()).getRide().getArrival()));
         numPlacesC.setCellValueFactory(new PropertyValueFactory<>("numPlaces"));
-        dateC.setCellValueFactory(new PropertyValueFactory<>("date"));
+        dateC.setCellValueFactory(cellData -> new SimpleObjectProperty<>(((Reservation) cellData.getValue()).getRide().getDate()));
         stateC.setCellValueFactory(new PropertyValueFactory<>("state"));
 
         setReservations();
-
-
     }
 
     void setReservations() {

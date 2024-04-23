@@ -41,7 +41,7 @@
                 <Font size="18.0"/>
             </font>
         </Label>
-        <Button fx:id="bookingButton" layoutX="645.0" layoutY="288.0" mnemonicParsing="false" onAction="#bookRide"
+        <Button fx:id="bookingButton" layoutX="645.0" layoutY="288.0" mnemonicParsing="false" onAction="#makeReservation"
                 styleClass="bold-label" text="Make a reservation"/>
         <Label fx:id="quantityOfSeatsLabel" layoutX="375.0" layoutY="292.0" styleClass="bold-label"
                text="How many seats do you want?"/>

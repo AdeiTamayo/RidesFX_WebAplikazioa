@@ -5,7 +5,6 @@ import eus.ehu.ridesfx.businessLogic.BlFacade;
 import eus.ehu.ridesfx.domain.Alert;
 import eus.ehu.ridesfx.domain.Ride;
 import eus.ehu.ridesfx.domain.Traveler;
-import eus.ehu.ridesfx.ui.MainGUI;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -109,17 +108,21 @@ public class AlertsViewController implements Controller{
         setView();
     }
 
-    public void bookRide(ActionEvent event) {
+    public void makeReservation(ActionEvent event) {
         //If the selected alert in the table has "Ride found" in the state column then book the ride
         if(stateC.getCellData(alertTable.getSelectionModel().getSelectedItem()).equals("Ride found")){
             //TODO book a ride(there might be more than one ride that matches the alert)
             Alert a= (Alert) alertTable.getSelectionModel().getSelectedItem();
             List<Ride> ridesList= businessLogic.areMatchingRides(a);
             //book the first ride that matches the alert
-            Date date = (Date) dateC.getCellData(alertTable.getSelectionModel().getSelectedItem());
+
             Traveler traveler = (Traveler) businessLogic.getCurrentUser();
             int numPlaces = (int)numPlacesC.getCellData(alertTable.getSelectionModel().getSelectedItem());
-            businessLogic.bookRide(date, ridesList.get(0), traveler, numPlaces);
+
+            Ride ride = ridesList.get(0);
+
+
+            businessLogic.makeReservation(traveler, ride, numPlaces);
             businessLogic.deleteAlert(a);
             //update the view
             setView();

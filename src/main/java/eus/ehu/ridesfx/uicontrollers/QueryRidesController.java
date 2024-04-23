@@ -254,10 +254,8 @@ public class QueryRidesController implements Controller {
      * @param actionEvent
      */
     @FXML
-    public void bookRide(ActionEvent actionEvent) {
+    public void makeReservation(ActionEvent actionEvent) {
 
-
-        Date date = Dates.convertToDate(datepicker.getValue());
         Ride ride = tblRides.getSelectionModel().getSelectedItem();
         int numSeats = comboNumSeats.getValue();
 
@@ -265,7 +263,7 @@ public class QueryRidesController implements Controller {
         //suposatzen da erreserbatzen sahiatzen bada, traveler izan behar duela
         Traveler traveler = businessLogic.getCurrentTraveler();
 
-        businessLogic.bookRide(date, ride, traveler, numSeats);
+        businessLogic.makeReservation(traveler, ride, numSeats);
         correctMessage.setVisible(true);
         correctMessage.setText("Ride requested, pending driver approval");
 
@@ -273,7 +271,7 @@ public class QueryRidesController implements Controller {
         tblRides.getItems().clear();
 
         List<Ride> rides = businessLogic.getRides(comboDepartCity.getValue(), comboArrivalCity.getValue(), Dates.convertToDate(datepicker.getValue()));
-        // List<Ride> rides = Arrays.asList(new Ride("Bilbao", "Donostia", Dates.convertToDate(datepicker.getValue()), 3, 3.5f, new Driver("pepe@pepe.com", "pepe")));
+
         for (Ride r : rides) {
             tblRides.getItems().add(r);
         }

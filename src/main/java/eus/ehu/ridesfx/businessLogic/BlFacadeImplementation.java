@@ -143,8 +143,8 @@ public class BlFacadeImplementation implements BlFacade {
     }
 
     @Override
-    public boolean bookRide(Date date, Ride ride, Traveler traveler, int numPlaces) {
-        return dbManager.bookRide(date, ride, traveler,numPlaces);
+    public boolean makeReservation(Traveler traveler, Ride ride,  int numPlaces) {
+        return dbManager.makeReservation(traveler, ride, numPlaces);
 
     }
 

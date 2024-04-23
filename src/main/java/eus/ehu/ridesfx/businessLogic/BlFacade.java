@@ -79,25 +79,26 @@ public interface BlFacade {
 
     /**
      * This method creates a new alert for the traveler
-     * @param text
-     * @param text1
+     * @param fromPlace
+     * @param toPlace
      * @param inputSeats
      * @param date
      * @param email
      * @return the created alert
      */
-    Alert createAlert(String text, String text1, int inputSeats, Date date, String email);
+    Alert createAlert(String fromPlace, String toPlace, int inputSeats, Date date, String email);
 
 
     /**
      * This method books a ride for a traveler
-     * @param date
      * @param ride
      * @param traveler
      * @param numPlaces
      * @return true if the ride is booked, false otherwise
      */
-    boolean bookRide(Date date, Ride ride, Traveler traveler, int numPlaces);
+
+
+    boolean makeReservation(Traveler traveler, Ride ride,int numPlaces);
 
     List<Reservation> getReservations();
 

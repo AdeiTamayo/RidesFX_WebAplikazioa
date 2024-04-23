@@ -6,11 +6,6 @@ import eus.ehu.ridesfx.domain.*;
 import eus.ehu.ridesfx.exceptions.RideAlreadyExistException;
 import eus.ehu.ridesfx.exceptions.RideMustBeLaterThanTodayException;
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaDelete;
-import jakarta.persistence.criteria.Root;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -247,6 +242,7 @@ public class DataAccess {
 
     /**
      * This method retrieves from the database the number of seats available in a ride
+     *
      * @param ride
      * @return number of seats available
      */
@@ -368,26 +364,22 @@ public class DataAccess {
 
 
 
-    //TODO check this method + when the acceptation of the reservation is done remove the ride or modify the amount of free places
 
-    public boolean bookRide(Date date, Ride ride, Traveler traveler, int numSeats) {
+    public boolean makeReservation(Traveler traveler, Ride ride,  int numSeats) {
         // Start a transaction
         db.getTransaction().begin();
 
         // Retrieve the Ride object from the database
-        TypedQuery<Ride> query = db.createQuery("SELECT r FROM Ride r WHERE r.date = :date AND r.id = :rideId", Ride.class);
-        query.setParameter("date", date);
+        TypedQuery<Ride> query = db.createQuery("SELECT r FROM Ride r WHERE r.id = :rideId", Ride.class);
         query.setParameter("rideId", ride.getRideNumber());
+
         Ride dbRide = query.getSingleResult();
 
-        Reservation reservation = new Reservation(numSeats, date, "pending", traveler);
+        // Create a new Reservation object
+        Reservation reservation = new Reservation(traveler, dbRide, numSeats, "pending");
 
-        //Add the reservation to the traveler
+        // Add the reservation to the traveler
         traveler.addReservation(reservation);
-
-        //Update the number of available seats
-        //FIXME check if this works
-        //dbRide.setNumPlaces(dbRide.getNumPlaces() - numSeats);
 
         // Persist the Reservation object to the database
         db.persist(reservation);
@@ -395,17 +387,16 @@ public class DataAccess {
         // Commit the transaction
         db.getTransaction().commit();
         return true;
-
     }
 
-    public List<Reservation> getReservations(String mail){
+    public List<Reservation> getReservations(String mail) {
         System.out.println(">> DataAccess: getReservations");
         TypedQuery<Reservation> query = db.createQuery("SELECT r FROM Reservation r WHERE r.traveler.email = :mail", Reservation.class);
         query.setParameter("mail", mail);
         return query.getResultList();
     }
 
-    public void deleteReservation(Reservation r){
+    public void deleteReservation(Reservation r) {
         db.getTransaction().begin();
         db.remove(r);
         db.getTransaction().commit();
@@ -419,6 +410,7 @@ public class DataAccess {
 
     /**
      * This method creates an alert for a traveler
+     *
      * @param from
      * @param to
      * @param date
@@ -435,8 +427,7 @@ public class DataAccess {
                 db.getTransaction().commit();
                 // If the alert already exists, return null
                 return null;
-            }
-            else{
+            } else {
                 Alert alert = traveler.addAlert(from, to, date, nPlaces);
                 db.persist(alert);
                 db.getTransaction().commit();
@@ -456,6 +447,7 @@ public class DataAccess {
 
     /**
      * This method retrieves all the alerts for a traveler
+     *
      * @param travelerEmail
      * @return a list of alerts
      */
@@ -468,6 +460,7 @@ public class DataAccess {
 
     /**
      * This method retrieves all the rides from the database
+     *
      * @return a list of rides
      */
     public List<Ride> getAllRides() {
@@ -477,6 +470,7 @@ public class DataAccess {
 
     /**
      * This method deletes an alert from the database
+     *
      * @param alert
      */
     public void deleteAlert(Alert alert) {
@@ -501,19 +495,16 @@ public class DataAccess {
 
     /**
      * This method updates the state of an alert to ride found
+     *
      * @param a
      */
-    public void updateAlertState(Alert a){
+    public void updateAlertState(Alert a) {
         db.getTransaction().begin();
         a.setState("Ride found");
         db.getTransaction().commit();
     }
 
     //a method that given an alert and the ride that matches it, returns the reservation
-
-
-
-
 
 
 }
