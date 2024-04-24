@@ -103,22 +103,36 @@ public class AlertsViewController implements Controller {
     }
 
     public void deleteAlert(ActionEvent event) {
-        businessLogic.deleteAlert((Alert) alertTable.getSelectionModel().getSelectedItem());
-        //update the view
-        setView();
+        try {
+            Alert alert = (Alert) alertTable.getSelectionModel().getSelectedItem();
+            if (alert == null) {
+                // Show an error message to the user
+                System.out.println("Please select an alert to delete.");
+            } else {
+                businessLogic.deleteAlert(alert);
+                // Update the view
+                setView();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void bookRide(ActionEvent event) {
+    public void makeReservation(ActionEvent event) {
         //If the selected alert in the table has "Ride found" in the state column then book the ride
         if (stateC.getCellData(alertTable.getSelectionModel().getSelectedItem()).equals("Ride found")) {
             //TODO book a ride(there might be more than one ride that matches the alert)
             Alert a = (Alert) alertTable.getSelectionModel().getSelectedItem();
             List<Ride> ridesList = businessLogic.areMatchingRides(a);
             //book the first ride that matches the alert
-            Date date = (Date) dateC.getCellData(alertTable.getSelectionModel().getSelectedItem());
+
             Traveler traveler = (Traveler) businessLogic.getCurrentUser();
-            int numPlaces = (int) numPlacesC.getCellData(alertTable.getSelectionModel().getSelectedItem());
-            businessLogic.bookRide(date, ridesList.get(0), traveler, numPlaces);
+            int numPlaces = (int)numPlacesC.getCellData(alertTable.getSelectionModel().getSelectedItem());
+
+            Ride ride = ridesList.get(0);
+
+
+            businessLogic.makeReservation(traveler, ride, numPlaces);
             businessLogic.deleteAlert(a);
             //update the view
             setView();

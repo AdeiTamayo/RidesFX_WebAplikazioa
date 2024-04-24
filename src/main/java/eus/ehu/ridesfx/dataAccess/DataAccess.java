@@ -6,11 +6,6 @@ import eus.ehu.ridesfx.domain.*;
 import eus.ehu.ridesfx.exceptions.RideAlreadyExistException;
 import eus.ehu.ridesfx.exceptions.RideMustBeLaterThanTodayException;
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaDelete;
-import jakarta.persistence.criteria.Root;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -107,27 +102,32 @@ public class DataAccess {
             Driver driver3 = new Driver("driver3@gmail.com", "Test driver", "test", "1234");
             Traveler traveler1 = new Traveler("traveler@gmail.com", "Traveler 1", "traveler1", "1234");
 
+            Driver testDriver = new Driver("driver@", "Test driver", "test", "1");
+            Traveler testTraveler = new Traveler("traveler@", "Test traveler", "test", "1");
+
 
             //Create rides
             driver1.addRide("Donostia", "Bilbo", UtilDate.newDate(year, month, 15), 4, 7);
             driver1.addRide("Donostia", "Bilbo", UtilDate.newDate(year, month + 1, 15), 4, 7);
-
             driver1.addRide("Donostia", "Gasteiz", UtilDate.newDate(year, month, 6), 4, 8);
             driver1.addRide("Bilbo", "Donostia", UtilDate.newDate(year, month, 25), 4, 4);
-
             driver1.addRide("Donostia", "Iruña", UtilDate.newDate(year, month, 7), 4, 8);
-
             driver2.addRide("Donostia", "Bilbo", UtilDate.newDate(year, month, 15), 3, 3);
             driver2.addRide("Bilbo", "Donostia", UtilDate.newDate(year, month, 25), 2, 5);
             driver2.addRide("Eibar", "Gasteiz", UtilDate.newDate(year, month, 6), 2, 5);
-
             driver3.addRide("Bilbo", "Donostia", UtilDate.newDate(year, month, 14), 1, 3);
+
+            driver3.addRide("Donostia", "Bilbo", UtilDate.newDate(2024, 5, 15), 4, 7);
+            driver3.addRide("Donostia", "Bilbo", UtilDate.newDate(2024, 6, 15), 4, 7);
+            driver3.addRide("Donostia", "Bilbo", UtilDate.newDate(2024, 5, 6), 4, 8);
 
 
             db.persist(driver1);
             db.persist(driver2);
             db.persist(driver3);
             db.persist(traveler1);
+            db.persist(testDriver);
+            db.persist(testTraveler);
 
 
             db.getTransaction().commit();
@@ -363,26 +363,23 @@ public class DataAccess {
     }
 
 
-    //TODO check this method + when the acceptation of the reservation is done remove the ride or modify the amount of free places
 
-    public boolean bookRide(Date date, Ride ride, Traveler traveler, int numSeats) {
+
+    public boolean makeReservation(Traveler traveler, Ride ride,  int numSeats) {
         // Start a transaction
         db.getTransaction().begin();
 
         // Retrieve the Ride object from the database
-        TypedQuery<Ride> query = db.createQuery("SELECT r FROM Ride r WHERE r.date = :date AND r.id = :rideId", Ride.class);
-        query.setParameter("date", date);
+        TypedQuery<Ride> query = db.createQuery("SELECT r FROM Ride r WHERE r.id = :rideId", Ride.class);
         query.setParameter("rideId", ride.getRideNumber());
+
         Ride dbRide = query.getSingleResult();
 
-        Reservation reservation = new Reservation(numSeats, date, "pending", traveler);
+        // Create a new Reservation object
+        Reservation reservation = new Reservation(traveler, dbRide, numSeats, "pending");
 
-        //Add the reservation to the traveler
+        // Add the reservation to the traveler
         traveler.addReservation(reservation);
-
-        //Update the number of available seats
-        //FIXME check if this works
-        //dbRide.setNumPlaces(dbRide.getNumPlaces() - numSeats);
 
         // Persist the Reservation object to the database
         db.persist(reservation);
@@ -390,7 +387,24 @@ public class DataAccess {
         // Commit the transaction
         db.getTransaction().commit();
         return true;
+    }
 
+    public List<Reservation> getReservations(String mail) {
+        System.out.println(">> DataAccess: getReservations");
+        TypedQuery<Reservation> query = db.createQuery("SELECT r FROM Reservation r WHERE r.traveler.email = :mail", Reservation.class);
+        query.setParameter("mail", mail);
+        return query.getResultList();
+    }
+
+    public void deleteReservation(Reservation r) {
+        db.getTransaction().begin();
+        // Remove the reservation from the user
+        Traveler traveler = r.getTraveler();
+        traveler.removeReservation(r);
+        db.persist(traveler);
+        // Now you can safely remove the reservation
+        db.remove(r);
+        db.getTransaction().commit();
     }
 
 

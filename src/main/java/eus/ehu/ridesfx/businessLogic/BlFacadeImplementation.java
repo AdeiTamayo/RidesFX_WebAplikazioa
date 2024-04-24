@@ -143,10 +143,12 @@ public class BlFacadeImplementation implements BlFacade {
     }
 
     @Override
-    public boolean bookRide(Date date, Ride ride, Traveler traveler, int numPlaces) {
-        return dbManager.bookRide(date, ride, traveler, numPlaces);
+    public boolean makeReservation(Traveler traveler, Ride ride,  int numPlaces) {
+        return dbManager.makeReservation(traveler, ride, numPlaces);
 
     }
+
+
 
     @Override
 
@@ -252,6 +254,14 @@ public class BlFacadeImplementation implements BlFacade {
      */
     public void createLocation(String name) {
         dbManager.createLocation(name);
+    }
+
+    public List<Reservation> getReservations() {
+        return dbManager.getReservations( currentUser.getEmail());
+    }
+
+    public void deleteReservation(Reservation selectedItem) {
+        dbManager.deleteReservation(selectedItem);
     }
 
 }

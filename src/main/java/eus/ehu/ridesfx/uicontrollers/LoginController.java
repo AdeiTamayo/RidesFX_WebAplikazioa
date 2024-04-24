@@ -122,10 +122,12 @@ public class LoginController implements Controller {
                     mainGUIController.hideButtonQueryRides();
                     mainGUIController.showButtonCreateRide();
                     mainGUIController.hideButtonAlerts();
+                    mainGUIController.hideButtonReservations();
                 } else if (businessLogic.getCurrentUser() instanceof Traveler) {
                     mainGUIController.hideButtonCreateRide();
                     mainGUIController.showButtonQueryRides();
                     mainGUIController.showButtonAlerts();
+                    mainGUIController.showButtonReservations();
                 }
 
 

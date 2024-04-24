@@ -41,7 +41,6 @@ public class RegisterController implements Controller {
     @FXML
     private Label message;
 
-
     private BlFacade businessLogic;
 
     private LoginController loginController;

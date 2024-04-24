@@ -9,7 +9,6 @@ package eus.ehu.ridesfx.domain;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 @SuppressWarnings("serial")
 @Entity
@@ -18,175 +17,85 @@ public class Reservation implements Serializable {
     @Id
     @GeneratedValue
     private int reservationNumber;
-    private int nPlaces;
-    private Date date;
 
-    //States can be "accept","reject", "pending".
+    private int nPlaces;
+
     private String state;
 
     @ManyToOne
     private Traveler traveler;
 
-    /**
-     * Default constructor for the Reservation class.
-     * Initializes a new Reservation with no parameters.
-     */
+    @ManyToOne
+    private Ride ride;
+
     public Reservation() {
         super();
     }
 
-    /**
-     * Parameterized constructor for the Reservation class.
-     * Initializes a new Reservation with the provided parameters.
-     *
-     * @param reservationNumber The unique identifier of the reservation.
-     * @param nPlaces           The number of places in the reservation.
-     * @param date              The date of the reservation.
-     * @param state             The state of the reservation. Can be "accept", "reject", or "pending".
-     * @param traveler          The Traveler who made the reservation.
-     */
-    public Reservation(Integer reservationNumber, int nPlaces, Date date, String state, Traveler traveler) {
+    public Reservation(Traveler traveler, Ride ride, int numSeats, String state) {
+        super();
+        this.nPlaces = numSeats;
+        this.state = state; // Set the state of the reservation
+        this.traveler = traveler;
+        this.ride = ride;
+    }
+
+    public Reservation(int reservationNumber, Traveler traveler, Ride ride, int numSeats, String state) {
         super();
         this.reservationNumber = reservationNumber;
-        this.nPlaces = nPlaces;
-        this.date = date;
-        this.state = state;
         this.traveler = traveler;
+        this.ride = ride;
+        this.nPlaces = numSeats;
+        this.state = state;
     }
 
-
-    /**
-     * Parameterized constructor for the Reservation class without the reservation number.
-     *
-     * @param nPlaces  The number of places in the reservation.
-     * @param date     The date of the reservation.
-     * @param state    The state of the reservation. Can be "accept", "reject", or "pending".
-     * @param traveler The Traveler who made the reservation.
-     */
-    public Reservation(int nPlaces, Date date, String state, Traveler traveler) {
-        super();
-        this.nPlaces = nPlaces;
-        this.date = date;
-        this.state = state;
-        this.traveler = traveler;
-    }
-
-    /**
-     * Returns a string representation of the reservation.
-     * The string contains the number of places, the date, and the state of the reservation, separated by a semicolon.
-     *
-     * @return A string representation of the reservation.
-     */
     public int getReservationNumber() {
         return reservationNumber;
     }
-
-    /**
-     * Sets the reservation number of the reservation.
-     *
-     * @param reservationNumber The new reservation number.
-     */
-
 
     public void setReservationNumber(int reservationNumber) {
         this.reservationNumber = reservationNumber;
     }
 
-    /**
-     * Returns the number of places in the reservation.
-     *
-     * @return The number of places in the reservation.
-     */
-
-    public int getNPlaces() {
+    public int getNumPlaces() {
         return nPlaces;
     }
 
-    /**
-     * Sets the number of places in the reservation.
-     *
-     * @param nPlaces The new number of places.
-     */
-
-    public void setNPlaces(int nPlaces) {
+    public void setNumPlaces(int nPlaces) {
         this.nPlaces = nPlaces;
     }
-
-    /**
-     * Returns the date of the reservation.
-     *
-     * @return The date of the reservation.
-     */
-
-    public Date getDate() {
-        return date;
-    }
-
-    /**
-     * Sets the date of the reservation.
-     *
-     * @param date The new date of the reservation.
-     */
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    /**
-     * Returns the state of the reservation.
-     *
-     * @return The state of the reservation.
-     */
 
     public String getState() {
         return state;
     }
 
-    /**
-     * Sets the state of the reservation.
-     *
-     * @param state The new state of the reservation.
-     */
-
     public void setState(String state) {
         this.state = state;
     }
-
-    /**
-     * Returns the Traveler who made the reservation.
-     *
-     * @return The Traveler who made the reservation.
-     */
 
     public Traveler getTraveler() {
         return traveler;
     }
 
-    /**
-     * Sets the Traveler who made the reservation.
-     *
-     * @param traveler The Traveler who made the reservation.
-     */
-
     public void setTraveler(Traveler traveler) {
         this.traveler = traveler;
     }
 
-    /**
-     * Returns a string representation of the reservation.
-     * The string contains the number of places, the date, and the state of the reservation, separated by a semicolon.
-     *
-     * @return A string representation of the reservation.
-     */
+    public Ride getRide() {
+        return this.ride;
+    }
+
+    public void setRide(Ride ride) {
+        this.ride = ride;
+    }
 
     @Override
     public String toString() {
         return "Reservation{" +
                 "nPlaces=" + nPlaces +
-                ", date=" + date +
                 ", state='" + state + '\'' +
+                ", travelerId=" + traveler.getUserName() +
+                ", ride=" + ride +
                 '}';
     }
-
-
 }
