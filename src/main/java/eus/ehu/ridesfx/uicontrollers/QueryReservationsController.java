@@ -1,7 +1,9 @@
 package eus.ehu.ridesfx.uicontrollers;
 
 import eus.ehu.ridesfx.businessLogic.BlFacade;
+import eus.ehu.ridesfx.domain.Driver;
 import eus.ehu.ridesfx.domain.Reservation;
+import eus.ehu.ridesfx.domain.Traveler;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -66,6 +68,11 @@ public class QueryReservationsController implements Controller {
         dateC.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getRide().getDate()));
         stateC.setCellValueFactory(new PropertyValueFactory<>("state"));
 
+        alertTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            // Show the delete button only if an item is selected
+            deleteButton.setVisible(newSelection != null);
+        });
+
         setReservations();
     }
 
@@ -92,6 +99,24 @@ public class QueryReservationsController implements Controller {
         });
     }
 
+    public void setReservationsDriver(){
+        List<Reservation> reservations = businessLogic.getReservationDriver();
+        System.out.println(reservations);
+        if (reservations.isEmpty()) {
+            alertTable.placeholderProperty().setValue(new Label("You don't have any reservations yet"));
+        }
+
+        ObservableList<Reservation> reservationList = FXCollections.observableArrayList(reservations);
+        alertTable.setItems(reservationList);
+
+        alertTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                deleteButton.setVisible(true);
+            }
+        });
+
+    }
+
     @FXML
     public void deleteReservation(ActionEvent event) {
         Reservation reservation = alertTable.getSelectionModel().getSelectedItem();
@@ -101,6 +126,10 @@ public class QueryReservationsController implements Controller {
     }
 
     public void populateReservationsTable(ActionEvent actionEvent) {
-        setReservations();
+        if(businessLogic.getCurrentUser() instanceof Traveler) {
+            setReservations();
+        }else if(businessLogic.getCurrentUser() instanceof Driver) {
+            setReservationsDriver();
+        }
     }
 }

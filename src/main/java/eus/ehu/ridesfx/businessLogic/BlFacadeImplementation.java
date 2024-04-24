@@ -260,6 +260,11 @@ public class BlFacadeImplementation implements BlFacade {
         return dbManager.getReservations( currentUser.getEmail());
     }
 
+    @Override
+    public List<Reservation> getReservationDriver() {
+        return dbManager.getReservationsDriver( currentUser.getEmail());
+    }
+
     public void deleteReservation(Reservation selectedItem) {
         dbManager.deleteReservation(selectedItem);
     }

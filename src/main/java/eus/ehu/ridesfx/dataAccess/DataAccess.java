@@ -565,4 +565,16 @@ public class DataAccess {
     }
 
 
+    /**
+     * This method returns the Reservation for the rides offered by a driver
+     * @param email
+     * @return
+     */
+    public List<Reservation> getReservationsDriver(String email) {
+        System.out.println(">> DataAccess: getReservationsDriver");
+        TypedQuery<Reservation> query = db.createQuery("SELECT r FROM Reservation r WHERE r.ride.driver.email = :email", Reservation.class);
+        query.setParameter("email", email);
+        return query.getResultList();
+    }
+
 }
