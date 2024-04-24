@@ -156,6 +156,8 @@ public class QueryRidesController implements Controller {
         quantityOfSeatsLabel.setVisible(false);
         bookingButton.setVisible(false);
 
+        updateComboBox();
+
 
         // a date has been chosen, update the combobox of Rides
         datepicker.setOnAction(actionEvent -> {

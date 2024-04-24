@@ -97,6 +97,7 @@ public class QueryReservationsController implements Controller {
         Reservation reservation = alertTable.getSelectionModel().getSelectedItem();
         businessLogic.deleteReservation(reservation);
         alertTable.getItems().remove(reservation);
+        deleteButton.setVisible(false);
     }
 
     public void populateReservationsTable(ActionEvent actionEvent) {
