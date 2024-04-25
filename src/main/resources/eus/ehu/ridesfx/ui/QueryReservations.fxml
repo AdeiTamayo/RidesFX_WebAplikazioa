@@ -27,6 +27,8 @@
         </TableView>
         <Button fx:id="deleteButton" layoutX="55.0" layoutY="269.0" mnemonicParsing="false" onAction="#deleteReservation" styleClass="bold-label" text="Delete Reservation" />
       <Button fx:id="refreshButton" layoutX="216.0" layoutY="269.0" mnemonicParsing="false" onAction="#populateReservationsTable" prefHeight="27.0" prefWidth="71.0" styleClass="bold-label" text="Refresh" />
+      <Button fx:id="acceptButton" layoutX="43.0" layoutY="270.0" mnemonicParsing="false" onAction="#acceptReservation" styleClass="bold-label" text="Accept" />
+      <Button fx:id="rejectButton" layoutX="121.0" layoutY="271.0" mnemonicParsing="false" onAction="#rejectReservation" styleClass="bold-label" text="Reject" />
     </children>
 
 </AnchorPane>

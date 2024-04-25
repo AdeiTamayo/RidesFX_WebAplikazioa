@@ -117,9 +117,9 @@ public class DataAccess {
             driver2.addRide("Eibar", "Gasteiz", UtilDate.newDate(year, month, 6), 2, 5);
             driver3.addRide("Bilbo", "Donostia", UtilDate.newDate(year, month, 14), 1, 3);
 
-            driver3.addRide("Donostia", "Bilbo", UtilDate.newDate(2024, 5, 15), 4, 7);
-            driver3.addRide("Donostia", "Bilbo", UtilDate.newDate(2024, 6, 15), 4, 7);
-            driver3.addRide("Donostia", "Bilbo", UtilDate.newDate(2024, 5, 6), 4, 8);
+            testDriver.addRide("Donostia", "Bilbo", UtilDate.newDate(2024, 5, 15), 4, 7);
+            testDriver.addRide("Donostia", "Bilbo", UtilDate.newDate(2024, 6, 15), 4, 7);
+            testDriver.addRide("Donostia", "Bilbo", UtilDate.newDate(2024, 5, 6), 4, 8);
 
 
             db.persist(driver1);
@@ -577,4 +577,9 @@ public class DataAccess {
         return query.getResultList();
     }
 
+    public void changeReservationState(Reservation selectedItem, String state) {
+        db.getTransaction().begin();
+        selectedItem.setState(state);
+        db.getTransaction().commit();
+    }
 }

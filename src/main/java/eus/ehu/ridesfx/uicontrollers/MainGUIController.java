@@ -310,6 +310,7 @@ public class MainGUIController {
 
     public void showQueryReservations(){
         showScene("Query Reservations");
+        queryReservationsController.restartGUIQueryReservation();
     }
 
     /**

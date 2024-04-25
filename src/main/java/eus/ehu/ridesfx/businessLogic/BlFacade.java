@@ -119,6 +119,14 @@ public interface BlFacade {
     void deleteReservation(Reservation selectedItem);
 
     /**
+     * This method changes the state of a reservation
+     * @param selectedItem
+     * @param state
+     */
+
+    void changeReservationState(Reservation selectedItem, String state);
+
+    /**
      * This method returns the available seats for a ride
      *
      * @param selectedItem
