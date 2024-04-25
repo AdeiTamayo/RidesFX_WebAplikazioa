@@ -40,4 +40,11 @@ The sequence diagram was a reality check for the app implementation.
 * Major changes had to be done on the application flow, such as new intercommunications between differents UIs.
 
  ---
+ #ITERATION 3
+ ### Corrected errors from Iteration 2:
+ - Implemented User/Traveler/Driver hierarchy in the database schema
+ - Minor fix on Query Rides sequence diagram
+
+### Implemented new things:
+
  
