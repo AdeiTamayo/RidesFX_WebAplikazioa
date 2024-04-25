@@ -158,6 +158,9 @@ public class QueryReservationsController implements Controller {
     }
 
     public void populateReservationsTable(ActionEvent actionEvent) {
+
+        alertTable.getItems().clear();
+
         if(businessLogic.getCurrentUser() instanceof Traveler) {
             setReservations();
         }else if(businessLogic.getCurrentUser() instanceof Driver) {

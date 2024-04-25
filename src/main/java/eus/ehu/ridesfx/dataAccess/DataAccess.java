@@ -363,9 +363,7 @@ public class DataAccess {
     }
 
 
-
-
-    public boolean makeReservation(Traveler traveler, Ride ride,  int numSeats) {
+    public boolean makeReservation(Traveler traveler, Ride ride, int numSeats) {
         // Start a transaction
         db.getTransaction().begin();
 
@@ -567,8 +565,9 @@ public class DataAccess {
 
     /**
      * This method returns the Reservation for the rides offered by a driver
+     *
      * @param email
-     * @return
+     * @return the list of reservations assigned to a driver
      */
     public List<Reservation> getReservationsDriver(String email) {
         System.out.println(">> DataAccess: getReservationsDriver");
@@ -577,9 +576,16 @@ public class DataAccess {
         return query.getResultList();
     }
 
+    /**
+     * This method changes the state of a reservation
+     *
+     * @param selectedItem
+     * @param state
+     */
     public void changeReservationState(Reservation selectedItem, String state) {
         db.getTransaction().begin();
-        selectedItem.setState(state);
+        Reservation managedReservation = db.merge(selectedItem);
+        managedReservation.setState(state);
         db.getTransaction().commit();
     }
 }
