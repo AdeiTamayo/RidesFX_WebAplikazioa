@@ -120,9 +120,9 @@ public class LoginController implements Controller {
                 //This if statement hides the query rides button if the user is a driver and hides the create ride button if the user is a traveler
                 if (businessLogic.getCurrentUser() instanceof Driver) {
                     mainGUIController.hideButtonQueryRides();
-                    mainGUIController.showButtonCreateRide();
-                    mainGUIController.hideButtonAlerts();
+                    mainGUIController.showButtonAlerts();
                     mainGUIController.hideButtonReservations();
+                    mainGUIController.showButtonCreateRide();
                 } else if (businessLogic.getCurrentUser() instanceof Traveler) {
                     mainGUIController.hideButtonCreateRide();
                     mainGUIController.showButtonQueryRides();

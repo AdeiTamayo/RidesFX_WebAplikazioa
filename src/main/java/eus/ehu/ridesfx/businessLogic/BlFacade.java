@@ -128,6 +128,15 @@ public interface BlFacade {
     List<Alert> getAlerts();
 
     /**
+     * This method returns all the alerts in the database
+     *
+     * @return list of alerts
+     */
+    List<Alert> getAllAlerts();
+
+
+
+    /**
      * This method deletes an alert
      *
      * @param alert
