@@ -1,4 +1,4 @@
-# Resume
+# Abstract 
 This Readme file is a resume of the SE1 ShareTrip project. 
 It contains the following sections:
 
