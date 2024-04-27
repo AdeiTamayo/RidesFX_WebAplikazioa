@@ -40,4 +40,19 @@ The sequence diagram was a reality check for the app implementation.
 * Major changes had to be done on the application flow, such as new intercommunications between differents UIs.
 
  ---
+ # ITERATION 3
+ ### Corrected errors from Iteration 2:
+ - Minor fix on Query Rides sequence diagram
+
+### Implemented new things:
+This iteration is a bit different from the previous ones. We made the following changes:
+* The following changes were mandatory:
+  * Implement (at least) a new feature
+    * We chose the new feature to be... TODO 
+  * Prepare a presentation for the final version of the project
+ 
+* The following changes were optional:
+  * Implement A (TODO)
+  * Implement B (TODO)
+
  

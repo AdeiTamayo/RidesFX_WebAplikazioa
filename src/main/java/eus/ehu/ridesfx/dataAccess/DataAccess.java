@@ -371,9 +371,7 @@ public class DataAccess {
     }
 
 
-
-
-    public boolean makeReservation(Traveler traveler, Ride ride,  int numSeats) {
+    public boolean makeReservation(Traveler traveler, Ride ride, int numSeats) {
         // Start a transaction
         db.getTransaction().begin();
 
@@ -464,10 +462,23 @@ public class DataAccess {
      * @param travelerEmail
      * @return a list of alerts
      */
-    public List<Alert> getAllAlerts(String travelerEmail) {
+    public List<Alert> getAlertsTraveler(String travelerEmail) {
         System.out.println(">> DataAccess: getAlerts");
         TypedQuery<Alert> query = db.createQuery("SELECT a FROM Alert a WHERE a.traveler.email = :travelerEmail", Alert.class);
         query.setParameter("travelerEmail", travelerEmail);
+        return query.getResultList();
+    }
+
+    /**
+     * This method retrieves all Alerts without taking into account the user
+     *
+     * @return a list of alerts
+     *
+     */
+
+    public List<Alert> getAllAlerts() {
+        System.out.println(">> DataAccess: getAlerts");
+        TypedQuery<Alert> query = db.createQuery("SELECT a FROM Alert a", Alert.class);
         return query.getResultList();
     }
 
@@ -573,4 +584,29 @@ public class DataAccess {
     }
 
 
+    /**
+     * This method returns the Reservation for the rides offered by a driver
+     *
+     * @param email
+     * @return the list of reservations assigned to a driver
+     */
+    public List<Reservation> getReservationsDriver(String email) {
+        System.out.println(">> DataAccess: getReservationsDriver");
+        TypedQuery<Reservation> query = db.createQuery("SELECT r FROM Reservation r WHERE r.ride.driver.email = :email", Reservation.class);
+        query.setParameter("email", email);
+        return query.getResultList();
+    }
+
+    /**
+     * This method changes the state of a reservation
+     *
+     * @param selectedItem
+     * @param state
+     */
+    public void changeReservationState(Reservation selectedItem, String state) {
+        db.getTransaction().begin();
+        Reservation managedReservation = db.merge(selectedItem);
+        managedReservation.setState(state);
+        db.getTransaction().commit();
+    }
 }

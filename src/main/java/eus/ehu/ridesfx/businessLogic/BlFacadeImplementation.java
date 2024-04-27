@@ -128,29 +128,38 @@ public class BlFacadeImplementation implements BlFacade {
         return availableOptions;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     public List<Location> getDestinationCities(Location from) {
         List<Location> targetCities = dbManager.getArrivalCities(from);
         return targetCities;
     }
 
-    @Override
+
     public List<Date> getDatesWithRides(String value, String value1) {
         List<Date> dates = dbManager.getDatesWithRides(value, value1);
         return dates;
     }
 
-    @Override
-    public boolean makeReservation(Traveler traveler, Ride ride,  int numPlaces) {
+
+    public boolean makeReservation(Traveler traveler, Ride ride, int numPlaces) {
         return dbManager.makeReservation(traveler, ride, numPlaces);
 
     }
 
-
+    public List<Reservation> getReservations() {
+        return dbManager.getReservations( currentUser.getEmail());
+    }
 
     @Override
+    public List<Reservation> getReservationDriver() {
+        return dbManager.getReservationsDriver( currentUser.getEmail());
+    }
+
+
+    public void changeReservationState(Reservation selectedItem, String state) {
+        dbManager.changeReservationState(selectedItem, state);
+    }
+
 
     public Traveler getCurrentTraveler() {
         return (Traveler) currentUser;
@@ -195,7 +204,17 @@ public class BlFacadeImplementation implements BlFacade {
      * @return list of alerts
      */
     public List<Alert> getAlerts() {
-        return dbManager.getAllAlerts(currentUser.getEmail());
+        return dbManager.getAlertsTraveler(currentUser.getEmail());
+    }
+
+    /**
+     * This method retrieves all the alerts in the database
+     *
+     * @return list of alerts
+     */
+
+    public List<Alert> getAllAlerts() {
+        return dbManager.getAllAlerts();
     }
 
     /**
