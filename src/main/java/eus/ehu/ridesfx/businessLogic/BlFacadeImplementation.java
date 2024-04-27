@@ -155,9 +155,6 @@ public class BlFacadeImplementation implements BlFacade {
         return dbManager.getReservationsDriver( currentUser.getEmail());
     }
 
-    public void deleteReservation(Reservation selectedItem) {
-        dbManager.deleteReservation(selectedItem);
-    }
 
     public void changeReservationState(Reservation selectedItem, String state) {
         dbManager.changeReservationState(selectedItem, state);
@@ -278,9 +275,7 @@ public class BlFacadeImplementation implements BlFacade {
         dbManager.createLocation(name);
     }
 
-    public List<Reservation> getReservations() {
-        return dbManager.getReservations(currentUser.getEmail());
-    }
+
 
     public void deleteReservation(Reservation selectedItem) {
         dbManager.deleteReservation(selectedItem);
