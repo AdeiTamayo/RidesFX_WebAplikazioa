@@ -117,9 +117,9 @@ public class DataAccess {
             driver2.addRide("Eibar", "Gasteiz", UtilDate.newDate(year, month, 6), 2, 5);
             driver3.addRide("Bilbo", "Donostia", UtilDate.newDate(year, month, 14), 1, 3);
 
-            driver3.addRide("Donostia", "Bilbo", UtilDate.newDate(2024, 5, 15), 4, 7);
-            driver3.addRide("Donostia", "Bilbo", UtilDate.newDate(2024, 6, 15), 4, 7);
-            driver3.addRide("Donostia", "Bilbo", UtilDate.newDate(2024, 5, 6), 4, 8);
+            testDriver.addRide("Donostia", "Bilbo", UtilDate.newDate(2024, 5, 15), 4, 7);
+            testDriver.addRide("Donostia", "Bilbo", UtilDate.newDate(2024, 6, 15), 4, 7);
+            testDriver.addRide("Donostia", "Bilbo", UtilDate.newDate(2024, 5, 6), 4, 8);
 
 
             db.persist(driver1);
@@ -363,9 +363,7 @@ public class DataAccess {
     }
 
 
-
-
-    public boolean makeReservation(Traveler traveler, Ride ride,  int numSeats) {
+    public boolean makeReservation(Traveler traveler, Ride ride, int numSeats) {
         // Start a transaction
         db.getTransaction().begin();
 
@@ -565,4 +563,29 @@ public class DataAccess {
     }
 
 
+    /**
+     * This method returns the Reservation for the rides offered by a driver
+     *
+     * @param email
+     * @return the list of reservations assigned to a driver
+     */
+    public List<Reservation> getReservationsDriver(String email) {
+        System.out.println(">> DataAccess: getReservationsDriver");
+        TypedQuery<Reservation> query = db.createQuery("SELECT r FROM Reservation r WHERE r.ride.driver.email = :email", Reservation.class);
+        query.setParameter("email", email);
+        return query.getResultList();
+    }
+
+    /**
+     * This method changes the state of a reservation
+     *
+     * @param selectedItem
+     * @param state
+     */
+    public void changeReservationState(Reservation selectedItem, String state) {
+        db.getTransaction().begin();
+        Reservation managedReservation = db.merge(selectedItem);
+        managedReservation.setState(state);
+        db.getTransaction().commit();
+    }
 }

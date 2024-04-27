@@ -100,9 +100,31 @@ public interface BlFacade {
 
     boolean makeReservation(Traveler traveler, Ride ride,int numPlaces);
 
+    /**
+     * This method returns the reservations of the current traveler
+     */
+
     List<Reservation> getReservations();
 
+    /**
+     * This method returns the reservations of a driver
+     */
+    List<Reservation> getReservationDriver();
+
+    /**
+     * This method deletes a reservation
+     * @param selectedItem
+     */
+
     void deleteReservation(Reservation selectedItem);
+
+    /**
+     * This method changes the state of a reservation
+     * @param selectedItem
+     * @param state
+     */
+
+    void changeReservationState(Reservation selectedItem, String state);
 
     /**
      * This method returns the available seats for a ride
@@ -160,4 +182,6 @@ public interface BlFacade {
      * @param name
      */
     void createLocation(String name);
+
+
 }

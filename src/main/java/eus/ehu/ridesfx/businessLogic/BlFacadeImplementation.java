@@ -148,6 +148,23 @@ public class BlFacadeImplementation implements BlFacade {
 
     }
 
+    public List<Reservation> getReservations() {
+        return dbManager.getReservations( currentUser.getEmail());
+    }
+
+    @Override
+    public List<Reservation> getReservationDriver() {
+        return dbManager.getReservationsDriver( currentUser.getEmail());
+    }
+
+    public void deleteReservation(Reservation selectedItem) {
+        dbManager.deleteReservation(selectedItem);
+    }
+
+    public void changeReservationState(Reservation selectedItem, String state) {
+        dbManager.changeReservationState(selectedItem, state);
+    }
+
 
 
     @Override
@@ -256,12 +273,6 @@ public class BlFacadeImplementation implements BlFacade {
         dbManager.createLocation(name);
     }
 
-    public List<Reservation> getReservations() {
-        return dbManager.getReservations( currentUser.getEmail());
-    }
 
-    public void deleteReservation(Reservation selectedItem) {
-        dbManager.deleteReservation(selectedItem);
-    }
 
 }

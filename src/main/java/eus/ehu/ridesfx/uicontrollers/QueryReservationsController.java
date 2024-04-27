@@ -1,7 +1,9 @@
 package eus.ehu.ridesfx.uicontrollers;
 
 import eus.ehu.ridesfx.businessLogic.BlFacade;
+import eus.ehu.ridesfx.domain.Driver;
 import eus.ehu.ridesfx.domain.Reservation;
+import eus.ehu.ridesfx.domain.Traveler;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -18,6 +20,8 @@ import java.util.Date;
 import java.util.List;
 
 public class QueryReservationsController implements Controller {
+
+
 
     private MainGUIController mainGUIController;
     private BlFacade businessLogic;
@@ -38,6 +42,10 @@ public class QueryReservationsController implements Controller {
     private Button deleteButton;
     @FXML
     public Button refreshButton;
+    @FXML
+    public Button acceptButton;
+    @FXML
+    public Button rejectButton;
 
     public QueryReservationsController(BlFacade bl, MainGUIController mainGUIController) {
         this.businessLogic = bl;
@@ -58,6 +66,9 @@ public class QueryReservationsController implements Controller {
     @FXML
     void initialize() {
         deleteButton.setVisible(false);
+        acceptButton.setVisible(false);
+        rejectButton.setVisible(false);
+
 
         // Set the columns
         departC.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRide().getFromLocation()));
@@ -65,6 +76,20 @@ public class QueryReservationsController implements Controller {
         numPlacesC.setCellValueFactory(new PropertyValueFactory<>("numPlaces"));
         dateC.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getRide().getDate()));
         stateC.setCellValueFactory(new PropertyValueFactory<>("state"));
+
+        alertTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            // Show the delete button only if an item is selected
+
+            if(businessLogic.getCurrentUser() instanceof Traveler) {
+                deleteButton.setVisible(newSelection != null);
+            }else if(businessLogic.getCurrentUser() instanceof Driver) {
+                acceptButton.setVisible(newSelection != null);
+                rejectButton.setVisible(newSelection != null);
+
+            }
+
+
+        });
 
         setReservations();
     }
@@ -85,11 +110,43 @@ public class QueryReservationsController implements Controller {
         ObservableList<Reservation> reservationList = FXCollections.observableArrayList(reservations);
         alertTable.setItems(reservationList);
 
+        /*
+
+        alertTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+
+                if (newSelection != null) {
+                    deleteButton.setVisible(true);
+                }
+
+        });
+
+         */
+    }
+
+
+
+    public void setReservationsDriver(){
+        List<Reservation> reservations = businessLogic.getReservationDriver();
+        System.out.println(reservations);
+        if (reservations.isEmpty()) {
+            alertTable.placeholderProperty().setValue(new Label("You don't have any reservations yet"));
+        }
+
+        ObservableList<Reservation> reservationList = FXCollections.observableArrayList(reservations);
+        alertTable.setItems(reservationList);
+
+        /*
         alertTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
-                deleteButton.setVisible(true);
+
+                deleteButton.setVisible(false);
             }
+
+
         });
+
+         */
+
     }
 
     @FXML
@@ -101,6 +158,33 @@ public class QueryReservationsController implements Controller {
     }
 
     public void populateReservationsTable(ActionEvent actionEvent) {
-        setReservations();
+
+        alertTable.getItems().clear();
+
+        if(businessLogic.getCurrentUser() instanceof Traveler) {
+            setReservations();
+        }else if(businessLogic.getCurrentUser() instanceof Driver) {
+            setReservationsDriver();
+        }
+    }
+
+
+    public void acceptReservation(ActionEvent actionEvent) {
+        businessLogic.changeReservationState(alertTable.getSelectionModel().getSelectedItem(), "Accepted");
+        //update table so that it shows the new state of the reservation
+        setReservationsDriver();
+
+    }
+
+    public void rejectReservation(ActionEvent actionEvent) {
+        businessLogic.changeReservationState(alertTable.getSelectionModel().getSelectedItem(), "Rejected");
+        //update table so that it shows the new state of the reservation
+        setReservationsDriver();
+    }
+
+    public void restartGUIQueryReservation(){
+        deleteButton.setVisible(false);
+        acceptButton.setVisible(false);
+        rejectButton.setVisible(false);
     }
 }
