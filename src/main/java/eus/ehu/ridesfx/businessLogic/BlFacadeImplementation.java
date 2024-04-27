@@ -112,8 +112,8 @@ public class BlFacadeImplementation implements BlFacade {
     }
 
 
-    public List<String> getDepartCities() {
-        List<String> departLocations = dbManager.getDepartCities();
+    public List<Location> getDepartCities() {
+        List<Location> departLocations = dbManager.getDepartCities();
         return departLocations;
 
     }
@@ -271,16 +271,17 @@ public class BlFacadeImplementation implements BlFacade {
      *
      * @param name
      */
-    public void createLocation(String name) {
-        dbManager.createLocation(name);
+    public Location createLocation(String name) {
+        return dbManager.createLocation(name);
     }
 
-    public List<Reservation> getReservations() {
-        return dbManager.getReservations( currentUser.getEmail());
-    }
 
     public void deleteReservation(Reservation selectedItem) {
         dbManager.deleteReservation(selectedItem);
+    }
+
+    public void deleteLocation(String name) {
+        dbManager.deleteLocation(name);
     }
 
 }

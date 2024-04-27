@@ -2,6 +2,7 @@ package eus.ehu.ridesfx.uicontrollers;
 
 import eus.ehu.ridesfx.businessLogic.BlFacade;
 import eus.ehu.ridesfx.domain.Driver;
+import eus.ehu.ridesfx.domain.Location;
 import eus.ehu.ridesfx.domain.Reservation;
 import eus.ehu.ridesfx.domain.Traveler;
 import javafx.beans.property.SimpleObjectProperty;
@@ -71,8 +72,8 @@ public class QueryReservationsController implements Controller {
 
 
         // Set the columns
-        departC.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRide().getFromLocation()));
-        arrivalC.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRide().getToLocation()));
+        departC.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRide().getFromLocation().getName()));
+        arrivalC.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRide().getToLocation().getName()));
         numPlacesC.setCellValueFactory(new PropertyValueFactory<>("numPlaces"));
         dateC.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getRide().getDate()));
         stateC.setCellValueFactory(new PropertyValueFactory<>("state"));

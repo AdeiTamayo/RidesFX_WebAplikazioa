@@ -21,16 +21,16 @@ public class LocationController implements Controller {
     }
 
 
-    @FXML
+    /**@FXML
     void initialize() {
 
         businessLogic.convertRideToLocation();
 
-    }
+    }**/
 
-    public List<Location> getLocations() {
+    /**public List<Location> getLocations() {
         return businessLogic.getLocations();
-    }
+    }**/
 
     @Override
     public void setMainApp(MainGUIController mainGUIController) {

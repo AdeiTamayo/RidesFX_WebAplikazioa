@@ -420,8 +420,6 @@ public class MainGUIController {
                         return new AlertsViewController(businessLogic, this);
                     } else if (controllerClass == QueryReservationsController.class) {
                         return new QueryReservationsController(businessLogic, this);
-                    } else if (controllerClass == LocationController.class) {
-                        return new LocationController(businessLogic, this);
                     } else {
                         return controllerClass
                                 .getConstructor(BlFacade.class)

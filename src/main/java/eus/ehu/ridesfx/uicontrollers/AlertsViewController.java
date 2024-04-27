@@ -209,8 +209,8 @@ public class AlertsViewController implements Controller {
 
     public void createRide(ActionEvent actionEvent) {
         Alert selectedAlert = (Alert) alertTable.getSelectionModel().getSelectedItem();
-        String departCity = selectedAlert.getFromLocation();
-        String arrivalCity = selectedAlert.getToLocation();
+        Location departCity = selectedAlert.getFromLocation();
+        Location arrivalCity = selectedAlert.getToLocation();
         Date date = selectedAlert.getDate();
         int numSeats = seatsQuantitySpinner.getValue();
         int price = priceSpinner.getValue();

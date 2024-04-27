@@ -113,6 +113,12 @@ public class DataAccess {
             Location iruña = new Location("Iruña");
             Location eibar = new Location("Eibar");
 
+            db.persist(donostia);
+            db.persist(bilbo);
+            db.persist(gasteiz);
+            db.persist(iruña);
+            db.persist(eibar);
+
 
             //Create rides
             driver1.addRide(donostia, bilbo, UtilDate.newDate(year, month, 15), 4, 7);
@@ -202,7 +208,7 @@ public class DataAccess {
 
     }
 
-    public List<Ride> getRides(String origin, String destination, Date date) {
+    public List<Ride> getRides(Location origin, Location destination, Date date) {
         System.out.println(">> DataAccess: getRides origin/dest/date");
         Vector<Ride> res = new Vector<>();
 
@@ -227,9 +233,9 @@ public class DataAccess {
      *
      * @return collection of cities
      */
-    public List<String> getDepartCities() {
-        TypedQuery<String> query = db.createQuery("SELECT DISTINCT r.fromLocation FROM Ride r ORDER BY r.fromLocation", String.class);
-        List<String> cities = query.getResultList();
+    public List<Location> getDepartCities() {
+        TypedQuery<Location> query = db.createQuery("SELECT DISTINCT r.locationFrom FROM Ride r", Location.class);
+        List<Location> cities = query.getResultList();
         return cities;
 
     }
@@ -268,7 +274,7 @@ public class DataAccess {
      * @param date of the month for which days with rides want to be retrieved
      * @return collection of rides
      */
-    public List<Date> getThisMonthDatesWithRides(String from, String to, Date date) {
+    public List<Date> getThisMonthDatesWithRides(Location from, Location to, Date date) {
         System.out.println(">> DataAccess: getEventsMonth");
         List<Date> res = new ArrayList<>();
 
@@ -276,7 +282,7 @@ public class DataAccess {
         Date lastDayMonthDate = UtilDate.lastDayMonth(date);
 
 
-        TypedQuery<Date> query = db.createQuery("SELECT DISTINCT r.date FROM Ride r WHERE r.fromLocation=?1 AND r.toLocation=?2 AND r.date BETWEEN ?3 and ?4", Date.class);
+        TypedQuery<Date> query = db.createQuery("SELECT DISTINCT r.date FROM Ride r WHERE r.locationFrom=?1 AND r.locationTo=?2 AND r.date BETWEEN ?3 and ?4", Date.class);
 
         query.setParameter(1, from);
         query.setParameter(2, to);
@@ -576,11 +582,12 @@ public class DataAccess {
      *
      * @param name
      */
-    public void createLocation(String name) {
+    public Location createLocation(String name) {
         db.getTransaction().begin();
         Location location = new Location(name);
         db.persist(location);
         db.getTransaction().commit();
+        return location;
     }
 
 
@@ -607,6 +614,15 @@ public class DataAccess {
         db.getTransaction().begin();
         Reservation managedReservation = db.merge(selectedItem);
         managedReservation.setState(state);
+        db.getTransaction().commit();
+    }
+
+    public void deleteLocation(String locationName) {
+        //delete all locations with the given name
+        db.getTransaction().begin();
+        Query query = db.createQuery("DELETE FROM Location l WHERE l.name = :name");
+        query.setParameter("name", locationName);
+        query.executeUpdate();
         db.getTransaction().commit();
     }
 }

@@ -49,7 +49,7 @@ public interface BlFacade {
 
     Traveler getCurrentTraveler();
 
-    Ride createRide(String text, String text1, Date date, int inputSeats, float price, String email) throws RideMustBeLaterThanTodayException, RideAlreadyExistException;
+    Ride createRide(Location text, Location text1, Date date, int inputSeats, float price, String email) throws RideMustBeLaterThanTodayException, RideAlreadyExistException;
 
 
     /**
@@ -58,7 +58,7 @@ public interface BlFacade {
      * @return collection of cities
      */
 
-    public List<String> getDepartCities();
+    public List<Location> getDepartCities();
 
     /**
      * This method returns all the arrival destinations, from all rides that depart from a given city
@@ -67,7 +67,7 @@ public interface BlFacade {
      * @return all the arrival destinations
      */
 
-    public List<String> getDestinationCities(String from);
+    public List<Location> getDestinationCities(Location from);
 
 
     List<Date> getDatesWithRides(String value, String value1);
@@ -190,7 +190,13 @@ public interface BlFacade {
      *
      * @param name
      */
-    void createLocation(String name);
+    Location createLocation(String name);
+
+    /**
+     * This method deletes a location
+     * @param location
+     */
+    void deleteLocation(String location);
 
 
 }
