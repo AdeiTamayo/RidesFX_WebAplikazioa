@@ -134,6 +134,8 @@ public class MainGUIController {
     void alerts(ActionEvent event) {
         showScene("Alerts");
         alertsViewController.setView();
+        alertsViewController.restartGUI();
+
     }
 
     /**
@@ -305,10 +307,9 @@ public class MainGUIController {
 
     /**
      * Shows the query reservations scene.
-
      */
 
-    public void showQueryReservations(){
+    public void showQueryReservations() {
         showScene("Query Reservations");
         queryReservationsController.restartGUIQueryReservation();
     }
@@ -316,19 +317,17 @@ public class MainGUIController {
     /**
      * Hides the query reservations button.
      */
-    public void hideButtonReservations(){
+    public void hideButtonReservations() {
         queryReservationsButton.setVisible(false);
     }
-
 
 
     /**
      * Shows the query reservations button.
      */
-    public void showButtonReservations(){
+    public void showButtonReservations() {
         queryReservationsButton.setVisible(true);
     }
-
 
 
     /**
@@ -354,7 +353,7 @@ public class MainGUIController {
     }
 
 
-    public void populateReservationsTable(){
+    public void populateReservationsTable() {
         queryReservationsController.setReservations();
     }
 
@@ -367,7 +366,8 @@ public class MainGUIController {
 
         if (businessLogic.getCurrentUser().getClass().getSimpleName().equals("Driver")) {
             hideButtonQueryRides();
-            hideButtonAlerts();
+            showButtonCreateRide();
+            showButtonAlerts();
             hideButtonReservations();
 
         } else if (businessLogic.getCurrentUser().getClass().getSimpleName().equals("Traveler")) {
@@ -390,7 +390,6 @@ public class MainGUIController {
         InitialGUIWin = load("InitialGUI.fxml");
         alertsWin = load("AlertsView.fxml");
         queryReservationsWin = load("QueryReservations.fxml");
-
 
 
         showScene("InitialGUI");
@@ -419,7 +418,7 @@ public class MainGUIController {
                         return new CreateRideController(businessLogic, this);
                     } else if (controllerClass == AlertsViewController.class) {
                         return new AlertsViewController(businessLogic, this);
-                    }else if(controllerClass == QueryReservationsController.class){
+                    } else if (controllerClass == QueryReservationsController.class) {
                         return new QueryReservationsController(businessLogic, this);
                     } else if (controllerClass == LocationController.class) {
                         return new LocationController(businessLogic, this);

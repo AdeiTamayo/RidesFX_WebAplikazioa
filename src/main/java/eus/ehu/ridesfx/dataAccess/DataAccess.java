@@ -454,10 +454,23 @@ public class DataAccess {
      * @param travelerEmail
      * @return a list of alerts
      */
-    public List<Alert> getAllAlerts(String travelerEmail) {
+    public List<Alert> getAlertsTraveler(String travelerEmail) {
         System.out.println(">> DataAccess: getAlerts");
         TypedQuery<Alert> query = db.createQuery("SELECT a FROM Alert a WHERE a.traveler.email = :travelerEmail", Alert.class);
         query.setParameter("travelerEmail", travelerEmail);
+        return query.getResultList();
+    }
+
+    /**
+     * This method retrieves all Alerts without taking into account the user
+     *
+     * @return a list of alerts
+     *
+     */
+
+    public List<Alert> getAllAlerts() {
+        System.out.println(">> DataAccess: getAlerts");
+        TypedQuery<Alert> query = db.createQuery("SELECT a FROM Alert a", Alert.class);
         return query.getResultList();
     }
 
