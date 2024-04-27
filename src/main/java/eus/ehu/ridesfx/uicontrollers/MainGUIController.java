@@ -1,6 +1,7 @@
 package eus.ehu.ridesfx.uicontrollers;
 
 import eus.ehu.ridesfx.businessLogic.BlFacade;
+import eus.ehu.ridesfx.domain.Driver;
 import eus.ehu.ridesfx.domain.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -67,7 +68,7 @@ public class MainGUIController {
 
     private QueryReservationsController queryReservationsController;
 
-    private LocationController LocationController;
+
 
 
     public MainGUIController() {
@@ -107,10 +108,6 @@ public class MainGUIController {
 
     public void setQueryReservationsController(QueryReservationsController queryReservationsController) {
         this.queryReservationsController = queryReservationsController;
-    }
-
-    public void setLocationController(LocationController locationController) {
-        this.LocationController = locationController;
     }
 
     //The following methods are used to manage the buttons in the GUI
@@ -364,7 +361,7 @@ public class MainGUIController {
         setDriverName(businessLogic.getCurrentUser().getName());
         setDriverType(businessLogic.getCurrentUser().getClass().getSimpleName());
 
-        if (businessLogic.getCurrentUser().getClass().getSimpleName().equals("Driver")) {
+        if (businessLogic.getCurrentUser() instanceof Driver) {
             hideButtonQueryRides();
             showButtonCreateRide();
             showButtonAlerts();
