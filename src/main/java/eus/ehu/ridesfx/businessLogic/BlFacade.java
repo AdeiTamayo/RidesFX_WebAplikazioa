@@ -21,7 +21,7 @@ public interface BlFacade {
      * @param date the date of the ride
      * @return collection of rides
      */
-    List<Ride> getRides(String from, String to, Date date);
+    List<Ride> getRides(Location from, Location to, Date date);
 
     /**
      * This method retrieves from the database the dates a month for which there are events
@@ -31,7 +31,7 @@ public interface BlFacade {
      * @param date of the month for which days with rides want to be retrieved
      * @return collection of rides
      */
-    public List<Date> getThisMonthDatesWithRides(String from, String to, Date date);
+    public List<Date> getThisMonthDatesWithRides(Location from, Location to, Date date);
 
 
     /**
@@ -86,7 +86,7 @@ public interface BlFacade {
      * @param email
      * @return the created alert
      */
-    Alert createAlert(String fromPlace, String toPlace, int inputSeats, Date date, String email);
+    Alert createAlert(Location fromPlace, Location toPlace, int inputSeats, Date date, String email);
 
 
     /**

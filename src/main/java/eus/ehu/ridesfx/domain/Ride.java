@@ -26,8 +26,11 @@ public class Ride implements Serializable {
     @ManyToOne
     private Driver driver;
 
-    @OneToOne
-    private Location location;
+    @ManyToOne
+    private Location locationTo;
+
+    @ManyToOne
+    private Location locationFrom;
 
 
     /**
@@ -50,11 +53,11 @@ public class Ride implements Serializable {
      * @param price      The price of the ride.
      * @param driver     The driver of the ride.
      */
-    public Ride(Integer rideNumber, String from, String to, Date date, int numPlaces, float price, Driver driver) {
+    public Ride(Integer rideNumber, Location from, Location to, Date date, int numPlaces, float price, Driver driver) {
         super();
         this.rideNumber = rideNumber;
-        this.fromLocation = from;
-        this.toLocation = to;
+        this.locationFrom = from;
+        this.locationTo = to;
         this.numPlaces = numPlaces;
         this.date = date;
         this.price = price;
@@ -72,10 +75,10 @@ public class Ride implements Serializable {
      * @param price     The price of the ride.
      * @param driver    The driver of the ride.
      */
-    public Ride(String from, String to, Date date, int numPlaces, float price, Driver driver) {
+    public Ride(Location from, Location to, Date date, int numPlaces, float price, Driver driver) {
         super();
-        this.fromLocation = from;
-        this.toLocation = to;
+        this.locationFrom = from;
+        this.locationTo = to;
         this.numPlaces = numPlaces;
         this.date = date;
         this.price = price;
@@ -110,8 +113,8 @@ public class Ride implements Serializable {
      * @return the origin location
      */
 
-    public String getFromLocation() {
-        return fromLocation;
+    public Location getFromLocation() {
+        return locationFrom;
     }
 
 
@@ -121,8 +124,8 @@ public class Ride implements Serializable {
      * @param origin to be set
      */
 
-    public void setFromLocation(String origin) {
-        this.fromLocation = origin;
+    public void setFromLocation(Location origin) {
+        this.locationFrom = origin;
     }
 
     /**
@@ -131,8 +134,8 @@ public class Ride implements Serializable {
      * @return the destination location
      */
 
-    public String getToLocation() {
-        return toLocation;
+    public Location getToLocation() {
+        return locationTo;
     }
 
 
@@ -141,8 +144,8 @@ public class Ride implements Serializable {
      *
      * @param destination to be set
      */
-    public void setToLocation(String destination) {
-        this.toLocation = destination;
+    public void setToLocation(Location destination) {
+        this.locationTo = destination;
     }
 
 
@@ -231,7 +234,7 @@ public class Ride implements Serializable {
      * @return the ride information
      */
     public String toString() {
-        return rideNumber + ";" + ";" + fromLocation + ";" + toLocation + ";" + date;
+        return rideNumber + ";" + ";" + locationFrom + ";" + locationTo + ";" + date;
     }
 
 

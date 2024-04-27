@@ -18,8 +18,8 @@ public class Location implements Serializable {
     private List<Ride> ride;
 
 
-    @OneToOne
-    private Alert alert;
+    //@OneToMany
+    //private Alert alert;
 
 
 

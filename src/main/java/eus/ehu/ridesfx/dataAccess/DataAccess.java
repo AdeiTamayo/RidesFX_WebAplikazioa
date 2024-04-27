@@ -106,20 +106,28 @@ public class DataAccess {
             Traveler testTraveler = new Traveler("traveler@", "Test traveler", "test", "1");
 
 
-            //Create rides
-            driver1.addRide("Donostia", "Bilbo", UtilDate.newDate(year, month, 15), 4, 7);
-            driver1.addRide("Donostia", "Bilbo", UtilDate.newDate(year, month + 1, 15), 4, 7);
-            driver1.addRide("Donostia", "Gasteiz", UtilDate.newDate(year, month, 6), 4, 8);
-            driver1.addRide("Bilbo", "Donostia", UtilDate.newDate(year, month, 25), 4, 4);
-            driver1.addRide("Donostia", "Iruña", UtilDate.newDate(year, month, 7), 4, 8);
-            driver2.addRide("Donostia", "Bilbo", UtilDate.newDate(year, month, 15), 3, 3);
-            driver2.addRide("Bilbo", "Donostia", UtilDate.newDate(year, month, 25), 2, 5);
-            driver2.addRide("Eibar", "Gasteiz", UtilDate.newDate(year, month, 6), 2, 5);
-            driver3.addRide("Bilbo", "Donostia", UtilDate.newDate(year, month, 14), 1, 3);
+            //create locations
+            Location donostia = new Location("Donostia");
+            Location bilbo = new Location("Bilbo");
+            Location gasteiz = new Location("Gasteiz");
+            Location iruña = new Location("Iruña");
+            Location eibar = new Location("Eibar");
 
-            driver3.addRide("Donostia", "Bilbo", UtilDate.newDate(2024, 5, 15), 4, 7);
-            driver3.addRide("Donostia", "Bilbo", UtilDate.newDate(2024, 6, 15), 4, 7);
-            driver3.addRide("Donostia", "Bilbo", UtilDate.newDate(2024, 5, 6), 4, 8);
+
+            //Create rides
+            driver1.addRide(donostia, bilbo, UtilDate.newDate(year, month, 15), 4, 7);
+            driver1.addRide(donostia, bilbo, UtilDate.newDate(year, month + 1, 15), 4, 7);
+            driver1.addRide(donostia, gasteiz, UtilDate.newDate(year, month, 6), 4, 8);
+            driver1.addRide(bilbo, donostia, UtilDate.newDate(year, month, 25), 4, 4);
+            driver1.addRide(donostia, iruña, UtilDate.newDate(year, month, 7), 4, 8);
+            driver2.addRide(donostia, bilbo, UtilDate.newDate(year, month, 15), 3, 3);
+            driver2.addRide(bilbo, donostia, UtilDate.newDate(year, month, 25), 2, 5);
+            driver2.addRide(eibar, gasteiz, UtilDate.newDate(year, month, 6), 2, 5);
+            driver3.addRide(bilbo, donostia, UtilDate.newDate(year, month, 14), 1, 3);
+
+            driver3.addRide(donostia, bilbo, UtilDate.newDate(2024, 5, 15), 4, 7);
+            driver3.addRide(donostia, bilbo, UtilDate.newDate(2024, 6, 15), 4, 7);
+            driver3.addRide(donostia, bilbo, UtilDate.newDate(2024, 5, 6), 4, 8);
 
 
             db.persist(driver1);
@@ -166,7 +174,7 @@ public class DataAccess {
     }
 
 
-    public Ride createRide(String from, String to, Date date, int nPlaces, float price, String driverEmail) throws RideAlreadyExistException, RideMustBeLaterThanTodayException {
+    public Ride createRide(Location from, Location to, Date date, int nPlaces, float price, String driverEmail) throws RideAlreadyExistException, RideMustBeLaterThanTodayException {
         System.out.println(">> DataAccess: createRide=> from= " + from + " to= " + to + " driver=" + driverEmail + " date " + date);
         try {
             if (new Date().compareTo(date) > 0) {
@@ -232,10 +240,10 @@ public class DataAccess {
      * @param from the departure location of a ride
      * @return all the arrival destinations
      */
-    public List<String> getArrivalCities(String from) {
-        TypedQuery<String> query = db.createQuery("SELECT DISTINCT r.toLocation FROM Ride r WHERE r.fromLocation=?1 ORDER BY r.toLocation", String.class);
+    public List<Location> getArrivalCities(Location from) {
+        TypedQuery<Location> query = db.createQuery("SELECT DISTINCT r.locationTo FROM Ride r WHERE r.locationFrom=?1", Location.class);
         query.setParameter(1, from);
-        List<String> arrivingCities = query.getResultList();
+        List<Location> arrivingCities = query.getResultList();
         return arrivingCities;
 
     }
@@ -423,7 +431,7 @@ public class DataAccess {
      * @param travelerEmail
      * @return the created alert
      */
-    public Alert createAlert(String from, String to, int nPlaces, Date date, String travelerEmail) {
+    public Alert createAlert(Location from, Location to, int nPlaces, Date date, String travelerEmail) {
         System.out.println(">> DataAccess: createAlert=> from= " + from + " to= " + to + " traveler=" + travelerEmail + " date " + date);
         try {
             db.getTransaction().begin();

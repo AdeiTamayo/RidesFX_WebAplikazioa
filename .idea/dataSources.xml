@@ -17,11 +17,11 @@ C:/Users/adeit/Desktop/Proiektua/src/main/resources/hibernate.cfg.xml</remarks>
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="shareTrip" uuid="2627528d-fe62-4572-82ae-0e39266c0cd3">
+    <data-source source="LOCAL" name="shareTrip" uuid="87764b5b-13a4-462f-9bdb-bb117002ef88">
       <driver-ref>h2.unified</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.h2.Driver</jdbc-driver>
-      <jdbc-url>jdbc:h2:~/shareTrip;AUTO_SERVER=TRUE</jdbc-url>
+      <jdbc-url>jdbc:h2:~/shareTrip</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />

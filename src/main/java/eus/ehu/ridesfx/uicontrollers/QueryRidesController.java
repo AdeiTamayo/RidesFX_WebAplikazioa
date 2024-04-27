@@ -46,10 +46,10 @@ public class QueryRidesController implements Controller {
     private TableColumn<Ride, Float> qc3;
 
     @FXML
-    private ComboBox<String> comboArrivalCity;
+    private ComboBox<Location> comboArrivalCity;
 
     @FXML
-    private ComboBox<String> comboDepartCity;
+    private ComboBox<Location> comboDepartCity;
 
     @FXML
     private TableView<Ride> tblRides;
@@ -113,7 +113,7 @@ public class QueryRidesController implements Controller {
 
     private void updateDatePickerCellFactory(DatePicker datePicker) {
 
-        List<Date> dates = businessLogic.getDatesWithRides(comboDepartCity.getValue(), comboArrivalCity.getValue());
+        List<Date> dates = businessLogic.getDatesWithRides(comboDepartCity.getValue().getName(), comboArrivalCity.getValue().getName());
 
         // extract datesWithBooking from rides
         datesWithBooking.clear();
@@ -408,10 +408,10 @@ public class QueryRidesController implements Controller {
         comboArrivalCity.valueProperty().addListener(
                 (obs, oldVal, newVal) -> updateDatePickerCellFactory(datepicker));
 
-        ObservableList<String> departureCities = FXCollections.observableArrayList(new ArrayList<>());
+        ObservableList<Location> departureCities = FXCollections.observableArrayList(new ArrayList<>());
         departureCities.setAll(businessLogic.getDepartCities());
 
-        ObservableList<String> arrivalCities = FXCollections.observableArrayList(new ArrayList<>());
+        ObservableList<Location> arrivalCities = FXCollections.observableArrayList(new ArrayList<>());
 
         comboDepartCity.setItems(departureCities);
         comboArrivalCity.setItems(arrivalCities);

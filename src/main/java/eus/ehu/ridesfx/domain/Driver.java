@@ -73,7 +73,7 @@ public class Driver extends User implements Serializable {
      * @param price   The price of the ride.
      * @return The created ride.
      */
-    public Ride addRide(String from, String to, Date date, int nPlaces, float price) {
+    public Ride addRide(Location from, Location to, Date date, int nPlaces, float price) {
         Ride ride = new Ride(from, to, date, nPlaces, price, this);
         rides.add(ride);
         return ride;
@@ -87,7 +87,7 @@ public class Driver extends User implements Serializable {
      * @param date The date of the ride.
      * @return true if the ride exists and false otherwise.
      */
-    public boolean doesRideExists(String from, String to, Date date) {
+    public boolean doesRideExists(Location from, Location to, Date date) {
         for (Ride r : rides)
             if ((java.util.Objects.equals(r.getFromLocation(), from)) && (java.util.Objects.equals(r.getToLocation(), to)) && (java.util.Objects.equals(r.getDate(), date)))
                 return true;
@@ -126,7 +126,7 @@ public class Driver extends User implements Serializable {
      * @param date The date of the ride.
      * @return The removed ride if it was found, null otherwise.
      */
-    public Ride removeRide(String from, String to, Date date) {
+    public Ride removeRide(Location from, Location to, Date date) {
         boolean found = false;
         int index = 0;
         Ride r = null;
