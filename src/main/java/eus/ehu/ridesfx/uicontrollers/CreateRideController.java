@@ -158,7 +158,7 @@ public class CreateRideController implements Controller {
 
 
 
-                //FIXME :THIS METHOD IS USED TO UPDATE THE COMBOBOXES IN THE QUERY RIDES BUT JUST UPDATES THE DEPART COMBOBOX
+
                 mainGUIController.updateComboBoxesQueryRides();
 
 

@@ -465,7 +465,6 @@ public class DataAccess {
      * This method retrieves all Alerts without taking into account the user
      *
      * @return a list of alerts
-     *
      */
 
     public List<Alert> getAllAlerts() {
@@ -520,7 +519,6 @@ public class DataAccess {
         db.getTransaction().commit();
     }
 
-    //TODO method that given an alert and the ride that matches it, returns the reservation
 
     /**
      * This method converts the rides already created to a location
