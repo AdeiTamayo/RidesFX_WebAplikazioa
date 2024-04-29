@@ -18,8 +18,6 @@ public class Alert implements Serializable {
     @Id
     @GeneratedValue
     private Integer alertNumber;
-    private String fromLocation;
-    private String toLocation;
     private int numPlaces;
     private Date date;
 

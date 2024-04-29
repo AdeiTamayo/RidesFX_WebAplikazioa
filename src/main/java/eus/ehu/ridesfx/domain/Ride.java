@@ -17,8 +17,6 @@ public class Ride implements Serializable {
     @Id
     @GeneratedValue
     private Integer rideNumber;
-    private String fromLocation;
-    private String toLocation;
     private int numPlaces;
     private Date date;
     private float price;
