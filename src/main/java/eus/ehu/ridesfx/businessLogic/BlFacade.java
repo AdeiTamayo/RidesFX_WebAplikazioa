@@ -70,7 +70,7 @@ public interface BlFacade {
     public List<Location> getDestinationCities(Location from);
 
 
-    List<Date> getDatesWithRides(String value, String value1);
+    List<Date> getDatesWithRides(Location value, Location value1);
 
     boolean registerUser(String username, String password, String email, String name, String role);
 
@@ -180,10 +180,6 @@ public interface BlFacade {
 
     List<Location> getLocations();
 
-    /**
-     * This method converts the rides already created to a location
-     */
-    void convertRideToLocation();
 
     /**
      * This method creates a new location

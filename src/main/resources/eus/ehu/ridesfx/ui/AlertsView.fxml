@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="321.0" prefWidth="572.0" styleClass="border-pane" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ridesfx.uicontrollers.AlertsViewController">
     <children>
-        <Label layoutX="55.0" layoutY="14.0" styleClass="bold-label" text="ALERTS">
+        <Label fx:id="labelAlerts" layoutX="55.0" layoutY="14.0" styleClass="bold-label" text="ALERTS">
             <font>
                 <Font size="18.0" />
             </font>

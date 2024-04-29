@@ -14,12 +14,6 @@ public class Location implements Serializable {
     @Id
     private String name;
 
-    @OneToMany
-    private List<Ride> ride;
-
-
-    //@OneToMany
-    //private Alert alert;
 
 
 

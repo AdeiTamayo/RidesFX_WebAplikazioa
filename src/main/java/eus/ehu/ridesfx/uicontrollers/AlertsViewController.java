@@ -26,6 +26,9 @@ public class AlertsViewController implements Controller {
     private TableView alertTable;
 
     @FXML
+    private Label labelAlerts;
+
+    @FXML
     private TableColumn departC;
 
     @FXML
@@ -114,6 +117,8 @@ public class AlertsViewController implements Controller {
             } else if (businessLogic.getCurrentUser() instanceof Driver) {
                 if (newSelection != null) {
                     seatsQuantitySpinner.setVisible(true);
+                    //set the seats quantity to the number of seats of the alert
+                    seatsQuantitySpinner.getValueFactory().setValue((int) numPlacesC.getCellData(alertTable.getSelectionModel().getSelectedItem()));
                     labelSeatsQuantity.setVisible(true);
                     createRideButton.setVisible(true);
                     priceLabel.setVisible(true);
@@ -205,6 +210,7 @@ public class AlertsViewController implements Controller {
         User currentUser = businessLogic.getCurrentUser();
 
         if (currentUser instanceof Traveler) {
+            labelAlerts.setText("ALERTS");
             // Retrieve all the alerts of the current traveler
             List<Alert> previousAlerts = businessLogic.getAlerts();
             //check if there are matching rides for any of the alerts
@@ -219,6 +225,7 @@ public class AlertsViewController implements Controller {
             List<Alert> alerts = businessLogic.getAlerts();
             alertTable.getItems().addAll(alerts);
         } else if (currentUser instanceof Driver) {
+            labelAlerts.setText("ALERTS: create a ride for the following existing alerts");
             // Retrieve all the rides of the current driver
             List<Alert> Alerts = businessLogic.getAllAlerts();
             //Set the table with the rides

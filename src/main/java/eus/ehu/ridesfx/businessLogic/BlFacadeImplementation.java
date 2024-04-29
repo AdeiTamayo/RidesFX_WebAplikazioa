@@ -135,7 +135,7 @@ public class BlFacadeImplementation implements BlFacade {
     }
 
 
-    public List<Date> getDatesWithRides(String value, String value1) {
+    public List<Date> getDatesWithRides(Location value, Location value1) {
         List<Date> dates = dbManager.getDatesWithRides(value, value1);
         return dates;
     }
@@ -259,12 +259,6 @@ public class BlFacadeImplementation implements BlFacade {
         return dbManager.getAllLocations();
     }
 
-    /**
-     * This method converts the ride cities to locations
-     */
-    public void convertRideToLocation() {
-        dbManager.convertRideToLocation();
-    }
 
     /**
      * This method creates a new location

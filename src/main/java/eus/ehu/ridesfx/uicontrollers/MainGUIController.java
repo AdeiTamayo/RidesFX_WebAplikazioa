@@ -120,6 +120,7 @@ public class MainGUIController {
     @FXML
     void queryRides(ActionEvent event) {
         showScene("Query Rides");
+        queryRidesController.setView();
     }
 
     /**

@@ -295,11 +295,11 @@ public class DataAccess {
         return res;
     }
 
-    public List<Date> getDatesWithRides(String from, String to) {
+    public List<Date> getDatesWithRides(Location from, Location to) {
         System.out.println(">> DataAccess: getEventsFromTo");
         List<Date> res = new ArrayList<>();
 
-        TypedQuery<Date> query = db.createQuery("SELECT DISTINCT r.date FROM Ride r WHERE r.fromLocation=?1 AND r.toLocation=?2", Date.class);
+        TypedQuery<Date> query = db.createQuery("SELECT DISTINCT r.date FROM Ride r WHERE r.locationFrom=?1 AND r.locationTo=?2", Date.class);
 
         query.setParameter(1, from);
         query.setParameter(2, to);
@@ -534,35 +534,7 @@ public class DataAccess {
         db.getTransaction().commit();
     }
 
-    //TODO method that given an alert and the ride that matches it, returns the reservation
 
-    /**
-     * This method converts the rides already created to a location
-     */
-    public void convertRideToLocation() {
-        // Start a transaction
-        db.getTransaction().begin();
-
-        // Fetch all distinct departure and arrival cities from the Ride table
-        TypedQuery<String> departCitiesQuery = db.createQuery("SELECT DISTINCT r.fromLocation FROM Ride r", String.class);
-        TypedQuery<String> arrivalCitiesQuery = db.createQuery("SELECT DISTINCT r.toLocation FROM Ride r", String.class);
-
-        List<String> departCities = departCitiesQuery.getResultList();
-        List<String> arrivalCities = arrivalCitiesQuery.getResultList();
-
-        // Combine both lists and remove duplicates
-        Set<String> allCities = new HashSet<>(departCities);
-        allCities.addAll(arrivalCities);
-
-        // Convert each city into a Location object and persist it in the database
-        for (String city : allCities) {
-            Location location = new Location(city);
-            db.persist(location);
-        }
-
-        // Commit the transaction
-        db.getTransaction().commit();
-    }
 
     /**
      * This method returns all the locations
@@ -614,6 +586,9 @@ public class DataAccess {
         db.getTransaction().begin();
         Reservation managedReservation = db.merge(selectedItem);
         managedReservation.setState(state);
+        //update the number of seats in the ride
+        Ride ride = managedReservation.getRide();
+        ride.setNumPlaces(ride.getNumPlaces() - managedReservation.getNumPlaces());
         db.getTransaction().commit();
     }
 

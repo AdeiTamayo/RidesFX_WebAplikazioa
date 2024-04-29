@@ -123,7 +123,7 @@ public class QueryRidesController implements Controller {
      */
     private void updateDatePickerCellFactory(DatePicker datePicker) {
 
-        List<Date> dates = businessLogic.getDatesWithRides(comboDepartCity.getValue().getName(), comboArrivalCity.getValue().getName());
+        List<Date> dates = businessLogic.getDatesWithRides(comboDepartCity.getValue(), comboArrivalCity.getValue());
 
         // extract datesWithBooking from rides
         datesWithBooking.clear();
@@ -356,6 +356,9 @@ public class QueryRidesController implements Controller {
      */
     @FXML
     void QueryRides(ActionEvent event) {
+        comboNumSeats.setVisible(false);
+        quantityOfSeatsLabel.setVisible(false);
+        bookingButton.setVisible(false);
         correctMessage.setVisible(false);
         loggedInError.setVisible(false);
         Date date = Dates.convertToDate(datepicker.getValue());
@@ -459,4 +462,9 @@ public class QueryRidesController implements Controller {
         this.mainGUIController = mainGUIController;
     }
 
+    public void setView() {
+        alertMessage.setVisible(false);
+        loggedInError.setVisible(false);
+        correctMessage.setVisible(false);
+    }
 }
