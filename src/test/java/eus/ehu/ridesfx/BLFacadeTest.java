@@ -2,12 +2,16 @@ package eus.ehu.ridesfx;
 
 import eus.ehu.ridesfx.businessLogic.BlFacadeImplementation;
 import eus.ehu.ridesfx.configuration.UtilDate;
+import eus.ehu.ridesfx.domain.Driver;
 import eus.ehu.ridesfx.domain.Ride;
+import eus.ehu.ridesfx.domain.Traveler;
+import eus.ehu.ridesfx.domain.User;
 import eus.ehu.ridesfx.exceptions.RideAlreadyExistException;
 import eus.ehu.ridesfx.exceptions.RideMustBeLaterThanTodayException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 
 import java.util.Calendar;
 import java.util.Date;
@@ -43,15 +47,14 @@ class BLFacadeTest extends BlFacadeImplementation {
 
 
     @Test
-
-    void testNoAvailableRides(){
+    void testNoAvailableRides() {
         String departure = "Donostia";
         String arrival = "Bilbo";
         Date testDate = getTestDate();
         int seats = 10;
 
         List<Ride> rides = blFacadeImplementation.getRides(departure, arrival, testDate);
-assertTrue(rides.isEmpty(), "No rides should be available for the given parameters.");
+        assertTrue(rides.isEmpty(), "No rides should be available for the given parameters.");
 
 
     }
@@ -114,6 +117,156 @@ assertTrue(rides.isEmpty(), "No rides should be available for the given paramete
         assertThrows(RideMustBeLaterThanTodayException.class, () -> {
             blFacadeImplementation.createRide(departure, arrival, testDate, seats, price, email);
         });
+    }
+
+
+    @Test
+    void testGetDepartCities() {
+        List<String> departCities = blFacadeImplementation.getDepartCities();
+        assertFalse(departCities.isEmpty(), "Depart cities should not be empty.");
+    }
+
+    @Test
+    void testGetDestinationCities() {
+        String departure = "Donostia";
+        List<String> destinationCities = blFacadeImplementation.getDestinationCities(departure);
+        assertFalse(destinationCities.isEmpty(), "Destination cities should not be empty.");
+    }
+
+    @Test
+    void testGetThisMonthDatesWithRides() {
+        String departure = "Donostia";
+        String arrival = "Bilbo";
+        Date testDate = UtilDate.newDate(2024, 5, 15);
+        List<Date> dates = blFacadeImplementation.getThisMonthDatesWithRides(departure, arrival, testDate);
+        assertFalse(dates.isEmpty(), "Dates should not be empty.");
+    }
+
+    @Test
+    void testGetEventsMonth() {
+        Date testDate = UtilDate.newDate(2024, 5, 15);
+        List<Date> dates = blFacadeImplementation.getEventsMonth(testDate);
+        assertFalse(dates.isEmpty(), "Dates should not be empty.");
+    }
+
+    @Test
+    void testRegisterUser() {
+        String username = "testUser";
+        String password = "testPassword";
+        String email = "testEmail";
+        String name = "testName";
+        String role = "Driver";
+        boolean registered = blFacadeImplementation.registerUser(username, password, email, name, role);
+        assertTrue(registered, "User should be registered.");
+    }
+
+    @Test
+    void testCheckUser() {
+        String username = "testUser";
+        User user = blFacadeImplementation.checkUser(username);
+        assertNull(user, "User should not exist.");
+    }
+
+    /*
+    @Test
+    void testCheckPassword() {
+        String username = "testUser";
+        String password = "testPassword";
+        boolean correctPassword = blFacadeImplementation.checkPassword(username, password);
+        assertFalse(correctPassword, "Password should not be correct.");
+    }
+
+     */
+
+    //FIXME fix the following method making a reservation with no seats
+
+    @Test
+    void testMakeReservationNotEnoughSeats() throws RideAlreadyExistException, RideMustBeLaterThanTodayException {
+
+
+        String departure = "Donostia";
+        String arrival = "Bilbo";
+        Date testDate = UtilDate.newDate(2024, 5, 17);
+        int seats = 2;
+        float price = 10;
+        String email = "driver@";
+        Ride ride = blFacadeImplementation.createRide(departure, arrival, testDate, seats, price, email);
+        assertNotNull(ride, "Ride should be created.");
+
+        String username = "testUser";
+        String password = "testPassword";
+        String emailUser = "testEmail";
+        String name = "testName";
+        String role = "Traveler";
+        boolean registered = blFacadeImplementation.registerUser(username, password, emailUser, name, role);
+        assertTrue(registered, "User should be registered.");
+
+        User user = blFacadeImplementation.checkUser(emailUser);
+        assertNotNull(user, "User should exist.");
+
+        boolean reservation = blFacadeImplementation.makeReservation((Traveler) user, ride, 3);
+        assertFalse(reservation, "Reservation should not be made.");
+    }
+
+
+    @Test
+    void testDeleteReservation() throws RideAlreadyExistException, RideMustBeLaterThanTodayException {
+        String departure = "Donostia";
+        String arrival = "Bilbo";
+        Date testDate = UtilDate.newDate(2024, 5, 17);
+        int seats = 2;
+        float price = 10;
+        String email = "driver@";
+        Ride ride = blFacadeImplementation.createRide(departure, arrival, testDate, seats, price, email);
+        assertNotNull(ride, "Ride should be created.");
+
+        String username = "testUser";
+        String password = "testPassword";
+        String emailUser = "testEmail";
+        String name = "testName";
+        String role = "Traveler";
+        boolean registered = blFacadeImplementation.registerUser(username, password, emailUser, name, role);
+        assertTrue(registered, "User should be registered.");
+
+        User user = blFacadeImplementation.checkUser(emailUser);
+        assertNotNull(user, "User should exist.");
+
+        boolean reservation = blFacadeImplementation.makeReservation((Traveler) user, ride, 1);
+        assertTrue(reservation, "Reservation should be made.");
+
+        //FIXME how to create a Reservation object
+        boolean deleted = blFacadeImplementation.deleteReservation(ride);
+        assertTrue(deleted, "Reservation should be deleted.");
+    }
+
+
+
+    @Test
+    void testMakeReservation() throws RideAlreadyExistException, RideMustBeLaterThanTodayException {
+        String departure = "Donostia";
+
+        String arrival = "Bilbo";
+        Date testDate = UtilDate.newDate(2024, 5, 17);
+        int seats = 2;
+        float price = 10;
+        String email = "driver@";
+        Ride ride = blFacadeImplementation.createRide(departure, arrival, testDate, seats, price, email);
+        assertNotNull(ride, "Ride should be created.");
+
+        String username = "testUser";
+        String password = "testPassword";
+        String emailUser = "testEmail";
+        String name = "testName";
+        String role = "Traveler";
+        boolean registered = blFacadeImplementation.registerUser(username, password, emailUser, name, role);
+        assertTrue(registered, "User should be registered.");
+
+        User user = blFacadeImplementation.checkUser(emailUser);
+        assertNotNull(user, "User should exist.");
+
+        boolean reservation = blFacadeImplementation.makeReservation((Traveler) user, ride, 1);
+        assertTrue(reservation, "Reservation should be made.");
+
     }
 
 
