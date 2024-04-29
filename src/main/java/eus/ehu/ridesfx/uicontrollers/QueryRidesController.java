@@ -93,6 +93,12 @@ public class QueryRidesController implements Controller {
 
     }
 
+    /**
+     * This method marks the events for the month and year shown
+     *
+     * @param year
+     * @param month
+     */
     private void setEvents(int year, int month) {
         Date date = Dates.toDate(year, month);
 
@@ -110,7 +116,11 @@ public class QueryRidesController implements Controller {
         setEvents(date.plusMonths(-1).getYear(), date.plusMonths(-1).getMonth().getValue());
     }
 
-
+    /**
+     * This method updates the DatePicker cell factory
+     *
+     * @param datePicker
+     */
     private void updateDatePickerCellFactory(DatePicker datePicker) {
 
         List<Date> dates = businessLogic.getDatesWithRides(comboDepartCity.getValue().getName(), comboArrivalCity.getValue().getName());
@@ -402,6 +412,9 @@ public class QueryRidesController implements Controller {
         }
     }
 
+    /**
+     * This method updates the Comboboxes when ComboBox value changes
+     */
 
     public void updateComboBox() {
         // Update DatePicker cells when ComboBox value changes

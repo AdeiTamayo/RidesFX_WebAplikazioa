@@ -61,10 +61,14 @@ public class AlertsViewController implements Controller {
     @FXML
     public Spinner<Integer> priceSpinner;
 
+    @FXML
+    public Label rideCreatedLabel;
+
 
     @FXML
     void initialize() {
         //Hide the buttons
+        rideCreatedLabel.setVisible(false);
         deleteButton.setVisible(false);
         bookButton.setVisible(false);
         createRideButton.setVisible(false);
@@ -132,10 +136,21 @@ public class AlertsViewController implements Controller {
         this.mainGUIController = mainGUIController;
     }
 
+    /**
+     * This method is called when the close button is clicked, it shows the initial GUI.
+     *
+     * @param event The ActionEvent associated with the event.
+     */
+
     public void closeClick(ActionEvent event) {
         mainGUIController.showInitialGUI();
     }
 
+    /**
+     * This method is called when the delete button is clicked, it deletes the alert.
+     *
+     * @param event The ActionEvent associated with the event.
+     */
     public void deleteAlert(ActionEvent event) {
         try {
             Alert alert = (Alert) alertTable.getSelectionModel().getSelectedItem();
@@ -152,10 +167,14 @@ public class AlertsViewController implements Controller {
         }
     }
 
+    /**
+     * This method is called when the book button is clicked, it makes a reservation of the ride.
+     *It appears to the traveler.
+     * @param event The ActionEvent associated with the event.
+     */
     public void makeReservation(ActionEvent event) {
         //If the selected alert in the table has "Ride found" in the state column then book the ride
         if (stateC.getCellData(alertTable.getSelectionModel().getSelectedItem()).equals("Ride found")) {
-            //TODO book a ride(there might be more than one ride that matches the alert)
             Alert a = (Alert) alertTable.getSelectionModel().getSelectedItem();
             List<Ride> ridesList = businessLogic.areMatchingRides(a);
             //book the first ride that matches the alert
@@ -181,6 +200,7 @@ public class AlertsViewController implements Controller {
     public void setView() {
         //Empty table
         alertTable.getItems().clear();
+        rideCreatedLabel.setVisible(false);
 
         User currentUser = businessLogic.getCurrentUser();
 
@@ -207,6 +227,11 @@ public class AlertsViewController implements Controller {
     }
 
 
+    /**
+     * This method is called when the create ride button is clicked, it creates a ride.
+     * It appears to the driver.
+     * @param actionEvent The ActionEvent associated with the event.
+     */
     public void createRide(ActionEvent actionEvent) {
         Alert selectedAlert = (Alert) alertTable.getSelectionModel().getSelectedItem();
         Location departCity = selectedAlert.getFromLocation();
@@ -220,6 +245,9 @@ public class AlertsViewController implements Controller {
             try {
                 Ride newRide = businessLogic.createRide(departCity, arrivalCity, date, numSeats, price, driver.getEmail());
                 setView();
+                rideCreatedLabel.setVisible(true);
+                rideCreatedLabel.setStyle("-fx-text-fill: green;");
+
             }catch (Exception e) {
                 System.out.println("The date must be later than today.");
             }
@@ -230,6 +258,9 @@ public class AlertsViewController implements Controller {
     }
 
 
+    /**
+     * This method is called when the restart button is clicked, it restarts the GUI.
+     */
     public void restartGUI(){
         deleteButton.setVisible(false);
         bookButton.setVisible(false);
@@ -238,5 +269,8 @@ public class AlertsViewController implements Controller {
         labelSeatsQuantity.setVisible(false);
         priceLabel.setVisible(false);
         priceSpinner.setVisible(false);
+        seatsQuantitySpinner.getValueFactory().setValue(0);
+        priceSpinner.getValueFactory().setValue(0);
+
     }
 }

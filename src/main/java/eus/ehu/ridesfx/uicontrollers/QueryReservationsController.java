@@ -23,7 +23,6 @@ import java.util.List;
 public class QueryReservationsController implements Controller {
 
 
-
     private MainGUIController mainGUIController;
     private BlFacade businessLogic;
 
@@ -81,9 +80,9 @@ public class QueryReservationsController implements Controller {
         alertTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             // Show the delete button only if an item is selected
 
-            if(businessLogic.getCurrentUser() instanceof Traveler) {
+            if (businessLogic.getCurrentUser() instanceof Traveler) {
                 deleteButton.setVisible(newSelection != null);
-            }else if(businessLogic.getCurrentUser() instanceof Driver) {
+            } else if (businessLogic.getCurrentUser() instanceof Driver) {
                 acceptButton.setVisible(newSelection != null);
                 rejectButton.setVisible(newSelection != null);
 
@@ -94,6 +93,10 @@ public class QueryReservationsController implements Controller {
 
         setReservations();
     }
+
+    /**
+     * This method sets the reservations of the current user in the table.
+     */
 
     void setReservations() {
         // Get the reservations
@@ -124,9 +127,11 @@ public class QueryReservationsController implements Controller {
          */
     }
 
+    /**
+     * This method sets the reservations of the current driver in the table.
+     */
 
-
-    public void setReservationsDriver(){
+    public void setReservationsDriver() {
         List<Reservation> reservations = businessLogic.getReservationDriver();
         System.out.println(reservations);
         if (reservations.isEmpty()) {
@@ -136,19 +141,13 @@ public class QueryReservationsController implements Controller {
         ObservableList<Reservation> reservationList = FXCollections.observableArrayList(reservations);
         alertTable.setItems(reservationList);
 
-        /*
-        alertTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-
-                deleteButton.setVisible(false);
-            }
-
-
-        });
-
-         */
 
     }
+
+    /**
+     * This method is called when the delete button is clicked, it deletes the reservation.
+     * @param event
+     */
 
     @FXML
     public void deleteReservation(ActionEvent event) {
@@ -158,18 +157,26 @@ public class QueryReservationsController implements Controller {
         deleteButton.setVisible(false);
     }
 
+    /**
+     * This method is called when the refresh button is clicked, it populates the table with the reservations of the current user.
+     * Depending on the user one method or another is called.
+     * @param actionEvent
+     */
     public void populateReservationsTable(ActionEvent actionEvent) {
 
         alertTable.getItems().clear();
 
-        if(businessLogic.getCurrentUser() instanceof Traveler) {
+        if (businessLogic.getCurrentUser() instanceof Traveler) {
             setReservations();
-        }else if(businessLogic.getCurrentUser() instanceof Driver) {
+        } else if (businessLogic.getCurrentUser() instanceof Driver) {
             setReservationsDriver();
         }
     }
 
-
+    /**
+     * This method is called when the accept button is clicked, it changes the state of the reservation to "Accepted".
+     * @param actionEvent
+     */
     public void acceptReservation(ActionEvent actionEvent) {
         businessLogic.changeReservationState(alertTable.getSelectionModel().getSelectedItem(), "Accepted");
         //update table so that it shows the new state of the reservation
@@ -177,13 +184,21 @@ public class QueryReservationsController implements Controller {
 
     }
 
+    /**
+     * This method is called when the reject button is clicked, it changes the state of the reservation to "Rejected".
+     * @param actionEvent
+     */
+
     public void rejectReservation(ActionEvent actionEvent) {
         businessLogic.changeReservationState(alertTable.getSelectionModel().getSelectedItem(), "Rejected");
         //update table so that it shows the new state of the reservation
         setReservationsDriver();
     }
 
-    public void restartGUIQueryReservation(){
+    /**
+     * This method is called when the user logs out, it restarts the GUI of the QueryReservationsController.
+     */
+    public void restartGUIQueryReservation() {
         deleteButton.setVisible(false);
         acceptButton.setVisible(false);
         rejectButton.setVisible(false);
