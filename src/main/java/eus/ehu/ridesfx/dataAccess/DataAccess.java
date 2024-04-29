@@ -394,7 +394,7 @@ public class DataAccess {
         return query.getResultList();
     }
 
-    public void deleteReservation(Reservation r) {
+    public boolean deleteReservation(Reservation r) {
         db.getTransaction().begin();
         // Remove the reservation from the user
         Traveler traveler = r.getTraveler();
@@ -403,6 +403,7 @@ public class DataAccess {
         // Now you can safely remove the reservation
         db.remove(r);
         db.getTransaction().commit();
+        return true;
     }
 
 

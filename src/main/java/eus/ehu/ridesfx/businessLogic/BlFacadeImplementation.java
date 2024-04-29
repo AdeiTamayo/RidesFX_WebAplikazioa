@@ -277,8 +277,8 @@ public class BlFacadeImplementation implements BlFacade {
 
 
 
-    public void deleteReservation(Reservation selectedItem) {
-        dbManager.deleteReservation(selectedItem);
+    public boolean deleteReservation(Reservation selectedItem) {
+        return dbManager.deleteReservation(selectedItem);
     }
 
 }

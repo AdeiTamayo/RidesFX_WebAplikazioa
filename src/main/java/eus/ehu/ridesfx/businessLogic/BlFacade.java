@@ -168,7 +168,7 @@ public interface BlFacade {
      * @param selectedItem
      */
 
-    void deleteReservation(Reservation selectedItem);
+    boolean deleteReservation(Reservation selectedItem);
 
     /**
      * This method changes the state of a reservation
