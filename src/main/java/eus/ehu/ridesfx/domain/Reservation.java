@@ -9,6 +9,7 @@ package eus.ehu.ridesfx.domain;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @SuppressWarnings("serial")
 @Entity
@@ -22,6 +23,8 @@ public class Reservation implements Serializable {
 
     private String state;
 
+    private Date reservationDate;
+
     @ManyToOne
     private Traveler traveler;
 
@@ -32,12 +35,13 @@ public class Reservation implements Serializable {
         super();
     }
 
-    public Reservation(Traveler traveler, Ride ride, int numSeats, String state) {
+    public Reservation(Traveler traveler, Ride ride, int numSeats, String state, Date reservationDate) {
         super();
         this.nPlaces = numSeats;
         this.state = state; // Set the state of the reservation
         this.traveler = traveler;
         this.ride = ride;
+        this.reservationDate = reservationDate;
     }
 
     public Reservation(int reservationNumber, Traveler traveler, Ride ride, int numSeats, String state) {
@@ -87,6 +91,14 @@ public class Reservation implements Serializable {
 
     public void setRide(Ride ride) {
         this.ride = ride;
+    }
+
+    public Date getReservationDate() {
+        return reservationDate;
+    }
+
+    public void setReservationDate(Date reservationDate) {
+        this.reservationDate = reservationDate;
     }
 
     @Override

@@ -149,7 +149,7 @@ public interface BlFacade {
      */
 
 
-    boolean makeReservation(Traveler traveler, Ride ride,int numPlaces);
+    boolean makeReservation(Traveler traveler, Ride ride,int numPlaces, Date currentDate);
 
     /**
      * This method returns the reservations of the current traveler

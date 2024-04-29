@@ -141,8 +141,8 @@ public class BlFacadeImplementation implements BlFacade {
     }
 
 
-    public boolean makeReservation(Traveler traveler, Ride ride, int numPlaces) {
-        return dbManager.makeReservation(traveler, ride, numPlaces);
+    public boolean makeReservation(Traveler traveler, Ride ride, int numPlaces, Date currentDate) {
+        return dbManager.makeReservation(traveler, ride, numPlaces, currentDate);
 
     }
 

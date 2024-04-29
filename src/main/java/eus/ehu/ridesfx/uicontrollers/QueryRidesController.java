@@ -1,6 +1,7 @@
 package eus.ehu.ridesfx.uicontrollers;
 
 import eus.ehu.ridesfx.businessLogic.BlFacade;
+import eus.ehu.ridesfx.configuration.UtilDate;
 import eus.ehu.ridesfx.domain.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -241,7 +242,11 @@ public class QueryRidesController implements Controller {
         //suposatzen da erreserbatzen sahiatzen bada, traveler izan behar duela
         Traveler traveler = businessLogic.getCurrentTraveler();
 
-        businessLogic.makeReservation(traveler, ride, numSeats);
+        //get the current date
+        Date currentDate = new Date();
+        currentDate= UtilDate.trim(currentDate);
+
+        businessLogic.makeReservation(traveler, ride, numSeats, currentDate);
         correctMessage.setVisible(true);
         correctMessage.setText("Ride requested, pending driver approval");
 

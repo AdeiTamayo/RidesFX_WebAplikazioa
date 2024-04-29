@@ -2,6 +2,7 @@ package eus.ehu.ridesfx.uicontrollers;
 
 import eus.ehu.ridesfx.businessLogic.BlFacade;
 
+import eus.ehu.ridesfx.configuration.UtilDate;
 import eus.ehu.ridesfx.domain.*;
 import eus.ehu.ridesfx.domain.Alert;
 import eus.ehu.ridesfx.ui.MainGUI;
@@ -190,7 +191,7 @@ public class AlertsViewController implements Controller {
             Ride ride = ridesList.get(0);
 
 
-            businessLogic.makeReservation(traveler, ride, numPlaces);
+            businessLogic.makeReservation(traveler, ride, numPlaces, UtilDate.trim(new Date()));
             businessLogic.deleteAlert(a);
             //update the view
             setView();

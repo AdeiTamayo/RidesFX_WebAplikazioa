@@ -377,7 +377,7 @@ public class DataAccess {
     }
 
 
-    public boolean makeReservation(Traveler traveler, Ride ride, int numSeats) {
+    public boolean makeReservation(Traveler traveler, Ride ride, int numSeats, Date currentDate) {
         // Start a transaction
         db.getTransaction().begin();
 
@@ -388,7 +388,7 @@ public class DataAccess {
         Ride dbRide = query.getSingleResult();
 
         // Create a new Reservation object
-        Reservation reservation = new Reservation(traveler, dbRide, numSeats, "pending");
+        Reservation reservation = new Reservation(traveler, dbRide, numSeats, "pending", currentDate);
 
         // Add the reservation to the traveler
         traveler.addReservation(reservation);
