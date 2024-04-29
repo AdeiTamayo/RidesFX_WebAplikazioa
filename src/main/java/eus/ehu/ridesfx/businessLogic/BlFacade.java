@@ -42,15 +42,36 @@ public interface BlFacade {
      */
     public Vector<Date> getEventsMonth(Date date);
 
-
+    /**
+     * This method sets the current user
+     * @param user
+     */
     void setCurrentUser(User user);
 
+    /**
+     * This method returns the current user
+     * @return the current user
+     */
     User getCurrentUser();
 
+    /**
+     * This method returns the current traveler
+     * @return the current traveler
+     */
     Traveler getCurrentTraveler();
 
+    /**
+     * This method creates a new ride
+     *
+     * @param text
+     * @param text1
+     * @param date
+     * @param inputSeats
+     * @param price
+     * @param email
+     * @return the created ride
+     */
     Ride createRide(Location text, Location text1, Date date, int inputSeats, float price, String email) throws RideMustBeLaterThanTodayException, RideAlreadyExistException;
-
 
     /**
      * This method returns all the cities where rides depart
@@ -69,12 +90,42 @@ public interface BlFacade {
 
     public List<Location> getDestinationCities(Location from);
 
-
+    /**
+     * This method returns all the dates with rides from a given location to another
+     *
+     * @param value  the departure location of a ride
+     * @param value1 the arrival location of a ride
+     * @return all the dates with rides
+     */
     List<Date> getDatesWithRides(Location value, Location value1);
 
+    /**
+     * This method registers a new user
+     *
+     * @param username
+     * @param password
+     * @param email
+     * @param name
+     * @param role
+     * @return true if the user is registered, false otherwise
+     */
     boolean registerUser(String username, String password, String email, String name, String role);
 
-    User checkUser(String username);
+    /**
+     * This method checks if a user exists
+     *
+     * @param email
+     * @return the user if it exists, null otherwise
+     */
+    User checkUser(String email);
+
+    /**
+     * This method checks if the password is correct
+     *
+     * @param username
+     * @param password
+     * @return true if the password is correct, false otherwise
+     */
     boolean checkPassword(String username, String password);
 
     /**
@@ -116,7 +167,7 @@ public interface BlFacade {
      * @param selectedItem
      */
 
-    void deleteReservation(Reservation selectedItem);
+    boolean deleteReservation(Reservation selectedItem);
 
     /**
      * This method changes the state of a reservation
@@ -179,7 +230,6 @@ public interface BlFacade {
      */
 
     List<Location> getLocations();
-
 
     /**
      * This method creates a new location

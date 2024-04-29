@@ -408,7 +408,7 @@ public class DataAccess {
         return query.getResultList();
     }
 
-    public void deleteReservation(Reservation r) {
+    public boolean deleteReservation(Reservation r) {
         db.getTransaction().begin();
         // Remove the reservation from the user
         Traveler traveler = r.getTraveler();
@@ -417,6 +417,7 @@ public class DataAccess {
         // Now you can safely remove the reservation
         db.remove(r);
         db.getTransaction().commit();
+        return true;
     }
 
 
@@ -479,7 +480,6 @@ public class DataAccess {
      * This method retrieves all Alerts without taking into account the user
      *
      * @return a list of alerts
-     *
      */
 
     public List<Alert> getAllAlerts() {

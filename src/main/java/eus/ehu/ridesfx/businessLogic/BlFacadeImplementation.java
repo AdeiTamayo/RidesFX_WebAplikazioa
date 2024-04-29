@@ -61,8 +61,8 @@ public class BlFacadeImplementation implements BlFacade {
         return dbManager.addUser(newUser);
     }
 
-    public User checkUser(String username) {
-        return dbManager.existsUser(username);
+    public User checkUser(String email) {
+        return dbManager.existsUser(email);
     }
 
     public boolean checkPassword(String username, String password) {
@@ -270,8 +270,8 @@ public class BlFacadeImplementation implements BlFacade {
     }
 
 
-    public void deleteReservation(Reservation selectedItem) {
-        dbManager.deleteReservation(selectedItem);
+    public boolean deleteReservation(Reservation selectedItem) {
+        return dbManager.deleteReservation(selectedItem);
     }
 
     public void deleteLocation(String name) {
