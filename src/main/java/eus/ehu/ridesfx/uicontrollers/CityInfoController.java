@@ -16,7 +16,6 @@ import javafx.scene.control.TextField;
 public class CityInfoController implements Controller {
 
 
-
     private BlFacade businessLogic;
 
     private MainGUIController mainGUIController;
@@ -40,9 +39,6 @@ public class CityInfoController implements Controller {
     private TextField provinceNameTextField;
 
     @FXML
-    private Label errorLabel;
-
-    @FXML
     private Button queryButton;
 
     private String cityName;
@@ -54,15 +50,12 @@ public class CityInfoController implements Controller {
         this.mainGUIController.setCityInfoController(this);
     }
 
-
+    /**
+     * Load city info from the geonames API
+     */
     public void loadCityInfo() {
-        if( cityNameTextField!=null||countryNameTextField!=null||provinceNameTextField!=null||populationTextField!=null||aboutTextField!=null){
 
-            System.out.println("Insert the text only in the first field");
-            clearCityInfo();
-            errorLabel.setVisible(true);
 
-        }else {
             cityName = cityNameToQueryTextField.getText();
             String username = "adeiProba";
             String json = Utils.request("http://api.geonames.org/searchJSON?username=" + username + "&name=" + cityName + "&maxRows=1&style=LONG");
@@ -88,38 +81,59 @@ public class CityInfoController implements Controller {
                 cityInfo.setPopulation(cityData.get("population").getAsInt());
             }
 
-            if (cityNameTextField != null || countryNameTextField != null || provinceNameTextField != null || populationTextField != null || aboutTextField != null) {
-                System.out.println("Insert the text only in the first field");
-            }
-
             cityNameTextField.setText(cityInfo.getToponymName());
             countryNameTextField.setText(cityInfo.getCountryName());
             provinceNameTextField.setText(cityInfo.getAdminName1());
             populationTextField.setText(String.valueOf(cityInfo.getPopulation()));
             aboutTextField.setText(cityInfo.getFcodeName());
-        }
+
     }
 
-
+    /**
+     * Set the city name
+     *
+     * @param cityName
+     */
     public void setCityName(String cityName) {
-    this.cityName = cityName;
+        this.cityName = cityName;
     }
 
-
+    /**
+     * Clear the city info
+     */
     public void clearCityInfo() {
-        cityNameToQueryTextField.clear();
-        cityNameTextField.clear();
-        countryNameTextField.clear();
-        provinceNameTextField.clear();
-        populationTextField.clear();
-        aboutTextField.clear();
-        errorLabel.setVisible(false);
+        cityNameToQueryTextField.setText("");
+        cityNameTextField.setText("");
+        countryNameTextField.setText("");
+        provinceNameTextField.setText("");
+        populationTextField.setText("");
+        aboutTextField.setText("");
 
+
+    }
+
+    /**
+     * Query the cities when button pressed.
+     *
+     * @param actionEvent
+     */
+    public void queryCities(ActionEvent actionEvent) {
+
+        loadCityInfo();
+    }
+
+    /**
+     * Clear the interface
+     *
+     * @param actionEvent
+     */
+    public void clearInterface(ActionEvent actionEvent) {
+        clearCityInfo();
     }
 
     @FXML
     void initialize() {
-        errorLabel.setVisible(false);
+
         loadCityInfo();
     }
 
@@ -129,7 +143,5 @@ public class CityInfoController implements Controller {
     }
 
 
-    public void queryCities(ActionEvent actionEvent) {
-        loadCityInfo();
-    }
+
 }

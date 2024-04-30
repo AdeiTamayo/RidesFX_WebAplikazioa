@@ -6,26 +6,31 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ridesfx.uicontrollers.CityInfoController">
-   <children>
-      <Label layoutX="32.0" layoutY="31.0" text="City Info">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="55.0" layoutY="85.0" text="City to get info about" />
-      <Label layoutX="55.0" layoutY="135.0" text="City name" />
-      <Label layoutX="55.0" layoutY="236.0" text="Country" />
-      <Label layoutX="53.0" layoutY="191.0" text="Province" />
-      <Label layoutX="55.0" layoutY="283.0" text="Population" />
-      <Label layoutX="55.0" layoutY="332.0" text="About" />
-      <TextField fx:id="cityNameToQueryTextField" layoutX="182.0" layoutY="81.0" />
-      <TextField fx:id="cityNameTextField" layoutX="183.0" layoutY="131.0" />
-      <TextField fx:id="countryNameTextField" layoutX="183.0" layoutY="232.0" />
-      <TextField fx:id="provinceNameTextField" layoutX="183.0" layoutY="187.0" />
-      <TextField fx:id="populationTextField" layoutX="183.0" layoutY="279.0" />
-      <TextField fx:id="aboutTextField" layoutX="182.0" layoutY="328.0" prefHeight="26.0" prefWidth="298.0" />
-      <Button fx:id="queryButton" layoutX="221.0" layoutY="361.0" mnemonicParsing="false" onAction="#queryCities" text="Query" />
-      <Label fx:id="errorLabel" layoutX="325.0" layoutY="365.0" prefHeight="17.0" prefWidth="200.0" text="Insert the values just in the first label" textFill="RED" />
-   </children>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="border-pane" stylesheets="@Styles.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="eus.ehu.ridesfx.uicontrollers.CityInfoController">
+    <children>
+        <Label layoutX="32.0" layoutY="31.0" text="City Info">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Label>
+        <Label layoutX="55.0" layoutY="85.0" text="City to get info about"/>
+        <Label layoutX="55.0" layoutY="135.0" text="City name"/>
+        <Label layoutX="55.0" layoutY="236.0" text="Country"/>
+        <Label layoutX="53.0" layoutY="191.0" text="Province"/>
+        <Label layoutX="55.0" layoutY="283.0" text="Population"/>
+        <Label layoutX="55.0" layoutY="332.0" text="About"/>
+        <TextField fx:id="cityNameToQueryTextField" layoutX="182.0" layoutY="81.0"/>
+        <TextField fx:id="cityNameTextField" editable="false" layoutX="183.0" layoutY="131.0"/>
+        <TextField fx:id="countryNameTextField" editable="false" layoutX="183.0" layoutY="232.0"/>
+        <TextField fx:id="provinceNameTextField" editable="false" layoutX="183.0" layoutY="187.0"/>
+        <TextField fx:id="populationTextField" editable="false" layoutX="183.0" layoutY="279.0"/>
+        <TextField fx:id="aboutTextField" editable="false" layoutX="182.0" layoutY="328.0" prefHeight="26.0"
+                   prefWidth="298.0"/>
+        <Button fx:id="queryButton" layoutX="221.0" layoutY="361.0" mnemonicParsing="false" onAction="#queryCities"
+                text="Query"/>
+        <Button fx:id="clearButton" layoutX="279.0" layoutY="361.0" mnemonicParsing="false" onAction="#clearInterface"
+                text="Clear"/>
+    </children>
 </AnchorPane>

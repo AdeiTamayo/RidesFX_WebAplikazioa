@@ -157,8 +157,6 @@ public class CreateRideController implements Controller {
                 displayMessage(ResourceBundle.getBundle("Etiquetas").getString("CreateRideGUI.RideCreated"), "success");
 
 
-
-                //FIXME :THIS METHOD IS USED TO UPDATE THE COMBOBOXES IN THE QUERY RIDES BUT JUST UPDATES THE DEPART COMBOBOX
                 mainGUIController.updateComboBoxesQueryRides();
 
 
@@ -173,7 +171,6 @@ public class CreateRideController implements Controller {
     }
 
     private List<LocalDate> holidays = new ArrayList<>();
-
 
 
     @FXML
@@ -218,9 +215,6 @@ public class CreateRideController implements Controller {
         });
 
 
-
-
-
         // setEventsPrePost(LocalDate.now().getYear(), LocalDate.now().getMonth().getValue());
 
 
@@ -259,7 +253,6 @@ public class CreateRideController implements Controller {
                 };
             }
         });
-
 
 
     }
