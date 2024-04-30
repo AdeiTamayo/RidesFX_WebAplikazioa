@@ -1,44 +1,28 @@
 package eus.ehu.ridesfx.API;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+import java.io.IOException;
+
 
 public class Utils {
+    public static String request(String url) {
+        OkHttpClient client = new OkHttpClient();
 
-    // Replace "YOUR_USERNAME" with your Geonames username
-    private static final String USERNAME = "YOUR_USERNAME";
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
 
-    public static void main(String[] args) {
-        String cityName = "London"; // Specify the city name you want to retrieve information for
-
-        try {
-            // Construct the URL for the API request
-            String apiUrl = "http://api.geonames.org/searchJSON?q=" + cityName + "&maxRows=1&username=" + USERNAME;
-            URL url = new URL(apiUrl);
-
-            // Open a connection to the API URL
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-
-            // Read the response from the API
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            StringBuilder response = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                response.append(line);
+        try (Response response = client.newCall(request).execute()) {
+            if (response.isSuccessful()) {
+                return response.body().string();
+            } else {
+                return "";
             }
-            reader.close();
-
-            // Parse the JSON response
-            // Here, you would extract the desired information from the JSON response
-            System.out.println("Response: " + response.toString());
-
-            // Close the connection
-            connection.disconnect();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

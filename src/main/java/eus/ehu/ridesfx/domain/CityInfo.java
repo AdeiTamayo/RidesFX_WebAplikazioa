@@ -1,16 +1,23 @@
 package eus.ehu.ridesfx.domain;
 
-public class CityData {
+import com.google.gson.annotations.SerializedName;
+
+
+public class CityInfo {
     private String toponymName;
     private String countryName;
-    private String citizenCount;
+    private String adminName1;
+    private String fcodeName;
     private int population;
 
-    public CityData(String toponymName, String countryName, String citizenCount, int population) {
+
+    public CityInfo(String toponymName, String countryName, String citizenCount, String fcodeName, int population) {
         this.toponymName = toponymName;
         this.countryName = countryName;
-        this.citizenCount = citizenCount;
+        this.adminName1 = citizenCount;
+        this.fcodeName = fcodeName;
         this.population = population;
+
     }
 
     public String getToponymName() {
@@ -29,12 +36,12 @@ public class CityData {
         this.countryName = countryName;
     }
 
-    public String getCitizenCount() {
-        return citizenCount;
+    public String getAdminName1() {
+        return adminName1;
     }
 
-    public void setCitizenCount(String citizenCount) {
-        this.citizenCount = citizenCount;
+    public void setAdminName1(String adminName1) {
+        this.adminName1 = adminName1;
     }
 
     public int getPopulation() {
@@ -45,12 +52,22 @@ public class CityData {
         this.population = population;
     }
 
+    public String getFcodeName() {
+        return fcodeName;
+    }
+
+    public void setFcodeName(String fcodeName) {
+        this.fcodeName = fcodeName;
+    }
+
+
     @Override
     public String toString() {
         return "CityData{" +
                 "toponymName='" + toponymName + '\'' +
                 ", countryName='" + countryName + '\'' +
-                ", citizenCount='" + citizenCount + '\'' +
+                ", citizenCount='" + adminName1 + '\'' +
+                ", fcodeName='" + fcodeName + '\'' +
                 ", population=" + population +
                 '}';
     }
