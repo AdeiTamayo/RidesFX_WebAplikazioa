@@ -2,6 +2,8 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
@@ -30,9 +32,14 @@
                 <Button fx:id="homeButton" layoutX="28.0" layoutY="131.0" mnemonicParsing="false" onAction="#goHome" prefHeight="27.0" prefWidth="91.0" styleClass="bold-label" text="Go Home" />
                 <Button fx:id="alertsButton" layoutX="25.0" layoutY="236.0" mnemonicParsing="false" onAction="#alerts" prefHeight="27.0" prefWidth="96.0" styleClass="bold-label" text="Query Alerts" />
                 <Button fx:id="queryReservationsButton" layoutX="10.0" layoutY="284.0" mnemonicParsing="false" onAction="#showQueryReservations" styleClass="bold-label" text="Query Reservations" />
-                <Button fx:id="createRideBtn" layoutX="28.0" layoutY="185.0" mnemonicParsing="false" onAction="#createRide" styleClass="bold-label" text="Create Ride"/>
+                <Button fx:id="createRideBtn" layoutX="28.0" layoutY="185.0" mnemonicParsing="false" onAction="#createRide" styleClass="bold-label" text="Create Ride" />
 
             <Button fx:id="cityInfoButton" layoutX="38.0" layoutY="325.0" mnemonicParsing="false" onAction="#showCityInfo" styleClass="bold-label" text="City Info" />
+            <ImageView fitHeight="57.0" fitWidth="68.0" layoutX="47.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../logo.jpg" />
+               </image>
+            </ImageView>
 
 
             </children>
