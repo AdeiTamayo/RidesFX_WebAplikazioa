@@ -4,10 +4,21 @@ import com.google.gson.annotations.SerializedName;
 
 
 public class CityInfo {
+
+    @SerializedName("toponymName")
+
     private String toponymName;
+
+    @SerializedName("countryName")
     private String countryName;
+
+    @SerializedName("adminName1")
     private String adminName1;
+
+    @SerializedName("fcodeName")
     private String fcodeName;
+
+    @SerializedName("population")
     private int population;
 
 

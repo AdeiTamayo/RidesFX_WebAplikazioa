@@ -9,7 +9,8 @@ module eus.ehu.sharetrip {
     requires okhttp3;
     requires com.google.gson;
 
-    opens eus.ehu.ridesfx.domain to javafx.base, org.hibernate.orm.core;
+    opens eus.ehu.ridesfx.domain to javafx.base, org.hibernate.orm.core, com.google.gson;
+
     //opens eus.ehu.ridesfx.domain to com.google.gson;
     opens eus.ehu.ridesfx.ui to javafx.fxml;
     opens eus.ehu.ridesfx.uicontrollers to javafx.fxml;
