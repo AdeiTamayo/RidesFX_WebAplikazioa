@@ -29,8 +29,9 @@
       <Button fx:id="bookButton" layoutX="137.0" layoutY="269.0" mnemonicParsing="false" onAction="#makeReservation" styleClass="bold-label" text="Book Ride" />
       <Button fx:id="createRideButton" layoutX="266.0" layoutY="269.0" mnemonicParsing="false" onAction="#createRide" styleClass="bold-label" text="Create Ride" />
       <Spinner fx:id="seatsQuantitySpinner" editable="true" layoutX="46.0" layoutY="270.0" prefHeight="25.0" prefWidth="82.0" />
-      <Label  fx:id= "labelSeatsQuantity" layoutX="41.0" layoutY="246.0" text="How many seats?" />
+      <Label fx:id="labelSeatsQuantity" layoutX="41.0" layoutY="246.0" text="How many seats?" />
       <Label fx:id="priceLabel" layoutX="137.0" layoutY="246.0" text="What price?" />
       <Spinner fx:id="priceSpinner" editable="true" layoutX="137.0" layoutY="270.0" prefHeight="25.0" prefWidth="78.0" />
+      <Label fx:id="rideCreatedLabel" layoutX="369.0" layoutY="274.0" text="RIde Created" />
     </children>
 </AnchorPane>

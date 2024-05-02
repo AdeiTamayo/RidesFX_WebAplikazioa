@@ -173,6 +173,7 @@ public class CreateRideController implements Controller {
     private List<LocalDate> holidays = new ArrayList<>();
 
 
+
     @FXML
     void initialize() {
 
@@ -215,6 +216,9 @@ public class CreateRideController implements Controller {
         });
 
 
+
+
+
         // setEventsPrePost(LocalDate.now().getYear(), LocalDate.now().getMonth().getValue());
 
 
@@ -253,6 +257,7 @@ public class CreateRideController implements Controller {
                 };
             }
         });
+
 
 
     }
