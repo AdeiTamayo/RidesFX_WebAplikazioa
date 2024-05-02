@@ -7,16 +7,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="643.0" styleClass="border-pane" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ridesfx.uicontrollers.QueryReservationsController">
+<AnchorPane prefHeight="462.0" prefWidth="756.0" styleClass="border-pane" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ridesfx.uicontrollers.QueryReservationsController">
     <children>
-    <Label layoutX="55.0" layoutY="14.0" styleClass="bold-label" text="RESERVATIONS">
+    <Label layoutX="114.0" layoutY="75.0" styleClass="bold-label" text="RESERVATIONS">
         <font>
             <Font size="18.0" />
         </font>
     </Label>
-        <Button layoutX="323.0" layoutY="269.0" mnemonicParsing="false" onAction="#closeClick" styleClass="bold-label" text="Back" />
+        <Button layoutX="382.0" layoutY="330.0" mnemonicParsing="false" onAction="#closeClick" styleClass="bold-label" text="Back" />
 
-        <TableView fx:id="alertTable" layoutX="55.0" layoutY="56.0" prefHeight="175.0" prefWidth="565.0">
+        <TableView fx:id="alertTable" layoutX="114.0" layoutY="117.0" prefHeight="175.0" prefWidth="565.0">
             <columns>
                 <TableColumn fx:id="departC" prefWidth="96.0" text="DepartCity" />
                 <TableColumn fx:id="arrivalC" prefWidth="104.66665649414062" text="ArrivalCity" />
@@ -26,10 +26,10 @@
             <TableColumn fx:id="resDateC" prefWidth="115.33328247070312" text="ReservationDate" />
             </columns>
         </TableView>
-        <Button fx:id="deleteButton" layoutX="55.0" layoutY="269.0" mnemonicParsing="false" onAction="#deleteReservation" styleClass="bold-label" text="Delete Reservation" />
-      <Button fx:id="refreshButton" layoutX="216.0" layoutY="269.0" mnemonicParsing="false" onAction="#populateReservationsTable" prefHeight="27.0" prefWidth="71.0" styleClass="bold-label" text="Refresh" />
-      <Button fx:id="acceptButton" layoutX="43.0" layoutY="270.0" mnemonicParsing="false" onAction="#acceptReservation" styleClass="bold-label" text="Accept" />
-      <Button fx:id="rejectButton" layoutX="121.0" layoutY="271.0" mnemonicParsing="false" onAction="#rejectReservation" styleClass="bold-label" text="Reject" />
+        <Button fx:id="deleteButton" layoutX="114.0" layoutY="330.0" mnemonicParsing="false" onAction="#deleteReservation" styleClass="bold-label" text="Delete Reservation" />
+      <Button fx:id="refreshButton" layoutX="275.0" layoutY="330.0" mnemonicParsing="false" onAction="#populateReservationsTable" prefHeight="27.0" prefWidth="71.0" styleClass="bold-label" text="Refresh" />
+      <Button fx:id="acceptButton" layoutX="102.0" layoutY="331.0" mnemonicParsing="false" onAction="#acceptReservation" styleClass="bold-label" text="Accept" />
+      <Button fx:id="rejectButton" layoutX="180.0" layoutY="332.0" mnemonicParsing="false" onAction="#rejectReservation" styleClass="bold-label" text="Reject" />
     </children>
 
 </AnchorPane>

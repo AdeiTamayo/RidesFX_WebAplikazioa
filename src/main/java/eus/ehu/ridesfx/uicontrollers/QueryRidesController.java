@@ -3,6 +3,7 @@ package eus.ehu.ridesfx.uicontrollers;
 import eus.ehu.ridesfx.businessLogic.BlFacade;
 import eus.ehu.ridesfx.configuration.UtilDate;
 import eus.ehu.ridesfx.domain.*;
+import javafx.animation.PauseTransition;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -17,6 +18,7 @@ import javafx.scene.control.skin.DatePickerSkin;
 
 import javafx.util.Callback;
 import eus.ehu.ridesfx.utils.Dates;
+import javafx.util.Duration;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -167,6 +169,9 @@ public class QueryRidesController implements Controller {
         quantityOfSeatsLabel.setVisible(false);
         bookingButton.setVisible(false);
 
+        alertMessage.setStyle("-fx-text-fill: red");
+        correctMessage.setStyle("-fx-text-fill: green");
+
         updateComboBox();
 
 
@@ -244,11 +249,17 @@ public class QueryRidesController implements Controller {
 
         //get the current date
         Date currentDate = new Date();
-        currentDate= UtilDate.trim(currentDate);
+        currentDate = UtilDate.trim(currentDate);
 
         businessLogic.makeReservation(traveler, ride, numSeats, currentDate);
         correctMessage.setVisible(true);
         correctMessage.setText("Ride requested, pending driver approval");
+        PauseTransition pause = new PauseTransition(Duration.seconds(5));
+        pause.setOnFinished(event2 -> {
+            correctMessage.setVisible(false);
+
+        });
+        pause.play();
 
         //A ride has been booked, update the combobox of Rides
         tblRides.getItems().clear();
@@ -346,11 +357,20 @@ public class QueryRidesController implements Controller {
             //Display error text: "Alert already exists"
             alertMessage.setVisible(true);
             alertMessage.setText("Alert already exists");
+
         } else {
             correctMessage.setVisible(true);
             correctMessage.setText("Alert created successfully");
 
+
         }
+        PauseTransition pause = new PauseTransition(Duration.seconds(5));
+        pause.setOnFinished(event2 -> {
+            correctMessage.setVisible(false);
+            alertMessage.setVisible(false);
+        });
+        pause.play();
+
     }
 
 
