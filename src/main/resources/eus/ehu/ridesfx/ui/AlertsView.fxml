@@ -8,15 +8,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="321.0" prefWidth="572.0" styleClass="border-pane" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ridesfx.uicontrollers.AlertsViewController">
+<AnchorPane prefHeight="472.0" prefWidth="750.0" styleClass="border-pane" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ridesfx.uicontrollers.AlertsViewController">
     <children>
-        <Label fx:id="labelAlerts" layoutX="55.0" layoutY="14.0" styleClass="bold-label" text="ALERTS">
+        <Label fx:id="labelAlerts" layoutX="140.0" layoutY="87.0" styleClass="bold-label" text="ALERTS">
             <font>
                 <Font size="18.0" />
             </font>
         </Label>
-        <Button layoutX="464.0" layoutY="269.0" mnemonicParsing="false" onAction="#closeClick" styleClass="bold-label" text="Back" />
-      <TableView fx:id="alertTable" layoutX="55.0" layoutY="56.0" prefHeight="175.0" prefWidth="463.0">
+        <Button layoutX="549.0" layoutY="342.0" mnemonicParsing="false" onAction="#closeClick" styleClass="bold-label" text="Back" />
+      <TableView fx:id="alertTable" layoutX="140.0" layoutY="129.0" prefHeight="175.0" prefWidth="463.0">
         <columns>
           <TableColumn fx:id="departC" prefWidth="96.0" text="DepartCity" />
           <TableColumn fx:id="arrivalC" prefWidth="104.66665649414062" text="ArrivalCity" />
@@ -25,13 +25,13 @@
             <TableColumn fx:id="stateC" prefWidth="101.33331298828125" text="State" />
         </columns>
       </TableView>
-      <Button fx:id="deleteButton" layoutX="43.0" layoutY="269.0" mnemonicParsing="false" onAction="#deleteAlert" styleClass="bold-label" text="Delete Alert" />
-      <Button fx:id="bookButton" layoutX="137.0" layoutY="269.0" mnemonicParsing="false" onAction="#makeReservation" styleClass="bold-label" text="Book Ride" />
-      <Button fx:id="createRideButton" layoutX="266.0" layoutY="269.0" mnemonicParsing="false" onAction="#createRide" styleClass="bold-label" text="Create Ride" />
-      <Spinner fx:id="seatsQuantitySpinner" editable="true" layoutX="46.0" layoutY="270.0" prefHeight="25.0" prefWidth="82.0" />
-      <Label fx:id="labelSeatsQuantity" layoutX="41.0" layoutY="246.0" text="How many seats?" />
-      <Label fx:id="priceLabel" layoutX="137.0" layoutY="246.0" text="What price?" />
-      <Spinner fx:id="priceSpinner" editable="true" layoutX="137.0" layoutY="270.0" prefHeight="25.0" prefWidth="78.0" />
-      <Label fx:id="rideCreatedLabel" layoutX="369.0" layoutY="274.0" text="RIde Created" />
+      <Button fx:id="deleteButton" layoutX="128.0" layoutY="342.0" mnemonicParsing="false" onAction="#deleteAlert" styleClass="bold-label" text="Delete Alert" />
+      <Button fx:id="bookButton" layoutX="222.0" layoutY="342.0" mnemonicParsing="false" onAction="#makeReservation" styleClass="bold-label" text="Book Ride" />
+      <Button fx:id="createRideButton" layoutX="351.0" layoutY="342.0" mnemonicParsing="false" onAction="#createRide" styleClass="bold-label" text="Create Ride" />
+      <Spinner fx:id="seatsQuantitySpinner" editable="true" layoutX="131.0" layoutY="343.0" prefHeight="25.0" prefWidth="82.0" />
+      <Label fx:id="labelSeatsQuantity" layoutX="126.0" layoutY="319.0" text="How many seats?" />
+      <Label fx:id="priceLabel" layoutX="222.0" layoutY="319.0" text="What price?" />
+      <Spinner fx:id="priceSpinner" editable="true" layoutX="222.0" layoutY="343.0" prefHeight="25.0" prefWidth="78.0" />
+      <Label fx:id="notificationLabel" layoutX="455.0" layoutY="337.0" prefHeight="38.0" prefWidth="78.0" styleClass="bold-label" text="RIde Created" />
     </children>
 </AnchorPane>

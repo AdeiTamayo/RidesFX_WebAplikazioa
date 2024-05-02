@@ -14,7 +14,6 @@
             xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="eus.ehu.ridesfx.uicontrollers.QueryRidesController">
     <children>
-        <DatePicker fx:id="datepicker" layoutX="109.0" layoutY="166.0"/>
         <Label layoutX="39.0" layoutY="161.0" styleClass="bold-label" text="EventDate"/>
         <TableView fx:id="tblRides" layoutX="344.0" layoutY="70.0" prefHeight="200.0" prefWidth="445.0"
                    styleClass="table-row-cell" stylesheets="@Styles.css">
@@ -33,6 +32,12 @@
         <Label layoutX="39.0" layoutY="106.0" styleClass="bold-label" text="ArrivalCity"/>
         <ComboBox fx:id="comboDepartCity" layoutX="126.0" layoutY="54.0" prefWidth="150.0" styleClass="combo-box"/>
         <ComboBox fx:id="comboArrivalCity" layoutX="126.0" layoutY="101.0" prefWidth="150.0" styleClass="combo-box"/>
+        <DatePicker fx:id="datepicker" layoutX="109.0" layoutY="166.0"/>
+        <Button fx:id="queryRidesButton" layoutX="123.0" layoutY="242.0" mnemonicParsing="false" onAction="#QueryRides"
+                styleClass="bold-label" text="Query Rides"/>
+        <Button fx:id="clearButton" layoutX="487.0" layoutY="349.0" mnemonicParsing="false" onAction="#clearGUI"
+                styleClass="bold-label" text="Clear"/>
+        <ComboBox fx:id="comboNumSeats" layoutX="549.0" layoutY="289.0" prefHeight="18.0" prefWidth="70.0"/>
         <Button fx:id="btnClose" layoutX="545.0" layoutY="349.0" mnemonicParsing="false" onAction="#closeClick"
                 styleClass="bold-label" text="Back"/>
 
@@ -41,11 +46,10 @@
                 <Font size="18.0"/>
             </font>
         </Label>
-        <Button fx:id="bookingButton" layoutX="645.0" layoutY="288.0" mnemonicParsing="false" onAction="#makeReservation"
-                styleClass="bold-label" text="Make a reservation"/>
+        <Button fx:id="bookingButton" layoutX="645.0" layoutY="288.0" mnemonicParsing="false"
+                onAction="#makeReservation" styleClass="bold-label" text="Make a reservation"/>
         <Label fx:id="quantityOfSeatsLabel" layoutX="375.0" layoutY="292.0" styleClass="bold-label"
                text="How many seats do you want?"/>
-        <ComboBox fx:id="comboNumSeats" layoutX="549.0" layoutY="289.0" prefHeight="18.0" prefWidth="70.0"/>
         <Button fx:id="alertButton" layoutX="664.0" layoutY="288.0" mnemonicParsing="false" onAction="#createAlert"
                 styleClass="bold-label" text="Create Alert"/>
         <Label id="Error message" fx:id="alertMessage" layoutX="413.0" layoutY="325.0" prefHeight="18.0"
@@ -55,8 +59,6 @@
                 <String fx:value="bold-label"/>
             </styleClass>
         </Label>
-        <Button fx:id="clearButton" layoutX="487.0" layoutY="349.0" mnemonicParsing="false" onAction="#clearGUI"
-                styleClass="bold-label" text="Clear"/>
         <Label fx:id="loggedInError" layoutX="377.0" layoutY="315.0" onMouseClicked="#goToLogin" prefHeight="18.0"
                prefWidth="376.0" text="You need to be logged In to proceed. You can click here to log in."
                textAlignment="CENTER">
@@ -66,9 +68,7 @@
             </styleClass>
         </Label>
         <Label id="Correct message" fx:id="correctMessage" layoutX="413.0" layoutY="325.0" prefHeight="18.0"
-               prefWidth="312.0" text="">
+               prefWidth="312.0" styleClass="bold-label" text="">
         </Label>
-        <Button fx:id="queryRidesButton" layoutX="123.0" layoutY="242.0" mnemonicParsing="false" onAction="#QueryRides"
-                styleClass="bold-label" text="Query Rides"/>
     </children>
 </AnchorPane>

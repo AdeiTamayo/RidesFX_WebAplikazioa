@@ -5,13 +5,13 @@ import eus.ehu.ridesfx.businessLogic.BlFacade;
 import eus.ehu.ridesfx.configuration.UtilDate;
 import eus.ehu.ridesfx.domain.*;
 import eus.ehu.ridesfx.domain.Alert;
-import eus.ehu.ridesfx.ui.MainGUI;
 
-import eus.ehu.ridesfx.utils.Dates;
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Duration;
 
 import java.util.Date;
 import java.util.List;
@@ -66,13 +66,13 @@ public class AlertsViewController implements Controller {
     public Spinner<Integer> priceSpinner;
 
     @FXML
-    public Label rideCreatedLabel;
+    public Label notificationLabel;
 
 
     @FXML
     void initialize() {
         //Hide the buttons
-        rideCreatedLabel.setVisible(false);
+        notificationLabel.setVisible(false);
         deleteButton.setVisible(false);
         bookButton.setVisible(false);
         createRideButton.setVisible(false);
@@ -193,8 +193,18 @@ public class AlertsViewController implements Controller {
 
             businessLogic.makeReservation(traveler, ride, numPlaces, UtilDate.trim(new Date()));
             businessLogic.deleteAlert(a);
+
             //update the view
-            setView();
+
+            notificationLabel.setVisible(true);
+            notificationLabel.setText("Ride booked.");
+            notificationLabel.setStyle("-fx-text-fill: green;");
+
+            PauseTransition pause = new PauseTransition(Duration.seconds(3));
+            pause.setOnFinished(event2-> {
+                setView();
+            });
+            pause.play();
 
         }
     }
@@ -206,7 +216,7 @@ public class AlertsViewController implements Controller {
     public void setView() {
         //Empty table
         alertTable.getItems().clear();
-        rideCreatedLabel.setVisible(false);
+        notificationLabel.setVisible(false);
 
         User currentUser = businessLogic.getCurrentUser();
 
@@ -253,15 +263,20 @@ public class AlertsViewController implements Controller {
             try {
                 Ride newRide = businessLogic.createRide(departCity, arrivalCity, date, numSeats, price, driver.getEmail());
                 setView();
-                rideCreatedLabel.setVisible(true);
-                rideCreatedLabel.setStyle("-fx-text-fill: green;");
+                notificationLabel.setVisible(true);
+                notificationLabel.setStyle("-fx-text-fill: green;");
+                System.out.println("Ride created successfully");
 
             }catch (Exception e) {
                 System.out.println("The date must be later than today.");
+                notificationLabel.setText("The date must be later than today.");
+                notificationLabel.setStyle("-fx-text-fill: red;");
             }
 
         } else {
             System.out.println("Please ensure all fields are filled and the number of seats and price are positive.");
+            notificationLabel.setText("Please ensure all fields are filled and the number of seats and price are positive.");
+            notificationLabel.setStyle("-fx-text-fill: red;");
         }
     }
 
