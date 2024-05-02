@@ -184,7 +184,6 @@ public class AlertsViewController implements Controller {
 
             Ride ride = ridesList.get(0);
 
-
             businessLogic.makeReservation(traveler, ride, numPlaces);
             businessLogic.deleteAlert(a);
             //update the view
