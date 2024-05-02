@@ -11,7 +11,7 @@ import java.io.Serializable;
 public abstract class User implements Serializable {
 
 
-    private String userName;
+    private String username;
     private String password;
     private String fullName;
 
@@ -26,7 +26,7 @@ public abstract class User implements Serializable {
      * @param password The password.
      */
     public User(String userName, String password) {
-        this.userName = userName;
+        this.username = userName;
         this.password = password;
     }
 
@@ -39,7 +39,7 @@ public abstract class User implements Serializable {
      * @param email    The email.
      */
     public User(String userName, String password, String fullName, String email) {
-        this.userName = userName;
+        this.username = userName;
         this.password = password;
         this.fullName = fullName;
         this.email = email;
@@ -58,7 +58,7 @@ public abstract class User implements Serializable {
      * @return The username.
      */
     public String getUserName() {
-        return userName;
+        return username;
     }
 
     /**
@@ -67,7 +67,7 @@ public abstract class User implements Serializable {
      * @param userName The username.
      */
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.username = userName;
     }
 
     /**
@@ -134,7 +134,7 @@ public abstract class User implements Serializable {
     @Override
     public String toString() {
         return "User{" +
-                "userName='" + userName + '\'' +
+                "username='" + username + '\'' +
                 '}';
     }
 
