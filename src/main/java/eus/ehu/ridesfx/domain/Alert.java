@@ -176,15 +176,6 @@ public class Alert implements Serializable {
         this.numPlaces = numPlaces;
     }
 
-    /**
-     * Set the free places of the alert
-     *
-     * @param  numPlaces places to be set
-     */
-
-    public void setBetMinimum(int numPlaces) {
-        this.numPlaces = numPlaces;
-    }
 
     /**
      * Get the traveler associated to the alert
