@@ -2,8 +2,9 @@
 
 /* Style for normal buttons */
 .button {
-    -fx-background-color: #757678; /* Light gray */
-    -fx-text-fill: black; /* Change text color to black */
+    -fx-background-color: #606163; /* Light gray */
+    -fx-text-fill: white; /* Change text color to white */
+    -fx-font-weight: bold;  /* Set font weight to bold */
     -fx-font-size: 12px; /* Reduce font size */
     -fx-padding: 5px 10px; /* Reduce padding */
     -fx-border-radius: 5px;
@@ -78,3 +79,9 @@
     -fx-text-fill: black;
     -fx-background-radius: 25;
 }
+
+.main-border-pane {
+    -fx-background-color: #e8e8e8; /* Adjusted color */
+}
+
+

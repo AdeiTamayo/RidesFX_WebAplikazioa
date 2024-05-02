@@ -167,8 +167,6 @@ public class CreateRideController implements Controller {
                 displayMessage(ResourceBundle.getBundle("Etiquetas").getString("CreateRideGUI.RideCreated"), "success");
 
 
-
-
                 mainGUIController.updateComboBoxesQueryRides();
 
 

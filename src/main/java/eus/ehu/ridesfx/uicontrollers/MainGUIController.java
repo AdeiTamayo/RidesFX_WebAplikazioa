@@ -18,11 +18,14 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 
-//The class doesn't include controller interface because it is the mainApp so it doesn't need to assign it.
+//The class doesn't include controller interface because it is the mainApp, so it doesn't need to assign it.
 public class MainGUIController {
 
     @FXML
     public Label lblDriver;
+
+    @FXML
+    public Button cityInfoButton;
 
     @FXML
     private Label typeOfUser;
@@ -68,7 +71,7 @@ public class MainGUIController {
 
     private QueryReservationsController queryReservationsController;
 
-
+    private CityInfoController cityInfoController;
 
 
     public MainGUIController() {
@@ -108,6 +111,10 @@ public class MainGUIController {
 
     public void setQueryReservationsController(QueryReservationsController queryReservationsController) {
         this.queryReservationsController = queryReservationsController;
+    }
+
+    public void setCityInfoController(CityInfoController cityInfoController) {
+        this.cityInfoController = cityInfoController;
     }
 
     //The following methods are used to manage the buttons in the GUI
@@ -346,11 +353,28 @@ public class MainGUIController {
         return businessLogic.getCurrentUser();
     }
 
+    /**
+     * Updates the combo boxes in the query rides scene.
+     */
+
     public void updateComboBoxesQueryRides() {
         queryRidesController.updateComboBox();
     }
 
+    /**
+     * Shows the city info scene.
+     *
+     * @param actionEvent
+     */
 
+    public void showCityInfo(ActionEvent actionEvent) {
+        showScene("CityInfo");
+        cityInfoController.clearCityInfo();
+    }
+
+    /**
+     * Populates the reservations table.
+     */
     public void populateReservationsTable() {
         queryReservationsController.setReservations();
     }
@@ -388,11 +412,14 @@ public class MainGUIController {
         InitialGUIWin = load("InitialGUI.fxml");
         alertsWin = load("AlertsView.fxml");
         queryReservationsWin = load("QueryReservations.fxml");
+        cityInfoWin = load("CityInfo.fxml");
 
 
         showScene("InitialGUI");
         System.out.println("\n\n\n\nShare Trip Project\n\n\n\n");
     }
+
+
 
 
     public class Window {
@@ -418,6 +445,8 @@ public class MainGUIController {
                         return new AlertsViewController(businessLogic, this);
                     } else if (controllerClass == QueryReservationsController.class) {
                         return new QueryReservationsController(businessLogic, this);
+                    } else if(controllerClass == CityInfoController.class){
+                        return new CityInfoController(businessLogic, this);
                     } else {
                         return controllerClass
                                 .getConstructor(BlFacade.class)
@@ -440,7 +469,7 @@ public class MainGUIController {
     }
 
 
-    private Window createRideWin, queryRidesWin, loginWin, registerWin, InitialGUIWin, alertsWin, queryReservationsWin;
+    private Window createRideWin, queryRidesWin, loginWin, registerWin, InitialGUIWin, alertsWin, queryReservationsWin, cityInfoWin;
 
     private void showScene(String scene) {
         switch (scene) {
@@ -451,6 +480,7 @@ public class MainGUIController {
             case "InitialGUI" -> mainWrapper.setCenter(InitialGUIWin.ui);
             case "Alerts" -> mainWrapper.setCenter(alertsWin.ui);
             case "Query Reservations" -> mainWrapper.setCenter(queryReservationsWin.ui);
+            case "CityInfo" -> mainWrapper.setCenter(cityInfoWin.ui);
         }
     }
 
