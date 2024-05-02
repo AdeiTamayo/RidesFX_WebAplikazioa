@@ -14,12 +14,6 @@ public class Location implements Serializable {
     @Id
     private String name;
 
-    @OneToMany
-    private List<Ride> ride;
-
-
-    @OneToOne
-    private Alert alert;
 
 
 
@@ -60,6 +54,8 @@ public class Location implements Serializable {
     }
 
 
-
-
+    @Override
+    public String toString() {
+        return name;
+    }
 }

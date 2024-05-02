@@ -1,6 +1,7 @@
 package eus.ehu.ridesfx.uicontrollers;
 
 import eus.ehu.ridesfx.businessLogic.BlFacade;
+import eus.ehu.ridesfx.domain.Driver;
 import eus.ehu.ridesfx.domain.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -70,8 +71,6 @@ public class MainGUIController {
 
     private QueryReservationsController queryReservationsController;
 
-    private LocationController LocationController;
-
     private CityInfoController cityInfoController;
 
 
@@ -114,10 +113,6 @@ public class MainGUIController {
         this.queryReservationsController = queryReservationsController;
     }
 
-    public void setLocationController(LocationController locationController) {
-        this.LocationController = locationController;
-    }
-
     public void setCityInfoController(CityInfoController cityInfoController) {
         this.cityInfoController = cityInfoController;
     }
@@ -132,6 +127,7 @@ public class MainGUIController {
     @FXML
     void queryRides(ActionEvent event) {
         showScene("Query Rides");
+        queryRidesController.setView();
     }
 
     /**
@@ -390,7 +386,7 @@ public class MainGUIController {
         setDriverName(businessLogic.getCurrentUser().getName());
         setDriverType(businessLogic.getCurrentUser().getClass().getSimpleName());
 
-        if (businessLogic.getCurrentUser().getClass().getSimpleName().equals("Driver")) {
+        if (businessLogic.getCurrentUser() instanceof Driver) {
             hideButtonQueryRides();
             showButtonCreateRide();
             showButtonAlerts();
@@ -449,9 +445,7 @@ public class MainGUIController {
                         return new AlertsViewController(businessLogic, this);
                     } else if (controllerClass == QueryReservationsController.class) {
                         return new QueryReservationsController(businessLogic, this);
-                    } else if (controllerClass == LocationController.class) {
-                        return new LocationController(businessLogic, this);
-                    }else if(controllerClass == CityInfoController.class){
+                    } else if(controllerClass == CityInfoController.class){
                         return new CityInfoController(businessLogic, this);
                     } else {
                         return controllerClass

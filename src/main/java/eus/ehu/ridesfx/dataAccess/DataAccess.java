@@ -106,20 +106,34 @@ public class DataAccess {
             Traveler testTraveler = new Traveler("traveler@", "Test traveler", "test", "1");
 
 
-            //Create rides
-            driver1.addRide("Donostia", "Bilbo", UtilDate.newDate(year, month, 15), 4, 7);
-            driver1.addRide("Donostia", "Bilbo", UtilDate.newDate(year, month + 1, 15), 4, 7);
-            driver1.addRide("Donostia", "Gasteiz", UtilDate.newDate(year, month, 6), 4, 8);
-            driver1.addRide("Bilbo", "Donostia", UtilDate.newDate(year, month, 25), 4, 4);
-            driver1.addRide("Donostia", "Iruña", UtilDate.newDate(year, month, 7), 4, 8);
-            driver2.addRide("Donostia", "Bilbo", UtilDate.newDate(year, month, 15), 3, 3);
-            driver2.addRide("Bilbo", "Donostia", UtilDate.newDate(year, month, 25), 2, 5);
-            driver2.addRide("Eibar", "Gasteiz", UtilDate.newDate(year, month, 6), 2, 5);
-            driver3.addRide("Bilbo", "Donostia", UtilDate.newDate(year, month, 14), 1, 3);
+            //create locations
+            Location donostia = new Location("Donostia");
+            Location bilbo = new Location("Bilbo");
+            Location gasteiz = new Location("Gasteiz");
+            Location iruña = new Location("Iruña");
+            Location eibar = new Location("Eibar");
 
-            testDriver.addRide("Donostia", "Bilbo", UtilDate.newDate(2024, 5, 15), 4, 7);
-            testDriver.addRide("Donostia", "Bilbo", UtilDate.newDate(2024, 6, 15), 4, 7);
-            testDriver.addRide("Donostia", "Bilbo", UtilDate.newDate(2024, 5, 6), 4, 8);
+            db.persist(donostia);
+            db.persist(bilbo);
+            db.persist(gasteiz);
+            db.persist(iruña);
+            db.persist(eibar);
+
+
+            //Create rides
+            driver1.addRide(donostia, bilbo, UtilDate.newDate(year, month, 15), 4, 7);
+            driver1.addRide(donostia, bilbo, UtilDate.newDate(year, month + 1, 15), 4, 7);
+            driver1.addRide(donostia, gasteiz, UtilDate.newDate(year, month, 6), 4, 8);
+            driver1.addRide(bilbo, donostia, UtilDate.newDate(year, month, 25), 4, 4);
+            driver1.addRide(donostia, iruña, UtilDate.newDate(year, month, 7), 4, 8);
+            driver2.addRide(donostia, bilbo, UtilDate.newDate(year, month, 15), 3, 3);
+            driver2.addRide(bilbo, donostia, UtilDate.newDate(year, month, 25), 2, 5);
+            driver2.addRide(eibar, gasteiz, UtilDate.newDate(year, month, 6), 2, 5);
+            driver3.addRide(bilbo, donostia, UtilDate.newDate(year, month, 14), 1, 3);
+
+            driver3.addRide(donostia, bilbo, UtilDate.newDate(2024, 5, 15), 4, 7);
+            driver3.addRide(donostia, bilbo, UtilDate.newDate(2024, 6, 15), 4, 7);
+            driver3.addRide(donostia, bilbo, UtilDate.newDate(2024, 5, 6), 4, 8);
 
 
             db.persist(driver1);
@@ -166,7 +180,7 @@ public class DataAccess {
     }
 
 
-    public Ride createRide(String from, String to, Date date, int nPlaces, float price, String driverEmail) throws RideAlreadyExistException, RideMustBeLaterThanTodayException {
+    public Ride createRide(Location from, Location to, Date date, int nPlaces, float price, String driverEmail) throws RideAlreadyExistException, RideMustBeLaterThanTodayException {
         System.out.println(">> DataAccess: createRide=> from= " + from + " to= " + to + " driver=" + driverEmail + " date " + date);
         try {
             if (new Date().compareTo(date) > 0) {
@@ -194,7 +208,7 @@ public class DataAccess {
 
     }
 
-    public List<Ride> getRides(String origin, String destination, Date date) {
+    public List<Ride> getRides(Location origin, Location destination, Date date) {
         System.out.println(">> DataAccess: getRides origin/dest/date");
         Vector<Ride> res = new Vector<>();
 
@@ -219,9 +233,9 @@ public class DataAccess {
      *
      * @return collection of cities
      */
-    public List<String> getDepartCities() {
-        TypedQuery<String> query = db.createQuery("SELECT DISTINCT r.fromLocation FROM Ride r ORDER BY r.fromLocation", String.class);
-        List<String> cities = query.getResultList();
+    public List<Location> getDepartCities() {
+        TypedQuery<Location> query = db.createQuery("SELECT DISTINCT r.locationFrom FROM Ride r", Location.class);
+        List<Location> cities = query.getResultList();
         return cities;
 
     }
@@ -232,10 +246,10 @@ public class DataAccess {
      * @param from the departure location of a ride
      * @return all the arrival destinations
      */
-    public List<String> getArrivalCities(String from) {
-        TypedQuery<String> query = db.createQuery("SELECT DISTINCT r.toLocation FROM Ride r WHERE r.fromLocation=?1 ORDER BY r.toLocation", String.class);
+    public List<Location> getArrivalCities(Location from) {
+        TypedQuery<Location> query = db.createQuery("SELECT DISTINCT r.locationTo FROM Ride r WHERE r.locationFrom=?1", Location.class);
         query.setParameter(1, from);
-        List<String> arrivingCities = query.getResultList();
+        List<Location> arrivingCities = query.getResultList();
         return arrivingCities;
 
     }
@@ -260,7 +274,7 @@ public class DataAccess {
      * @param date of the month for which days with rides want to be retrieved
      * @return collection of rides
      */
-    public List<Date> getThisMonthDatesWithRides(String from, String to, Date date) {
+    public List<Date> getThisMonthDatesWithRides(Location from, Location to, Date date) {
         System.out.println(">> DataAccess: getEventsMonth");
         List<Date> res = new ArrayList<>();
 
@@ -268,7 +282,7 @@ public class DataAccess {
         Date lastDayMonthDate = UtilDate.lastDayMonth(date);
 
 
-        TypedQuery<Date> query = db.createQuery("SELECT DISTINCT r.date FROM Ride r WHERE r.fromLocation=?1 AND r.toLocation=?2 AND r.date BETWEEN ?3 and ?4", Date.class);
+        TypedQuery<Date> query = db.createQuery("SELECT DISTINCT r.date FROM Ride r WHERE r.locationFrom=?1 AND r.locationTo=?2 AND r.date BETWEEN ?3 and ?4", Date.class);
 
         query.setParameter(1, from);
         query.setParameter(2, to);
@@ -281,11 +295,11 @@ public class DataAccess {
         return res;
     }
 
-    public List<Date> getDatesWithRides(String from, String to) {
+    public List<Date> getDatesWithRides(Location from, Location to) {
         System.out.println(">> DataAccess: getEventsFromTo");
         List<Date> res = new ArrayList<>();
 
-        TypedQuery<Date> query = db.createQuery("SELECT DISTINCT r.date FROM Ride r WHERE r.fromLocation=?1 AND r.toLocation=?2", Date.class);
+        TypedQuery<Date> query = db.createQuery("SELECT DISTINCT r.date FROM Ride r WHERE r.locationFrom=?1 AND r.locationTo=?2", Date.class);
 
         query.setParameter(1, from);
         query.setParameter(2, to);
@@ -363,7 +377,7 @@ public class DataAccess {
     }
 
 
-    public boolean makeReservation(Traveler traveler, Ride ride, int numSeats) {
+    public boolean makeReservation(Traveler traveler, Ride ride, int numSeats, Date currentDate) {
         // Start a transaction
         db.getTransaction().begin();
 
@@ -374,7 +388,7 @@ public class DataAccess {
         Ride dbRide = query.getSingleResult();
 
         // Create a new Reservation object
-        Reservation reservation = new Reservation(traveler, dbRide, numSeats, "pending");
+        Reservation reservation = new Reservation(traveler, dbRide, numSeats, "pending", currentDate);
 
         // Add the reservation to the traveler
         traveler.addReservation(reservation);
@@ -422,7 +436,7 @@ public class DataAccess {
      * @param travelerEmail
      * @return the created alert
      */
-    public Alert createAlert(String from, String to, int nPlaces, Date date, String travelerEmail) {
+    public Alert createAlert(Location from, Location to, int nPlaces, Date date, String travelerEmail) {
         System.out.println(">> DataAccess: createAlert=> from= " + from + " to= " + to + " traveler=" + travelerEmail + " date " + date);
         try {
             db.getTransaction().begin();
@@ -521,33 +535,6 @@ public class DataAccess {
     }
 
 
-    /**
-     * This method converts the rides already created to a location
-     */
-    public void convertRideToLocation() {
-        // Start a transaction
-        db.getTransaction().begin();
-
-        // Fetch all distinct departure and arrival cities from the Ride table
-        TypedQuery<String> departCitiesQuery = db.createQuery("SELECT DISTINCT r.fromLocation FROM Ride r", String.class);
-        TypedQuery<String> arrivalCitiesQuery = db.createQuery("SELECT DISTINCT r.toLocation FROM Ride r", String.class);
-
-        List<String> departCities = departCitiesQuery.getResultList();
-        List<String> arrivalCities = arrivalCitiesQuery.getResultList();
-
-        // Combine both lists and remove duplicates
-        Set<String> allCities = new HashSet<>(departCities);
-        allCities.addAll(arrivalCities);
-
-        // Convert each city into a Location object and persist it in the database
-        for (String city : allCities) {
-            Location location = new Location(city);
-            db.persist(location);
-        }
-
-        // Commit the transaction
-        db.getTransaction().commit();
-    }
 
     /**
      * This method returns all the locations
@@ -567,11 +554,12 @@ public class DataAccess {
      *
      * @param name
      */
-    public void createLocation(String name) {
+    public Location createLocation(String name) {
         db.getTransaction().begin();
         Location location = new Location(name);
         db.persist(location);
         db.getTransaction().commit();
+        return location;
     }
 
 
@@ -598,6 +586,18 @@ public class DataAccess {
         db.getTransaction().begin();
         Reservation managedReservation = db.merge(selectedItem);
         managedReservation.setState(state);
+        //update the number of seats in the ride
+        Ride ride = managedReservation.getRide();
+        ride.setNumPlaces(ride.getNumPlaces() - managedReservation.getNumPlaces());
+        db.getTransaction().commit();
+    }
+
+    public void deleteLocation(String locationName) {
+        //delete all locations with the given name
+        db.getTransaction().begin();
+        Query query = db.createQuery("DELETE FROM Location l WHERE l.name = :name");
+        query.setParameter("name", locationName);
+        query.executeUpdate();
         db.getTransaction().commit();
     }
 }

@@ -29,7 +29,7 @@ public class BlFacadeImplementation implements BlFacade {
 
     }
 
-    public Ride createRide(String from, String to, Date date, int nPlaces, float price, String driverEmail) throws RideMustBeLaterThanTodayException, RideAlreadyExistException {
+    public Ride createRide(Location from, Location to, Date date, int nPlaces, float price, String driverEmail) throws RideMustBeLaterThanTodayException, RideAlreadyExistException {
         Ride ride = dbManager.createRide(from, to, date, nPlaces, price, driverEmail);
         return ride;
     }
@@ -73,7 +73,7 @@ public class BlFacadeImplementation implements BlFacade {
     }
 
     @Override
-    public List<Ride> getRides(String origin, String destination, Date date) {
+    public List<Ride> getRides(Location origin, Location destination, Date date) {
         List<Ride> events = dbManager.getRides(origin, destination, date);
         return events;
     }
@@ -83,7 +83,7 @@ public class BlFacadeImplementation implements BlFacade {
      * {@inheritDoc}
      */
     @Override
-    public List<Date> getThisMonthDatesWithRides(String from, String to, Date date) {
+    public List<Date> getThisMonthDatesWithRides(Location from, Location to, Date date) {
         List<Date> dates = dbManager.getThisMonthDatesWithRides(from, to, date);
         return dates;
     }
@@ -112,8 +112,8 @@ public class BlFacadeImplementation implements BlFacade {
     }
 
 
-    public List<String> getDepartCities() {
-        List<String> departLocations = dbManager.getDepartCities();
+    public List<Location> getDepartCities() {
+        List<Location> departLocations = dbManager.getDepartCities();
         return departLocations;
 
     }
@@ -129,20 +129,20 @@ public class BlFacadeImplementation implements BlFacade {
     }
 
 
-    public List<String> getDestinationCities(String from) {
-        List<String> targetCities = dbManager.getArrivalCities(from);
+    public List<Location> getDestinationCities(Location from) {
+        List<Location> targetCities = dbManager.getArrivalCities(from);
         return targetCities;
     }
 
 
-    public List<Date> getDatesWithRides(String value, String value1) {
+    public List<Date> getDatesWithRides(Location value, Location value1) {
         List<Date> dates = dbManager.getDatesWithRides(value, value1);
         return dates;
     }
 
 
-    public boolean makeReservation(Traveler traveler, Ride ride, int numPlaces) {
-        return dbManager.makeReservation(traveler, ride, numPlaces);
+    public boolean makeReservation(Traveler traveler, Ride ride, int numPlaces, Date currentDate) {
+        return dbManager.makeReservation(traveler, ride, numPlaces, currentDate);
 
     }
 
@@ -175,7 +175,7 @@ public class BlFacadeImplementation implements BlFacade {
      * @param email
      * @return the alert created
      */
-    public Alert createAlert(String from, String to, int numplaces, Date date, String email) {
+    public Alert createAlert(Location from, Location to, int numplaces, Date date, String email) {
         Alert alert = dbManager.createAlert(from, to, numplaces, date, email);
         return alert;
     }
@@ -259,26 +259,23 @@ public class BlFacadeImplementation implements BlFacade {
         return dbManager.getAllLocations();
     }
 
-    /**
-     * This method converts the ride cities to locations
-     */
-    public void convertRideToLocation() {
-        dbManager.convertRideToLocation();
-    }
 
     /**
      * This method creates a new location
      *
      * @param name
      */
-    public void createLocation(String name) {
-        dbManager.createLocation(name);
+    public Location createLocation(String name) {
+        return dbManager.createLocation(name);
     }
-
 
 
     public boolean deleteReservation(Reservation selectedItem) {
         return dbManager.deleteReservation(selectedItem);
+    }
+
+    public void deleteLocation(String name) {
+        dbManager.deleteLocation(name);
     }
 
 }

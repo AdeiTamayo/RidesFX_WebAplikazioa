@@ -113,7 +113,7 @@ public class Traveler extends User implements Serializable {
      * @param nPlaces The number of places available in the alert.
      * @return The created alert.
      */
-    public Alert addAlert(String from, String to, Date date, int nPlaces) {
+    public Alert addAlert(Location from, Location to, Date date, int nPlaces) {
         Alert alert = new Alert(from, to, date, nPlaces, this);
         alerts.add(alert);
         return alert;
@@ -127,7 +127,7 @@ public class Traveler extends User implements Serializable {
      * @param date The date of the alert.
      * @return true if the alert exists and false otherwise.
      */
-    public boolean doesAlertExists(String from, String to, Date date) {
+    public boolean doesAlertExists(Location from, Location to, Date date) {
         for (Alert a : alerts)
             if ((java.util.Objects.equals(a.getFromLocation(), from)) && (java.util.Objects.equals(a.getToLocation(), to)) && (java.util.Objects.equals(a.getDate(), date)))
                 return true;
@@ -170,7 +170,7 @@ public class Traveler extends User implements Serializable {
      * @param date The date of the alert.
      * @return The removed alert if it was found, null otherwise.
      */
-    public Alert removeAlert(String from, String to, Date date) {
+    public Alert removeAlert(Location from, Location to, Date date) {
         boolean found = false;
         int index = 0;
         Alert a = null;

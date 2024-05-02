@@ -1,6 +1,7 @@
 package eus.ehu.ridesfx.uicontrollers;
 
 import eus.ehu.ridesfx.businessLogic.BlFacade;
+import eus.ehu.ridesfx.configuration.UtilDate;
 import eus.ehu.ridesfx.domain.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -46,10 +47,10 @@ public class QueryRidesController implements Controller {
     private TableColumn<Ride, Float> qc3;
 
     @FXML
-    private ComboBox<String> comboArrivalCity;
+    private ComboBox<Location> comboArrivalCity;
 
     @FXML
-    private ComboBox<String> comboDepartCity;
+    private ComboBox<Location> comboDepartCity;
 
     @FXML
     private TableView<Ride> tblRides;
@@ -241,7 +242,11 @@ public class QueryRidesController implements Controller {
         //suposatzen da erreserbatzen sahiatzen bada, traveler izan behar duela
         Traveler traveler = businessLogic.getCurrentTraveler();
 
-        businessLogic.makeReservation(traveler, ride, numSeats);
+        //get the current date
+        Date currentDate = new Date();
+        currentDate= UtilDate.trim(currentDate);
+
+        businessLogic.makeReservation(traveler, ride, numSeats, currentDate);
         correctMessage.setVisible(true);
         correctMessage.setText("Ride requested, pending driver approval");
 
@@ -356,6 +361,9 @@ public class QueryRidesController implements Controller {
      */
     @FXML
     void QueryRides(ActionEvent event) {
+        comboNumSeats.setVisible(false);
+        quantityOfSeatsLabel.setVisible(false);
+        bookingButton.setVisible(false);
         correctMessage.setVisible(false);
         loggedInError.setVisible(false);
         Date date = Dates.convertToDate(datepicker.getValue());
@@ -421,10 +429,10 @@ public class QueryRidesController implements Controller {
         comboArrivalCity.valueProperty().addListener(
                 (obs, oldVal, newVal) -> updateDatePickerCellFactory(datepicker));
 
-        ObservableList<String> departureCities = FXCollections.observableArrayList(new ArrayList<>());
+        ObservableList<Location> departureCities = FXCollections.observableArrayList(new ArrayList<>());
         departureCities.setAll(businessLogic.getDepartCities());
 
-        ObservableList<String> arrivalCities = FXCollections.observableArrayList(new ArrayList<>());
+        ObservableList<Location> arrivalCities = FXCollections.observableArrayList(new ArrayList<>());
 
         comboDepartCity.setItems(departureCities);
         comboArrivalCity.setItems(arrivalCities);
@@ -459,4 +467,9 @@ public class QueryRidesController implements Controller {
         this.mainGUIController = mainGUIController;
     }
 
+    public void setView() {
+        alertMessage.setVisible(false);
+        loggedInError.setVisible(false);
+        correctMessage.setVisible(false);
+    }
 }

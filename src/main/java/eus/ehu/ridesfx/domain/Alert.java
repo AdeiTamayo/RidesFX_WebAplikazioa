@@ -18,8 +18,6 @@ public class Alert implements Serializable {
     @Id
     @GeneratedValue
     private Integer alertNumber;
-    private String fromLocation;
-    private String toLocation;
     private int numPlaces;
     private Date date;
 
@@ -28,8 +26,11 @@ public class Alert implements Serializable {
     @ManyToOne
     private Traveler traveler;
 
-    @OneToOne
-    private Location location;
+    @ManyToOne
+    private Location locationTo;
+
+    @ManyToOne
+    private Location locationFrom;
 
     /**
      * Default constructor for the Alert class.
@@ -50,11 +51,11 @@ public class Alert implements Serializable {
      * @param numPlaces The number of places available in the alert.
      * @param traveler The traveler of the alert.
      */
-    public Alert(Integer alertNumber, String from, String to, Date date, int numPlaces, Traveler traveler) {
+    public Alert(Integer alertNumber, Location from, Location to, Date date, int numPlaces, Traveler traveler) {
         super();
         this.alertNumber = alertNumber;
-        this.fromLocation = from;
-        this.toLocation = to;
+        this.locationFrom = from;
+        this.locationTo = to;
         this.numPlaces = numPlaces;
         this.date = date;
         this.traveler = traveler;
@@ -70,10 +71,10 @@ public class Alert implements Serializable {
      * @param numPlaces The number of places available in the alert.
      * @param traveler The traveler of the alert.
      */
-    public Alert(String from, String to, Date date, int numPlaces, Traveler traveler) {
+    public Alert(Location from, Location to, Date date, int numPlaces, Traveler traveler) {
         super();
-        this.fromLocation = from;
-        this.toLocation = to;
+        this.locationFrom = from;
+        this.locationTo = to;
         this.numPlaces = numPlaces;
         this.date = date;
         this.traveler = traveler;
@@ -105,8 +106,8 @@ public class Alert implements Serializable {
      *
      * @return the origin location
      */
-    public String getFromLocation() {
-        return fromLocation;
+    public Location getFromLocation() {
+        return locationFrom;
     }
 
 
@@ -115,8 +116,8 @@ public class Alert implements Serializable {
      *
      * @param origin to be set
      */
-    public void setFromLocation(String origin) {
-        this.fromLocation = origin;
+    public void setFromLocation(Location origin) {
+        this.locationFrom = origin;
     }
 
     /**
@@ -124,8 +125,8 @@ public class Alert implements Serializable {
      *
      * @return the destination location
      */
-    public String getToLocation() {
-        return toLocation;
+    public Location getToLocation() {
+        return locationTo;
     }
 
 
@@ -134,8 +135,8 @@ public class Alert implements Serializable {
      *
      * @param destination to be set
      */
-    public void setToLocation(String destination) {
-        this.toLocation = destination;
+    public void setToLocation(Location destination) {
+        this.locationTo = destination;
     }
 
 
@@ -175,15 +176,6 @@ public class Alert implements Serializable {
         this.numPlaces = numPlaces;
     }
 
-    /**
-     * Set the free places of the alert
-     *
-     * @param  numPlaces places to be set
-     */
-
-    public void setBetMinimum(int numPlaces) {
-        this.numPlaces = numPlaces;
-    }
 
     /**
      * Get the traveler associated to the alert
@@ -228,7 +220,7 @@ public class Alert implements Serializable {
      * @return the alert information
      */
     public String toString() {
-        return alertNumber + ";" + ";" + fromLocation + ";" + toLocation + ";" + date;
+        return alertNumber + ";" + ";" + locationFrom + ";" + locationTo + ";" + date;
     }
 
 

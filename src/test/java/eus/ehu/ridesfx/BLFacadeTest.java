@@ -45,8 +45,8 @@ class BLFacadeTest extends BlFacadeImplementation {
 
     @Test
     void testNoAvailableRides() {
-        String departure = "Donostia";
-        String arrival = "Bilbo";
+        Location departure = new Location("Donostia");
+        Location arrival = new Location("Bilbo");
         Date testDate = getTestDate();
         int seats = 10;
 
@@ -58,8 +58,8 @@ class BLFacadeTest extends BlFacadeImplementation {
 
     @Test
     void testAvailableRides() {
-        String departure = "Donostia";
-        String arrival = "Bilbo";
+        Location departure = new Location("Donostia");
+        Location arrival = new Location("Bilbo");
         Date testDate = UtilDate.newDate(2024, 5, 15);
         int seats = 2;
 
@@ -69,8 +69,8 @@ class BLFacadeTest extends BlFacadeImplementation {
 
     @Test
     void testCreateRide() throws RideAlreadyExistException, RideMustBeLaterThanTodayException {
-        String departure = "Donostia";
-        String arrival = "Bilbo";
+        Location departure = new Location("Donostia");
+        Location arrival = new Location("Bilbo");
         Date testDate = UtilDate.newDate(2024, 8, 15);
         int seats = 2;
         float price = 10;
@@ -82,8 +82,8 @@ class BLFacadeTest extends BlFacadeImplementation {
 
     @Test
     void testRideAlredyExist() {
-        String departure = "Donostia";
-        String arrival = "Bilbo";
+        Location departure = new Location("Donostia");
+        Location arrival = new Location("Bilbo");
         Date testDate = UtilDate.newDate(2024, 5, 17);
         int seats = 2;
         float price = 10;
@@ -105,8 +105,8 @@ class BLFacadeTest extends BlFacadeImplementation {
 
     @Test
     void testCreateRideMustBeLaterThanToday() {
-        String departure = "Donostia";
-        String arrival = "Bilbo";
+        Location departure = new Location("Donostia");
+        Location arrival = new Location("Bilbo");
         Date testDate = UtilDate.newDate(2022, 5, 15);
         int seats = 2;
         float price = 10;
@@ -119,21 +119,21 @@ class BLFacadeTest extends BlFacadeImplementation {
 
     @Test
     void testGetDepartCities() {
-        List<String> departCities = blFacadeImplementation.getDepartCities();
+        List<Location> departCities = blFacadeImplementation.getDepartCities();
         assertFalse(departCities.isEmpty(), "Depart cities should not be empty.");
     }
 
     @Test
     void testGetDestinationCities() {
-        String departure = "Donostia";
-        List<String> destinationCities = blFacadeImplementation.getDestinationCities(departure);
+        Location departure = new Location("Donostia");
+        List<Location> destinationCities = blFacadeImplementation.getDestinationCities(departure);
         assertFalse(destinationCities.isEmpty(), "Destination cities should not be empty.");
     }
 
     @Test
     void testGetThisMonthDatesWithRides() {
-        String departure = "Donostia";
-        String arrival = "Bilbo";
+        Location departure = new Location("Donostia");
+        Location arrival = new Location("Bilbo");
         Date testDate = UtilDate.newDate(2024, 5, 15);
         List<Date> dates = blFacadeImplementation.getThisMonthDatesWithRides(departure, arrival, testDate);
         assertFalse(dates.isEmpty(), "Dates should not be empty.");
@@ -167,8 +167,8 @@ class BLFacadeTest extends BlFacadeImplementation {
 
     @Test
     void testDeleteReservation() throws RideAlreadyExistException, RideMustBeLaterThanTodayException {
-        String departure = "Donostia";
-        String arrival = "Bilbo";
+        Location departure = new Location("Donostia");
+        Location arrival = new Location("Bilbo");
         Date testDate = UtilDate.newDate(2024, 5, 17);
         int seats = 2;
         float price = 10;
@@ -187,8 +187,9 @@ class BLFacadeTest extends BlFacadeImplementation {
         User user = blFacadeImplementation.checkUser(emailUser);
         assertNotNull(user, "User should exist.");
 
-        boolean reservation = blFacadeImplementation.makeReservation((Traveler) user, ride, 1);
-        Reservation reserva = new Reservation((Traveler) user, ride, 1, "Pending");
+        Date currentDate= UtilDate.trim(new Date());
+        boolean reservation = blFacadeImplementation.makeReservation((Traveler) user, ride, 1, currentDate);
+        Reservation reserva = new Reservation((Traveler) user, ride, 1, "Pending", currentDate);
         assertTrue(reservation, "Reservation should be made.");
 
         boolean deleted = blFacadeImplementation.deleteReservation(reserva);
@@ -198,9 +199,8 @@ class BLFacadeTest extends BlFacadeImplementation {
 
     @Test
     void testMakeReservation() throws RideAlreadyExistException, RideMustBeLaterThanTodayException {
-        String departure = "Donostia";
-
-        String arrival = "Bilbo";
+        Location departure = new Location("Donostia");
+        Location arrival = new Location("Bilbo");
         Date testDate = UtilDate.newDate(2024, 5, 17);
         int seats = 2;
         float price = 10;
@@ -219,7 +219,7 @@ class BLFacadeTest extends BlFacadeImplementation {
         User user = blFacadeImplementation.checkUser(emailUser);
         assertNotNull(user, "User should exist.");
 
-        boolean reservation = blFacadeImplementation.makeReservation((Traveler) user, ride, 1);
+        boolean reservation = blFacadeImplementation.makeReservation((Traveler) user, ride, 1, UtilDate.trim(new Date()));
         assertTrue(reservation, "Reservation should be made.");
 
     }
