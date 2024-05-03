@@ -7,11 +7,13 @@ import com.google.gson.JsonParser;
 import eus.ehu.ridesfx.API.Utils;
 import eus.ehu.ridesfx.businessLogic.BlFacade;
 import eus.ehu.ridesfx.domain.CityInfo;
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.util.Duration;
 
 public class CityInfoController implements Controller {
 
@@ -43,6 +45,9 @@ public class CityInfoController implements Controller {
 
     private String cityName;
 
+    @FXML
+    private Label errorLabel;
+
 
     public CityInfoController(BlFacade bl, MainGUIController mainGUIController) {
         this.businessLogic = bl;
@@ -56,8 +61,20 @@ public class CityInfoController implements Controller {
     public void loadCityInfo() {
 
 
-            cityName = cityNameToQueryTextField.getText();
+        cityName = cityNameToQueryTextField.getText();
+        //The case in which the user does not enter a city name
+        //Otherwise the geonames API returns a random city.
+        if (cityName.isEmpty()) {
+            errorLabel.setVisible(true);
+            PauseTransition pause = new PauseTransition(Duration.seconds(3));
+            pause.setOnFinished(event2 -> errorLabel.setVisible(false));
+            pause.play();
+
+
+        } else {
+            //The username to test the geonames API
             String username = "adeiProba";
+            //The link to the geonames API
             String json = Utils.request("http://api.geonames.org/searchJSON?username=" + username + "&name=" + cityName + "&maxRows=1&style=LONG");
             System.out.println("json: " + json);
             if (json.isEmpty()) {
@@ -86,7 +103,7 @@ public class CityInfoController implements Controller {
             provinceNameTextField.setText(cityInfo.getAdminName1());
             populationTextField.setText(String.valueOf(cityInfo.getPopulation()));
             aboutTextField.setText(cityInfo.getFcodeName());
-
+        }
     }
 
     /**
@@ -108,6 +125,7 @@ public class CityInfoController implements Controller {
         provinceNameTextField.setText("");
         populationTextField.setText("");
         aboutTextField.setText("");
+        errorLabel.setVisible(false);
 
 
     }
@@ -133,6 +151,7 @@ public class CityInfoController implements Controller {
 
     @FXML
     void initialize() {
+        errorLabel.setVisible(false);
 
         loadCityInfo();
     }
@@ -141,7 +160,6 @@ public class CityInfoController implements Controller {
     public void setMainApp(MainGUIController mainGUIController) {
         this.mainGUIController = mainGUIController;
     }
-
 
 
 }
