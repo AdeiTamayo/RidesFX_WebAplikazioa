@@ -380,7 +380,7 @@ public class DataAccess {
     }
 
 
-    public boolean makeReservation(Traveler traveler, Ride ride, int numSeats, Date currentDate) {
+    public boolean makeReservation(Traveler traveler, Ride ride, int numSeats, Date currentDate) throws NullPointerException{
         // Start a transaction
         db.getTransaction().begin();
 
