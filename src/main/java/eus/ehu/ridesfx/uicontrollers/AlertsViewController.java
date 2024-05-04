@@ -30,6 +30,9 @@ public class AlertsViewController implements Controller {
     private Label labelAlerts;
 
     @FXML
+    private ComboBox<Float> bookPrice;
+
+    @FXML
     private TableColumn departC;
 
     @FXML
@@ -80,6 +83,7 @@ public class AlertsViewController implements Controller {
         labelSeatsQuantity.setVisible(false);
         priceLabel.setVisible(false);
         priceSpinner.setVisible(false);
+        bookPrice.setVisible(false);
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0);
         seatsQuantitySpinner.setValueFactory(valueFactory);
         SpinnerValueFactory<Integer> valueFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0);
@@ -113,6 +117,13 @@ public class AlertsViewController implements Controller {
                     if (stateC.getCellData(alertTable.getSelectionModel().getSelectedItem()).equals("Ride found")) {
                         //Enable the button to book the ride
                         bookButton.setDisable(false);
+                        bookPrice.setVisible(true);
+                        //Get the matching rides and their price
+                        Alert a = (Alert) alertTable.getSelectionModel().getSelectedItem();
+                        List<Ride> ridesList = businessLogic.areMatchingRides(a);
+                        for(Ride ride: ridesList){
+                            bookPrice.getItems().add(ride.getPrice());
+                        }
                     }
                 }
             } else if (businessLogic.getCurrentUser() instanceof Driver) {
@@ -183,12 +194,16 @@ public class AlertsViewController implements Controller {
         if (stateC.getCellData(alertTable.getSelectionModel().getSelectedItem()).equals("Ride found")) {
             Alert a = (Alert) alertTable.getSelectionModel().getSelectedItem();
             List<Ride> ridesList = businessLogic.areMatchingRides(a);
-            //book the first ride that matches the alert
 
+            //book the  ride that matches the alert with the selected price
             Traveler traveler = (Traveler) businessLogic.getCurrentUser();
             int numPlaces = (int) numPlacesC.getCellData(alertTable.getSelectionModel().getSelectedItem());
-
-            Ride ride = ridesList.get(0);
+            float price= bookPrice.getValue();
+            int i=0;
+            while(ridesList.get(i).getPrice()!=price){
+                i++;
+            }
+            Ride ride = ridesList.get(i);
 
 
             businessLogic.makeReservation(traveler, ride, numPlaces, UtilDate.trim(new Date()));
@@ -287,6 +302,7 @@ public class AlertsViewController implements Controller {
     public void restartGUI(){
         deleteButton.setVisible(false);
         bookButton.setVisible(false);
+        bookPrice.setVisible(false);
         createRideButton.setVisible(false);
         seatsQuantitySpinner.setVisible(false);
         labelSeatsQuantity.setVisible(false);

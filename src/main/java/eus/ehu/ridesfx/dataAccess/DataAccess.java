@@ -390,6 +390,9 @@ public class DataAccess {
         // Create a new Reservation object
         Reservation reservation = new Reservation(traveler, dbRide, numSeats, "pending", currentDate);
 
+        //Add the reservation to the ride
+        dbRide.addReservation(reservation);
+
         // Add the reservation to the traveler
         traveler.addReservation(reservation);
 

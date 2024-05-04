@@ -10,6 +10,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @SuppressWarnings("serial")
 @Entity
@@ -29,6 +30,9 @@ public class Ride implements Serializable {
 
     @ManyToOne
     private Location locationFrom;
+
+    @OneToMany
+    private List<Reservation> reservations;
 
 
     /**
@@ -233,6 +237,14 @@ public class Ride implements Serializable {
      */
     public String toString() {
         return rideNumber + ";" + ";" + locationFrom + ";" + locationTo + ";" + date;
+    }
+
+    /**
+     * This method adds a reservation to the ride
+     * @param reservation
+     */
+    public void addReservation(Reservation reservation) {
+        reservations.add(reservation);
     }
 
 
