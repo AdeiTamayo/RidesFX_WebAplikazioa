@@ -7,6 +7,8 @@ import eus.ehu.ridesfx.domain.*;
 import eus.ehu.ridesfx.domain.Alert;
 
 import javafx.animation.PauseTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -70,6 +72,8 @@ public class AlertsViewController implements Controller {
 
     @FXML
     public Label notificationLabel;
+    @FXML
+    public Button refreshButton;
 
 
     @FXML
@@ -167,6 +171,48 @@ public class AlertsViewController implements Controller {
 
     public void closeClick(ActionEvent event) {
         mainGUIController.showInitialGUI();
+    }
+
+    /**
+     * This method is called when the refresh button is clicked, it populates the table with the reservations of the current user.
+     * Depending on the user one method or another is called.
+     *
+     * @param actionEvent
+     */
+    public void populateReservationsTableOnAction(ActionEvent actionEvent) {
+        populateReservatationTable();
+
+    }
+
+    public void populateReservatationTable() {
+        alertTable.getItems().clear();
+
+        if (businessLogic.getCurrentUser() instanceof Traveler) {
+            setReservations();
+        } else if (businessLogic.getCurrentUser() instanceof Driver) {
+            setReservationsDriver();
+        }
+    }
+
+    public void setReservations() {
+
+        List<Alert> alerts = businessLogic.getAlerts();
+
+        for (Alert a : alerts) {
+            System.out.println(a);
+        }
+
+        if (alerts.isEmpty()) {
+            alertTable.placeholderProperty().setValue(new Label("You don't have any alerts yet"));
+        }
+
+        // Add the reservations to the table
+        ObservableList<Alert> alertList = FXCollections.observableArrayList(alerts);
+        alertTable.setItems(alertList);
+    }
+
+    public void setReservationsDriver() {
+
     }
 
     /**
