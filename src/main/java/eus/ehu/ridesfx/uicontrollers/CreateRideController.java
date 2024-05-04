@@ -120,13 +120,11 @@ public class CreateRideController implements Controller {
                 float price = Float.parseFloat(txtPrice.getText());
                 Driver driver = (Driver) businessLogic.getCurrentUser();
 
-                if (ArrivalCityComboBox.getValue().equals("Create new city") && DepartCityComboBox.getValue().equals("Create new city")) {
-
-
+                if (ArrivalCityComboBox.getValue().getName().equals("Create new city") && DepartCityComboBox.getValue().getName().equals("Create new city")) {
                     String arrivalCity = newArrivalCityText.getText();
                     Location l= businessLogic.createLocation(arrivalCity);
 
-                    ArrivalCityComboBox.getItems().add(l);
+                    ArrivalCityComboBox.getItems().add(ArrivalCityComboBox.getValue());
                     ArrivalCityComboBox.setValue(l);
 
                     newDepartCityText.setVisible(true);
@@ -140,7 +138,7 @@ public class CreateRideController implements Controller {
 
 
 
-                } else if (ArrivalCityComboBox.getValue().equals("Create new city")) {
+                } else if (ArrivalCityComboBox.getValue().getName().equals("Create new city")) {
                     String arrivalCity = newArrivalCityText.getText();
                     Location loc=  businessLogic.createLocation(arrivalCity);
                     ArrivalCityComboBox.getItems().add(loc);
@@ -150,7 +148,7 @@ public class CreateRideController implements Controller {
                     businessLogic.deleteLocation("Create new city");
 
 
-                } else if (DepartCityComboBox.getValue().equals("Create new city")) {
+                } else if (DepartCityComboBox.getValue().getName().equals("Create new city")) {
                     newDepartCityText.setVisible(true);
                     String departCity = newDepartCityText.getText();
                     Location lc= businessLogic.createLocation(departCity);
@@ -204,8 +202,8 @@ public class CreateRideController implements Controller {
         DepartCityComboBox.getItems().clear();
 
         // Add each location's name to the ComboBoxes
-        Location defaultArrLocation = new Location("Create a new city");
-        Location defaultDesLocation = new Location("Create a new city");
+        Location defaultArrLocation = new Location("Create new city");
+        Location defaultDesLocation = new Location("Create new city");
         ArrivalCityComboBox.getItems().add(defaultArrLocation);
         DepartCityComboBox.getItems().add(defaultDesLocation);
 
@@ -216,14 +214,14 @@ public class CreateRideController implements Controller {
 
         // Listener for ArrivalCityComboBox
         ArrivalCityComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if ("Create new city".equals(newValue)) {
+            if (defaultArrLocation.equals(newValue)) {
                 newArrivalCityText.setVisible(true);
             }
         });
 
 // Listener for DepartCityComboBox
         DepartCityComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if ("Create new city".equals(newValue)) {
+            if (defaultDesLocation.equals(newValue)) {
                 newDepartCityText.setVisible(true);
             }
         });
