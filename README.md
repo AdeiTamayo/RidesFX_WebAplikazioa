@@ -78,6 +78,8 @@ This iteration is a bit different from the previous ones. We made the following 
     * Added functionality to remove the success messages after certain time.
     * Added option to create a city when creating a ride and adding to locations.
     * Added option to delete ride.
+ 
+  The table with the total hours will be presented in the presentation of the project.
 
 ### Iteration 3 struggles
 
