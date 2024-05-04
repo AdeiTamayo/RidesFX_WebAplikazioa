@@ -11,6 +11,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Vector;
 
 @SuppressWarnings("serial")
 @Entity
@@ -57,6 +58,7 @@ public class Ride implements Serializable {
      */
     public Ride(Integer rideNumber, Location from, Location to, Date date, int numPlaces, float price, Driver driver) {
         super();
+        this.reservations = new Vector<Reservation>();
         this.rideNumber = rideNumber;
         this.locationFrom = from;
         this.locationTo = to;
@@ -79,6 +81,7 @@ public class Ride implements Serializable {
      */
     public Ride(Location from, Location to, Date date, int numPlaces, float price, Driver driver) {
         super();
+        this.reservations = new Vector<Reservation>();
         this.locationFrom = from;
         this.locationTo = to;
         this.numPlaces = numPlaces;

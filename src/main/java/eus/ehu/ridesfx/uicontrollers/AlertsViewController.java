@@ -115,15 +115,21 @@ public class AlertsViewController implements Controller {
                     bookButton.setDisable(true);
                     //If the selected alert in the table has "Ride found"
                     if (stateC.getCellData(alertTable.getSelectionModel().getSelectedItem()).equals("Ride found")) {
-                        //Enable the button to book the ride
-                        bookButton.setDisable(false);
+                        //Enable the combo box of prices
                         bookPrice.setVisible(true);
+                        bookPrice.getItems().clear();
                         //Get the matching rides and their price
                         Alert a = (Alert) alertTable.getSelectionModel().getSelectedItem();
                         List<Ride> ridesList = businessLogic.areMatchingRides(a);
                         for(Ride ride: ridesList){
                             bookPrice.getItems().add(ride.getPrice());
                         }
+                        //listener to enable the book button when a price is selected
+                        bookPrice.getSelectionModel().selectedItemProperty().addListener((obs2, oldSelection2, newSelection2) -> {
+                            if (newSelection2 != null) {
+                                bookButton.setDisable(false);
+                            }
+                        });
                     }
                 }
             } else if (businessLogic.getCurrentUser() instanceof Driver) {
@@ -232,6 +238,8 @@ public class AlertsViewController implements Controller {
         //Empty table
         alertTable.getItems().clear();
         notificationLabel.setVisible(false);
+        bookButton.setDisable(true);
+        bookPrice.setVisible(false);
 
         User currentUser = businessLogic.getCurrentUser();
 

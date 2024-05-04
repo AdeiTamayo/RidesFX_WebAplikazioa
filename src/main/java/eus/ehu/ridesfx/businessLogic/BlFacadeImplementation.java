@@ -270,10 +270,19 @@ public class BlFacadeImplementation implements BlFacade {
     }
 
 
+    /**
+     * This method deletes the given reservation
+     * @param selectedItem
+     * @return
+     */
     public boolean deleteReservation(Reservation selectedItem) {
         return dbManager.deleteReservation(selectedItem);
     }
 
+    /**
+     * This method deletes the location with the given name
+     * @param name
+     */
     public void deleteLocation(String name) {
         dbManager.deleteLocation(name);
     }
