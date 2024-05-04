@@ -127,9 +127,9 @@ public class Traveler extends User implements Serializable {
      * @param date The date of the alert.
      * @return true if the alert exists and false otherwise.
      */
-    public boolean doesAlertExists(Location from, Location to, Date date) {
+    public boolean doesAlertExists(Location from, Location to, Date date, int nPlaces) {
         for (Alert a : alerts)
-            if ((java.util.Objects.equals(a.getFromLocation(), from)) && (java.util.Objects.equals(a.getToLocation(), to)) && (java.util.Objects.equals(a.getDate(), date)))
+            if ((java.util.Objects.equals(a.getNumPlaces(),nPlaces) && (java.util.Objects.equals(a.getFromLocation(), from)) && (java.util.Objects.equals(a.getToLocation(), to)) && (java.util.Objects.equals(a.getDate(), date))))
                 return true;
 
         return false;
