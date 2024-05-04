@@ -219,7 +219,7 @@ public class CreateRideController implements Controller {
             }
         });
 
-// Listener for DepartCityComboBox
+        // Listener for DepartCityComboBox
         DepartCityComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (defaultDesLocation.equals(newValue)) {
                 newDepartCityText.setVisible(true);
