@@ -1,6 +1,7 @@
 package eus.ehu.ridesfx.uicontrollers;
 
 import eus.ehu.ridesfx.businessLogic.BlFacade;
+import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,6 +12,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 
 /**
  * Controller class for the registration functionality.
@@ -107,6 +109,12 @@ public class RegisterController implements Controller {
             message.setText("The user has been correctly registered!");
             message.setVisible(true);
         }
+        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+        pause.setOnFinished(event2 -> {
+            message.setVisible(false);
+        });
+        pause.play();
+
     }
 
     @FXML

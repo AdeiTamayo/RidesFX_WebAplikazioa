@@ -4,12 +4,14 @@ import eus.ehu.ridesfx.businessLogic.BlFacade;
 import eus.ehu.ridesfx.domain.Driver;
 import eus.ehu.ridesfx.domain.Traveler;
 
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 
 /**
  * Controller class for the login functionality.
@@ -140,6 +142,12 @@ public class LoginController implements Controller {
 
             }
         }
+        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+        pause.setOnFinished(event2 -> {
+            Text.setVisible(false);
+
+        });
+        pause.play();
     }
 
     @FXML
