@@ -108,6 +108,7 @@ public class Reservation implements Serializable {
                 ", state='" + state + '\'' +
                 ", travelerId=" + traveler.getUserName() +
                 ", ride=" + ride +
+                ", reservationDate=" + reservationDate +
                 '}';
     }
 }
