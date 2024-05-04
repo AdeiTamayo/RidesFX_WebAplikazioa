@@ -20,7 +20,7 @@
             <Font size="13.0" />
          </font></Label>
         <Label fx:id="Text" layoutX="210.0" layoutY="313.0" prefHeight="34.0" prefWidth="340.0" styleClass="bold-label" />
-        <Label fx:id="InvalidUser" layoutX="271.0" layoutY="138.0" prefHeight="18.0" prefWidth="218.0" text="A user with this email doesn't exist">
+        <Label fx:id="InvalidUser" layoutX="279.0" layoutY="138.0" prefHeight="18.0" prefWidth="218.0" text="A user with this email doesn't exist">
             <styleClass>
                 <String fx:value="error-label" />
                 <String fx:value="bold-label" />
@@ -39,14 +39,14 @@
         </Label>
         <TextField fx:id="email" layoutX="305.0" layoutY="104.0" prefHeight="25.0" prefWidth="149.0" styleClass="bold-label" />
         <PasswordField fx:id="password" layoutX="304.0" layoutY="168.0" />
-        <Button layoutX="296.0" layoutY="276.0" onAction="#loginBtnClick" text="Log In">
+        <Button layoutX="303.0" layoutY="276.0" onAction="#loginBtnClick" text="Log In">
             <styleClass>
                 <String fx:value="btn-info" />
                 <String fx:value="bold-label" />
             </styleClass>
         </Button>
-        <Label fx:id="registerLabel" layoutX="209.0" layoutY="337.0" onMouseClicked="#registerLabelClick" prefHeight="34.0" prefWidth="340.0" styleClass="bold-label" text="You don't have an account yet? Register now clicking here" />
-        <Button fx:id="clearButtonLogin" layoutX="394.0" layoutY="277.0" mnemonicParsing="false" onAction="#clearLogin" styleClass="bold-label" text="Clear" />
+        <Label fx:id="registerLabel" layoutX="212.0" layoutY="337.0" onMouseClicked="#registerLabelClick" prefHeight="34.0" prefWidth="340.0" styleClass="bold-label" text="You don't have an account yet? Register now clicking here" />
+        <Button fx:id="clearButtonLogin" layoutX="386.0" layoutY="277.0" mnemonicParsing="false" onAction="#clearLogin" styleClass="bold-label" text="Clear" />
 
     </children>
 </AnchorPane>
