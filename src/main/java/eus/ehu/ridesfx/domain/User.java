@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "USERS") // Renames the table to avoid using a reserved keyword
 @DiscriminatorColumn(name = "USER_TYPE", discriminatorType = DiscriminatorType.STRING)
-public abstract class User implements Serializable {
+public class User implements Serializable {
 
 
     private String username;

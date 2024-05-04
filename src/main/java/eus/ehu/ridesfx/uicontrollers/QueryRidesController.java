@@ -219,7 +219,7 @@ public class QueryRidesController implements Controller {
         tblRides.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
 
-                if (mainGUIController.getCurrentUser().getClass().getSimpleName().equals("NotLoggedInUser")) {
+                if (mainGUIController.getCurrentUser().getClass().getSimpleName().equals("User")) {
                     System.out.println("Please login to book a ride");
                     loggedInError.setVisible(true);
                 } else {
@@ -333,7 +333,7 @@ public class QueryRidesController implements Controller {
         loggedInError.setVisible(false);
         correctMessage.setVisible(false);
 
-        if (mainGUIController.getCurrentUser().getClass().getSimpleName().equals("NotLoggedInUser")) {
+        if (mainGUIController.getCurrentUser().getClass().getSimpleName().equals("User")) {
             System.out.println("Please login to book a ride");
             loggedInError.setVisible(true);
             return;

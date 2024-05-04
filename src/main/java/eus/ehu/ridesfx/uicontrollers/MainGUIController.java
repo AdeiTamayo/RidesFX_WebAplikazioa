@@ -294,11 +294,11 @@ public class MainGUIController {
      * Sets the type of the driver in the label on the GUI.
      */
     public void setDriverType(String type) {
-        if (type.equals("NotLoggedInUser")) {
-            typeOfUser.setText(type);
+        if (type.equals("User")) {
+            typeOfUser.setText("Not logged in!");
             typeOfUser.setAlignment(Pos.CENTER);
         } else {
-            typeOfUser.setText(type + ": ");
+            typeOfUser.setText(type);
             typeOfUser.setAlignment(Pos.CENTER);
         }
     }
@@ -396,7 +396,8 @@ public class MainGUIController {
             hideButtonCreateRide();
             showButtonAlerts();
             showButtonReservations();
-        } else if (businessLogic.getCurrentUser().getClass().getSimpleName().equals("NotLoggedInUser")) {
+        } else {
+            setDriverType("User");
             hideButtonCreateRide();
             hideButtonAlerts();
             hideButtonReservations();
