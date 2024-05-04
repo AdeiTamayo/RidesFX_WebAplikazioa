@@ -54,7 +54,12 @@ This iteration is a bit different from the previous ones. We made the following 
  
 * Alongside the mandatory implementations we added the following which were optional:
   * New use case: Query reservations
+    * Both traveler and driver users can access a list of their reservations, check the state of the reservations and       delete them.
   * New user case: Create a ride from the Alert ui.
+    * The same ui as in the normal AlertsView is displayed but the driver has the option of creating a ride based on 
+      an existing alert.
+  * Improve query alerts feature: Add the option of displaying all different prices for an alert with a matching ride 
+    and book the ride with the selected price.
   * Query data using API: Retrieve city info from the internet.
   * Added functionality to remove the success messages after certain time.
 
