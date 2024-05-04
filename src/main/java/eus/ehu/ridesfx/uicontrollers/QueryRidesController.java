@@ -21,7 +21,9 @@ import eus.ehu.ridesfx.utils.Dates;
 import javafx.util.Duration;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.YearMonth;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -244,17 +246,19 @@ public class QueryRidesController implements Controller {
         int numSeats = comboNumSeats.getValue();
 
 
-        //suposatzen da erreserbatzen sahiatzen bada, traveler izan behar duela
         Traveler traveler = businessLogic.getCurrentTraveler();
 
-        //get the current date
-        Date currentDate = new Date();
-        currentDate = UtilDate.trim(currentDate);
+
+        LocalDateTime currentDateTime = LocalDateTime.now();
+
+        // ZoneId zoneId = ZoneId.systemDefault();
+        Date currentDate = Date.from(currentDateTime.atZone(ZoneId.systemDefault()).toInstant());
+
 
         businessLogic.makeReservation(traveler, ride, numSeats, currentDate);
         correctMessage.setVisible(true);
         correctMessage.setText("Ride requested, pending driver approval");
-        PauseTransition pause = new PauseTransition(Duration.seconds(5));
+        PauseTransition pause = new PauseTransition(Duration.seconds(3));
         pause.setOnFinished(event2 -> {
             correctMessage.setVisible(false);
 
