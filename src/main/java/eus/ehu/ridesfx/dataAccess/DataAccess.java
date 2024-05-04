@@ -444,7 +444,7 @@ public class DataAccess {
         try {
             db.getTransaction().begin();
             Traveler traveler = db.find(Traveler.class, travelerEmail);
-            if (traveler.doesAlertExists(from, to, date)) {
+            if (traveler.doesAlertExists(from, to, date,nPlaces)) {
                 db.getTransaction().commit();
                 // If the alert already exists, return null
                 return null;
