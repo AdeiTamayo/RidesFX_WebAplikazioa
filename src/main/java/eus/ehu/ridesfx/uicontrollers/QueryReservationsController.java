@@ -2,7 +2,6 @@ package eus.ehu.ridesfx.uicontrollers;
 
 import eus.ehu.ridesfx.businessLogic.BlFacade;
 import eus.ehu.ridesfx.domain.Driver;
-import eus.ehu.ridesfx.domain.Location;
 import eus.ehu.ridesfx.domain.Reservation;
 import eus.ehu.ridesfx.domain.Traveler;
 import javafx.beans.property.SimpleObjectProperty;
@@ -80,6 +79,7 @@ public class QueryReservationsController implements Controller {
         stateC.setCellValueFactory(new PropertyValueFactory<>("state"));
         resDateC.setCellValueFactory(new PropertyValueFactory<>("reservationDate"));
 
+
         alertTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             // Show the delete button only if an item is selected
 
@@ -149,6 +149,7 @@ public class QueryReservationsController implements Controller {
 
     /**
      * This method is called when the delete button is clicked, it deletes the reservation.
+     *
      * @param event
      */
 
@@ -163,10 +164,15 @@ public class QueryReservationsController implements Controller {
     /**
      * This method is called when the refresh button is clicked, it populates the table with the reservations of the current user.
      * Depending on the user one method or another is called.
+     *
      * @param actionEvent
      */
-    public void populateReservationsTable(ActionEvent actionEvent) {
+    public void populateReservationsTableOnAction(ActionEvent actionEvent) {
+        populateReservatationTable();
 
+    }
+
+    public void populateReservatationTable() {
         alertTable.getItems().clear();
 
         if (businessLogic.getCurrentUser() instanceof Traveler) {
@@ -176,8 +182,10 @@ public class QueryReservationsController implements Controller {
         }
     }
 
+
     /**
      * This method is called when the accept button is clicked, it changes the state of the reservation to "Accepted".
+     *
      * @param actionEvent
      */
     public void acceptReservation(ActionEvent actionEvent) {
@@ -189,6 +197,7 @@ public class QueryReservationsController implements Controller {
 
     /**
      * This method is called when the reject button is clicked, it changes the state of the reservation to "Rejected".
+     *
      * @param actionEvent
      */
 

@@ -27,7 +27,7 @@
             </columns>
         </TableView>
         <Button fx:id="deleteButton" layoutX="114.0" layoutY="330.0" mnemonicParsing="false" onAction="#deleteReservation" styleClass="bold-label" text="Delete Reservation" />
-      <Button fx:id="refreshButton" layoutX="275.0" layoutY="330.0" mnemonicParsing="false" onAction="#populateReservationsTable" prefHeight="27.0" prefWidth="71.0" styleClass="bold-label" text="Refresh" />
+      <Button fx:id="refreshButton" layoutX="275.0" layoutY="330.0" mnemonicParsing="false" onAction="#populateReservationsTableOnAction" prefHeight="27.0" prefWidth="71.0" styleClass="bold-label" text="Refresh" />
       <Button fx:id="acceptButton" layoutX="102.0" layoutY="331.0" mnemonicParsing="false" onAction="#acceptReservation" styleClass="bold-label" text="Accept" />
       <Button fx:id="rejectButton" layoutX="180.0" layoutY="332.0" mnemonicParsing="false" onAction="#rejectReservation" styleClass="bold-label" text="Reject" />
     </children>
