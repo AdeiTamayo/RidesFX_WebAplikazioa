@@ -122,7 +122,7 @@ public class CreateRideController implements Controller {
 
                 if (ArrivalCityComboBox.getValue().getName().equals("Create new city") && DepartCityComboBox.getValue().getName().equals("Create new city")) {
                     String arrivalCity = newArrivalCityText.getText();
-                    Location l= businessLogic.createLocation(arrivalCity);
+                    Location l = businessLogic.createLocation(arrivalCity);
 
                     ArrivalCityComboBox.getItems().add(ArrivalCityComboBox.getValue());
                     ArrivalCityComboBox.setValue(l);
@@ -137,10 +137,9 @@ public class CreateRideController implements Controller {
                     businessLogic.deleteLocation("Create new city");
 
 
-
                 } else if (ArrivalCityComboBox.getValue().getName().equals("Create new city")) {
                     String arrivalCity = newArrivalCityText.getText();
-                    Location loc=  businessLogic.createLocation(arrivalCity);
+                    Location loc = businessLogic.createLocation(arrivalCity);
                     ArrivalCityComboBox.getItems().add(loc);
                     ArrivalCityComboBox.setValue(loc);
 
@@ -151,7 +150,7 @@ public class CreateRideController implements Controller {
                 } else if (DepartCityComboBox.getValue().getName().equals("Create new city")) {
                     newDepartCityText.setVisible(true);
                     String departCity = newDepartCityText.getText();
-                    Location lc= businessLogic.createLocation(departCity);
+                    Location lc = businessLogic.createLocation(departCity);
                     DepartCityComboBox.getItems().add(lc);
                     DepartCityComboBox.setValue(lc);
 
@@ -179,7 +178,6 @@ public class CreateRideController implements Controller {
     }
 
     private List<LocalDate> holidays = new ArrayList<>();
-
 
 
     @FXML
@@ -227,9 +225,6 @@ public class CreateRideController implements Controller {
         });
 
 
-
-
-
         // setEventsPrePost(LocalDate.now().getYear(), LocalDate.now().getMonth().getValue());
 
 
@@ -268,7 +263,6 @@ public class CreateRideController implements Controller {
                 };
             }
         });
-
 
 
     }
@@ -346,37 +340,4 @@ public class CreateRideController implements Controller {
     }
 
 
-    //unused code
-
-    /*private void setEventsPrePost(int year, int month) {
-    LocalDate date = LocalDate.of(year, month, 1);
-    setEvents(date.getYear(), date.getMonth().getValue());
-    setEvents(date.plusMonths(1).getYear(), date.plusMonths(1).getMonth().getValue());
-    setEvents(date.plusMonths(-1).getYear(), date.plusMonths(-1).getMonth().getValue());
-  }*/
-
- /* private void setEvents(int year, int month) {
-
-    Date date = Dates.toDate(year, month);
-
-    for (Date day : businessLogic.getEventsMonth(date)) {
-      holidays.add(Dates.convertToLocalDateViaInstant(day));
-    }
-  }*/
-
-    // only show the text of the event in the combobox (without the id)
-/*
-    Callback<ListView<Event>, ListCell<Event>> factory = lv -> new ListCell<>() {
-      @Override
-      protected void updateItem(Event item, boolean empty) {
-        super.updateItem(item, empty);
-        setText(empty ? "" : item.getDescription());
-      }
-    };
-
-
-     comboEvents.setCellFactory(factory);
-    comboEvents.setButtonCell(factory.call(null));
-
- */
 }

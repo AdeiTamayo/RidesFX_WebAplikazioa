@@ -21,7 +21,9 @@ import eus.ehu.ridesfx.utils.Dates;
 import javafx.util.Duration;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.YearMonth;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -168,6 +170,7 @@ public class QueryRidesController implements Controller {
         comboNumSeats.setVisible(false);
         quantityOfSeatsLabel.setVisible(false);
         bookingButton.setVisible(false);
+        comboNumSeats.setValue(null);
 
         alertMessage.setStyle("-fx-text-fill: red");
         correctMessage.setStyle("-fx-text-fill: green");
@@ -241,20 +244,37 @@ public class QueryRidesController implements Controller {
     public void makeReservation(ActionEvent actionEvent) {
 
         Ride ride = tblRides.getSelectionModel().getSelectedItem();
-        int numSeats = comboNumSeats.getValue();
 
+        Integer numSeats = comboNumSeats.getValue();
 
-        //suposatzen da erreserbatzen sahiatzen bada, traveler izan behar duela
+        if (numSeats == null) {
+
+            // Display an alert message if numSeats is null
+            alertMessage.setVisible(true);
+            alertMessage.setText("Please select number of seats");
+            PauseTransition pause = new PauseTransition(Duration.seconds(3));
+            pause.setOnFinished(event2 -> {
+                alertMessage.setVisible(false);
+
+            });
+            pause.play();
+            return; // Exit the method without proceeding further
+        }
+
         Traveler traveler = businessLogic.getCurrentTraveler();
 
-        //get the current date
-        Date currentDate = new Date();
-        currentDate = UtilDate.trim(currentDate);
+
+        LocalDateTime currentDateTime = LocalDateTime.now();
+
+        // ZoneId zoneId = ZoneId.systemDefault();
+        Date currentDate = Date.from(currentDateTime.atZone(ZoneId.systemDefault()).toInstant());
+
 
         businessLogic.makeReservation(traveler, ride, numSeats, currentDate);
+
         correctMessage.setVisible(true);
         correctMessage.setText("Ride requested, pending driver approval");
-        PauseTransition pause = new PauseTransition(Duration.seconds(5));
+        PauseTransition pause = new PauseTransition(Duration.seconds(3));
         pause.setOnFinished(event2 -> {
             correctMessage.setVisible(false);
 
@@ -303,6 +323,7 @@ public class QueryRidesController implements Controller {
         datepicker.setValue(null);
         tblRides.getItems().clear();
         comboNumSeats.setVisible(false);
+        comboNumSeats.setValue(0);
         quantityOfSeatsLabel.setVisible(false);
         bookingButton.setVisible(false);
         alertButton.setVisible(false);
@@ -457,26 +478,12 @@ public class QueryRidesController implements Controller {
         comboDepartCity.setItems(departureCities);
         comboArrivalCity.setItems(arrivalCities);
 
-        /*
-        comboArrivalCity.valueProperty().addListener((obs, oldVal, newVal) -> {
-            if (comboDepartCity.getValue() != null && newVal != null) {
-                datepicker.fireEvent(new ActionEvent()); // Force datepicker action handler to run
-            }
-        });
-
-         */
 
         // when the user selects a departure city, update the arrival cities
         comboDepartCity.setOnAction(e -> {
             arrivalCities.clear();
             arrivalCities.setAll(businessLogic.getDestinationCities(comboDepartCity.getValue()));
 
-            /*
-            if (comboArrivalCity.getValue() != null) {
-                datepicker.fireEvent(new ActionEvent()); // Force datepicker action handler to run if a city is already selected
-            }
-
-             */
 
         });
     }

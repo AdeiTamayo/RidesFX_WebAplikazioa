@@ -96,12 +96,11 @@ public class DataAccess {
             }
 
 
-            //Create drivers
+            //Create drivers and travelers
             Driver driver1 = new Driver("driver1@gmail.com", "Aitor Fernandez", "aitor", "1234");
             Driver driver2 = new Driver("driver2@gmail.com", "Ane Gaztañaga", "ane", "1234");
-            Driver driver3 = new Driver("driver3@gmail.com", "Test driver", "test", "1234");
+            Driver driver3 = new Driver("driver3@gmail.com", "Jon bartolomeu", "jon", "1234");
             Traveler traveler1 = new Traveler("traveler@gmail.com", "Traveler 1", "traveler1", "1234");
-
             Driver testDriver = new Driver("driver@", "Test driver", "test", "1");
             Traveler testTraveler = new Traveler("traveler@", "Test traveler", "test", "1");
 
@@ -130,10 +129,14 @@ public class DataAccess {
             driver2.addRide(bilbo, donostia, UtilDate.newDate(year, month, 25), 2, 5);
             driver2.addRide(eibar, gasteiz, UtilDate.newDate(year, month, 6), 2, 5);
             driver3.addRide(bilbo, donostia, UtilDate.newDate(year, month, 14), 1, 3);
-
-            driver3.addRide(donostia, bilbo, UtilDate.newDate(2024, 5, 15), 4, 7);
+            driver3.addRide(donostia, bilbo, UtilDate.newDate(2024, 5, 15), 4, 5);
             driver3.addRide(donostia, bilbo, UtilDate.newDate(2024, 6, 15), 4, 7);
             driver3.addRide(donostia, bilbo, UtilDate.newDate(2024, 5, 6), 4, 8);
+            driver3.addRide(donostia, bilbo, UtilDate.newDate(year, month, 15), 5, 8);
+            driver3.addRide(donostia, bilbo, UtilDate.newDate(year, month, 17), 3, 10);
+            testDriver.addRide(donostia, bilbo, UtilDate.newDate(year, month, 15), 5, 14);
+            testDriver.addRide(donostia, bilbo, UtilDate.newDate(year, month, 17), 3, 15);
+
 
 
             db.persist(driver1);
@@ -417,6 +420,12 @@ public class DataAccess {
         Traveler traveler = r.getTraveler();
         traveler.removeReservation(r);
         db.persist(traveler);
+
+        // Remove the reservation from the ride
+        Ride ride = r.getRide();
+        ride.removeReservation(r);
+        db.persist(ride);
+
         // Now you can safely remove the reservation
         db.remove(r);
         db.getTransaction().commit();
@@ -536,7 +545,6 @@ public class DataAccess {
         a.setState("Ride found");
         db.getTransaction().commit();
     }
-
 
 
     /**

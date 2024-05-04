@@ -33,7 +33,7 @@
       <Label fx:id="labelSeatsQuantity" layoutX="126.0" layoutY="319.0" text="How many seats?" />
       <Label fx:id="priceLabel" layoutX="222.0" layoutY="319.0" text="What price?" />
       <Spinner fx:id="priceSpinner" editable="true" layoutX="222.0" layoutY="343.0" prefHeight="25.0" prefWidth="78.0" />
-      <Label fx:id="notificationLabel" layoutX="455.0" layoutY="337.0" prefHeight="38.0" prefWidth="78.0" styleClass="bold-label" text="RIde Created" />
+      <Label fx:id="notificationLabel" layoutX="333.0" layoutY="387.0" prefHeight="38.0" prefWidth="78.0" styleClass="bold-label" text="RIde Created" />
       <ComboBox fx:id="bookPrice" layoutX="316.0" layoutY="343.0" prefHeight="25.0" prefWidth="78.0" />
     </children>
 </AnchorPane>
