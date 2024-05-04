@@ -49,18 +49,18 @@ The sequence diagram was a reality check for the app implementation.
 This iteration is a bit different from the previous ones. We made the following changes:
 * The following changes were mandatory:
   * Implement (at least) a new feature
-    * We chose the new feature to be: the accept reservation feature for the driver.
+    * We chose the new feature to be the 'accept reservation' feature for the driver.
   * Prepare a presentation for the final version of the project
  
 * Alongside the mandatory implementations we added the following which were optional:
   * New use case: Query reservations
-    * Both traveler and driver users can access a list of their reservations, check the state of the reservations and       delete them.
+    * Both traveler and driver users can access a list of their reservations, check the state of the reservations and delete them.
   * New user case: Create a ride from the Alert ui.
     * The same ui as in the normal AlertsView is displayed but the driver has the option of creating a ride based on 
       an existing alert.
   * Improve query alerts feature: Add the option of displaying all different prices for an alert with a matching ride 
     and book the ride with the selected price.
-  * Query data using API: Retrieve city info from the internet.
+  * Query data using API: Retrieve specific information about cities of all over the world from the Internet, by using an API.
   * Added functionality to remove the success messages after certain time.
 
 ### Iteration 3 struggles
@@ -68,7 +68,10 @@ The main struggle was to implement the API to retrieve city information.
 * The API was not working as expected, and we had to change the API to a different one.
 
 We also had problems with the Location domain, we had to change the way we were storing the location information and retrieving it.
+At last, we removed the NotLoggedInUser class, because it was redundant with the User class (which at the time was abstract. Now it is not).
 ## How to test the application
+
+(Remember that the database must be correctly configured, changing the authentication combobox to 'no auth')
 
 There are two users already created for practical purposes:
 
