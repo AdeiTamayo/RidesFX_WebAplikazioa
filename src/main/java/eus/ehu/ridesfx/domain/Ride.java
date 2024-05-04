@@ -244,10 +244,19 @@ public class Ride implements Serializable {
 
     /**
      * This method adds a reservation to the ride
-     * @param reservation
+     * @param reservation  to be added
      */
     public void addReservation(Reservation reservation) {
         reservations.add(reservation);
+    }
+
+    /**
+     * This method removes a reservation from the ride
+     * @param reservation to be removed
+     */
+
+    public void removeReservation(Reservation reservation) {
+        reservations.remove(reservation);
     }
 
 

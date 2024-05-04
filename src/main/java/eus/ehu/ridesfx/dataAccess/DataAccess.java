@@ -420,6 +420,12 @@ public class DataAccess {
         Traveler traveler = r.getTraveler();
         traveler.removeReservation(r);
         db.persist(traveler);
+
+        // Remove the reservation from the ride
+        Ride ride = r.getRide();
+        ride.removeReservation(r);
+        db.persist(ride);
+
         // Now you can safely remove the reservation
         db.remove(r);
         db.getTransaction().commit();

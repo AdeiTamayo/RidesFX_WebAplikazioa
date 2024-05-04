@@ -22,6 +22,7 @@ import java.util.List;
 public class QueryReservationsController implements Controller {
 
 
+
     private MainGUIController mainGUIController;
     private BlFacade businessLogic;
 
@@ -47,6 +48,8 @@ public class QueryReservationsController implements Controller {
     public Button acceptButton;
     @FXML
     public Button rejectButton;
+    @FXML
+    private Label successLabel;
 
     public QueryReservationsController(BlFacade bl, MainGUIController mainGUIController) {
         this.businessLogic = bl;
@@ -69,6 +72,7 @@ public class QueryReservationsController implements Controller {
         deleteButton.setVisible(false);
         acceptButton.setVisible(false);
         rejectButton.setVisible(false);
+        successLabel.setVisible(false);
 
 
         // Set the columns
@@ -156,9 +160,12 @@ public class QueryReservationsController implements Controller {
     @FXML
     public void deleteReservation(ActionEvent event) {
         Reservation reservation = alertTable.getSelectionModel().getSelectedItem();
+
         businessLogic.deleteReservation(reservation);
         alertTable.getItems().remove(reservation);
         deleteButton.setVisible(false);
+        successLabel.setText("Reservation deleted");
+        successLabel.setVisible(true);
     }
 
     /**
@@ -192,6 +199,9 @@ public class QueryReservationsController implements Controller {
         businessLogic.changeReservationState(alertTable.getSelectionModel().getSelectedItem(), "Accepted");
         //update table so that it shows the new state of the reservation
         setReservationsDriver();
+        successLabel.setStyle("-fx-text-fill: green;");
+        successLabel.setVisible(true);
+
 
     }
 
@@ -205,6 +215,9 @@ public class QueryReservationsController implements Controller {
         businessLogic.changeReservationState(alertTable.getSelectionModel().getSelectedItem(), "Rejected");
         //update table so that it shows the new state of the reservation
         setReservationsDriver();
+        successLabel.setText("Reservation rejected");
+        successLabel.setStyle("-fx-text-fill: red;");
+        successLabel.setVisible(true);
     }
 
     /**
@@ -214,5 +227,7 @@ public class QueryReservationsController implements Controller {
         deleteButton.setVisible(false);
         acceptButton.setVisible(false);
         rejectButton.setVisible(false);
+        successLabel.setVisible(false);
+
     }
 }
