@@ -89,8 +89,9 @@ The main struggle was to implement the API to retrieve city information.
 
 We also had problems with the Location domain, we had to change the way we were storing the location information and
 retrieving it.
-At last, we removed the NotLoggedInUser class, because it was redundant with the User class (which at the time was
+We removed the NotLoggedInUser class, because it was redundant with the User class (which at the time was
 abstract. Now it is not).
+At last, we tested different use cases with errors to check that the error messages indeed appeared (after suffering for quite a bit).
 
 ## How to test the application
 
