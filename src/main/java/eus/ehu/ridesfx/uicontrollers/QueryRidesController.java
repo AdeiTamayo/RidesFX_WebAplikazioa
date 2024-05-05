@@ -244,21 +244,14 @@ public class QueryRidesController implements Controller {
     public void makeReservation(ActionEvent actionEvent) {
 
         Ride ride = tblRides.getSelectionModel().getSelectedItem();
+        int numSeats = 0;
 
-        Integer numSeats = comboNumSeats.getValue();
-
-        if (numSeats == null) {
-
-            // Display an alert message if numSeats is null
+        if (comboNumSeats.getValue() == null) {
+            alertMessage.setText("Select the number of seats, please");
             alertMessage.setVisible(true);
-            alertMessage.setText("Please select number of seats");
-            PauseTransition pause = new PauseTransition(Duration.seconds(3));
-            pause.setOnFinished(event2 -> {
-                alertMessage.setVisible(false);
-
-            });
-            pause.play();
             return; // Exit the method without proceeding further
+        } else {
+            numSeats = comboNumSeats.getValue();
         }
 
         Traveler traveler = businessLogic.getCurrentTraveler();
@@ -269,28 +262,29 @@ public class QueryRidesController implements Controller {
         // ZoneId zoneId = ZoneId.systemDefault();
         Date currentDate = Date.from(currentDateTime.atZone(ZoneId.systemDefault()).toInstant());
 
+        try{
+            businessLogic.makeReservation(traveler, ride, numSeats, currentDate);
+            correctMessage.setVisible(true);
+            correctMessage.setText("Ride requested, pending driver approval");
+            PauseTransition pause = new PauseTransition(Duration.seconds(3));
+            pause.setOnFinished(event2 -> {
+                correctMessage.setVisible(false);
 
-        businessLogic.makeReservation(traveler, ride, numSeats, currentDate);
+            });
+            pause.play();
 
-        correctMessage.setVisible(true);
-        correctMessage.setText("Ride requested, pending driver approval");
-        PauseTransition pause = new PauseTransition(Duration.seconds(3));
-        pause.setOnFinished(event2 -> {
-            correctMessage.setVisible(false);
+            //A ride has been booked, update the combobox of Rides
+            tblRides.getItems().clear();
 
-        });
-        pause.play();
+            List<Ride> rides = businessLogic.getRides(comboDepartCity.getValue(), comboArrivalCity.getValue(), Dates.convertToDate(datepicker.getValue()));
 
-        //A ride has been booked, update the combobox of Rides
-        tblRides.getItems().clear();
-
-        List<Ride> rides = businessLogic.getRides(comboDepartCity.getValue(), comboArrivalCity.getValue(), Dates.convertToDate(datepicker.getValue()));
-
-        for (Ride r : rides) {
-            tblRides.getItems().add(r);
+            for (Ride r : rides) {
+                tblRides.getItems().add(r);
+            }
+        } catch (NullPointerException e){
+            alertMessage.setText("You have already booked this ride");
+            alertMessage.setVisible(true);
         }
-
-
     }
 
 
