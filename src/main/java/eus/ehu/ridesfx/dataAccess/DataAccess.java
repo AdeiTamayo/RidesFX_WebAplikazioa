@@ -136,6 +136,7 @@ public class DataAccess {
             driver3.addRide(donostia, bilbo, UtilDate.newDate(year, month, 17), 3, 10);
             testDriver.addRide(donostia, bilbo, UtilDate.newDate(year, month, 15), 5, 14);
             testDriver.addRide(donostia, bilbo, UtilDate.newDate(year, month, 17), 3, 15);
+            testDriver.addRide(donostia, bilbo, UtilDate.newDate(year, month, 15), 2, 16);
 
 
 
