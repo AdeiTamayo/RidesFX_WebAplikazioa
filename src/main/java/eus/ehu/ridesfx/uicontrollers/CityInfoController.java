@@ -89,6 +89,8 @@ public class CityInfoController implements Controller {
             JsonObject jsonObject = parser.parse(json).getAsJsonObject();
             JsonArray geonames = jsonObject.getAsJsonArray("geonames");
 
+
+
             if (geonames.size() > 0) {
                 JsonObject cityData = geonames.get(0).getAsJsonObject();
                 cityInfo.setToponymName(cityData.get("toponymName").getAsString());
