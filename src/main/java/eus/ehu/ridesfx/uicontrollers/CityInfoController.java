@@ -55,6 +55,7 @@ public class CityInfoController implements Controller {
         this.mainGUIController.setCityInfoController(this);
     }
 
+
     /**
      * Load city info from the geonames API
      */
