@@ -118,7 +118,6 @@ public class DataAccess {
             db.persist(iruña);
             db.persist(eibar);
 
-
             //Create rides
             driver1.addRide(donostia, bilbo, UtilDate.newDate(year, month, 15), 4, 7);
             driver1.addRide(donostia, bilbo, UtilDate.newDate(year, month + 1, 15), 4, 7);
@@ -129,7 +128,7 @@ public class DataAccess {
             driver2.addRide(bilbo, donostia, UtilDate.newDate(year, month, 25), 2, 5);
             driver2.addRide(eibar, gasteiz, UtilDate.newDate(year, month, 6), 2, 5);
             driver3.addRide(bilbo, donostia, UtilDate.newDate(year, month, 14), 1, 3);
-            driver3.addRide(donostia, bilbo, UtilDate.newDate(2024, 5, 15), 4, 5);
+            testDriver.addRide(donostia, bilbo, UtilDate.newDate(2024, 5, 15), 4, 5);
             driver3.addRide(donostia, bilbo, UtilDate.newDate(2024, 6, 15), 4, 7);
             driver3.addRide(donostia, bilbo, UtilDate.newDate(2024, 5, 6), 4, 8);
             driver3.addRide(donostia, bilbo, UtilDate.newDate(year, month, 15), 5, 8);
@@ -137,7 +136,6 @@ public class DataAccess {
             testDriver.addRide(donostia, bilbo, UtilDate.newDate(year, month, 15), 5, 14);
             testDriver.addRide(donostia, bilbo, UtilDate.newDate(year, month, 17), 3, 15);
             testDriver.addRide(donostia, bilbo, UtilDate.newDate(year, month, 15), 2, 16);
-
 
 
             db.persist(driver1);
@@ -394,7 +392,7 @@ public class DataAccess {
         // Create a new Reservation object
         Reservation reservation = new Reservation(traveler, dbRide, numSeats, "pending", currentDate);
 
-        //Add the reservation to the ride
+        //Add the reservation to t/he ride
         dbRide.addReservation(reservation);
 
         // Add the reservation to the traveler
