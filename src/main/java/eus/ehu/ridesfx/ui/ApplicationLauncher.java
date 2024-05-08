@@ -22,10 +22,6 @@ public class ApplicationLauncher {
 
       if (config.isBusinessLogicLocal()) {
         businessLogic = new BlFacadeImplementation();
-
-
-        //Driver driver=new Driver("driver3@gmail.com","Test Driver", "driver3", "driver3");
-        //businessLogic.setCurrentUser(driver);
         User user = new User("notLoggedInUser", "notLoggedInUser");
         businessLogic.setCurrentUser(user);
 
