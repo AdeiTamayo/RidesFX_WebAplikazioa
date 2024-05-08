@@ -55,6 +55,7 @@ public class CityInfoController implements Controller {
         this.mainGUIController.setCityInfoController(this);
     }
 
+
     /**
      * Load city info from the geonames API
      */
@@ -88,6 +89,8 @@ public class CityInfoController implements Controller {
             JsonParser parser = new JsonParser();
             JsonObject jsonObject = parser.parse(json).getAsJsonObject();
             JsonArray geonames = jsonObject.getAsJsonArray("geonames");
+
+
 
             if (geonames.size() > 0) {
                 JsonObject cityData = geonames.get(0).getAsJsonObject();
