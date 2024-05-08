@@ -97,9 +97,9 @@ public class DataAccess {
 
 
             //Create drivers and travelers
-            Driver driver1 = new Driver("driver1@gmail.com", "Aitor Fernandez", "aitor", "1234");
+            Driver driver1 = new Driver("driver1@gmail.com", "Bilbaino asqueroso", "Bilba", "1234");
             Driver driver2 = new Driver("driver2@gmail.com", "Ane Gaztañaga", "ane", "1234");
-            Driver driver3 = new Driver("driver3@gmail.com", "Amets FrikiDriver", "friki", "1234");
+            Driver driver3 = new Driver("driver3@gmail.com", "Amets Friki", "friki", "1234");
             Driver driver4 = new Driver("driver4@gmail.com", "Adei guapo", "adei", "1234");
             Traveler traveler1 = new Traveler("traveler@gmail.com", "Traveler 1", "traveler1", "1234");
             Driver testDriver = new Driver("driver@", "Test driver", "test", "1");
@@ -382,7 +382,7 @@ public class DataAccess {
     }
 
 
-    public boolean makeReservation(Traveler traveler, Ride ride, int numSeats, Date currentDate) throws NullPointerException{
+    public boolean makeReservation(Traveler traveler, Ride ride, int numSeats, Date currentDate) throws NullPointerException {
         // Start a transaction
         db.getTransaction().begin();
 
@@ -455,7 +455,7 @@ public class DataAccess {
         try {
             db.getTransaction().begin();
             Traveler traveler = db.find(Traveler.class, travelerEmail);
-            if (traveler.doesAlertExists(from, to, date,nPlaces)) {
+            if (traveler.doesAlertExists(from, to, date, nPlaces)) {
                 db.getTransaction().commit();
                 // If the alert already exists, return null
                 return null;
