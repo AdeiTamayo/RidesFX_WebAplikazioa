@@ -85,27 +85,37 @@ public class CityInfoController implements Controller {
 
             CityInfo cityInfo = gson.fromJson(json, CityInfo.class);
 
+
             // Extract city info from the geonames array
             JsonParser parser = new JsonParser();
             JsonObject jsonObject = parser.parse(json).getAsJsonObject();
             JsonArray geonames = jsonObject.getAsJsonArray("geonames");
+            int totalResultsCount = jsonObject.get("totalResultsCount").getAsInt();
 
 
-
-            if (geonames.size() > 0) {
+            if (totalResultsCount != 0) {
                 JsonObject cityData = geonames.get(0).getAsJsonObject();
+
                 cityInfo.setToponymName(cityData.get("toponymName").getAsString());
                 cityInfo.setCountryName(cityData.get("countryName").getAsString());
                 cityInfo.setAdminName1(cityData.get("adminName1").getAsString());
                 cityInfo.setFcodeName(cityData.get("fcodeName").getAsString());
                 cityInfo.setPopulation(cityData.get("population").getAsInt());
+
+                cityNameTextField.setText(cityInfo.getToponymName());
+                countryNameTextField.setText(cityInfo.getCountryName());
+                provinceNameTextField.setText(cityInfo.getAdminName1());
+                populationTextField.setText(String.valueOf(cityInfo.getPopulation()));
+                aboutTextField.setText(cityInfo.getFcodeName());
+
+
+            } else {
+                noCityFound();
+
+
             }
 
-            cityNameTextField.setText(cityInfo.getToponymName());
-            countryNameTextField.setText(cityInfo.getCountryName());
-            provinceNameTextField.setText(cityInfo.getAdminName1());
-            populationTextField.setText(String.valueOf(cityInfo.getPopulation()));
-            aboutTextField.setText(cityInfo.getFcodeName());
+
         }
     }
 
@@ -129,6 +139,7 @@ public class CityInfoController implements Controller {
         populationTextField.setText("");
         aboutTextField.setText("");
         errorLabel.setVisible(false);
+        populationTextField.setText("");
 
 
     }
@@ -150,6 +161,28 @@ public class CityInfoController implements Controller {
      */
     public void clearInterface(ActionEvent actionEvent) {
         clearCityInfo();
+    }
+
+
+    public void noCityFound() {
+        System.out.println("Nothing has been found.");
+
+        clearCityInfo();
+
+
+        cityNameToQueryTextField.setVisible(true);
+
+        errorLabel.setText("Nothing has been found.");
+        errorLabel.setVisible(true);
+
+        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+        pause.setOnFinished(event2 -> {
+            errorLabel.setVisible(false);
+
+        });
+        pause.play();
+
+
     }
 
     @FXML

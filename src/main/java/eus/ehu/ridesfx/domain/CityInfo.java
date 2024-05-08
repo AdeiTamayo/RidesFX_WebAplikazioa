@@ -22,12 +22,13 @@ public class CityInfo {
     private int population;
 
 
-    public CityInfo(String toponymName, String countryName, String citizenCount, String fcodeName, int population) {
+    public CityInfo(String toponymName, String countryName, String citizenCount, String fcodeName, int population, int totalResultsCount) {
         this.toponymName = toponymName;
         this.countryName = countryName;
         this.adminName1 = citizenCount;
         this.fcodeName = fcodeName;
         this.population = population;
+
 
     }
 
@@ -80,6 +81,7 @@ public class CityInfo {
                 ", citizenCount='" + adminName1 + '\'' +
                 ", fcodeName='" + fcodeName + '\'' +
                 ", population=" + population +
+
                 '}';
     }
 

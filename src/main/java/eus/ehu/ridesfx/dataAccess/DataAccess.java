@@ -97,7 +97,7 @@ public class DataAccess {
 
 
             //Create drivers and travelers
-            Driver driver1 = new Driver("driver1@gmail.com", "Bilbaino asqueroso", "Bilba", "1234");
+            Driver driver1 = new Driver("driver1@gmail.com", "Jon Bartolomeu", "Jon", "1234");
             Driver driver2 = new Driver("driver2@gmail.com", "Ane Gaztañaga", "ane", "1234");
             Driver driver3 = new Driver("driver3@gmail.com", "Amets Friki", "friki", "1234");
             Driver driver4 = new Driver("driver4@gmail.com", "Adei guapo", "adei", "1234");
