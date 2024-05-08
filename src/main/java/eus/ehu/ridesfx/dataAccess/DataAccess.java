@@ -118,7 +118,6 @@ public class DataAccess {
             db.persist(iruña);
             db.persist(eibar);
 
-
             //Create rides
             driver1.addRide(donostia, bilbo, UtilDate.newDate(year, month, 15), 4, 7);
             driver1.addRide(donostia, bilbo, UtilDate.newDate(year, month + 1, 15), 4, 7);
