@@ -99,7 +99,8 @@ public class DataAccess {
             //Create drivers and travelers
             Driver driver1 = new Driver("driver1@gmail.com", "Aitor Fernandez", "aitor", "1234");
             Driver driver2 = new Driver("driver2@gmail.com", "Ane Gaztañaga", "ane", "1234");
-            Driver driver3 = new Driver("driver3@gmail.com", "Jon bartolomeu", "jon", "1234");
+            Driver driver3 = new Driver("driver3@gmail.com", "Amets FrikiDriver", "friki", "1234");
+            Driver driver4 = new Driver("driver4@gmail.com", "Adei guapo", "adei", "1234");
             Traveler traveler1 = new Traveler("traveler@gmail.com", "Traveler 1", "traveler1", "1234");
             Driver testDriver = new Driver("driver@", "Test driver", "test", "1");
             Traveler testTraveler = new Traveler("traveler@", "Test traveler", "test", "1");
@@ -131,16 +132,18 @@ public class DataAccess {
             testDriver.addRide(donostia, bilbo, UtilDate.newDate(2024, 5, 15), 4, 5);
             driver3.addRide(donostia, bilbo, UtilDate.newDate(2024, 6, 15), 4, 7);
             driver3.addRide(donostia, bilbo, UtilDate.newDate(2024, 5, 6), 4, 8);
-            driver3.addRide(donostia, bilbo, UtilDate.newDate(year, month, 15), 5, 8);
-            driver3.addRide(donostia, bilbo, UtilDate.newDate(year, month, 17), 3, 10);
-            testDriver.addRide(donostia, bilbo, UtilDate.newDate(year, month, 15), 5, 14);
-            testDriver.addRide(donostia, bilbo, UtilDate.newDate(year, month, 17), 3, 15);
-            testDriver.addRide(donostia, bilbo, UtilDate.newDate(year, month, 15), 2, 16);
+            driver3.addRide(donostia, bilbo, UtilDate.newDate(2024, 5, 15), 5, 8);
+            driver3.addRide(donostia, bilbo, UtilDate.newDate(2024, 5, 17), 3, 10);
+            driver4.addRide(donostia, bilbo, UtilDate.newDate(2024, 5, 15), 13, 12);
+            testDriver.addRide(donostia, bilbo, UtilDate.newDate(2024, 5, 15), 5, 14);
+            testDriver.addRide(donostia, bilbo, UtilDate.newDate(2024, 5, 17), 3, 15);
+            testDriver.addRide(donostia, bilbo, UtilDate.newDate(2024, 5, 15), 2, 16);
 
 
             db.persist(driver1);
             db.persist(driver2);
             db.persist(driver3);
+            db.persist(driver4);
             db.persist(traveler1);
             db.persist(testDriver);
             db.persist(testTraveler);
