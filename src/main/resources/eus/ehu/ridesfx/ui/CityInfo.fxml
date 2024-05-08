@@ -28,7 +28,7 @@
         <TextField fx:id="aboutTextField" editable="false" layoutX="321.0" layoutY="324.0" prefHeight="26.0" prefWidth="298.0" />
         <Button fx:id="queryButton" layoutX="334.0" layoutY="373.0" mnemonicParsing="false" onAction="#queryCities" text="Query" />
         <Button fx:id="clearButton" layoutX="401.0" layoutY="373.0" mnemonicParsing="false" onAction="#clearInterface" text="Clear" />
-      <Label fx:id="errorLabel" layoutX="484.0" layoutY="378.0" prefHeight="18.0" prefWidth="135.0" text="Please introduce a city">
+      <Label fx:id="errorLabel" layoutX="484.0" layoutY="378.0" prefHeight="18.0" prefWidth="180.0" text="Please introduce a city">
          <styleClass>
             <String fx:value="error-label" />
             <String fx:value="bold-label" />
