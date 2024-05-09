@@ -123,7 +123,7 @@ public class AlertsViewController implements Controller {
                     if (stateC.getCellData(alertTable.getSelectionModel().getSelectedItem()).equals("Ride found")) {
                         //Enable the combo box of prices
                         bookPrice.setVisible(true);
-                        priceLabel.setText("Select option:");
+                        priceLabel.setText("Select price option:");
                         priceLabel.setVisible(true);
                         bookPrice.getItems().clear();
                         //Get the matching rides and their price
