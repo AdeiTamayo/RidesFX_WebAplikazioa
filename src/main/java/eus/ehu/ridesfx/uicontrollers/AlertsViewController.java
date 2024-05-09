@@ -21,6 +21,7 @@ import java.util.List;
 public class AlertsViewController implements Controller {
 
 
+
     private BlFacade businessLogic;
 
     private MainGUIController mainGUIController;
@@ -73,7 +74,7 @@ public class AlertsViewController implements Controller {
     @FXML
     public Label notificationLabel;
     @FXML
-    public Button refreshButton;
+    public Button ClearButton;
 
 
     @FXML
@@ -117,10 +118,13 @@ public class AlertsViewController implements Controller {
                     deleteButton.setVisible(true);
                     bookButton.setVisible(true);
                     bookButton.setDisable(true);
+
                     //If the selected alert in the table has "Ride found"
                     if (stateC.getCellData(alertTable.getSelectionModel().getSelectedItem()).equals("Ride found")) {
                         //Enable the combo box of prices
                         bookPrice.setVisible(true);
+                        priceLabel.setText("Select option:");
+                        priceLabel.setVisible(true);
                         bookPrice.getItems().clear();
                         //Get the matching rides and their price
                         Alert a = (Alert) alertTable.getSelectionModel().getSelectedItem();
@@ -293,6 +297,8 @@ public class AlertsViewController implements Controller {
             labelAlerts.setText("ALERTS");
             // Retrieve all the alerts of the current traveler
             List<Alert> previousAlerts = businessLogic.getAlerts();
+
+
             //check if there are matching rides for any of the alerts
             for (Alert alert : previousAlerts) {
                 List<Ride> ridesList = businessLogic.areMatchingRides(alert);
@@ -304,6 +310,8 @@ public class AlertsViewController implements Controller {
             //Set the table with the alerts
             List<Alert> alerts = businessLogic.getAlerts();
             alertTable.getItems().addAll(alerts);
+            priceLabel.setText("Select price:");
+            priceLabel.setVisible(true);
         } else if (currentUser instanceof Driver) {
             labelAlerts.setText("ALERTS: create a ride for the following existing alerts");
             // Retrieve all the rides of the current driver
@@ -337,6 +345,7 @@ public class AlertsViewController implements Controller {
                 System.out.println("Ride created successfully");
 
             }catch (Exception e) {
+                System.out.println("The error is: " + e.getMessage());
                 System.out.println("The date must be later than today.");
                 notificationLabel.setText("The date must be later than today.");
                 notificationLabel.setStyle("-fx-text-fill: red;");
@@ -347,6 +356,12 @@ public class AlertsViewController implements Controller {
             notificationLabel.setText("Please ensure all fields are filled and the number of seats and price are positive.");
             notificationLabel.setStyle("-fx-text-fill: red;");
         }
+        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+        pause.setOnFinished(event2-> {
+            notificationLabel.setVisible(false);
+        });
+        pause.play();
+
     }
 
 
@@ -365,5 +380,20 @@ public class AlertsViewController implements Controller {
         seatsQuantitySpinner.getValueFactory().setValue(0);
         priceSpinner.getValueFactory().setValue(0);
 
+    }
+
+    public void clearSpinner(){
+        seatsQuantitySpinner.getValueFactory().setValue(0);
+        priceSpinner.getValueFactory().setValue(0);
+    }
+
+
+
+    /**
+     * This method is called when the clear button is clicked, it clears the GUI.
+     * @param actionEvent
+     */
+    public void clearButton(ActionEvent actionEvent) {
+        restartGUI();
     }
 }

@@ -27,14 +27,14 @@
         </columns>
       </TableView>
       <Button fx:id="deleteButton" layoutX="128.0" layoutY="342.0" mnemonicParsing="false" onAction="#deleteAlert" styleClass="bold-label" text="Delete Alert" />
-      <Button fx:id="bookButton" layoutX="222.0" layoutY="342.0" mnemonicParsing="false" onAction="#makeReservation" styleClass="bold-label" text="Book Ride" />
+      <Button fx:id="bookButton" layoutX="355.0" layoutY="343.0" mnemonicParsing="false" onAction="#makeReservation" styleClass="bold-label" text="Book Ride" />
       <Button fx:id="createRideButton" layoutX="351.0" layoutY="342.0" mnemonicParsing="false" onAction="#createRide" styleClass="bold-label" text="Create Ride" />
       <Spinner fx:id="seatsQuantitySpinner" editable="true" layoutX="131.0" layoutY="343.0" prefHeight="25.0" prefWidth="82.0" />
       <Label fx:id="labelSeatsQuantity" layoutX="126.0" layoutY="319.0" text="How many seats?" />
       <Label fx:id="priceLabel" layoutX="222.0" layoutY="319.0" text="What price?" />
-      <Spinner fx:id="priceSpinner" editable="true" layoutX="222.0" layoutY="343.0" prefHeight="25.0" prefWidth="78.0" />
-      <Label fx:id="notificationLabel" layoutX="333.0" layoutY="387.0" prefHeight="38.0" prefWidth="78.0" styleClass="bold-label" text="RIde Created" />
-      <ComboBox fx:id="bookPrice" layoutX="316.0" layoutY="343.0" prefHeight="25.0" prefWidth="78.0" />
-      <Button fx:id="refreshButton" layoutX="462.0" layoutY="343.0" mnemonicParsing="false" text="Refresh" />
+      <Spinner fx:id="priceSpinner" editable="true" layoutX="222.0" layoutY="344.0" prefHeight="25.0" prefWidth="78.0" />
+      <Label fx:id="notificationLabel" layoutX="333.0" layoutY="387.0" prefHeight="38.0" prefWidth="178.0" styleClass="bold-label" text="RIde Created" />
+      <ComboBox fx:id="bookPrice" layoutX="222.0" layoutY="343.0" prefHeight="25.0" prefWidth="78.0" />
+      <Button fx:id="ClearButton" layoutX="462.0" layoutY="343.0" mnemonicParsing="false" onAction="#clearButton" text="Clear" />
     </children>
 </AnchorPane>
