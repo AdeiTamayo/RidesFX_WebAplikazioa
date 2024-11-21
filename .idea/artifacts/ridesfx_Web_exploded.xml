@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="ridesfx:Web exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/ridesfx_Web_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="ridesfx/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="ridesfx" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
