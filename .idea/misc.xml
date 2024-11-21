@@ -12,6 +12,11 @@
     <option name="enabled" value="true" />
     <option name="wasEnabledAtLeastOnce" value="true" />
   </component>
+  <component name="ProjectResources">
+    <resource url=" http://java.sun.com/jsf/html" location="$PROJECT_DIR$" />
+    <resource url="http://java.sun.com/jsf/core" location="$PROJECT_DIR$" />
+    <resource url="http://java.sun.com/jsf/facelets" location="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="openjdk-21" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
