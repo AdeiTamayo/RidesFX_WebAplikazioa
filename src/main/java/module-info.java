@@ -8,6 +8,7 @@ module eus.ehu.sharetrip {
     requires jakarta.persistence;
     requires okhttp3;
     requires com.google.gson;
+    requires javax.faces.api;
 
     opens eus.ehu.ridesfx.domain to javafx.base, org.hibernate.orm.core, com.google.gson;
 

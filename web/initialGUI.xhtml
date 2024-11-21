@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>Share Trip</title>
+    <h:outputStylesheet name="WebStyles.css"/>
+</h:head>
+
+<h:body>
+    <!-- Main container with similar dimensions and styling as AnchorPane -->
+    <div style="width: 600px; height: 400px; position: relative;" class="border-pane">
+
+        <!-- Share Trip Label -->
+        <h:outputText value="Share Trip"
+                      styleClass="bold-label"
+                      style="position: absolute;
+                            left: 355px;
+                            top: 171px;
+                            width: 203px;
+                            height: 63px;
+                            text-align: center;
+                            font-size: 40px;"/>
+
+        <!-- By Concrete Flighters Label -->
+        <h:outputText value="By Concrete Flighters"
+                      styleClass="bold-label"
+                      style="position: absolute;
+                            left: 372px;
+                            top: 244px;
+                            text-align: center;
+                            font-size: 15px;"/>
+
+        <!-- Logo Image -->
+        <h:graphicImage name="logo2.jpg"
+                        style="position: absolute;
+                              left: 203px;
+                              top: 150px;
+                              width: 150px;
+                              height: 139px;
+                              object-fit: contain;"/>
+    </div>
+</h:body>
+</html>
