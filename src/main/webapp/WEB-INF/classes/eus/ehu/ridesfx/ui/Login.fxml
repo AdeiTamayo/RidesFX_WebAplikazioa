@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="492.0" prefWidth="742.0" styleClass="border-pane" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ridesfx.uicontrollers.LoginController">
+    <children>
+        <Label fx:id="output" layoutX="323.0" layoutY="222.0" prefHeight="17.0" prefWidth="97.0" wrapText="true" />
+        <Label layoutX="238.0" layoutY="173.0" styleClass="bold-label" text="Password:">
+         <font>
+            <Font size="13.0" />
+         </font></Label>
+        <Label layoutX="252.0" layoutY="108.0" prefHeight="19.0" prefWidth="41.0" styleClass="bold-label" text="Email:">
+         <font>
+            <Font size="13.0" />
+         </font></Label>
+        <Label fx:id="Text" layoutX="210.0" layoutY="313.0" prefHeight="34.0" prefWidth="340.0" styleClass="bold-label" />
+        <Label fx:id="InvalidUser" layoutX="279.0" layoutY="138.0" prefHeight="18.0" prefWidth="218.0" text="A user with this email doesn't exist">
+            <styleClass>
+                <String fx:value="error-label" />
+                <String fx:value="bold-label" />
+            </styleClass>
+        </Label>
+        <Label fx:id="wrongPassword" layoutX="306.0" layoutY="204.0" prefHeight="17.0" prefWidth="149.0" text="The password is incorrect">
+            <styleClass>
+                <String fx:value="error-label" />
+                <String fx:value="bold-label" />
+            </styleClass>
+        </Label>
+        <Label layoutX="342.0" layoutY="46.0" styleClass="bold-label" text="LOGIN">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <TextField fx:id="email" layoutX="305.0" layoutY="104.0" prefHeight="25.0" prefWidth="149.0" styleClass="bold-label" />
+        <PasswordField fx:id="password" layoutX="304.0" layoutY="168.0" />
+        <Button layoutX="303.0" layoutY="276.0" onAction="#loginBtnClick" text="Log In">
+            <styleClass>
+                <String fx:value="btn-info" />
+                <String fx:value="bold-label" />
+            </styleClass>
+        </Button>
+        <Label fx:id="registerLabel" layoutX="212.0" layoutY="337.0" onMouseClicked="#registerLabelClick" prefHeight="34.0" prefWidth="340.0" styleClass="bold-label" text="You don't have an account yet? Register now clicking here" />
+        <Button fx:id="clearButtonLogin" layoutX="386.0" layoutY="277.0" mnemonicParsing="false" onAction="#clearLogin" styleClass="bold-label" text="Clear" />
+
+    </children>
+</AnchorPane>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="462.0" prefWidth="756.0" styleClass="border-pane" stylesheets="@Styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eus.ehu.ridesfx.uicontrollers.QueryReservationsController">
+    <children>
+    <Label layoutX="114.0" layoutY="75.0" styleClass="bold-label" text="RESERVATIONS">
+        <font>
+            <Font size="18.0" />
+        </font>
+    </Label>
+        <Button layoutX="382.0" layoutY="330.0" mnemonicParsing="false" onAction="#closeClick" styleClass="bold-label" text="Back" />
+
+        <TableView fx:id="alertTable" layoutX="114.0" layoutY="117.0" prefHeight="175.0" prefWidth="565.0">
+            <columns>
+                <TableColumn fx:id="departC" prefWidth="96.0" text="DepartCity" />
+                <TableColumn fx:id="arrivalC" prefWidth="104.66665649414062" text="ArrivalCity" />
+                <TableColumn fx:id="numPlacesC" prefWidth="56.0" text="NPlaces" />
+                <TableColumn fx:id="dateC" prefWidth="103.99993896484375" text="Date" />
+                <TableColumn fx:id="stateC" prefWidth="87.33331298828125" text="State" />
+            <TableColumn fx:id="resDateC" prefWidth="115.33328247070312" text="ReservationDate" />
+            </columns>
+        </TableView>
+        <Button fx:id="deleteButton" layoutX="114.0" layoutY="330.0" mnemonicParsing="false" onAction="#deleteReservation" styleClass="bold-label" text="Delete Reservation" />
+      <Button fx:id="refreshButton" layoutX="275.0" layoutY="330.0" mnemonicParsing="false" onAction="#populateReservationsTableOnAction" prefHeight="27.0" prefWidth="71.0" styleClass="bold-label" text="Refresh" />
+      <Button fx:id="acceptButton" layoutX="102.0" layoutY="331.0" mnemonicParsing="false" onAction="#acceptReservation" styleClass="bold-label" text="Accept" />
+      <Button fx:id="rejectButton" layoutX="180.0" layoutY="332.0" mnemonicParsing="false" onAction="#rejectReservation" styleClass="bold-label" text="Reject" />
+      <Label fx:id="successLabel" layoutX="474.0" layoutY="337.0" prefHeight="17.0" prefWidth="176.0" styleClass="bold-label" text="Ride accepted" />
+    </children>
+
+</AnchorPane>

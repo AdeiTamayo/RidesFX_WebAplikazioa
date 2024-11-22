@@ -1,0 +1,87 @@
+/* styles.css */
+
+/* Style for normal buttons */
+.button {
+    -fx-background-color: #606163; /* Light gray */
+    -fx-text-fill: white; /* Change text color to white */
+    -fx-font-weight: bold;  /* Set font weight to bold */
+    -fx-font-size: 12px; /* Reduce font size */
+    -fx-padding: 5px 10px; /* Reduce padding */
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+
+.bold-label {
+    -fx-font-weight: bold; /* Set font weight to bold */
+}
+
+.border-pane {
+    -fx-background-color: #f0f0f0;
+}
+
+.combo-box {
+    -fx-background-color: #d4d7d9;
+    -fx-text-fill: black;
+}
+
+.combo-box .list-cell {
+    -fx-background-color: #d4d7d9;
+    -fx-text-fill: black;
+}
+
+.text-field {
+    -fx-background-color: #d4d7d9;
+    -fx-text-fill: black;
+}
+
+.table-view {
+    -fx-background-color: #d4d7d9;
+    -fx-text-fill: black;
+}
+
+/* Customize TableView */
+.table-view {
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+}
+
+/* Customize TableColumn */
+.table-column {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent white transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-radius: 10 10 0 0;
+}
+
+
+/* Add border to selected row in TableView */
+.table-row-cell:selected {
+    -fx-border-color: #000000; /* Set border color */
+    -fx-border-width: 1px; /* Set border width */
+    -fx-border-style: solid; /* Set border style */
+}
+
+.error-label {
+    -fx-text-fill: red;
+}
+
+.date-picker .text-field {
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+
+.register {
+    /*
+    -fx-background-color: #acaeb0;
+
+     */
+    -fx-text-fill: black;
+    -fx-background-radius: 25;
+}
+
+.main-border-pane {
+    -fx-background-color: #e8e8e8; /* Adjusted color */
+}
+
+

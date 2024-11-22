@@ -6,8 +6,11 @@
 
     <groupId>eus.ehu</groupId>
     <artifactId>ridesfx</artifactId>
+    <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>template</name>
+    <name>Documented Project</name>
+
+
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -145,6 +148,14 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.4.0</version>
+                <configuration>
+                    <webappDirectory>/sample/servlet/container/deploy/directory</webappDirectory>
+                </configuration>
             </plugin>
         </plugins>
     </build>
